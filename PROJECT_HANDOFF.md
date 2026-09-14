@@ -73,9 +73,13 @@ Genre placeholder has been updated for a more international/global direction:
 1. Audit the live site on desktop and mobile after all current deployments.
 2. Improve Prompt Builder from a basic form into a more useful product:
    - change Genre into a searchable combobox/autocomplete similar to the AU search experience: typing even one letter filters and shows matching genres/styles immediately;
+   - do this natively in Rythero with lightweight HTML/CSS/JS; do not depend on a paid plugin;
    - keep free text, but also allow selecting one or more suggested genres as chips/tokens;
    - group suggestions into Core, Current / trending and Regional / crossover;
    - include K-pop prominently among current global options, with useful substyles such as K-pop dance-pop, K-pop R&B, K-pop trap and K-pop rock hybrid;
+   - curate the catalogue instead of trying to include every possible genre: prioritize styles that are genuinely useful/current in AI music creation and omit ultra-obscure or low-usage styles unless they add clear value;
+   - keep the dropdown compact: never allow it to grow to full-screen height on mobile or run down the browser on desktop; show a limited visible result set (roughly 6–8 at once) with an internal scroll area when needed;
+   - rank the most relevant/current matches first while preserving exact text search;
    - add curated genre suggestions/chips based on current global AI-music usage and music trends;
    - avoid making it feel Suno-only;
    - consider current broad families: pop, electronic, hip-hop, R&B, lo-fi, rock plus trend-forward examples such as afro house, hyperpop and amapiano;
