@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Cookies — Rythero" description="How Rythero uses optional analytics and stores your consent choice." canonical="/cookies">
+  <section class="section shell legal-page">
+    <div class="eyebrow">Cookies</div>
+    <h1>Small footprint.<br />Clear choice.</h1>
+    <p class="lead">Rythero keeps optional Google Analytics completely off until you choose to accept it. Rejecting analytics does not limit the site.</p>
+
+    <div class="legal-grid">
+      <article class="card">
+        <h2>Google Analytics — optional</h2>
+        <p class="muted">Purpose: understand visits and interactions so we can improve Rythero. Provider: Google. Legal basis: your consent. Google Analytics is not loaded before you accept.</p>
+        <p class="muted"><strong>Typical cookies after acceptance:</strong> <code>_ga</code> and <code>_ga_&lt;container-id&gt;</code>. Google documents a default duration of up to 2 years for these cookies.</p>
+      </article>
+
+      <article class="card">
+        <h2>Advertising — off</h2>
+        <p class="muted">Rythero currently keeps advertising storage, advertising user data and ad personalization disabled. Accepting analytics does not enable advertising cookies.</p>
+      </article>
+
+      <article class="card">
+        <h2>Cloudflare Web Analytics</h2>
+        <p class="muted">Rythero also uses Cloudflare Web Analytics for privacy-focused traffic and performance measurement. Cloudflare states that this service does not use cookies, local storage or fingerprinting to track visitors.</p>
+      </article>
+
+      <article class="card">
+        <h2>Your consent choice</h2>
+        <p class="muted">Rythero stores only your analytics preference in your browser's local storage under <code>rythero-consent-v2</code>. This prevents the banner from repeatedly asking you. It stays there until you change the choice or clear browser storage.</p>
+      </article>
+
+      <article class="card">
+        <h2>Change your mind anytime</h2>
+        <p class="muted">Use <strong>Cookie choices</strong> in the footer at any time. Rejecting after a previous acceptance disables Google Analytics for future page loads and removes Rythero's accessible Google Analytics cookies from the browser.</p>
+      </article>
+    </div>
+
+    <p class="note">Last updated: September 2026. This policy will be revised if Rythero adds advertising, accounts, forms, paid services or other technologies that change how data is processed.</p>
+  </section>
+  <style>
+    .legal-page{max-width:940px}.legal-page h1{font-size:clamp(2.8rem,6vw,5.8rem);line-height:.94;letter-spacing:-.055em;margin:14px 0 24px}.lead{max-width:760px;color:var(--muted);font-size:1.15rem}.legal-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}.legal-grid h2{margin:0 0 8px;font-size:1.15rem}.legal-grid code{color:#b6ffc8}.note{margin-top:28px;color:#738078;font-size:.85rem}
+  </style>
+</Base>
