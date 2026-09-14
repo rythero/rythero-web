@@ -23,17 +23,41 @@ const canonicalUrl = new URL(canonical, Astro.site ?? 'https://rythero.com').toS
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7K1ENQ4HTZ"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
+
+      try {
+        const savedConsent = localStorage.getItem('rythero-consent-v1');
+        if (savedConsent === 'analytics') {
+          gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+        }
+      } catch (e) {}
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7K1ENQ4HTZ"></script>
+    <script is:inline>
       gtag('js', new Date());
       gtag('config', 'G-7K1ENQ4HTZ');
     </script>
     <title>{title}</title>
     <style is:global>
       :root{color-scheme:dark;--bg:#050806;--panel:#0a110d;--panel2:#0e1712;--text:#f2f6f3;--muted:#9aa79f;--line:#1b2a21;--green:#66ff8c;--green2:#19d679;--max:1180px}
-      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 70% 0%,rgba(32,220,118,.12),transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.shell{width:min(calc(100% - 32px),var(--max));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em}.brand img{width:34px;height:34px}.navlinks{display:flex;gap:24px;color:var(--muted);font-size:.95rem}.navlinks a:hover{color:var(--text)}.pill{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:999px;border:1px solid var(--line);background:#0b120e;color:var(--text);font-weight:700}.pill.primary{background:linear-gradient(135deg,var(--green),var(--green2));color:#031006;border-color:transparent}.section{padding:72px 0}.eyebrow{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.muted{color:var(--muted)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(15,24,18,.9),rgba(7,12,9,.92));border-radius:22px;padding:26px}.card h3{margin:0 0 8px;font-size:1.18rem}.footer{border-top:1px solid var(--line);padding:30px 0 34px;color:var(--muted);font-size:.9rem;overflow:hidden}.footerrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-signature{display:flex;flex-direction:column;align-items:center;gap:9px;margin-top:24px}.footer-signature strong{position:relative;color:#9eaaa2;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.71rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;padding-left:.26em;text-shadow:0 0 16px rgba(102,255,140,.12)}.footer-signature strong::before{content:'//';color:rgba(102,255,140,.55);margin-right:9px;letter-spacing:0}.cyber-line{position:relative;width:min(68vw,620px);height:1px;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(102,255,140,.14) 12%,rgba(102,255,140,.32) 50%,rgba(102,255,140,.14) 88%,transparent);box-shadow:0 0 12px rgba(25,214,121,.08)}.cyber-line::after{content:'';position:absolute;top:-1px;left:-30%;width:28%;height:3px;background:linear-gradient(90deg,transparent,rgba(102,255,140,.45),#66ff8c,rgba(25,214,121,.5),transparent);filter:blur(.2px);box-shadow:0 0 9px rgba(102,255,140,.45);animation:cyberScan 9s ease-in-out infinite}@keyframes cyberScan{0%{transform:translateX(0);opacity:.25}15%{opacity:.8}50%{opacity:1}85%{opacity:.8}100%{transform:translateX(460%);opacity:.25}}@media(prefers-reduced-motion:reduce){.cyber-line::after{animation:none;left:36%;opacity:.7}}@media(max-width:760px){.navlinks{display:none}.grid3{grid-template-columns:1fr}.section{padding:52px 0}.cyber-line{width:min(78vw,520px)}}
+      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 70% 0%,rgba(32,220,118,.12),transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.shell{width:min(calc(100% - 32px),var(--max));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em}.brand img{width:34px;height:34px}.navlinks{display:flex;gap:24px;color:var(--muted);font-size:.95rem}.navlinks a:hover{color:var(--text)}.pill{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:999px;border:1px solid var(--line);background:#0b120e;color:var(--text);font-weight:700}.pill.primary{background:linear-gradient(135deg,var(--green),var(--green2));color:#031006;border-color:transparent}.section{padding:72px 0}.eyebrow{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.muted{color:var(--muted)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(15,24,18,.9),rgba(7,12,9,.92));border-radius:22px;padding:26px}.card h3{margin:0 0 8px;font-size:1.18rem}.footer{border-top:1px solid var(--line);padding:30px 0 34px;color:var(--muted);font-size:.9rem;overflow:hidden}.footerrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-signature{display:flex;flex-direction:column;align-items:center;gap:9px;margin-top:24px}.footer-signature strong{position:relative;color:#9eaaa2;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.71rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;padding-left:.26em;text-shadow:0 0 16px rgba(102,255,140,.12)}.footer-signature strong::before{content:'//';color:rgba(102,255,140,.55);margin-right:9px;letter-spacing:0}.cyber-line{position:relative;width:min(68vw,620px);height:1px;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(102,255,140,.14) 12%,rgba(102,255,140,.32) 50%,rgba(102,255,140,.14) 88%,transparent);box-shadow:0 0 12px rgba(25,214,121,.08)}.cyber-line::after{content:'';position:absolute;top:-1px;left:-30%;width:28%;height:3px;background:linear-gradient(90deg,transparent,rgba(102,255,140,.45),#66ff8c,rgba(25,214,121,.5),transparent);filter:blur(.2px);box-shadow:0 0 9px rgba(102,255,140,.45);animation:cyberScan 9s ease-in-out infinite}@keyframes cyberScan{0%{transform:translateX(0);opacity:.25}15%{opacity:.8}50%{opacity:1}85%{opacity:.8}100%{transform:translateX(460%);opacity:.25}}
+      .consent{position:fixed;left:50%;bottom:18px;z-index:1000;width:min(calc(100% - 24px),680px);transform:translateX(-50%);display:none;align-items:center;gap:16px;padding:13px 14px 13px 16px;border:1px solid rgba(102,255,140,.2);border-radius:16px;background:rgba(7,13,9,.96);box-shadow:0 14px 45px rgba(0,0,0,.38),0 0 24px rgba(25,214,121,.06);backdrop-filter:blur(12px)}.consent.show{display:flex}.consent-copy{min-width:0;flex:1;color:#a9b5ad;font-size:.82rem;line-height:1.45}.consent-copy strong{color:#eef5f0;font-weight:750}.consent-copy a{color:#72df91;text-decoration:underline;text-underline-offset:2px}.consent-actions{display:flex;gap:8px;flex-shrink:0}.consent-btn{border:1px solid #26352c;border-radius:999px;padding:9px 13px;background:#0c1510;color:#dbe5de;font-weight:750;font-size:.8rem;cursor:pointer}.consent-btn:hover{border-color:#42614d}.consent-btn.accept{border-color:transparent;background:linear-gradient(135deg,var(--green),var(--green2));color:#031006}.privacy-link{color:#7f8c84}.privacy-link:hover{color:var(--text)}
+      @keyframes cyberScan{0%{transform:translateX(0);opacity:.25}15%{opacity:.8}50%{opacity:1}85%{opacity:.8}100%{transform:translateX(460%);opacity:.25}}@media(prefers-reduced-motion:reduce){.cyber-line::after{animation:none;left:36%;opacity:.7}}@media(max-width:760px){.navlinks{display:none}.grid3{grid-template-columns:1fr}.section{padding:52px 0}.cyber-line{width:min(78vw,520px)}.consent{bottom:10px;align-items:stretch;flex-direction:column;gap:10px;padding:13px}.consent-actions{width:100%}.consent-btn{flex:1}}
     </style>
   </head>
   <body>
@@ -47,9 +71,41 @@ const canonicalUrl = new URL(canonical, Astro.site ?? 'https://rythero.com').toS
     <main><slot /></main>
     <footer class="footer">
       <div class="shell">
-        <div class="footerrow"><span>© 2026 Rythero</span><span>Create music. Build your sound.</span></div>
+        <div class="footerrow"><span>© 2026 Rythero · <a class="privacy-link" href="/privacy">Privacy</a></span><span>Create music. Build your sound.</span></div>
         <div class="footer-signature"><strong>John Doe</strong><div class="cyber-line" aria-hidden="true"></div></div>
       </div>
     </footer>
+
+    <div id="consent-banner" class="consent" role="dialog" aria-label="Analytics preferences" aria-live="polite">
+      <div class="consent-copy"><strong>One small choice.</strong> We use Google Analytics to understand what works and improve Rythero. No advertising cookies are enabled. <a href="/privacy">Privacy</a></div>
+      <div class="consent-actions">
+        <button class="consent-btn" type="button" data-consent="reject">No thanks</button>
+        <button class="consent-btn accept" type="button" data-consent="accept">Accept</button>
+      </div>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const key = 'rythero-consent-v1';
+        const banner = document.getElementById('consent-banner');
+        let saved = null;
+        try { saved = localStorage.getItem(key); } catch (e) {}
+        if (!saved && banner) banner.classList.add('show');
+
+        document.querySelectorAll('[data-consent]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const accepted = button.getAttribute('data-consent') === 'accept';
+            gtag('consent', 'update', {
+              analytics_storage: accepted ? 'granted' : 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied'
+            });
+            try { localStorage.setItem(key, accepted ? 'analytics' : 'rejected'); } catch (e) {}
+            banner?.classList.remove('show');
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
