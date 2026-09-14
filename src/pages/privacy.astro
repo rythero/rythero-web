@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Privacy — Rythero" description="How Rythero uses analytics and stores consent preferences." canonical="/privacy">
+  <section class="section shell privacy-page">
+    <div class="eyebrow">Privacy</div>
+    <h1>Privacy, without the noise.</h1>
+    <p class="lead">Rythero uses Google Analytics to understand how the site is used and to improve the experience. Analytics storage is disabled by default until you choose to accept it.</p>
+
+    <div class="privacy-grid">
+      <article class="card">
+        <h2>Analytics</h2>
+        <p class="muted">If you accept analytics, Rythero allows Google Analytics to store analytics information such as visit and interaction data. If you decline, analytics storage remains disabled.</p>
+      </article>
+      <article class="card">
+        <h2>Advertising</h2>
+        <p class="muted">Rythero currently keeps advertising storage, advertising user data and ad personalization disabled in Google Consent Mode.</p>
+      </article>
+      <article class="card">
+        <h2>Your choice</h2>
+        <p class="muted">Your selection is stored locally in your browser so the banner does not keep asking. Clearing your browser storage will reset that preference.</p>
+      </article>
+    </div>
+
+    <p class="note">This page describes the current technical setup and may be updated as Rythero adds new services or features.</p>
+  </section>
+  <style>
+    .privacy-page{max-width:920px}.privacy-page h1{font-size:clamp(2.7rem,6vw,5.5rem);line-height:.95;letter-spacing:-.055em;margin:14px 0 24px}.lead{max-width:760px;color:var(--muted);font-size:1.15rem}.privacy-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}.privacy-grid h2{margin:0 0 8px;font-size:1.15rem}.note{margin-top:28px;color:#738078;font-size:.85rem}
+  </style>
+</Base>
