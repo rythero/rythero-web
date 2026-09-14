@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rythero.com/sitemap.xml

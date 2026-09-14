@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Rythero Prompt Builder — Build better music prompts" description="Build a clear, structured music-generation prompt from genre, mood, energy, vocals, instrumentation and song structure." canonical="/tools/prompt-builder">
+  <section class="shell tool-hero">
+    <div class="eyebrow">Rythero Tool 001</div>
+    <h1>Prompt Builder</h1>
+    <p class="muted intro">Turn musical decisions into one clean prompt. No sign-up. No filler.</p>
+  </section>
+
+  <section class="shell builder-wrap">
+    <form id="builder" class="builder">
+      <label>Genre<input name="genre" placeholder="e.g. alternative trap, flamenco pop" /></label>
+      <label>Mood<input name="mood" placeholder="e.g. intimate, defiant, nocturnal" /></label>
+      <label>Energy<select name="energy"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option><option value="dynamic">Dynamic / evolving</option></select></label>
+      <label>BPM<input name="bpm" inputmode="numeric" placeholder="e.g. 106" /></label>
+      <label>Vocal<input name="vocal" placeholder="e.g. male, raspy, close and expressive" /></label>
+      <label>Instrumentation<input name="instruments" placeholder="e.g. deep 808, nylon guitar, dry claps" /></label>
+      <label>Structure<select name="structure"><option>Hook-first, verse, chorus, verse, breakdown, final chorus</option><option>Verse, pre-chorus, chorus, verse, chorus, bridge, final chorus</option><option>Short intro, verse, hook, verse, hook, outro</option><option>Custom / flexible structure</option></select></label>
+      <label>Production<input name="production" placeholder="e.g. warm low end, dry vocal, wide chorus" /></label>
+      <label class="wide">Exclude<input name="exclude" placeholder="e.g. dembow, EDM drop, heavy autotune, fade-out" /></label>
+      <div class="wide controls"><button class="pill primary" type="submit">Generate prompt</button><button class="pill" type="reset">Reset</button></div>
+    </form>
+
+    <aside class="output-card">
+      <div class="output-head"><span>OUTPUT</span><button id="copy" type="button">Copy</button></div>
+      <p id="output" class="output">Your prompt will appear here.</p>
+      <div id="status" class="status" aria-live="polite"></div>
+    </aside>
+  </section>
+
+  <script>
+    const form = document.querySelector('#builder');
+    const output = document.querySelector('#output');
+    const copy = document.querySelector('#copy');
+    const status = document.querySelector('#status');
+    const clean = (value) => String(value || '').trim();
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const d = Object.fromEntries(new FormData(form).entries());
+      const parts = [];
+      if (clean(d.genre)) parts.push(`${clean(d.genre)} track`);
+      if (clean(d.mood)) parts.push(`${clean(d.mood)} mood`);
+      if (clean(d.energy)) parts.push(`${clean(d.energy)} energy`);
+      if (clean(d.bpm)) parts.push(`around ${clean(d.bpm)} BPM`);
+      if (clean(d.vocal)) parts.push(`vocals: ${clean(d.vocal)}`);
+      if (clean(d.instruments)) parts.push(`instrumentation: ${clean(d.instruments)}`);
+      if (clean(d.structure)) parts.push(`structure: ${clean(d.structure)}`);
+      if (clean(d.production)) parts.push(`production: ${clean(d.production)}`);
+      let text = parts.length ? parts.join('. ') + '.' : 'Add a few musical choices first.';
+      if (clean(d.exclude)) text += ` Avoid: ${clean(d.exclude)}.`;
+      output.textContent = text;
+      status.textContent = '';
+    });
+    form?.addEventListener('reset', () => setTimeout(() => { output.textContent = 'Your prompt will appear here.'; status.textContent=''; }, 0));
+    copy?.addEventListener('click', async () => {
+      const text = output?.textContent || '';
+      if (!text || text === 'Your prompt will appear here.') return;
+      try { await navigator.clipboard.writeText(text); status.textContent = 'Copied.'; }
+      catch { status.textContent = 'Select the prompt and copy it manually.'; }
+    });
+  </script>
+
+  <style>
+    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.builder label{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.builder input,.builder select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.builder input:focus,.builder select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.08rem;line-height:1.7;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}}
+  </style>
+</Base>
