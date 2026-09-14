@@ -72,9 +72,13 @@ Genre placeholder has been updated for a more international/global direction:
 ## Tasks for next work session
 1. Audit the live site on desktop and mobile after all current deployments.
 2. Improve Prompt Builder from a basic form into a more useful product:
+   - change Genre into a searchable combobox/autocomplete similar to the AU search experience: typing even one letter filters and shows matching genres/styles immediately;
+   - keep free text, but also allow selecting one or more suggested genres as chips/tokens;
+   - group suggestions into Core, Current / trending and Regional / crossover;
+   - include K-pop prominently among current global options, with useful substyles such as K-pop dance-pop, K-pop R&B, K-pop trap and K-pop rock hybrid;
    - add curated genre suggestions/chips based on current global AI-music usage and music trends;
    - avoid making it feel Suno-only;
-   - consider current broad families: pop, electronic, hip-hop, R&B, lo-fi, rock plus trend-forward examples such as afro house and hyperpop;
+   - consider current broad families: pop, electronic, hip-hop, R&B, lo-fi, rock plus trend-forward examples such as afro house, hyperpop and amapiano;
    - add better contextual examples for mood, vocals, instrumentation and production;
    - improve generated prompt quality so it does more than concatenate fields;
    - consider platform/export targets later (Suno, Udio, generic).
