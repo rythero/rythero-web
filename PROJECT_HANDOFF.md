@@ -51,8 +51,20 @@ Fields: Genre, Mood, Energy, BPM, Vocal, Instrumentation, Structure, Production,
 Output: structured copyable music-generation prompt.
 No sign-up and no API cost.
 
-Genre placeholder has been updated for a more international/global direction:
-"afro house, hyperpop, alt-R&B, melodic hip-hop"
+### Genre selector — implemented 2026-09-15
+- Native searchable combobox/autocomplete built with lightweight HTML/CSS/JS; no paid plugin.
+- Typing one or more letters filters matching styles immediately.
+- Compact result list: maximum 8 visible matches, internal scroll, reduced height on mobile.
+- Popular/current styles appear when the field is focused with no search text.
+- Multi-select up to 4 genres/styles.
+- Selected styles become removable chips/tokens.
+- Free-text custom styles remain allowed.
+- Backspace removes the last chip when the search field is empty.
+- Enter selects the first match or adds a custom style.
+- Current curated catalogue mixes Core, Current and Crossover styles rather than trying to list every genre.
+- K-pop is prominent, including K-pop dance-pop, K-pop R&B, K-pop trap and K-pop rock hybrid.
+- Other visible/current examples include Afro house, Hyperpop, Alt-R&B, Amapiano, Melodic hip-hop, Afrobeats, Drum & bass, UK garage, Jersey club, Dark pop and Cinematic pop.
+- Output now describes selected styles as a "genre blend".
 
 ## Social / brand accounts already secured
 - Domain: rythero.com
@@ -70,20 +82,12 @@ Genre placeholder has been updated for a more international/global direction:
 - Keep Rythero visually distinct from almaerrantemusic.com.
 
 ## Tasks for next work session
-1. Audit the live site on desktop and mobile after all current deployments.
-2. Improve Prompt Builder from a basic form into a more useful product:
-   - change Genre into a searchable combobox/autocomplete similar to the AU search experience: typing even one letter filters and shows matching genres/styles immediately;
-   - do this natively in Rythero with lightweight HTML/CSS/JS; do not depend on a paid plugin;
-   - keep free text, but also allow selecting one or more suggested genres as chips/tokens;
-   - group suggestions into Core, Current / trending and Regional / crossover;
-   - include K-pop prominently among current global options, with useful substyles such as K-pop dance-pop, K-pop R&B, K-pop trap and K-pop rock hybrid;
-   - curate the catalogue instead of trying to include every possible genre: prioritize styles that are genuinely useful/current in AI music creation and omit ultra-obscure or low-usage styles unless they add clear value;
-   - keep the dropdown compact: never allow it to grow to full-screen height on mobile or run down the browser on desktop; show a limited visible result set (roughly 6–8 at once) with an internal scroll area when needed;
+1. Audit the live site on desktop and mobile after all current deployments, with special attention to the new Genre combobox: touch behavior, keyboard behavior, chips, dropdown height and reset/generate flow.
+2. Continue improving Prompt Builder:
+   - review and curate the genre catalogue using current global music and AI-music usage, keeping useful/high-demand styles and removing noise;
    - rank the most relevant/current matches first while preserving exact text search;
-   - add curated genre suggestions/chips based on current global AI-music usage and music trends;
-   - avoid making it feel Suno-only;
-   - consider current broad families: pop, electronic, hip-hop, R&B, lo-fi, rock plus trend-forward examples such as afro house, hyperpop and amapiano;
-   - add better contextual examples for mood, vocals, instrumentation and production;
+   - keep Rythero platform-neutral rather than Suno-only;
+   - add similar helpful selectors/autocomplete where they improve UX for Mood, Vocal, Instrumentation, Production and Exclude without making the form visually heavy;
    - improve generated prompt quality so it does more than concatenate fields;
    - consider platform/export targets later (Suno, Udio, generic).
 3. Decide the next tool after Prompt Builder. Leading candidates: Song Blueprint and Style DNA.
@@ -93,7 +97,7 @@ Genre placeholder has been updated for a more international/global direction:
 7. Create initial Learn/Guides content only after tools/product utility are solid.
 8. Plan launch from almaerrantemusic.com as a Spanish-language acquisition channel while keeping Rythero English-first.
 9. Revisit controller/legal identity before any forms, accounts, newsletter, commerce or advertising go live.
-10. Create/update this handoff before moving to a new ChatGPT thread so the project can continue without reconstructing decisions.
+10. Keep this handoff updated before moving to a new ChatGPT thread so the project can continue without reconstructing decisions.
 
 ## Current research note — genres
 Fresh 2026 research suggests AI-music creation is not dominated by one genre. Aggregate creator data shows Pop leading, followed closely by Electronic, Hip-Hop, R&B, Lo-Fi and Rock. Suno v6 has improved genre understanding, with hyperpop specifically cited as a style it handles well. Afro house remains a strong global growth genre in 2026. Rythero should therefore show globally legible, current examples rather than examples biased toward the owner's personal music style.
