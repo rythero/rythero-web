@@ -10,7 +10,17 @@ import Base from '../../layouts/Base.astro';
 
   <section class="shell builder-wrap">
     <form id="builder" class="builder">
-      <label>Genre<input name="genre" placeholder="e.g. afro house, hyperpop, alt-R&B, melodic hip-hop" /></label>
+      <label class="genre-field">
+        <span>Genre</span>
+        <div class="genre-combobox" id="genre-combobox">
+          <div id="genre-chips" class="genre-chips" aria-live="polite"></div>
+          <input id="genre-search" type="text" autocomplete="off" placeholder="Search or type a style…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="genre-results" />
+          <input id="genre-value" name="genre" type="hidden" />
+          <div id="genre-results" class="genre-results" role="listbox" hidden></div>
+        </div>
+        <span class="field-hint">Try K-pop, afro house, hyperpop, alt-R&amp;B… Mix up to 4 styles.</span>
+      </label>
+
       <label>Mood<input name="mood" placeholder="e.g. intimate, defiant, nocturnal" /></label>
       <label>Energy<select name="energy"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option><option value="dynamic">Dynamic / evolving</option></select></label>
       <label>BPM<input name="bpm" inputmode="numeric" placeholder="e.g. 106" /></label>
@@ -34,12 +44,195 @@ import Base from '../../layouts/Base.astro';
     const output = document.querySelector('#output');
     const copy = document.querySelector('#copy');
     const status = document.querySelector('#status');
+    const genreSearch = document.querySelector('#genre-search');
+    const genreResults = document.querySelector('#genre-results');
+    const genreChips = document.querySelector('#genre-chips');
+    const genreValue = document.querySelector('#genre-value');
+    const genreCombobox = document.querySelector('#genre-combobox');
+
+    const genreCatalog = [
+      { name: 'K-pop', group: 'Current' },
+      { name: 'Afro house', group: 'Current' },
+      { name: 'Hyperpop', group: 'Current' },
+      { name: 'Alt-R&B', group: 'Current' },
+      { name: 'Amapiano', group: 'Current' },
+      { name: 'Melodic hip-hop', group: 'Current' },
+      { name: 'Afrobeats', group: 'Current' },
+      { name: 'Drum & bass', group: 'Current' },
+      { name: 'UK garage', group: 'Current' },
+      { name: 'Jersey club', group: 'Current' },
+      { name: 'Dark pop', group: 'Current' },
+      { name: 'Cinematic pop', group: 'Current' },
+      { name: 'K-pop dance-pop', group: 'Current' },
+      { name: 'K-pop R&B', group: 'Current' },
+      { name: 'K-pop trap', group: 'Current' },
+      { name: 'K-pop rock hybrid', group: 'Current' },
+      { name: 'Pop', group: 'Core' },
+      { name: 'Dance-pop', group: 'Core' },
+      { name: 'Electropop', group: 'Core' },
+      { name: 'Synth-pop', group: 'Core' },
+      { name: 'Hip-hop', group: 'Core' },
+      { name: 'Trap', group: 'Core' },
+      { name: 'R&B', group: 'Core' },
+      { name: 'Neo-soul', group: 'Core' },
+      { name: 'Electronic', group: 'Core' },
+      { name: 'House', group: 'Core' },
+      { name: 'Tech house', group: 'Core' },
+      { name: 'Lo-fi', group: 'Core' },
+      { name: 'Rock', group: 'Core' },
+      { name: 'Indie rock', group: 'Core' },
+      { name: 'Alternative rock', group: 'Core' },
+      { name: 'Metal', group: 'Core' },
+      { name: 'Soul', group: 'Core' },
+      { name: 'Funk', group: 'Core' },
+      { name: 'Folk', group: 'Core' },
+      { name: 'Country', group: 'Core' },
+      { name: 'Latin pop', group: 'Crossover' },
+      { name: 'Reggaeton', group: 'Crossover' },
+      { name: 'Latin trap', group: 'Crossover' },
+      { name: 'Flamenco fusion', group: 'Crossover' },
+      { name: 'Arabic pop', group: 'Crossover' },
+      { name: 'Raï pop', group: 'Crossover' },
+      { name: 'J-pop', group: 'Crossover' },
+      { name: 'Brazilian funk', group: 'Crossover' }
+    ];
+
+    const selectedGenres = [];
+    const maxGenres = 4;
+    const popularGenres = ['K-pop', 'Afro house', 'Hyperpop', 'Alt-R&B', 'Amapiano', 'Melodic hip-hop', 'Afrobeats', 'Drum & bass'];
     const clean = (value) => String(value || '').trim();
+    const normalize = (value) => clean(value).toLocaleLowerCase();
+
+    const syncGenreValue = () => {
+      if (genreValue) genreValue.value = selectedGenres.join(', ');
+    };
+
+    const renderChips = () => {
+      if (!genreChips) return;
+      genreChips.innerHTML = '';
+      selectedGenres.forEach((genre) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'genre-chip';
+        chip.setAttribute('aria-label', `Remove ${genre}`);
+        chip.innerHTML = `<span>${genre}</span><span aria-hidden="true">×</span>`;
+        chip.addEventListener('click', () => {
+          const index = selectedGenres.indexOf(genre);
+          if (index !== -1) selectedGenres.splice(index, 1);
+          syncGenreValue();
+          renderChips();
+          genreSearch?.focus();
+          renderGenreResults(genreSearch?.value || '');
+        });
+        genreChips.appendChild(chip);
+      });
+    };
+
+    const addGenre = (genre) => {
+      const value = clean(genre);
+      if (!value || selectedGenres.length >= maxGenres) return;
+      if (selectedGenres.some((item) => normalize(item) === normalize(value))) return;
+      selectedGenres.push(value);
+      syncGenreValue();
+      renderChips();
+      if (genreSearch) genreSearch.value = '';
+      renderGenreResults('');
+      genreSearch?.focus();
+    };
+
+    const getMatches = (query) => {
+      const q = normalize(query);
+      const available = genreCatalog.filter((item) => !selectedGenres.some((genre) => normalize(genre) === normalize(item.name)));
+      if (!q) {
+        return popularGenres
+          .map((name) => available.find((item) => item.name === name))
+          .filter(Boolean)
+          .slice(0, 8);
+      }
+      return available
+        .filter((item) => normalize(item.name).includes(q))
+        .sort((a, b) => {
+          const aStarts = normalize(a.name).startsWith(q) ? 0 : 1;
+          const bStarts = normalize(b.name).startsWith(q) ? 0 : 1;
+          return aStarts - bStarts || a.name.localeCompare(b.name);
+        })
+        .slice(0, 8);
+    };
+
+    const renderGenreResults = (query = '') => {
+      if (!genreResults || !genreSearch) return;
+      const matches = getMatches(query);
+      genreResults.innerHTML = '';
+
+      if (selectedGenres.length >= maxGenres) {
+        const message = document.createElement('div');
+        message.className = 'genre-message';
+        message.textContent = 'Maximum 4 styles. Remove one to add another.';
+        genreResults.appendChild(message);
+      } else if (matches.length) {
+        const heading = document.createElement('div');
+        heading.className = 'genre-results-head';
+        heading.textContent = clean(query) ? 'Matches' : 'Popular now';
+        genreResults.appendChild(heading);
+
+        matches.forEach((item) => {
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.className = 'genre-option';
+          option.setAttribute('role', 'option');
+          option.innerHTML = `<span>${item.name}</span><small>${item.group}</small>`;
+          option.addEventListener('mousedown', (event) => event.preventDefault());
+          option.addEventListener('click', () => addGenre(item.name));
+          genreResults.appendChild(option);
+        });
+      } else if (clean(query)) {
+        const custom = document.createElement('button');
+        custom.type = 'button';
+        custom.className = 'genre-option genre-custom';
+        custom.innerHTML = `<span>Add “${clean(query)}”</span><small>Custom</small>`;
+        custom.addEventListener('mousedown', (event) => event.preventDefault());
+        custom.addEventListener('click', () => addGenre(query));
+        genreResults.appendChild(custom);
+      }
+
+      genreResults.hidden = false;
+      genreSearch.setAttribute('aria-expanded', 'true');
+    };
+
+    const closeGenreResults = () => {
+      if (!genreResults || !genreSearch) return;
+      genreResults.hidden = true;
+      genreSearch.setAttribute('aria-expanded', 'false');
+    };
+
+    genreSearch?.addEventListener('focus', () => renderGenreResults(genreSearch.value));
+    genreSearch?.addEventListener('input', () => renderGenreResults(genreSearch.value));
+    genreSearch?.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const firstOption = genreResults?.querySelector('.genre-option');
+        if (firstOption instanceof HTMLElement) firstOption.click();
+        else if (clean(genreSearch.value)) addGenre(genreSearch.value);
+      }
+      if (event.key === 'Escape') closeGenreResults();
+      if (event.key === 'Backspace' && !genreSearch.value && selectedGenres.length) {
+        selectedGenres.pop();
+        syncGenreValue();
+        renderChips();
+        renderGenreResults('');
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (genreCombobox && event.target instanceof Node && !genreCombobox.contains(event.target)) closeGenreResults();
+    });
+
     form?.addEventListener('submit', (event) => {
       event.preventDefault();
+      if (genreSearch && clean(genreSearch.value) && selectedGenres.length < maxGenres) addGenre(genreSearch.value);
       const d = Object.fromEntries(new FormData(form).entries());
       const parts = [];
-      if (clean(d.genre)) parts.push(`${clean(d.genre)} track`);
+      if (clean(d.genre)) parts.push(`genre blend: ${clean(d.genre)}`);
       if (clean(d.mood)) parts.push(`${clean(d.mood)} mood`);
       if (clean(d.energy)) parts.push(`${clean(d.energy)} energy`);
       if (clean(d.bpm)) parts.push(`around ${clean(d.bpm)} BPM`);
@@ -52,7 +245,17 @@ import Base from '../../layouts/Base.astro';
       output.textContent = text;
       status.textContent = '';
     });
-    form?.addEventListener('reset', () => setTimeout(() => { output.textContent = 'Your prompt will appear here.'; status.textContent=''; }, 0));
+
+    form?.addEventListener('reset', () => setTimeout(() => {
+      selectedGenres.splice(0, selectedGenres.length);
+      syncGenreValue();
+      renderChips();
+      if (genreSearch) genreSearch.value = '';
+      closeGenreResults();
+      output.textContent = 'Your prompt will appear here.';
+      status.textContent = '';
+    }, 0));
+
     copy?.addEventListener('click', async () => {
       const text = output?.textContent || '';
       if (!text || text === 'Your prompt will appear here.') return;
@@ -62,6 +265,6 @@ import Base from '../../layouts/Base.astro';
   </script>
 
   <style>
-    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.builder label{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.builder input,.builder select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.builder input:focus,.builder select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.08rem;line-height:1.7;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}}
+    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.builder label{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.builder input,.builder select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.builder input:focus,.builder select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.genre-field{position:relative}.genre-combobox{position:relative;border:1px solid #203027;background:#0d1510;border-radius:13px;padding:7px;transition:border-color .15s,box-shadow .15s}.genre-combobox:focus-within{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.genre-combobox #genre-search{border:0;background:transparent;border-radius:8px;padding:8px 7px;box-shadow:none}.genre-combobox #genre-search:focus{border:0;box-shadow:none}.genre-chips{display:flex;flex-wrap:wrap;gap:6px}.genre-chips:empty{display:none}.genre-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #2d553a;border-radius:999px;padding:6px 9px;background:#102018;color:#dff9e6;font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}.genre-chip:hover{border-color:#66ff8c}.genre-chip span:last-child{color:#84a98d;font-size:1rem;line-height:.7}.genre-results{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;max-height:264px;overflow-y:auto;border:1px solid #284133;border-radius:14px;background:#0a120d;box-shadow:0 18px 46px rgba(0,0,0,.48);padding:6px}.genre-results[hidden]{display:none}.genre-results-head{padding:8px 10px 6px;color:#6f8075;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}.genre-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:9px;padding:10px 11px;background:transparent;color:#edf5ef;text-align:left;cursor:pointer;font:inherit}.genre-option:hover,.genre-option:focus{background:#132219;outline:none}.genre-option small{color:#6f8075;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.genre-custom span{color:#9df8b4}.genre-message{padding:12px;color:#89968e;font-size:.78rem;font-weight:500}.field-hint{color:#66746b;font-size:.69rem;font-weight:500;letter-spacing:0;line-height:1.35}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.08rem;line-height:1.7;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}.genre-results{max-height:238px}}
   </style>
 </Base>
