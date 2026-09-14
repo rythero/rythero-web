@@ -1,30 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Privacy — Rythero" description="How Rythero uses analytics and stores consent preferences." canonical="/privacy">
+<Base title="Privacy — Rythero" description="How Rythero currently handles analytics and privacy." canonical="/privacy">
   <section class="section shell privacy-page">
     <div class="eyebrow">Privacy</div>
     <h1>Privacy, without the noise.</h1>
-    <p class="lead">Rythero uses Google Analytics to understand how the site is used and to improve the experience. Analytics storage is disabled by default until you choose to accept it.</p>
+    <p class="lead">Rythero is currently a lightweight pre-launch website. There are no user accounts, newsletter forms, checkout flows or advertising systems on the site.</p>
 
     <div class="privacy-grid">
       <article class="card">
-        <h2>Analytics</h2>
-        <p class="muted">If you accept analytics, Rythero allows Google Analytics to store analytics information such as visit and interaction data. If you decline, analytics storage remains disabled.</p>
+        <h2>Optional Google Analytics</h2>
+        <p class="muted">Google Analytics is blocked by default and is loaded only after you choose <strong>Accept</strong>. It is used to understand site usage and improve Rythero. Advertising storage and ad personalization remain disabled.</p>
       </article>
+
       <article class="card">
-        <h2>Advertising</h2>
-        <p class="muted">Rythero currently keeps advertising storage, advertising user data and ad personalization disabled in Google Consent Mode.</p>
+        <h2>Cloudflare</h2>
+        <p class="muted">Rythero is delivered through Cloudflare and uses Cloudflare Web Analytics for privacy-focused traffic and performance measurement. Cloudflare states that Web Analytics does not use cookies, local storage or fingerprinting to track visitors.</p>
       </article>
+
       <article class="card">
         <h2>Your choice</h2>
-        <p class="muted">Your selection is stored locally in your browser so the banner does not keep asking. Clearing your browser storage will reset that preference.</p>
+        <p class="muted">You can accept or reject optional analytics with equal access to the site. You can reopen the choice at any time using <strong>Cookie choices</strong> in the footer.</p>
+      </article>
+
+      <article class="card">
+        <h2>Cookies and local storage</h2>
+        <p class="muted">For details about Google Analytics cookies, durations and the local preference used to remember your choice, see the <a class="inline-link" href="/cookies">Cookie policy</a>.</p>
       </article>
     </div>
 
-    <p class="note">This page describes the current technical setup and may be updated as Rythero adds new services or features.</p>
+    <div class="legal-note">
+      <h2>Controller information</h2>
+      <p>Before Rythero introduces accounts, forms, newsletters, sales, advertising or any broader personal-data collection, this notice must be expanded with the full legal identity and contact details of the data controller and any additional information required for those services.</p>
+    </div>
+
+    <p class="note">Last updated: September 2026.</p>
   </section>
   <style>
-    .privacy-page{max-width:920px}.privacy-page h1{font-size:clamp(2.7rem,6vw,5.5rem);line-height:.95;letter-spacing:-.055em;margin:14px 0 24px}.lead{max-width:760px;color:var(--muted);font-size:1.15rem}.privacy-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}.privacy-grid h2{margin:0 0 8px;font-size:1.15rem}.note{margin-top:28px;color:#738078;font-size:.85rem}
+    .privacy-page{max-width:920px}.privacy-page h1{font-size:clamp(2.7rem,6vw,5.5rem);line-height:.95;letter-spacing:-.055em;margin:14px 0 24px}.lead{max-width:760px;color:var(--muted);font-size:1.15rem}.privacy-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}.privacy-grid h2{margin:0 0 8px;font-size:1.15rem}.inline-link{color:#91dba6;text-decoration:underline;text-underline-offset:2px}.legal-note{margin-top:26px;border:1px solid #2a3c30;border-radius:18px;padding:20px;background:#09100c}.legal-note h2{margin:0 0 8px;font-size:1rem}.legal-note p{margin:0;color:#96a49b;font-size:.9rem}.note{margin-top:28px;color:#738078;font-size:.85rem}
   </style>
 </Base>
