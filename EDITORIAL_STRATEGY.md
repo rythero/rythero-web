@@ -54,33 +54,42 @@ Do not publish merely because a keyword has volume. Publish when Rythero can add
 
 ## Launch topic cluster
 1. LIVE — `AI music prompts`: how to build a producer-style creative brief without stacking random adjectives.
-2. NEXT — Why AI songs sound generic: repetition, flat arrangement, conflicting prompts and weak identity.
-3. NEXT — Song structure for AI music: hook, verse, chorus, breakdown, bridge, beat switch and final lift.
-4. NEXT — Style DNA without artist imitation: groove, texture, harmony, voice, era and production language.
-5. NEXT — BPM, key and energy for AI music: when precision helps and when it overconstrains the model.
-6. NEXT — Suno v6 practical guide: v6 vs v6-wild vs v6-mini, control versus exploration, editing and multimodal inputs.
+2. LIVE — `AI song structure`: hook, verse, chorus, bridge, breakdown, transitions, 4/8/16-bar thinking and simple arrangement maps.
+3. NEXT — Style DNA without artist imitation: groove, texture, harmony, voice, era and production language.
+4. NEXT — BPM, key and energy for AI music: when precision helps and when it overconstrains the model.
+5. NEXT — Suno v6 practical guide: v6 vs v6-wild vs v6-mini, control versus exploration, editing and multimodal inputs.
 
-## SEO targets for the first pillar
+A separate Rythero article around “why AI songs sound generic” is not a current priority because a similar editorial angle already exists elsewhere in the owner’s ecosystem. Rythero should avoid duplicating that intent and instead build authority around its own tools and educational gaps.
+
+## SEO targets
+### Lesson 01 — AI music prompts
 Primary intent: educational / how-to.
 Primary phrase: `AI music prompts`.
 Secondary phrases: `how to write AI music prompts`, `music AI prompts`, `Suno prompts`, `Udio prompts`, `AI music prompt examples`, `AI music prompt generator`.
 
-The article should not attempt to rank by repeating every secondary phrase. Use them only where they match the reader's question.
+### Lesson 02 — AI song structure
+Primary intent: educational / beginner how-to.
+Primary phrase: `AI song structure` / `song structure for AI music`.
+Secondary phrases: `song structure AI music`, `AI music arrangement`, `verse chorus bridge AI`, `how to structure AI songs`, `song arrangement for AI music`, and Spanish equivalents around `estructura de canción con IA`.
+
+Do not attempt to rank by repeating secondary phrases. Use them only where they match the reader's question.
 
 ## Content architecture
 - School landing pages: `/learn`, `/es/learn`, `/pt-br/learn`.
-- Pillar article: `/learn/ai-music-prompts` plus ES/PT-BR counterparts.
+- Lesson 01: `/learn/ai-music-prompts` plus ES/PT-BR counterparts.
+- Lesson 02: `/learn/ai-song-structure` plus ES/PT-BR counterparts.
 - Future lessons should remain under `/learn/` rather than creating a separate generic `/blog/` identity.
-- Each published lesson should have a localized canonical, hreflang through Base, descriptive title/meta, Article JSON-LD, visible publication/update date, internal links to related tools and primary sources where relevant.
+- Each published lesson should have a localized canonical, hreflang through Base, descriptive title/meta, Article JSON-LD, visible publication/update date, internal links to related tools and primary or educational sources where relevant.
 
-## Article image system
-- One editorial image per lesson where it adds recognition/value.
-- Minimal, dark premium music-tech visual language; no text baked into the image.
+## Article image / visual system
+- One editorial visual per lesson where it adds recognition or understanding.
+- Minimal, dark premium music-tech visual language; no text baked into raster images.
 - Avoid generic robots, brains, headphones, floating music notes and stock-looking AI imagery.
 - Prefer abstract signal, arrangement, waveform, studio-control or sonic-architecture concepts.
-- Target source around 1200×675 or 1200×630, compressed for web; display smaller in the article so it never dominates the page.
-- Use a real `<img>`/`<picture>` element, descriptive filename and contextual alt text. Do not rely on CSS background images for the editorial image.
-- Localized image can usually be shared across EN/ES/PT-BR because there is no embedded text.
+- When a diagram teaches the idea better than a decorative image, use a compact in-page visual first. Lesson 02 uses a minimal arrangement map because it explains the subject directly.
+- For raster editorial images, target around 1200×675 or 1200×630, compressed for web; display smaller in the article so it never dominates the page.
+- Use a real `<img>`/`<picture>` element, descriptive filename and contextual alt text. Do not rely on CSS background images for decorative editorial images.
+- Localized images can usually be shared across EN/ES/PT-BR because there is no embedded text.
 
 ## Internal linking pattern
 Each article should normally link to:
@@ -96,6 +105,7 @@ Before publication verify:
 - Claims about current tools/models are checked against primary sources.
 - The article teaches enough for a beginner to act without another search.
 - It contains Rythero's own analysis/framework rather than summarizing competitors.
+- Difficult concepts are explained in ordinary language before jargon appears.
 - Title/H1 are aligned but not mechanically identical if a better SERP title exists.
 - Meta description is specific and useful.
 - One primary CTA at most; no aggressive sales blocks.
