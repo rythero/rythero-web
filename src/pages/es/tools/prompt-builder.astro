@@ -1,80 +1,57 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import PromptBuilder from '../../../components/PromptBuilder.astro';
+
+const copy = {
+  eyebrow: 'Herramienta Rythero 001',
+  intro: 'Convierte decisiones musicales en un prompt claro. Sin registro. Sin relleno.',
+  genre: {
+    label: 'Género',
+    placeholder: 'Busca o escribe un estilo…',
+    hint: 'Mezcla hasta 4 estilos. Usa Más ideas si no sabes por dónde empezar.'
+  },
+  mood: {
+    label: 'Estado de ánimo',
+    placeholder: 'Busca o escribe un mood…',
+    hint: 'Elige hasta 3 estados. Más ideas va mostrando puntos de partida distintos.'
+  },
+  energy: { label: 'Energía', low: 'Baja', medium: 'Media', high: 'Alta', dynamic: 'Dinámica / evolutiva' },
+  bpmPlaceholder: 'p. ej. 118',
+  vocal: {
+    label: 'Voz',
+    placeholder: 'Busca tipo o carácter de voz…',
+    hint: 'Empieza por el tipo de voz y añade carácter o interpretación. Hasta 4 opciones.'
+  },
+  instruments: {
+    label: 'Instrumentación',
+    placeholder: 'Busca instrumentos o texturas…',
+    hint: 'Elige hasta 5 elementos que definan el arreglo.'
+  },
+  structureLabel: 'Estructura',
+  structure: [
+    { value: 'Hook-first, verse, chorus, verse, breakdown, final chorus', label: 'Gancho primero, verso, estribillo, verso, breakdown, estribillo final' },
+    { value: 'Verse, pre-chorus, chorus, verse, chorus, bridge, final chorus', label: 'Verso, pre-estribillo, estribillo, verso, estribillo, puente, estribillo final' },
+    { value: 'Short intro, verse, hook, verse, hook, outro', label: 'Intro corta, verso, gancho, verso, gancho, outro' },
+    { value: 'Intro, build, drop, breakdown, second drop, outro', label: 'Intro, subida, drop, breakdown, segundo drop, outro' },
+    { value: 'Custom / flexible structure', label: 'Estructura personalizada / flexible' }
+  ],
+  production: {
+    label: 'Producción',
+    placeholder: 'Busca rasgos de producción…',
+    hint: 'Elige hasta 4 rasgos de mezcla, espacio, pegada, textura o dinámica.'
+  },
+  exclude: {
+    label: 'Excluir',
+    placeholder: 'Busca o escribe qué quieres evitar…',
+    hint: 'Opcional. Úsalo solo para cosas que claramente no quieres en el resultado.'
+  },
+  generate: 'Generar prompt',
+  reset: 'Reiniciar',
+  copy: 'Copiar',
+  outputEmpty: 'Tu prompt aparecerá aquí.',
+  outputNote: 'El OUTPUT se genera en inglés para mantener la máxima compatibilidad con los generadores musicales.'
+};
 ---
 <Base lang="es" title="Rythero Prompt Builder — Crea mejores prompts musicales" description="Construye un prompt musical claro a partir de género, estado de ánimo, energía, voz, instrumentación, estructura y producción." canonical="/es/tools/prompt-builder">
-  <section class="shell tool-hero">
-    <div class="eyebrow">Herramienta Rythero 001</div>
-    <h1>Prompt Builder</h1>
-    <p class="muted intro">Convierte decisiones musicales en un prompt claro. Sin registro. Sin relleno.</p>
-  </section>
-
-  <section class="shell builder-wrap">
-    <form id="builder" class="builder">
-      <div class="field smart-field" data-selector="genre">
-        <label for="genre-search">Género</label>
-        <div class="smart-combobox" data-combobox><div class="smart-chips" data-chips aria-live="polite"></div><input id="genre-search" data-search type="text" autocomplete="off" placeholder="Busca o escribe un estilo…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="genre-results" /><input data-value name="genre" type="hidden" /><div id="genre-results" class="smart-results" data-results role="listbox" hidden></div></div>
-        <span class="field-hint">Mezcla hasta 4 estilos. Usa Más ideas si no sabes por dónde empezar.</span>
-      </div>
-
-      <div class="field smart-field" data-selector="mood">
-        <label for="mood-search">Estado de ánimo</label>
-        <div class="smart-combobox" data-combobox><div class="smart-chips" data-chips aria-live="polite"></div><input id="mood-search" data-search type="text" autocomplete="off" placeholder="Busca o escribe un mood…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="mood-results" /><input data-value name="mood" type="hidden" /><div id="mood-results" class="smart-results" data-results role="listbox" hidden></div></div>
-        <span class="field-hint">Elige hasta 3 estados. Más ideas va mostrando puntos de partida distintos.</span>
-      </div>
-
-      <label class="field">Energía
-        <select name="energy"><option value="low">Baja</option><option value="medium" selected>Media</option><option value="high">Alta</option><option value="dynamic / evolving">Dinámica / evolutiva</option></select>
-      </label>
-
-      <label class="field">BPM<input name="bpm" inputmode="numeric" pattern="[0-9]*" placeholder="p. ej. 118" /></label>
-
-      <div class="field smart-field" data-selector="vocal">
-        <label for="vocal-search">Voz</label>
-        <div class="smart-combobox" data-combobox><div class="smart-chips" data-chips aria-live="polite"></div><input id="vocal-search" data-search type="text" autocomplete="off" placeholder="Busca tipo o carácter de voz…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="vocal-results" /><input data-value name="vocal" type="hidden" /><div id="vocal-results" class="smart-results" data-results role="listbox" hidden></div></div>
-        <span class="field-hint">Empieza por el tipo de voz y añade carácter o interpretación. Hasta 4 opciones.</span>
-      </div>
-
-      <div class="field smart-field" data-selector="instruments">
-        <label for="instruments-search">Instrumentación</label>
-        <div class="smart-combobox" data-combobox><div class="smart-chips" data-chips aria-live="polite"></div><input id="instruments-search" data-search type="text" autocomplete="off" placeholder="Busca instrumentos o texturas…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="instruments-results" /><input data-value name="instruments" type="hidden" /><div id="instruments-results" class="smart-results" data-results role="listbox" hidden></div></div>
-        <span class="field-hint">Elige hasta 5 elementos que definan el arreglo.</span>
-      </div>
-
-      <label class="field">Estructura
-        <select name="structure">
-          <option value="Hook-first, verse, chorus, verse, breakdown, final chorus">Gancho primero, verso, estribillo, verso, breakdown, estribillo final</option>
-          <option value="Verse, pre-chorus, chorus, verse, chorus, bridge, final chorus">Verso, pre-estribillo, estribillo, verso, estribillo, puente, estribillo final</option>
-          <option value="Short intro, verse, hook, verse, hook, outro">Intro corta, verso, gancho, verso, gancho, outro</option>
-          <option value="Intro, build, drop, breakdown, second drop, outro">Intro, subida, drop, breakdown, segundo drop, outro</option>
-          <option value="Custom / flexible structure">Estructura personalizada / flexible</option>
-        </select>
-      </label>
-
-      <div class="field smart-field" data-selector="production">
-        <label for="production-search">Producción</label>
-        <div class="smart-combobox" data-combobox><div class="smart-chips" data-chips aria-live="polite"></div><input id="production-search" data-search type="text" autocomplete="off" placeholder="Busca rasgos de producción…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="production-results" /><input data-value name="production" type="hidden" /><div id="production-results" class="smart-results" data-results role="listbox" hidden></div></div>
-        <span class="field-hint">Elige hasta 4 rasgos de mezcla, espacio, pegada, textura o dinámica.</span>
-      </div>
-
-      <div class="field smart-field wide" data-selector="exclude">
-        <label for="exclude-search">Excluir</label>
-        <div class="smart-combobox" data-combobox><div class="smart-chips" data-chips aria-live="polite"></div><input id="exclude-search" data-search type="text" autocomplete="off" placeholder="Busca o escribe qué quieres evitar…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="exclude-results" /><input data-value name="exclude" type="hidden" /><div id="exclude-results" class="smart-results" data-results role="listbox" hidden></div></div>
-        <span class="field-hint">Opcional. Úsalo solo para cosas que claramente no quieres en el resultado.</span>
-      </div>
-
-      <div class="wide controls"><button class="pill primary" type="submit">Generar prompt</button><button class="pill" type="reset">Reiniciar</button></div>
-    </form>
-
-    <aside class="output-card">
-      <div class="output-head"><span>OUTPUT</span><button id="copy" type="button">Copiar</button></div>
-      <p id="output" class="output">Tu prompt aparecerá aquí.</p>
-      <p class="output-note">El OUTPUT se genera en inglés para mantener la máxima compatibilidad con los generadores musicales.</p>
-      <div id="status" class="status" aria-live="polite"></div>
-    </aside>
-  </section>
-
-  <script is:inline src="/prompt-builder-localized.js"></script>
-  <style>
-    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.field{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.field>input,.field>select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.field>input:focus,.field>select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-field{position:relative}.smart-combobox{position:relative;border:1px solid #203027;background:#0d1510;border-radius:13px;padding:7px;transition:border-color .15s,box-shadow .15s}.smart-combobox:focus-within{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-combobox [data-search]{width:100%;border:0;background:transparent;color:var(--text);border-radius:8px;padding:8px 7px;outline:none;font:inherit}.smart-combobox [data-search]::placeholder{color:#6f7c74}.smart-chips{display:flex;flex-wrap:wrap;gap:6px}.smart-chips:empty{display:none}.smart-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #2d553a;border-radius:999px;padding:6px 9px;background:#102018;color:#dff9e6;font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}.smart-chip:hover{border-color:#66ff8c}.smart-chip span:last-child{color:#84a98d;font-size:1rem;line-height:.7}.smart-results{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;max-height:264px;overflow-y:auto;border:1px solid #284133;border-radius:14px;background:#0a120d;box-shadow:0 18px 46px rgba(0,0,0,.48);padding:6px}.smart-results[hidden]{display:none}.smart-results-head{padding:8px 10px 6px;color:#6f8075;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}.smart-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:9px;padding:10px 11px;background:transparent;color:#edf5ef;text-align:left;cursor:pointer;font:inherit}.smart-option:hover,.smart-option:focus{background:#132219;outline:none}.smart-option small{color:#6f8075;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.smart-custom span{color:#9df8b4}.smart-message{padding:12px;color:#89968e;font-size:.78rem;font-weight:500}.smart-more{width:100%;border:0;border-top:1px solid #17251c;margin-top:4px;padding:10px;background:transparent;color:#79dd96;font:inherit;font-size:.75rem;font-weight:750;cursor:pointer;text-align:center}.smart-more:hover{color:#b8ffc9;background:#0f1b13}.field-hint{color:#66746b;font-size:.69rem;font-weight:500;letter-spacing:0;line-height:1.35}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.02rem;line-height:1.72;white-space:pre-wrap;margin-top:30px}.output-note{color:#66746b;font-size:.72rem;line-height:1.45;margin-top:18px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}.smart-results{max-height:228px}}
-  </style>
+  <PromptBuilder copy={copy} />
 </Base>
