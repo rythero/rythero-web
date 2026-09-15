@@ -84,7 +84,9 @@ No sign-up and no API cost.
 - `More ideas →` rotates through additional curated suggestions without making the dropdown taller.
 - Selected items become removable chips/tokens.
 - Free-text custom values remain allowed.
-- Enter selects the first match or adds a custom value; Backspace removes the last chip when the field is empty.
+- Enter selects the active/first match or adds a custom value; Backspace removes the last chip when the field is empty; Escape closes the list.
+- ArrowUp / ArrowDown keyboard navigation is implemented, with active-option state exposed through ARIA.
+- Custom/free-text and selector labels are now inserted with safe DOM text nodes rather than interpolated into `innerHTML`.
 - Limits: Genre 4, Mood 3, Vocal 4, Instrumentation 5, Production 4, Exclude 5.
 - Energy and Structure remain conventional dropdowns; BPM remains numeric.
 - Mobile was tested by the owner on 2026-09-15 and reported visually good after the multi-select rollout.
@@ -136,26 +138,25 @@ No sign-up and no API cost.
 - After stability, define channel-by-channel rollout (YouTube/Shorts, Instagram/Reels, TikTok, Reddit and selected creator communities) without spamming the same copy everywhere.
 - Almaerrantemusic.com can be a Spanish-language acquisition source later; Rythero should still build independent discovery.
 
-## General audit notes / next cleanup
+## General audit notes
 - Current architecture is intentionally lightweight: Astro + static pages + Cloudflare; no need for a CMS or plugin stack yet.
 - `robots.txt` is simple and correct for public crawling and points to the sitemap.
 - Package footprint remains minimal: Astro plus Wrangler only.
-- Before wider public launch, harden the shared selector DOM rendering so free-text custom values are inserted with safe text nodes rather than `innerHTML`.
-- Improve combobox keyboard accessibility later with ArrowUp/ArrowDown active-option navigation; current Enter/Escape/Backspace basics work but are not the final accessibility state.
+- Prompt Builder DOM rendering has been hardened and keyboard navigation improved before wider public promotion.
 - Continue avoiding duplicated EN/ES/PT implementations; shared components/data should be the default as the site grows.
+- Learn/Guides should remain concise and problem-led; do not bulk-fill the site merely to look larger.
 
 ## Tasks for next work session
 1. Verify the current multilingual deployment live after the shared Prompt Builder refactor: `/tools/prompt-builder`, `/es/tools/prompt-builder`, `/pt-br/tools/prompt-builder` on desktop and mobile.
-2. Test `More ideas`, mobile chip wrapping, category-badge spacing, vocal suggestions, richer OUTPUT and the English-output compatibility note on ES/PT-BR.
-3. Harden shared selector DOM rendering and improve full keyboard navigation before a larger public push.
-4. Speed up the footer green scan animation from the current slow behavior to roughly 4.5–5 seconds, with a slightly clearer fluorescent pass but no distracting flashing.
-5. Continue curating genre/style coverage based on real usage and current global music trends; keep useful/high-demand styles and remove noise.
-6. Improve Prompt Builder intelligence further: contextual compatibility hints, optional smart defaults, possible key/scale and tempo-range assistance, and later export targets such as Suno, Udio and Generic.
-7. Decide the next tool after Prompt Builder. Leading candidates: Song Blueprint and Style DNA.
-8. Add one concise Learn/Guide item only when it solves a real user problem; do not bulk-fill the site with articles.
-9. Add a strong Open Graph/social share image and verify Facebook/X/LinkedIn card rendering.
-10. Audit SEO metadata, schema, sitemap coverage and internal linking, including multilingual hreflang behavior after deployment.
-11. Decide final GitHub/brand logo variants: app icon, favicon, horizontal wordmark, social avatar.
-12. Build a simple three-language Canva launch video and then define the first URL distribution plan by channel.
-13. Revisit controller/legal identity before any forms, accounts, newsletter, commerce or advertising go live.
-14. Keep this handoff updated before moving to a new ChatGPT thread so the project can continue without reconstructing decisions.
+2. Test `More ideas`, mobile chip wrapping, category-badge spacing, ArrowUp/ArrowDown navigation, vocal suggestions, richer OUTPUT and the English-output compatibility note on ES/PT-BR.
+3. Speed up the footer green scan animation from the current slow behavior to roughly 4.5–5 seconds, with a slightly clearer fluorescent pass but no distracting flashing.
+4. Continue curating genre/style coverage based on real usage and current global music trends; keep useful/high-demand styles and remove noise.
+5. Improve Prompt Builder intelligence further: contextual compatibility hints, optional smart defaults, possible key/scale and tempo-range assistance, and later export targets such as Suno, Udio and Generic.
+6. Decide the next tool after Prompt Builder. Leading candidates: Song Blueprint and Style DNA.
+7. Add one concise Learn/Guide item only when it solves a real user problem; do not bulk-fill the site with articles.
+8. Add a strong Open Graph/social share image and verify Facebook/X/LinkedIn card rendering.
+9. Audit SEO metadata, schema, sitemap coverage and internal linking, including multilingual hreflang behavior after deployment.
+10. Decide final GitHub/brand logo variants: app icon, favicon, horizontal wordmark, social avatar.
+11. Build a simple three-language Canva launch video and then define the first URL distribution plan by channel.
+12. Revisit controller/legal identity before any forms, accounts, newsletter, commerce or advertising go live.
+13. Keep this handoff updated before moving to a new ChatGPT thread so the project can continue without reconstructing decisions.
