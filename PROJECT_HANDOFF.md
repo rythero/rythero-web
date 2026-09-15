@@ -13,6 +13,9 @@ Last updated: 2026-09-15
 - Product principle: keep the site visually light; depth should come from useful tools rather than a crowded homepage.
 - Beginner-first UX: assume some visitors have never made music before and explain decisions while they work.
 - Editorial layer is the **AI Music Creator School** / localized equivalent, positioned as practical music engineering rather than a generic AI-news blog.
+- Competitive editorial/product thesis: **clarity + simplicity + completeness**. Rythero does not need to claim it is the most advanced platform; it should aim to make music-creation decisions easier to understand and sufficiently complete for a beginner to act immediately.
+- Avoid unverifiable superiority claims such as “the easiest site on the internet”. Prefer grounded language such as “built to make this simpler”, “simple, complete and practical”, and “enough to get you moving without learning the whole vocabulary first”.
+- Editorial governance: day-to-day topic selection, SEO intent, structure, internal linking and publication order should be handled proactively and consistently; the owner expects mainly to request small changes rather than redefine the editorial line article by article.
 
 ## Technical stack
 - GitHub: `rythero/rythero-web`
@@ -140,6 +143,8 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 - Do not mass-publish filler. Build topical authority with a small cluster of strong lessons that solve real creator problems.
 - Planned next cluster: why AI songs sound generic; song structure for AI music; Style DNA without artist imitation; BPM/key/energy; practical Suno v6 guide.
 - Editorial images should be minimal, dark premium music-tech, no text baked into the image, no generic robot/brain/headphone clichés, and displayed modestly rather than as oversized hero art.
+- New permanent editorial standard: explain specialist concepts in plain language first and introduce jargon second. Simplify the explanation, not the idea.
+- Every strong lesson should ideally combine a simple explanation + concrete musical example + relevant Rythero action/tool. This is a core product/content differentiator.
 
 ## Homepage changes for Studio launch
 - Primary CTA now opens Rythero Studio in the matching language.
