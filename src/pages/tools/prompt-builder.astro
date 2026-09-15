@@ -10,26 +10,99 @@ import Base from '../../layouts/Base.astro';
 
   <section class="shell builder-wrap">
     <form id="builder" class="builder">
-      <label class="genre-field">
-        <span>Genre</span>
-        <div class="genre-combobox" id="genre-combobox">
-          <div id="genre-chips" class="genre-chips" aria-live="polite"></div>
-          <input id="genre-search" type="text" autocomplete="off" placeholder="Search or type a style…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="genre-results" />
-          <input id="genre-value" name="genre" type="hidden" />
-          <div id="genre-results" class="genre-results" role="listbox" hidden></div>
+      <div class="field smart-field" data-selector="genre">
+        <label for="genre-search">Genre</label>
+        <div class="smart-combobox" data-combobox>
+          <div class="smart-chips" data-chips aria-live="polite"></div>
+          <input id="genre-search" data-search type="text" autocomplete="off" placeholder="Search or type a style…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="genre-results" />
+          <input data-value name="genre" type="hidden" />
+          <div id="genre-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
         <span class="field-hint">Try K-pop, afro house, hyperpop, alt-R&amp;B… Mix up to 4 styles.</span>
+      </div>
+
+      <div class="field smart-field" data-selector="mood">
+        <label for="mood-search">Mood</label>
+        <div class="smart-combobox" data-combobox>
+          <div class="smart-chips" data-chips aria-live="polite"></div>
+          <input id="mood-search" data-search type="text" autocomplete="off" placeholder="Search or type a mood…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="mood-results" />
+          <input data-value name="mood" type="hidden" />
+          <div id="mood-results" class="smart-results" data-results role="listbox" hidden></div>
+        </div>
+        <span class="field-hint">Choose up to 3 moods or write your own.</span>
+      </div>
+
+      <label class="field">Energy
+        <select name="energy">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+          <option value="dynamic / evolving">Dynamic / evolving</option>
+        </select>
       </label>
 
-      <label>Mood<input name="mood" placeholder="e.g. intimate, defiant, nocturnal" /></label>
-      <label>Energy<select name="energy"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option><option value="dynamic">Dynamic / evolving</option></select></label>
-      <label>BPM<input name="bpm" inputmode="numeric" placeholder="e.g. 106" /></label>
-      <label>Vocal<input name="vocal" placeholder="e.g. male, raspy, close and expressive" /></label>
-      <label>Instrumentation<input name="instruments" placeholder="e.g. deep 808, nylon guitar, dry claps" /></label>
-      <label>Structure<select name="structure"><option>Hook-first, verse, chorus, verse, breakdown, final chorus</option><option>Verse, pre-chorus, chorus, verse, chorus, bridge, final chorus</option><option>Short intro, verse, hook, verse, hook, outro</option><option>Custom / flexible structure</option></select></label>
-      <label>Production<input name="production" placeholder="e.g. warm low end, dry vocal, wide chorus" /></label>
-      <label class="wide">Exclude<input name="exclude" placeholder="e.g. dembow, EDM drop, heavy autotune, fade-out" /></label>
-      <div class="wide controls"><button class="pill primary" type="submit">Generate prompt</button><button class="pill" type="reset">Reset</button></div>
+      <label class="field">BPM
+        <input name="bpm" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 118" />
+      </label>
+
+      <div class="field smart-field" data-selector="vocal">
+        <label for="vocal-search">Vocal</label>
+        <div class="smart-combobox" data-combobox>
+          <div class="smart-chips" data-chips aria-live="polite"></div>
+          <input id="vocal-search" data-search type="text" autocomplete="off" placeholder="Search vocal traits…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="vocal-results" />
+          <input data-value name="vocal" type="hidden" />
+          <div id="vocal-results" class="smart-results" data-results role="listbox" hidden></div>
+        </div>
+        <span class="field-hint">Lead type + character works best. Up to 4 traits.</span>
+      </div>
+
+      <div class="field smart-field" data-selector="instruments">
+        <label for="instruments-search">Instrumentation</label>
+        <div class="smart-combobox" data-combobox>
+          <div class="smart-chips" data-chips aria-live="polite"></div>
+          <input id="instruments-search" data-search type="text" autocomplete="off" placeholder="Search instruments or textures…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="instruments-results" />
+          <input data-value name="instruments" type="hidden" />
+          <div id="instruments-results" class="smart-results" data-results role="listbox" hidden></div>
+        </div>
+        <span class="field-hint">Pick the elements that should define the arrangement.</span>
+      </div>
+
+      <label class="field">Structure
+        <select name="structure">
+          <option>Hook-first, verse, chorus, verse, breakdown, final chorus</option>
+          <option>Verse, pre-chorus, chorus, verse, chorus, bridge, final chorus</option>
+          <option>Short intro, verse, hook, verse, hook, outro</option>
+          <option>Intro, build, drop, breakdown, second drop, outro</option>
+          <option>Custom / flexible structure</option>
+        </select>
+      </label>
+
+      <div class="field smart-field" data-selector="production">
+        <label for="production-search">Production</label>
+        <div class="smart-combobox" data-combobox>
+          <div class="smart-chips" data-chips aria-live="polite"></div>
+          <input id="production-search" data-search type="text" autocomplete="off" placeholder="Search production traits…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="production-results" />
+          <input data-value name="production" type="hidden" />
+          <div id="production-results" class="smart-results" data-results role="listbox" hidden></div>
+        </div>
+        <span class="field-hint">Mix, space, punch, texture and dynamics. Up to 4.</span>
+      </div>
+
+      <div class="field smart-field wide" data-selector="exclude">
+        <label for="exclude-search">Exclude</label>
+        <div class="smart-combobox" data-combobox>
+          <div class="smart-chips" data-chips aria-live="polite"></div>
+          <input id="exclude-search" data-search type="text" autocomplete="off" placeholder="Search or type what to avoid…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="exclude-results" />
+          <input data-value name="exclude" type="hidden" />
+          <div id="exclude-results" class="smart-results" data-results role="listbox" hidden></div>
+        </div>
+        <span class="field-hint">Optional. Use this only for things you clearly do not want.</span>
+      </div>
+
+      <div class="wide controls">
+        <button class="pill primary" type="submit">Generate prompt</button>
+        <button class="pill" type="reset">Reset</button>
+      </div>
     </form>
 
     <aside class="output-card">
@@ -44,214 +117,273 @@ import Base from '../../layouts/Base.astro';
     const output = document.querySelector('#output');
     const copy = document.querySelector('#copy');
     const status = document.querySelector('#status');
-    const genreSearch = document.querySelector('#genre-search');
-    const genreResults = document.querySelector('#genre-results');
-    const genreChips = document.querySelector('#genre-chips');
-    const genreValue = document.querySelector('#genre-value');
-    const genreCombobox = document.querySelector('#genre-combobox');
 
-    const genreCatalog = [
-      { name: 'K-pop', group: 'Current' },
-      { name: 'Afro house', group: 'Current' },
-      { name: 'Hyperpop', group: 'Current' },
-      { name: 'Alt-R&B', group: 'Current' },
-      { name: 'Amapiano', group: 'Current' },
-      { name: 'Melodic hip-hop', group: 'Current' },
-      { name: 'Afrobeats', group: 'Current' },
-      { name: 'Drum & bass', group: 'Current' },
-      { name: 'UK garage', group: 'Current' },
-      { name: 'Jersey club', group: 'Current' },
-      { name: 'Dark pop', group: 'Current' },
-      { name: 'Cinematic pop', group: 'Current' },
-      { name: 'K-pop dance-pop', group: 'Current' },
-      { name: 'K-pop R&B', group: 'Current' },
-      { name: 'K-pop trap', group: 'Current' },
-      { name: 'K-pop rock hybrid', group: 'Current' },
-      { name: 'Pop', group: 'Core' },
-      { name: 'Dance-pop', group: 'Core' },
-      { name: 'Electropop', group: 'Core' },
-      { name: 'Synth-pop', group: 'Core' },
-      { name: 'Hip-hop', group: 'Core' },
-      { name: 'Trap', group: 'Core' },
-      { name: 'R&B', group: 'Core' },
-      { name: 'Neo-soul', group: 'Core' },
-      { name: 'Electronic', group: 'Core' },
-      { name: 'House', group: 'Core' },
-      { name: 'Tech house', group: 'Core' },
-      { name: 'Lo-fi', group: 'Core' },
-      { name: 'Rock', group: 'Core' },
-      { name: 'Indie rock', group: 'Core' },
-      { name: 'Alternative rock', group: 'Core' },
-      { name: 'Metal', group: 'Core' },
-      { name: 'Soul', group: 'Core' },
-      { name: 'Funk', group: 'Core' },
-      { name: 'Folk', group: 'Core' },
-      { name: 'Country', group: 'Core' },
-      { name: 'Latin pop', group: 'Crossover' },
-      { name: 'Reggaeton', group: 'Crossover' },
-      { name: 'Latin trap', group: 'Crossover' },
-      { name: 'Flamenco fusion', group: 'Crossover' },
-      { name: 'Arabic pop', group: 'Crossover' },
-      { name: 'Raï pop', group: 'Crossover' },
-      { name: 'J-pop', group: 'Crossover' },
-      { name: 'Brazilian funk', group: 'Crossover' }
-    ];
-
-    const selectedGenres = [];
-    const maxGenres = 4;
-    const popularGenres = ['K-pop', 'Afro house', 'Hyperpop', 'Alt-R&B', 'Amapiano', 'Melodic hip-hop', 'Afrobeats', 'Drum & bass'];
     const clean = (value) => String(value || '').trim();
     const normalize = (value) => clean(value).toLocaleLowerCase();
 
-    const syncGenreValue = () => {
-      if (genreValue) genreValue.value = selectedGenres.join(', ');
+    const selectorConfigs = {
+      genre: {
+        max: 4,
+        popular: ['K-pop', 'Afro house', 'Hyperpop', 'Alt-R&B', 'Amapiano', 'Melodic hip-hop', 'Afrobeats', 'Drum & bass'],
+        catalog: [
+          ['K-pop', 'Current'], ['Afro house', 'Current'], ['Hyperpop', 'Current'], ['Alt-R&B', 'Current'],
+          ['Amapiano', 'Current'], ['Melodic hip-hop', 'Current'], ['Afrobeats', 'Current'], ['Drum & bass', 'Current'],
+          ['UK garage', 'Current'], ['Jersey club', 'Current'], ['Dark pop', 'Current'], ['Cinematic pop', 'Current'],
+          ['K-pop dance-pop', 'Current'], ['K-pop R&B', 'Current'], ['K-pop trap', 'Current'], ['K-pop rock hybrid', 'Current'],
+          ['Pop', 'Core'], ['Dance-pop', 'Core'], ['Electropop', 'Core'], ['Synth-pop', 'Core'], ['Hip-hop', 'Core'],
+          ['Trap', 'Core'], ['R&B', 'Core'], ['Neo-soul', 'Core'], ['Electronic', 'Core'], ['House', 'Core'],
+          ['Tech house', 'Core'], ['Lo-fi', 'Core'], ['Rock', 'Core'], ['Indie rock', 'Core'], ['Alternative rock', 'Core'],
+          ['Metal', 'Core'], ['Soul', 'Core'], ['Funk', 'Core'], ['Folk', 'Core'], ['Country', 'Core'],
+          ['Latin pop', 'Crossover'], ['Reggaeton', 'Crossover'], ['Latin trap', 'Crossover'], ['Flamenco fusion', 'Crossover'],
+          ['Arabic pop', 'Crossover'], ['Raï pop', 'Crossover'], ['J-pop', 'Crossover'], ['Brazilian funk', 'Crossover']
+        ]
+      },
+      mood: {
+        max: 3,
+        popular: ['Euphoric', 'Intimate', 'Dark', 'Dreamy', 'Nocturnal', 'Defiant', 'Melancholic', 'Romantic'],
+        catalog: [
+          ['Euphoric', 'Mood'], ['Intimate', 'Mood'], ['Dark', 'Mood'], ['Dreamy', 'Mood'], ['Nocturnal', 'Mood'],
+          ['Defiant', 'Mood'], ['Melancholic', 'Mood'], ['Romantic', 'Mood'], ['Hopeful', 'Mood'], ['Nostalgic', 'Mood'],
+          ['Aggressive', 'Mood'], ['Playful', 'Mood'], ['Sensual', 'Mood'], ['Triumphant', 'Mood'], ['Tense', 'Mood'],
+          ['Hypnotic', 'Mood'], ['Warm', 'Mood'], ['Cold', 'Mood'], ['Mysterious', 'Mood'], ['Uplifting', 'Mood']
+        ]
+      },
+      vocal: {
+        max: 4,
+        popular: ['Female lead', 'Male lead', 'Raspy', 'Airy', 'Powerful', 'Close-mic intimate', 'Rap vocal', 'Layered harmonies'],
+        catalog: [
+          ['Female lead', 'Lead'], ['Male lead', 'Lead'], ['Androgynous lead', 'Lead'], ['Duet', 'Lead'], ['Rap vocal', 'Delivery'],
+          ['Spoken word', 'Delivery'], ['Raspy', 'Character'], ['Airy', 'Character'], ['Breathy', 'Character'], ['Powerful', 'Character'],
+          ['Warm', 'Character'], ['Raw', 'Character'], ['Close-mic intimate', 'Character'], ['Falsetto', 'Register'],
+          ['Low register', 'Register'], ['High register', 'Register'], ['Layered harmonies', 'Layers'], ['Gang vocals', 'Layers'],
+          ['Vocoder texture', 'Texture'], ['Minimal autotune', 'Texture']
+        ]
+      },
+      instruments: {
+        max: 5,
+        popular: ['Deep 808', 'Acoustic drums', 'Analog synths', 'Piano', 'Electric guitar', 'Ambient pads', 'Nylon guitar', 'Handclaps'],
+        catalog: [
+          ['Deep 808', 'Low end'], ['Sub bass', 'Low end'], ['Acoustic drums', 'Rhythm'], ['Electronic drums', 'Rhythm'],
+          ['Handclaps', 'Rhythm'], ['Shakers', 'Rhythm'], ['Cajón', 'Rhythm'], ['Percussion', 'Rhythm'], ['Piano', 'Keys'],
+          ['Rhodes', 'Keys'], ['Analog synths', 'Synth'], ['Bright plucks', 'Synth'], ['Ambient pads', 'Synth'],
+          ['Nylon guitar', 'Guitar'], ['Electric guitar', 'Guitar'], ['Acoustic guitar', 'Guitar'], ['Strings', 'Orchestral'],
+          ['Brass', 'Orchestral'], ['Choir textures', 'Texture'], ['Oud', 'Regional'], ['Tabla', 'Regional'], ['Saxophone', 'Wind'],
+          ['Flute', 'Wind'], ['Vinyl texture', 'Texture'], ['Field recordings', 'Texture']
+        ]
+      },
+      production: {
+        max: 4,
+        popular: ['Warm low end', 'Punchy drums', 'Dry vocal', 'Wide chorus', 'Minimal verses', 'Cinematic build', 'Glossy pop mix', 'Club-ready master'],
+        catalog: [
+          ['Warm low end', 'Tone'], ['Punchy drums', 'Impact'], ['Dry vocal', 'Vocal'], ['Wide chorus', 'Width'],
+          ['Minimal verses', 'Arrangement'], ['Cinematic build', 'Dynamics'], ['Glossy pop mix', 'Finish'], ['Club-ready master', 'Finish'],
+          ['Analog warmth', 'Tone'], ['Dark spacious mix', 'Space'], ['Tight mono verses', 'Width'], ['Stereo width', 'Width'],
+          ['Sidechain pulse', 'Movement'], ['Saturated drums', 'Texture'], ['Clean transient punch', 'Impact'],
+          ['Intimate close mix', 'Space'], ['Lo-fi texture', 'Texture'], ['Polished high end', 'Finish'], ['Deep sub focus', 'Low end']
+        ]
+      },
+      exclude: {
+        max: 5,
+        popular: ['Heavy autotune', 'EDM drop', 'Fade-out', 'Long intro', 'Dembow', 'Excessive reverb', 'Busy arrangement', 'Spoken intro'],
+        catalog: [
+          ['Heavy autotune', 'Avoid'], ['EDM drop', 'Avoid'], ['Fade-out', 'Avoid'], ['Long intro', 'Avoid'],
+          ['Dembow', 'Avoid'], ['Excessive reverb', 'Avoid'], ['Busy arrangement', 'Avoid'], ['Spoken intro', 'Avoid'],
+          ['Over-compression', 'Avoid'], ['Trap hi-hat rolls', 'Avoid'], ['Female backing vocals', 'Avoid'],
+          ['Male backing vocals', 'Avoid'], ['Choir', 'Avoid'], ['Bright EDM synths', 'Avoid'], ['Long instrumental break', 'Avoid']
+        ]
+      }
     };
 
-    const renderChips = () => {
-      if (!genreChips) return;
-      genreChips.innerHTML = '';
-      selectedGenres.forEach((genre) => {
-        const chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'genre-chip';
-        chip.setAttribute('aria-label', `Remove ${genre}`);
-        chip.innerHTML = `<span>${genre}</span><span aria-hidden="true">×</span>`;
-        chip.addEventListener('click', () => {
-          const index = selectedGenres.indexOf(genre);
-          if (index !== -1) selectedGenres.splice(index, 1);
-          syncGenreValue();
-          renderChips();
-          genreSearch?.focus();
-          renderGenreResults(genreSearch?.value || '');
-        });
-        genreChips.appendChild(chip);
-      });
-    };
+    const selectorInstances = [];
 
-    const addGenre = (genre) => {
-      const value = clean(genre);
-      if (!value || selectedGenres.length >= maxGenres) return;
-      if (selectedGenres.some((item) => normalize(item) === normalize(value))) return;
-      selectedGenres.push(value);
-      syncGenreValue();
-      renderChips();
-      if (genreSearch) genreSearch.value = '';
-      renderGenreResults('');
-      genreSearch?.focus();
-    };
+    const createSmartSelector = (root) => {
+      const key = root.dataset.selector;
+      const config = selectorConfigs[key];
+      if (!config) return null;
 
-    const getMatches = (query) => {
-      const q = normalize(query);
-      const available = genreCatalog.filter((item) => !selectedGenres.some((genre) => normalize(genre) === normalize(item.name)));
-      if (!q) {
-        return popularGenres
-          .map((name) => available.find((item) => item.name === name))
-          .filter(Boolean)
+      const search = root.querySelector('[data-search]');
+      const results = root.querySelector('[data-results]');
+      const chips = root.querySelector('[data-chips]');
+      const valueInput = root.querySelector('[data-value]');
+      const combobox = root.querySelector('[data-combobox]');
+      const selected = [];
+      const catalog = config.catalog.map(([name, group]) => ({ name, group }));
+
+      const sync = () => {
+        if (valueInput) valueInput.value = selected.join(', ');
+      };
+
+      const close = () => {
+        if (!results || !search) return;
+        results.hidden = true;
+        search.setAttribute('aria-expanded', 'false');
+      };
+
+      const matchesFor = (query) => {
+        const q = normalize(query);
+        const available = catalog.filter((item) => !selected.some((chosen) => normalize(chosen) === normalize(item.name)));
+        if (!q) {
+          return config.popular
+            .map((name) => available.find((item) => item.name === name))
+            .filter(Boolean)
+            .slice(0, 8);
+        }
+        return available
+          .filter((item) => normalize(item.name).includes(q))
+          .sort((a, b) => {
+            const aStarts = normalize(a.name).startsWith(q) ? 0 : 1;
+            const bStarts = normalize(b.name).startsWith(q) ? 0 : 1;
+            return aStarts - bStarts || a.name.localeCompare(b.name);
+          })
           .slice(0, 8);
-      }
-      return available
-        .filter((item) => normalize(item.name).includes(q))
-        .sort((a, b) => {
-          const aStarts = normalize(a.name).startsWith(q) ? 0 : 1;
-          const bStarts = normalize(b.name).startsWith(q) ? 0 : 1;
-          return aStarts - bStarts || a.name.localeCompare(b.name);
-        })
-        .slice(0, 8);
-    };
+      };
 
-    const renderGenreResults = (query = '') => {
-      if (!genreResults || !genreSearch) return;
-      const matches = getMatches(query);
-      genreResults.innerHTML = '';
-
-      if (selectedGenres.length >= maxGenres) {
-        const message = document.createElement('div');
-        message.className = 'genre-message';
-        message.textContent = 'Maximum 4 styles. Remove one to add another.';
-        genreResults.appendChild(message);
-      } else if (matches.length) {
-        const heading = document.createElement('div');
-        heading.className = 'genre-results-head';
-        heading.textContent = clean(query) ? 'Matches' : 'Popular now';
-        genreResults.appendChild(heading);
-
-        matches.forEach((item) => {
-          const option = document.createElement('button');
-          option.type = 'button';
-          option.className = 'genre-option';
-          option.setAttribute('role', 'option');
-          option.innerHTML = `<span>${item.name}</span><small>${item.group}</small>`;
-          option.addEventListener('mousedown', (event) => event.preventDefault());
-          option.addEventListener('click', () => addGenre(item.name));
-          genreResults.appendChild(option);
+      const renderChips = () => {
+        if (!chips) return;
+        chips.innerHTML = '';
+        selected.forEach((item) => {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'smart-chip';
+          chip.setAttribute('aria-label', `Remove ${item}`);
+          chip.innerHTML = `<span>${item}</span><span aria-hidden="true">×</span>`;
+          chip.addEventListener('click', () => {
+            const index = selected.indexOf(item);
+            if (index !== -1) selected.splice(index, 1);
+            sync();
+            renderChips();
+            search?.focus();
+            renderResults(search?.value || '');
+          });
+          chips.appendChild(chip);
         });
-      } else if (clean(query)) {
-        const custom = document.createElement('button');
-        custom.type = 'button';
-        custom.className = 'genre-option genre-custom';
-        custom.innerHTML = `<span>Add “${clean(query)}”</span><small>Custom</small>`;
-        custom.addEventListener('mousedown', (event) => event.preventDefault());
-        custom.addEventListener('click', () => addGenre(query));
-        genreResults.appendChild(custom);
-      }
+      };
 
-      genreResults.hidden = false;
-      genreSearch.setAttribute('aria-expanded', 'true');
-    };
-
-    const closeGenreResults = () => {
-      if (!genreResults || !genreSearch) return;
-      genreResults.hidden = true;
-      genreSearch.setAttribute('aria-expanded', 'false');
-    };
-
-    genreSearch?.addEventListener('focus', () => renderGenreResults(genreSearch.value));
-    genreSearch?.addEventListener('input', () => renderGenreResults(genreSearch.value));
-    genreSearch?.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        const firstOption = genreResults?.querySelector('.genre-option');
-        if (firstOption instanceof HTMLElement) firstOption.click();
-        else if (clean(genreSearch.value)) addGenre(genreSearch.value);
-      }
-      if (event.key === 'Escape') closeGenreResults();
-      if (event.key === 'Backspace' && !genreSearch.value && selectedGenres.length) {
-        selectedGenres.pop();
-        syncGenreValue();
+      const add = (rawValue) => {
+        const value = clean(rawValue);
+        if (!value || selected.length >= config.max) return;
+        if (selected.some((item) => normalize(item) === normalize(value))) return;
+        selected.push(value);
+        sync();
         renderChips();
-        renderGenreResults('');
-      }
-    });
+        if (search) search.value = '';
+        renderResults('');
+        search?.focus();
+      };
 
-    document.addEventListener('click', (event) => {
-      if (genreCombobox && event.target instanceof Node && !genreCombobox.contains(event.target)) closeGenreResults();
+      const renderResults = (query = '') => {
+        if (!results || !search) return;
+        const matches = matchesFor(query);
+        results.innerHTML = '';
+
+        if (selected.length >= config.max) {
+          const message = document.createElement('div');
+          message.className = 'smart-message';
+          message.textContent = `Maximum ${config.max}. Remove one to add another.`;
+          results.appendChild(message);
+        } else if (matches.length) {
+          const heading = document.createElement('div');
+          heading.className = 'smart-results-head';
+          heading.textContent = clean(query) ? 'Matches' : 'Suggested';
+          results.appendChild(heading);
+
+          matches.forEach((item) => {
+            const option = document.createElement('button');
+            option.type = 'button';
+            option.className = 'smart-option';
+            option.setAttribute('role', 'option');
+            option.innerHTML = `<span>${item.name}</span><small>${item.group}</small>`;
+            option.addEventListener('mousedown', (event) => event.preventDefault());
+            option.addEventListener('click', () => add(item.name));
+            results.appendChild(option);
+          });
+        } else if (clean(query)) {
+          const custom = document.createElement('button');
+          custom.type = 'button';
+          custom.className = 'smart-option smart-custom';
+          custom.innerHTML = `<span>Add “${clean(query)}”</span><small>Custom</small>`;
+          custom.addEventListener('mousedown', (event) => event.preventDefault());
+          custom.addEventListener('click', () => add(query));
+          results.appendChild(custom);
+        }
+
+        results.hidden = false;
+        search.setAttribute('aria-expanded', 'true');
+      };
+
+      search?.addEventListener('focus', () => renderResults(search.value));
+      search?.addEventListener('input', () => renderResults(search.value));
+      search?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const firstOption = results?.querySelector('.smart-option');
+          if (firstOption instanceof HTMLElement) firstOption.click();
+          else if (clean(search.value)) add(search.value);
+        }
+        if (event.key === 'Escape') close();
+        if (event.key === 'Backspace' && !search.value && selected.length) {
+          selected.pop();
+          sync();
+          renderChips();
+          renderResults('');
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (combobox && event.target instanceof Node && !combobox.contains(event.target)) close();
+      });
+
+      return {
+        commitTypedValue() {
+          if (search && clean(search.value) && selected.length < config.max) add(search.value);
+        },
+        reset() {
+          selected.splice(0, selected.length);
+          sync();
+          renderChips();
+          if (search) search.value = '';
+          close();
+        }
+      };
+    };
+
+    document.querySelectorAll('[data-selector]').forEach((root) => {
+      const instance = createSmartSelector(root);
+      if (instance) selectorInstances.push(instance);
     });
 
     form?.addEventListener('submit', (event) => {
       event.preventDefault();
-      if (genreSearch && clean(genreSearch.value) && selectedGenres.length < maxGenres) addGenre(genreSearch.value);
+      selectorInstances.forEach((instance) => instance.commitTypedValue());
+
       const d = Object.fromEntries(new FormData(form).entries());
-      const parts = [];
-      if (clean(d.genre)) parts.push(`genre blend: ${clean(d.genre)}`);
-      if (clean(d.mood)) parts.push(`${clean(d.mood)} mood`);
-      if (clean(d.energy)) parts.push(`${clean(d.energy)} energy`);
-      if (clean(d.bpm)) parts.push(`around ${clean(d.bpm)} BPM`);
-      if (clean(d.vocal)) parts.push(`vocals: ${clean(d.vocal)}`);
-      if (clean(d.instruments)) parts.push(`instrumentation: ${clean(d.instruments)}`);
-      if (clean(d.structure)) parts.push(`structure: ${clean(d.structure)}`);
-      if (clean(d.production)) parts.push(`production: ${clean(d.production)}`);
-      let text = parts.length ? parts.join('. ') + '.' : 'Add a few musical choices first.';
-      if (clean(d.exclude)) text += ` Avoid: ${clean(d.exclude)}.`;
+      const genre = clean(d.genre);
+      const mood = clean(d.mood);
+      const energy = clean(d.energy);
+      const bpm = clean(d.bpm);
+      const vocal = clean(d.vocal);
+      const instruments = clean(d.instruments);
+      const structure = clean(d.structure);
+      const production = clean(d.production);
+      const exclude = clean(d.exclude);
+
+      let text = genre ? `Create a ${genre} track` : 'Create a modern track';
+      if (mood) text += ` with a ${mood} mood`;
+      if (energy) text += ` and ${energy} energy`;
+      if (bpm) text += ` at around ${bpm} BPM`;
+      text += '.';
+      if (vocal) text += ` Vocals: ${vocal}.`;
+      if (instruments) text += ` Build the arrangement around ${instruments}.`;
+      if (structure) text += ` Structure: ${structure}.`;
+      if (production) text += ` Production: ${production}.`;
+      if (exclude) text += ` Avoid: ${exclude}.`;
+
       output.textContent = text;
       status.textContent = '';
     });
 
     form?.addEventListener('reset', () => setTimeout(() => {
-      selectedGenres.splice(0, selectedGenres.length);
-      syncGenreValue();
-      renderChips();
-      if (genreSearch) genreSearch.value = '';
-      closeGenreResults();
+      selectorInstances.forEach((instance) => instance.reset());
       output.textContent = 'Your prompt will appear here.';
       status.textContent = '';
     }, 0));
@@ -259,12 +391,16 @@ import Base from '../../layouts/Base.astro';
     copy?.addEventListener('click', async () => {
       const text = output?.textContent || '';
       if (!text || text === 'Your prompt will appear here.') return;
-      try { await navigator.clipboard.writeText(text); status.textContent = 'Copied.'; }
-      catch { status.textContent = 'Select the prompt and copy it manually.'; }
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = 'Copied.';
+      } catch {
+        status.textContent = 'Select the prompt and copy it manually.';
+      }
     });
   </script>
 
   <style>
-    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.builder label{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.builder input,.builder select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.builder input:focus,.builder select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.genre-field{position:relative}.genre-combobox{position:relative;border:1px solid #203027;background:#0d1510;border-radius:13px;padding:7px;transition:border-color .15s,box-shadow .15s}.genre-combobox:focus-within{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.genre-combobox #genre-search{border:0;background:transparent;border-radius:8px;padding:8px 7px;box-shadow:none}.genre-combobox #genre-search:focus{border:0;box-shadow:none}.genre-chips{display:flex;flex-wrap:wrap;gap:6px}.genre-chips:empty{display:none}.genre-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #2d553a;border-radius:999px;padding:6px 9px;background:#102018;color:#dff9e6;font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}.genre-chip:hover{border-color:#66ff8c}.genre-chip span:last-child{color:#84a98d;font-size:1rem;line-height:.7}.genre-results{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;max-height:264px;overflow-y:auto;border:1px solid #284133;border-radius:14px;background:#0a120d;box-shadow:0 18px 46px rgba(0,0,0,.48);padding:6px}.genre-results[hidden]{display:none}.genre-results-head{padding:8px 10px 6px;color:#6f8075;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}.genre-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:9px;padding:10px 11px;background:transparent;color:#edf5ef;text-align:left;cursor:pointer;font:inherit}.genre-option:hover,.genre-option:focus{background:#132219;outline:none}.genre-option small{color:#6f8075;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.genre-custom span{color:#9df8b4}.genre-message{padding:12px;color:#89968e;font-size:.78rem;font-weight:500}.field-hint{color:#66746b;font-size:.69rem;font-weight:500;letter-spacing:0;line-height:1.35}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.08rem;line-height:1.7;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}.genre-results{max-height:238px}}
+    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.field{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.field>input,.field>select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.field>input:focus,.field>select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-field{position:relative}.smart-combobox{position:relative;border:1px solid #203027;background:#0d1510;border-radius:13px;padding:7px;transition:border-color .15s,box-shadow .15s}.smart-combobox:focus-within{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-combobox [data-search]{width:100%;border:0;background:transparent;color:var(--text);border-radius:8px;padding:8px 7px;outline:none;font:inherit}.smart-combobox [data-search]::placeholder{color:#6f7c74}.smart-chips{display:flex;flex-wrap:wrap;gap:6px}.smart-chips:empty{display:none}.smart-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #2d553a;border-radius:999px;padding:6px 9px;background:#102018;color:#dff9e6;font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}.smart-chip:hover{border-color:#66ff8c}.smart-chip span:last-child{color:#84a98d;font-size:1rem;line-height:.7}.smart-results{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;max-height:264px;overflow-y:auto;border:1px solid #284133;border-radius:14px;background:#0a120d;box-shadow:0 18px 46px rgba(0,0,0,.48);padding:6px}.smart-results[hidden]{display:none}.smart-results-head{padding:8px 10px 6px;color:#6f8075;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}.smart-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:9px;padding:10px 11px;background:transparent;color:#edf5ef;text-align:left;cursor:pointer;font:inherit}.smart-option:hover,.smart-option:focus{background:#132219;outline:none}.smart-option small{color:#6f8075;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.smart-custom span{color:#9df8b4}.smart-message{padding:12px;color:#89968e;font-size:.78rem;font-weight:500}.field-hint{color:#66746b;font-size:.69rem;font-weight:500;letter-spacing:0;line-height:1.35}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.08rem;line-height:1.7;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}.smart-results{max-height:228px}}
   </style>
 </Base>
