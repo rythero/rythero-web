@@ -7,9 +7,9 @@
 
   const lang = document.documentElement.lang === 'es' ? 'es' : document.documentElement.lang === 'pt-BR' ? 'pt-br' : 'en';
   const copyText = {
-    en: { suggested:'Suggested', matches:'Matches', more:'More ideas →', maximum:'Maximum', remove:'Remove', add:'Add', custom:'Custom', copied:'Copied.', manual:'Select the prompt and copy it manually.', empty:'Your prompt will appear here.' },
-    es: { suggested:'Sugerencias', matches:'Coincidencias', more:'Más ideas →', maximum:'Máximo', remove:'Quitar', add:'Añadir', custom:'Personalizado', copied:'Copiado.', manual:'Selecciona el prompt y cópialo manualmente.', empty:'Tu prompt aparecerá aquí.' },
-    'pt-br': { suggested:'Sugestões', matches:'Resultados', more:'Mais ideias →', maximum:'Máximo', remove:'Remover', add:'Adicionar', custom:'Personalizado', copied:'Copiado.', manual:'Selecione o prompt e copie manualmente.', empty:'Seu prompt aparecerá aqui.' }
+    en: { suggested:'Suggested', matches:'Matches', more:'More ideas ↻', maximum:'Maximum', remove:'Remove', add:'Add', custom:'Custom', copied:'Copied.', manual:'Select the prompt and copy it manually.', empty:'Your prompt will appear here.' },
+    es: { suggested:'Sugerencias', matches:'Coincidencias', more:'Más ideas ↻', maximum:'Máximo', remove:'Quitar', add:'Añadir', custom:'Personalizado', copied:'Copiado.', manual:'Selecciona el prompt y cópialo manualmente.', empty:'Tu prompt aparecerá aquí.' },
+    'pt-br': { suggested:'Sugestões', matches:'Resultados', more:'Mais ideias ↻', maximum:'Máximo', remove:'Remover', add:'Adicionar', custom:'Personalizado', copied:'Copiado.', manual:'Selecione o prompt e copie manualmente.', empty:'Seu prompt aparecerá aqui.' }
   }[lang];
 
   const groupTranslations = {
@@ -99,8 +99,8 @@
       if (!q) {
         const pool = availablePopular();
         if (!pool.length) return [];
-        const start = suggestionOffset % pool.length;
-        return Array.from({length:Math.min(8,pool.length)},(_,index)=>pool[(start+index)%pool.length]).map((name)=>available.find((item)=>item.name===name)).filter(Boolean);
+        const start = Math.min(suggestionOffset, Math.max(0, pool.length - 1));
+        return pool.slice(start, start + 8).map((name)=>available.find((item)=>item.name===name)).filter(Boolean);
       }
       return available.filter((item)=>normalize(item.name).includes(q)).sort((a,b)=>{const as=normalize(a.name).startsWith(q)?0:1;const bs=normalize(b.name).startsWith(q)?0:1;return as-bs||a.name.localeCompare(b.name);}).slice(0,8);
     };
@@ -118,11 +118,11 @@
         remove.textContent='×';
         remove.setAttribute('aria-hidden','true');
         chip.append(label,remove);
-        chip.addEventListener('click',()=>{const index=selected.indexOf(item);if(index!==-1)selected.splice(index,1);sync();renderChips();search?.focus();renderResults(search?.value||'');});
+        chip.addEventListener('click',()=>{const index=selected.indexOf(item);if(index!==-1)selected.splice(index,1);suggestionOffset=0;sync();renderChips();search?.focus();renderResults(search?.value||'');});
         chips.appendChild(chip);
       });
     };
-    const add = (rawValue) => {const value=clean(rawValue);if(!value||selected.length>=config.max)return;if(selected.some((item)=>normalize(item)===normalize(value)))return;selected.push(value);sync();renderChips();if(search)search.value='';renderResults('');search?.focus();};
+    const add = (rawValue) => {const value=clean(rawValue);if(!value||selected.length>=config.max)return;if(selected.some((item)=>normalize(item)===normalize(value)))return;selected.push(value);suggestionOffset=0;sync();renderChips();if(search)search.value='';renderResults('');search?.focus();};
     const setActiveOption = (index) => {
       if (!results || !search) return;
       const options = Array.from(results.querySelectorAll('.smart-option'));
@@ -157,18 +157,44 @@
     };
     const renderResults = (query='') => {
       if(!results||!search)return;
+      const typed = clean(query);
+      const popular = typed ? [] : availablePopular();
       const matches=matchesFor(query);
       results.replaceChildren();
       activeIndex=-1;
       search.removeAttribute('aria-activedescendant');
       if(selected.length>=config.max){const message=document.createElement('div');message.className='smart-message';message.textContent=`${copyText.maximum} ${config.max}.`;results.appendChild(message);}
       else if(matches.length){
-        const heading=document.createElement('div');heading.className='smart-results-head';heading.textContent=clean(query)?copyText.matches:copyText.suggested;results.appendChild(heading);
+        const toolbar=document.createElement('div');
+        toolbar.className='smart-results-toolbar';
+        const heading=document.createElement('div');
+        heading.className='smart-results-head';
+        heading.textContent=typed?copyText.matches:copyText.suggested;
+        toolbar.appendChild(heading);
+
+        if(!typed&&popular.length>8){
+          const pageCount=Math.ceil(popular.length/8);
+          const more=document.createElement('button');
+          more.type='button';
+          more.className='smart-more';
+          more.textContent=copyText.more;
+          more.setAttribute('aria-label',copyText.more);
+          more.addEventListener('pointerdown',(event)=>{event.preventDefault();event.stopPropagation();});
+          more.addEventListener('click',(event)=>{
+            event.preventDefault();
+            event.stopPropagation();
+            const currentPage=Math.floor(suggestionOffset/8);
+            const nextPage=(currentPage+1)%pageCount;
+            suggestionOffset=nextPage*8;
+            renderResults('');
+            results.scrollTop=0;
+          });
+          toolbar.appendChild(more);
+        }
+        results.appendChild(toolbar);
         matches.forEach((item,index)=>results.appendChild(makeOption(item.name,groupLabel(item.group),()=>add(item.name),index)));
-        if(!clean(query)&&availablePopular().length>8){const more=document.createElement('button');more.type='button';more.className='smart-more';more.textContent=copyText.more;more.addEventListener('mousedown',(event)=>event.preventDefault());more.addEventListener('click',()=>{suggestionOffset+=8;renderResults('');});results.appendChild(more);}
       }
-      else if(clean(query)){
-        const typed=clean(query);
+      else if(typed){
         const custom=makeOption(`${copyText.add} “${typed}”`,copyText.custom,()=>add(query),0);
         custom.classList.add('smart-custom');
         results.appendChild(custom);
@@ -188,9 +214,15 @@
         if(target instanceof HTMLElement)target.click();else if(clean(search.value))add(search.value);
       }
       if(event.key==='Escape')close();
-      if(event.key==='Backspace'&&!search.value&&selected.length){selected.pop();sync();renderChips();renderResults('');}
+      if(event.key==='Backspace'&&!search.value&&selected.length){selected.pop();suggestionOffset=0;sync();renderChips();renderResults('');}
     });
-    document.addEventListener('click',(event)=>{if(combobox&&event.target instanceof Node&&!combobox.contains(event.target))close();});
+    document.addEventListener('click',(event)=>{
+      if(!combobox)return;
+      const path=typeof event.composedPath==='function'?event.composedPath():[];
+      if(path.includes(combobox))return;
+      if(event.target instanceof Node&&combobox.contains(event.target))return;
+      close();
+    });
     return {commitTypedValue(){if(search&&clean(search.value)&&selected.length<config.max)add(search.value);},reset(){selected.splice(0,selected.length);suggestionOffset=0;sync();renderChips();if(search)search.value='';close();}};
   };
 
