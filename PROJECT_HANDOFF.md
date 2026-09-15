@@ -12,6 +12,7 @@ Last updated: 2026-09-15
 - Internal work with the owner remains in Spanish.
 - Product principle: keep the site visually light; depth should come from useful tools rather than a crowded homepage.
 - Beginner-first UX: assume some visitors have never made music before and explain decisions while they work.
+- Editorial layer is the **AI Music Creator School** / localized equivalent, positioned as practical music engineering rather than a generic AI-news blog.
 
 ## Technical stack
 - GitHub: `rythero/rythero-web`
@@ -40,6 +41,8 @@ English:
 - `/`
 - `/tools/song-studio`
 - `/tools/prompt-builder`
+- `/learn`
+- `/learn/ai-music-prompts`
 - `/privacy`
 - `/cookies`
 
@@ -47,6 +50,8 @@ Spanish:
 - `/es/`
 - `/es/tools/song-studio`
 - `/es/tools/prompt-builder`
+- `/es/learn`
+- `/es/learn/ai-music-prompts`
 - `/es/privacy`
 - `/es/cookies`
 
@@ -54,6 +59,8 @@ Portuguese:
 - `/pt-br/`
 - `/pt-br/tools/song-studio`
 - `/pt-br/tools/prompt-builder`
+- `/pt-br/learn`
+- `/pt-br/learn/ai-music-prompts`
 - `/pt-br/privacy`
 - `/pt-br/cookies`
 
@@ -117,12 +124,30 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 - Shared logic: `public/prompt-builder-localized.js`
 - Mobile UX helper: `public/prompt-builder-ux.js`
 
+## AI Music Creator School / SEO editorial layer — implemented 2026-09-15
+- Strategy document: `EDITORIAL_STRATEGY.md`.
+- Shared school landing component: `src/components/CreatorSchool.astro`.
+- Shared first pillar article component: `src/components/AIMusicPromptsArticle.astro`.
+- School landing pages exist in EN/ES/PT-BR.
+- First lesson exists in EN/ES/PT-BR at `/learn/ai-music-prompts` and localized-prefixed equivalents.
+- First lesson targets the educational intent around `AI music prompts` / how to write better music-generation prompts.
+- Editorial angle is original/practical: treat the prompt as a production brief rather than an adjective list.
+- The article teaches seven decision layers: genre, mood/energy, tempo, voice, instrumentation, structure and production.
+- It includes weak-vs-strong examples, common prompt mistakes, a beginner workflow, FAQs, internal links to Rythero Studio/Prompt Builder and primary Suno/Udio references.
+- Article JSON-LD is implemented with publication/update date, Rythero as organizational author/publisher and language-aware canonical URL.
+- Homepages now contain a visible contextual link from the Learn section to the matching Creator School landing page.
+- Sitemap contains school landing pages and first lesson in all three languages.
+- Do not mass-publish filler. Build topical authority with a small cluster of strong lessons that solve real creator problems.
+- Planned next cluster: why AI songs sound generic; song structure for AI music; Style DNA without artist imitation; BPM/key/energy; practical Suno v6 guide.
+- Editorial images should be minimal, dark premium music-tech, no text baked into the image, no generic robot/brain/headphone clichés, and displayed modestly rather than as oversized hero art.
+
 ## Homepage changes for Studio launch
 - Primary CTA now opens Rythero Studio in the matching language.
 - Secondary CTA opens the quick Prompt Builder.
 - Tools section now shows Rythero Studio, Prompt Builder and Audio Analyzer.
 - Homepage explicitly states that beginners do not need to know production jargon first.
-- Learn/Guide cards explain idea → song-ready, identity without imitation, and prompt repair.
+- Learn section now links into the AI Music Creator School.
+- Guide cards explain idea → song-ready, identity without imitation, and prompt repair.
 
 ## Open Graph / social sharing
 - Asset: `/public/rythero-og.jpg`, 1200×630 JPEG.
@@ -154,10 +179,10 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 - Launch asset: one simple vertical Canva concept adapted into EN/ES/PT-BR, showing problem → Rythero → tool result → URL.
 - Reuse clean master files for YouTube Shorts, Instagram Reels, TikTok and Facebook Reels.
 - YouTube should be a single Rythero channel, not one channel per language.
-- Do not push traffic heavily until the new Studio deployment has been verified on desktop and mobile.
+- Do not push traffic heavily until the new Studio and Creator School deployments have been verified on desktop and mobile.
 
 ## Immediate verification checklist
-1. Wait for Cloudflare to deploy the commit that introduces Rythero Studio.
+1. Wait for Cloudflare to deploy the latest main commit.
 2. Test `/tools/song-studio`, `/es/tools/song-studio`, `/pt-br/tools/song-studio` on desktop and mobile.
 3. Test all seven Studio tabs and confirm tab deep-links such as `#audio` open correctly.
 4. Create a Song Blueprint, send it to Export, refresh and confirm local persistence works.
@@ -167,14 +192,20 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 8. Test Lyrics Blueprint with non-empty theme/detail.
 9. Test Audio Analyzer with one MP3 and one WAV if available; compare estimated BPM with a known track and treat it as approximate.
 10. Re-test standalone Prompt Builder `More ideas ↻` and beginner mobile placeholders.
-11. Verify `https://rythero.com/rythero-og.jpg`.
-12. In Google Search Console inspect `https://rythero.com/` and request indexing.
-13. In Facebook Sharing Debugger run `https://rythero.com/` and use Scrape Again.
-14. Only after these checks start the first three-language distribution videos.
+11. Verify `/learn`, `/es/learn`, `/pt-br/learn` and all three `/learn/ai-music-prompts` variants on desktop/mobile.
+12. Verify the home Learn links open the correct language school.
+13. Verify `https://rythero.com/rythero-og.jpg`.
+14. In Google Search Console inspect `https://rythero.com/` and request indexing.
+15. After the first lesson is live, inspect `https://rythero.com/learn/ai-music-prompts` and request indexing; optionally submit ES/PT counterparts after verification.
+16. In Facebook Sharing Debugger run `https://rythero.com/` and use Scrape Again.
+17. Only after these checks start the first three-language distribution videos.
 
 ## Next development priorities after verification
 - Improve Studio results from real user testing rather than adding more tools immediately.
 - Add contextual compatibility warnings between selected styles/tempo/voice.
 - Consider key/scale assistance only if it can be made clear and non-misleading.
+- Add one minimal no-text editorial image system for Creator School lessons, optimized for web and Google Images.
+- Write the next lesson in the planned cluster, prioritizing unique analysis and primary sources.
+- Add contextual links from tools back to relevant lessons once 2–3 lessons are live.
 - Add real account/history/favorites only when usage justifies server-side state.
 - If an official music-generation API becomes available and terms permit it, add it through a replaceable provider adapter rather than coupling Rythero to one generator.
