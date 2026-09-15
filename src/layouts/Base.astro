@@ -179,39 +179,45 @@ const structuredData = {
             ad_user_data: 'denied',
             ad_personalization: 'denied'
           });
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId);
           const script = document.createElement('script');
           script.async = true;
           script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
           document.head.appendChild(script);
-          window.gtag('js', new Date());
-          window.gtag('config', measurementId, { anonymize_ip: true });
         };
 
-        const applyChoice = (value) => {
-          if (value === 'accepted') {
-            loadAnalytics();
-            banner?.classList.remove('show');
-          } else if (value === 'rejected') {
-            if (typeof window.gtag === 'function') {
-              window.gtag('consent', 'update', { analytics_storage: 'denied' });
-            }
-            clearGaCookies();
-            banner?.classList.remove('show');
-          } else {
-            banner?.classList.add('show');
-          }
-        };
+        const saved = getChoice();
+        if (saved === 'analytics') loadAnalytics();
+        if (!saved && banner) banner.classList.add('show');
+
+        choices?.addEventListener('click', () => banner?.classList.add('show'));
 
         document.querySelectorAll('[data-consent]').forEach((button) => {
           button.addEventListener('click', () => {
-            const value = button.dataset.consent === 'accept' ? 'accepted' : 'rejected';
-            setChoice(value);
-            applyChoice(value);
+            const accepted = button.getAttribute('data-consent') === 'accept';
+            const previous = getChoice();
+            if (accepted) {
+              setChoice('analytics');
+              loadAnalytics();
+              banner?.classList.remove('show');
+              return;
+            }
+
+            setChoice('rejected');
+            if (typeof window.gtag === 'function') {
+              window.gtag('consent', 'update', {
+                analytics_storage: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied'
+              });
+            }
+            clearGaCookies();
+            banner?.classList.remove('show');
+            if (previous === 'analytics') window.location.reload();
           });
         });
-
-        choices?.addEventListener('click', () => banner?.classList.add('show'));
-        applyChoice(getChoice());
       })();
     </script>
   </body>
