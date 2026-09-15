@@ -1,0 +1,160 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = lang === 'es' ? 'es' : lang === 'pt-br' ? 'pt-br' : 'en';
+const copy = {
+  en: {
+    eyebrow:'Rythero Signature Lab',
+    title:'Find the sound you are actually looking for.',
+    intro:'Analyze references without copying them. Turn one track into a useful prompt, combine up to three references into your own sound profile, then check whether a new result moved in the direction you wanted.',
+    local:'LOCAL ANALYSIS · AUDIO STAYS ON THIS DEVICE',
+    modes:['Song → Prompt','Build my sound','Did I get close?'],
+    oneTitle:'Upload a song. Get a usable music prompt.',
+    oneText:'Rythero measures general audio characteristics such as tempo, energy, dynamics, rhythmic activity and change over time. It does not recover the original prompt.',
+    file:'Audio file',
+    hint:'Optional note',
+    hintPh:'e.g. raspy male vocal, nylon guitar, dark trap drums',
+    focus:'What matters most?',
+    focuses:[['balanced','Balanced'],['groove','Groove / tempo'],['energy','Energy'],['structure','Movement / structure'],['production','Production feel']],
+    analyze:'Analyze & build prompt',
+    oneEmpty:'Your detected profile and generator-ready prompt will appear here.',
+    buildTitle:'Turn several references into one original direction.',
+    buildText:'Use 2–3 references. Rythero looks for shared measurable traits and turns them into a reusable direction rather than copying melodies, lyrics or voices.',
+    refs:'Reference tracks (2–3)',
+    preserve:'Keep these traits',
+    traits:[['groove','Groove / tempo'],['energy','Energy'],['dynamics','Dynamics'],['movement','Section movement'],['texture','Texture / rhythmic edge']],
+    distance:'Creative distance',
+    near:'Keep the shared core',
+    far:'Make it more personal',
+    build:'Build my sound profile',
+    buildEmpty:'Your Signature profile will appear here and be saved only in this browser.',
+    compareTitle:'Check the result against your saved Signature.',
+    compareText:'Upload a new result. Rythero compares general characteristics with your saved target and suggests what to change in the next prompt.',
+    result:'Your new result',
+    compare:'Compare direction',
+    compareEmpty:'Build a Signature profile first, then come back here with a generated result.',
+    privacyTitle:'Reference use & privacy',
+    privacy:'Use audio you are entitled to analyze. Files are decoded and measured locally in your browser and are not uploaded by this tool. Rythero extracts general audio characteristics; it does not return stems, lyrics, melodies, cloned voices, artist identities or an “original prompt”. Results are estimates and are intended as creative guidance, not a copyright or originality determination.',
+    copyPrompt:'Copy prompt',
+    reset:'Reset lab'
+  },
+  es: {
+    eyebrow:'Rythero Signature Lab',
+    title:'Encuentra el sonido que realmente estás buscando.',
+    intro:'Analiza referencias sin copiarlas. Convierte una canción en un prompt útil, combina hasta tres referencias para construir tu propia dirección sonora y comprueba después si el resultado se acercó a lo que querías.',
+    local:'ANÁLISIS LOCAL · EL AUDIO SE QUEDA EN ESTE DISPOSITIVO',
+    modes:['Canción → Prompt','Construir mi sonido','¿Me he acercado?'],
+    oneTitle:'Sube una canción. Obtén un prompt musical útil.',
+    oneText:'Rythero mide características generales como tempo, energía, dinámica, actividad rítmica y cambios a lo largo del tema. No intenta recuperar el prompt original.',
+    file:'Archivo de audio',
+    hint:'Nota opcional',
+    hintPh:'p. ej. voz masculina rasgada, guitarra de nylon, batería trap oscura',
+    focus:'¿Qué te importa más?',
+    focuses:[['balanced','Equilibrado'],['groove','Groove / tempo'],['energy','Energía'],['structure','Movimiento / estructura'],['production','Sensación de producción']],
+    analyze:'Analizar y crear prompt',
+    oneEmpty:'Aquí aparecerán el perfil detectado y un prompt listo para usar.',
+    buildTitle:'Convierte varias referencias en una dirección propia.',
+    buildText:'Usa 2–3 referencias. Rythero busca rasgos medibles compartidos y los convierte en una dirección reutilizable, sin copiar melodías, letras ni voces.',
+    refs:'Canciones de referencia (2–3)',
+    preserve:'Conservar estos rasgos',
+    traits:[['groove','Groove / tempo'],['energy','Energía'],['dynamics','Dinámica'],['movement','Movimiento entre secciones'],['texture','Textura / ataque rítmico']],
+    distance:'Distancia creativa',
+    near:'Conservar el núcleo común',
+    far:'Hacerlo más personal',
+    build:'Construir mi perfil sonoro',
+    buildEmpty:'Aquí aparecerá tu perfil Signature y se guardará solo en este navegador.',
+    compareTitle:'Comprueba el resultado frente a tu Signature guardado.',
+    compareText:'Sube un resultado nuevo. Rythero compara sus características generales con tu objetivo y te propone qué cambiar en el siguiente prompt.',
+    result:'Tu nuevo resultado',
+    compare:'Comparar dirección',
+    compareEmpty:'Primero crea un perfil Signature y después vuelve aquí con un resultado generado.',
+    privacyTitle:'Uso de referencias y privacidad',
+    privacy:'Usa audio que tengas derecho a analizar. Los archivos se decodifican y miden localmente en tu navegador y esta herramienta no los sube. Rythero extrae características generales del audio; no devuelve stems, letras, melodías, voces clonadas, identidades de artistas ni un “prompt original”. Los resultados son estimaciones y sirven como orientación creativa, no como una determinación de copyright u originalidad.',
+    copyPrompt:'Copiar prompt',
+    reset:'Reiniciar laboratorio'
+  },
+  'pt-br': {
+    eyebrow:'Rythero Signature Lab',
+    title:'Encontre o som que você realmente está procurando.',
+    intro:'Analise referências sem copiá-las. Transforme uma música em um prompt útil, combine até três referências para construir sua própria direção sonora e depois confira se o resultado foi na direção desejada.',
+    local:'ANÁLISE LOCAL · O ÁUDIO FICA NESTE DISPOSITIVO',
+    modes:['Música → Prompt','Construir meu som','Cheguei perto?'],
+    oneTitle:'Envie uma música. Receba um prompt musical útil.',
+    oneText:'O Rythero mede características gerais como andamento, energia, dinâmica, atividade rítmica e mudanças ao longo da faixa. Ele não tenta recuperar o prompt original.',
+    file:'Arquivo de áudio',
+    hint:'Nota opcional',
+    hintPh:'ex. voz masculina rouca, violão de nylon, bateria trap escura',
+    focus:'O que mais importa?',
+    focuses:[['balanced','Equilibrado'],['groove','Groove / andamento'],['energy','Energia'],['structure','Movimento / estrutura'],['production','Sensação de produção']],
+    analyze:'Analisar e criar prompt',
+    oneEmpty:'O perfil detectado e um prompt pronto para usar aparecerão aqui.',
+    buildTitle:'Transforme várias referências em uma direção própria.',
+    buildText:'Use 2–3 referências. O Rythero procura traços mensuráveis em comum e os transforma em uma direção reutilizável, sem copiar melodias, letras ou vozes.',
+    refs:'Músicas de referência (2–3)',
+    preserve:'Manter estes traços',
+    traits:[['groove','Groove / andamento'],['energy','Energia'],['dynamics','Dinâmica'],['movement','Movimento entre seções'],['texture','Textura / ataque rítmico']],
+    distance:'Distância criativa',
+    near:'Manter o núcleo em comum',
+    far:'Deixar mais pessoal',
+    build:'Construir meu perfil sonoro',
+    buildEmpty:'Seu perfil Signature aparecerá aqui e será salvo apenas neste navegador.',
+    compareTitle:'Compare o resultado com sua Signature salva.',
+    compareText:'Envie um resultado novo. O Rythero compara características gerais com seu alvo e sugere o que mudar no próximo prompt.',
+    result:'Seu novo resultado',
+    compare:'Comparar direção',
+    compareEmpty:'Crie primeiro um perfil Signature e depois volte aqui com um resultado gerado.',
+    privacyTitle:'Uso de referências e privacidade',
+    privacy:'Use áudio que você tem direito de analisar. Os arquivos são decodificados e medidos localmente no navegador e esta ferramenta não os envia. O Rythero extrai características gerais do áudio; não devolve stems, letras, melodias, vozes clonadas, identidades de artistas nem um “prompt original”. Os resultados são estimativas para orientação criativa, não uma determinação de copyright ou originalidade.',
+    copyPrompt:'Copiar prompt',
+    reset:'Reiniciar laboratório'
+  }
+}[locale];
+---
+<section class="shell sig-hero" data-signature-lab data-lang={locale}>
+  <div class="eyebrow">{copy.eyebrow}</div>
+  <h1>{copy.title}</h1>
+  <p>{copy.intro}</p>
+  <div class="sig-local">{copy.local}</div>
+
+  <nav class="sig-tabs" aria-label="Signature Lab">
+    {copy.modes.map((label, i) => <button type="button" class:list={{active:i===0}} data-sig-tab={['single','build','compare'][i]}>{label}</button>)}
+  </nav>
+
+  <section class="sig-panel active" data-sig-panel="single">
+    <div class="sig-head"><div><span>01</span><h2>{copy.oneTitle}</h2><p>{copy.oneText}</p></div></div>
+    <form id="sig-single-form" class="sig-form">
+      <label>{copy.file}<input id="sig-single-file" type="file" accept="audio/*" required /></label>
+      <label>{copy.focus}<select id="sig-single-focus">{copy.focuses.map(([value,label]) => <option value={value}>{label}</option>)}</select></label>
+      <label class="wide">{copy.hint}<input id="sig-single-hint" type="text" maxlength="180" placeholder={copy.hintPh} /></label>
+      <div class="wide sig-actions"><button class="pill primary" type="submit">{copy.analyze}</button><button class="pill" type="button" data-copy-output="sig-single-output">{copy.copyPrompt}</button></div>
+    </form>
+    <div class="sig-output" id="sig-single-output">{copy.oneEmpty}</div>
+  </section>
+
+  <section class="sig-panel" data-sig-panel="build" hidden>
+    <div class="sig-head"><div><span>02</span><h2>{copy.buildTitle}</h2><p>{copy.buildText}</p></div></div>
+    <form id="sig-build-form" class="sig-form">
+      <label class="wide">{copy.refs}<input id="sig-build-files" type="file" accept="audio/*" multiple required /><small>MP3, WAV, M4A, OGG · max. 3</small></label>
+      <fieldset class="wide sig-traits"><legend>{copy.preserve}</legend>{copy.traits.map(([value,label]) => <label><input type="checkbox" name="sig-trait" value={value} checked /> <span>{label}</span></label>)}</fieldset>
+      <label class="wide sig-range">{copy.distance}<input id="sig-distance" type="range" min="0" max="100" value="55" /><span><b>{copy.near}</b><b>{copy.far}</b></span></label>
+      <div class="wide sig-actions"><button class="pill primary" type="submit">{copy.build}</button><button class="pill" type="button" data-copy-output="sig-build-output">{copy.copyPrompt}</button></div>
+    </form>
+    <div class="sig-output" id="sig-build-output">{copy.buildEmpty}</div>
+  </section>
+
+  <section class="sig-panel" data-sig-panel="compare" hidden>
+    <div class="sig-head"><div><span>03</span><h2>{copy.compareTitle}</h2><p>{copy.compareText}</p></div></div>
+    <form id="sig-compare-form" class="sig-form one">
+      <label>{copy.result}<input id="sig-compare-file" type="file" accept="audio/*" required /></label>
+      <div class="sig-actions"><button class="pill primary" type="submit">{copy.compare}</button><button class="pill" type="button" data-copy-output="sig-compare-output">{copy.copyPrompt}</button></div>
+    </form>
+    <div class="sig-output" id="sig-compare-output">{copy.compareEmpty}</div>
+  </section>
+
+  <details class="sig-legal"><summary>{copy.privacyTitle}</summary><p>{copy.privacy}</p></details>
+  <button class="sig-reset" id="sig-reset" type="button">{copy.reset}</button>
+</section>
+
+<script is:inline src="/signature-lab.js"></script>
+<style>
+  .sig-hero{padding:68px 0 90px}.sig-hero>h1{font-size:clamp(3rem,7vw,6.4rem);line-height:.92;letter-spacing:-.055em;margin:13px 0 22px;max-width:1050px}.sig-hero>p{max-width:820px;color:var(--muted);font-size:1.08rem}.sig-local{display:inline-flex;margin-top:12px;border:1px solid #24402f;border-radius:999px;padding:7px 10px;color:#78a886;font-size:.66rem;font-weight:900;letter-spacing:.1em}.sig-tabs{display:flex;gap:8px;overflow-x:auto;margin:34px 0 10px;padding-bottom:4px;scrollbar-width:none}.sig-tabs button{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#09100c;color:#829087;padding:10px 14px;font-size:.78rem;font-weight:850;cursor:pointer}.sig-tabs button.active{background:var(--green);border-color:var(--green);color:#041108}.sig-panel{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,#09110c,#060a07);padding:26px}.sig-panel[hidden]{display:none}.sig-head{margin-bottom:24px}.sig-head span{font-size:.68rem;color:var(--green);font-weight:900;letter-spacing:.16em}.sig-head h2{font-size:clamp(1.65rem,3.2vw,2.8rem);line-height:1.02;letter-spacing:-.04em;margin:6px 0 10px}.sig-head p{max-width:780px;margin:0;color:#94a198}.sig-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.sig-form.one{grid-template-columns:1fr}.sig-form .wide{grid-column:1/-1}.sig-form label,.sig-traits{display:flex;flex-direction:column;gap:7px;color:#aeb9b2;font-size:.76rem;font-weight:800}.sig-form input[type="file"],.sig-form input[type="text"],.sig-form select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:13px;outline:none}.sig-form input:focus,.sig-form select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.sig-form small{color:#68766d;font-weight:500}.sig-traits{border:1px solid #1d3025;border-radius:15px;padding:14px;display:flex;flex-direction:row;gap:8px;flex-wrap:wrap}.sig-traits legend{padding:0 7px;color:#aeb9b2}.sig-traits label{display:inline-flex;flex-direction:row;align-items:center;border:1px solid #223429;border-radius:999px;padding:8px 10px;background:#0a120d;cursor:pointer}.sig-traits input{accent-color:#66ff8c}.sig-range>input{accent-color:#66ff8c}.sig-range>span{display:flex;justify-content:space-between;gap:15px;color:#66746b;font-size:.65rem}.sig-range b{font-weight:650}.sig-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:3px}.sig-output{margin-top:18px;border:1px solid #1d3025;border-radius:18px;background:#08100b;padding:18px;color:#cad5ce;font-size:.9rem;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;min-height:90px}.sig-output .sig-metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:15px;white-space:normal}.sig-output .sig-metric{border:1px solid #1b2d22;border-radius:12px;padding:10px;background:#0b140e}.sig-output .sig-metric small{display:block;color:#6f8175;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em}.sig-output .sig-metric b{display:block;margin-top:4px;color:#eef5f0}.sig-output .sig-prompt{border-top:1px solid #1b2d22;padding-top:13px;margin-top:13px}.sig-output .sig-note{color:#708078;font-size:.72rem;margin-top:11px}.sig-legal{margin:14px 2px 0;color:#65736a;font-size:.7rem}.sig-legal summary{cursor:pointer;color:#718079}.sig-legal p{max-width:900px;line-height:1.55}.sig-reset{appearance:none;border:0;background:none;color:#526158;font-size:.68rem;margin-top:12px;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}@media(max-width:760px){.sig-hero{padding-top:44px}.sig-panel{padding:18px;border-radius:21px}.sig-form{grid-template-columns:1fr}.sig-form .wide{grid-column:auto}.sig-output .sig-metrics{grid-template-columns:1fr 1fr}.sig-tabs{margin-top:26px}}
+</style>
