@@ -81,7 +81,7 @@ No sign-up and no API cost.
 - Genre, Mood, Vocal, Instrumentation, Production and Exclude use searchable multi-select controls.
 - Typing one or more letters filters suggestions immediately.
 - Each dropdown stays compact and shows no more than 8 suggestions at once.
-- `More ideas →` rotates through additional curated suggestions without making the dropdown taller.
+- `More ideas ↻` / localized equivalent rotates through additional curated blocks without making the dropdown taller; it remains open and cycles back after the final block.
 - Selected items become removable chips/tokens.
 - Free-text custom values remain allowed.
 - Enter selects the active/first match or adds a custom value; Backspace removes the last chip when the field is empty; Escape closes the list.
@@ -125,6 +125,15 @@ No sign-up and no API cost.
 - Keep Rythero visually distinct from almaerrantemusic.com.
 - Relationship strategy: Rythero may carry a discreet John Doe creator signature, but should not depend visibly on Alma Errante. Alma Errante can later send users to Rythero without making Rythero an Alma Errante sub-brand.
 
+## Open Graph / social sharing — implemented 2026-09-15
+- Shared 1200×630 JPEG asset: `/public/rythero-og.jpg`.
+- Base layout references the asset with `og:image`, secure URL, type, width, height and alt metadata.
+- X/Twitter uses `summary_large_image` plus `twitter:image` and alt metadata.
+- `max-image-preview:large` is enabled for search crawlers.
+- Shared `WebSite` JSON-LD includes Rythero name, URL, language, description and image.
+- The same visual is intentionally used across EN/ES/PT-BR for consistent brand recognition; page title/description/locale remain language-aware.
+- After Cloudflare deploys the commit, verify the live image URL and social-card rendering before active distribution.
+
 ## Monetization direction
 - Do not make Rythero dependent on Stripe.
 - Avoid informal arrangements where a friend merely lends an account, identity or payment processor.
@@ -148,13 +157,13 @@ No sign-up and no API cost.
 
 ## Tasks for next work session
 1. Verify the current multilingual deployment live after the shared Prompt Builder refactor: `/tools/prompt-builder`, `/es/tools/prompt-builder`, `/pt-br/tools/prompt-builder` on desktop and mobile.
-2. Test `More ideas`, mobile chip wrapping, category-badge spacing, ArrowUp/ArrowDown navigation, vocal suggestions, richer OUTPUT and the English-output compatibility note on ES/PT-BR.
-3. Speed up the footer green scan animation from the current slow behavior to roughly 4.5–5 seconds, with a slightly clearer fluorescent pass but no distracting flashing.
-4. Continue curating genre/style coverage based on real usage and current global music trends; keep useful/high-demand styles and remove noise.
-5. Improve Prompt Builder intelligence further: contextual compatibility hints, optional smart defaults, possible key/scale and tempo-range assistance, and later export targets such as Suno, Udio and Generic.
-6. Decide the next tool after Prompt Builder. Leading candidates: Song Blueprint and Style DNA.
-7. Add one concise Learn/Guide item only when it solves a real user problem; do not bulk-fill the site with articles.
-8. Add a strong Open Graph/social share image and verify Facebook/X/LinkedIn card rendering.
+2. Test `More ideas ↻`, mobile chip wrapping, category-badge spacing, ArrowUp/ArrowDown navigation, vocal suggestions, richer OUTPUT and the English-output compatibility note on ES/PT-BR.
+3. Verify `/rythero-og.jpg` loads publicly after deployment and test social sharing previews before launch.
+4. Speed up the footer green scan animation from the current slow behavior to roughly 4.5–5 seconds, with a slightly clearer fluorescent pass but no distracting flashing.
+5. Continue curating genre/style coverage based on real usage and current global music trends; keep useful/high-demand styles and remove noise.
+6. Improve Prompt Builder intelligence further: contextual compatibility hints, optional smart defaults, possible key/scale and tempo-range assistance, and later export targets such as Suno, Udio and Generic.
+7. Decide the next tool after Prompt Builder. Leading candidates: Song Blueprint and Style DNA.
+8. Add one concise Learn/Guide item only when it solves a real user problem; do not bulk-fill the site with articles.
 9. Audit SEO metadata, schema, sitemap coverage and internal linking, including multilingual hreflang behavior after deployment.
 10. Decide final GitHub/brand logo variants: app icon, favicon, horizontal wordmark, social avatar.
 11. Build a simple three-language Canva launch video and then define the first URL distribution plan by channel.
