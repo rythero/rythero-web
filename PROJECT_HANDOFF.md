@@ -16,6 +16,7 @@ Last updated: 2026-09-15
 - Competitive editorial/product thesis: **clarity + simplicity + completeness**. Rythero does not need to claim it is the most advanced platform; it should aim to make music-creation decisions easier to understand and sufficiently complete for a beginner to act immediately.
 - Avoid unverifiable superiority claims such as “the easiest site on the internet”. Prefer grounded language such as “built to make this simpler”, “simple, complete and practical”, and “enough to get you moving without learning the whole vocabulary first”.
 - Editorial governance: day-to-day topic selection, SEO intent, structure, internal linking and publication order should be handled proactively and consistently; the owner expects mainly to request small changes rather than redefine the editorial line article by article.
+- Public learning promise: a visitor should be able to **start from zero and leave knowing how to build a song**, without having to learn production jargon first.
 
 ## Technical stack
 - GitHub: `rythero/rythero-web`
@@ -37,6 +38,7 @@ Last updated: 2026-09-15
 - Portuguese (Brazil): `/pt-br/`
 - `html lang`, canonicals, `hreflang` (`en`, `es`, `pt-BR`, `x-default`) and Open Graph locale are language-aware.
 - Shared Base layout localizes navigation, footer and cookie consent.
+- Core school lessons are published completely in EN/ES/PT-BR, not as partial summaries.
 - Do not add more languages until analytics/search demand justifies it.
 
 ## Current public routes
@@ -136,11 +138,13 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 - Lesson 01 shared component: `src/components/AIMusicPromptsArticle.astro`.
 - Lesson 02 shared component: `src/components/AISongStructureArticle.astro`.
 - School landing pages exist in EN/ES/PT-BR.
+- School landing promise is now explicit: **start from zero, learn to build a song**.
+- All published lessons are visibly grouped under a localized “Published lessons / Lecciones publicadas / Aulas publicadas” section; future lessons are clearly separated.
 - Lesson 01 exists in EN/ES/PT-BR at `/learn/ai-music-prompts` and localized equivalents. It teaches a producer-style prompt framework around genre, mood/energy, tempo, voice, instrumentation, structure and production.
 - Lesson 02 exists in EN/ES/PT-BR at `/learn/ai-song-structure` and localized equivalents. It explains intro, verse, pre-chorus, chorus, hook, bridge/breakdown/drop, outro, 4/8/16-bar thinking, transitions, simple genre-specific maps and common flat-arrangement mistakes.
 - Lesson 02 uses a compact in-page arrangement-map visual instead of a decorative oversized image because the visual directly teaches the topic.
 - Lesson 02 links directly to Rythero Studio Arrangement Map and back to Lesson 01.
-- Creator School landing now surfaces Lesson 02 as a new live lesson rather than leaving it in the future list.
+- Creator School landing surfaces Lesson 02 as a new live lesson rather than leaving it in the future list.
 - Article JSON-LD is implemented with publication/update date, Rythero as organizational author/publisher and language-aware canonical URL.
 - Sitemap contains school landing pages and both live lessons in all three languages.
 - Do not mass-publish filler. Build topical authority with a small cluster of strong lessons that solve real creator problems.
@@ -150,12 +154,13 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 - Permanent editorial standard: explain specialist concepts in plain language first and introduce jargon second. Simplify the explanation, not the idea.
 - Every strong lesson should ideally combine a simple explanation + concrete musical example + relevant Rythero action/tool. This is a core product/content differentiator.
 
-## Homepage changes for Studio launch
-- Primary CTA now opens Rythero Studio in the matching language.
-- Secondary CTA opens the quick Prompt Builder.
-- Tools section now shows Rythero Studio, Prompt Builder and Audio Analyzer.
-- Homepage explicitly states that beginners do not need to know production jargon first.
-- Learn section now links into the AI Music Creator School.
+## Homepage changes for Studio / School launch
+- Primary CTA opens Rythero Studio in the matching language.
+- Secondary hero CTA now opens the localized Creator School (`Learn from zero` / `Aprende desde cero` / `Aprenda do zero`) so learning is visible immediately on desktop and mobile.
+- Prompt Builder remains easy to find in the Tools section rather than competing with School in the hero.
+- Tools section shows Rythero Studio, Prompt Builder and Audio Analyzer.
+- Homepage School section now states the concrete promise: start from zero and leave knowing how to build a song.
+- Homepage School copy explicitly says published lessons are gathered in one place and available in all three languages.
 - Guide cards explain idea → song-ready, identity without imitation, and prompt repair.
 
 ## Open Graph / social sharing
@@ -202,7 +207,7 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 9. Test Audio Analyzer with one MP3 and one WAV if available; compare estimated BPM with a known track and treat it as approximate.
 10. Re-test standalone Prompt Builder `More ideas ↻` and beginner mobile placeholders.
 11. Verify `/learn`, `/es/learn`, `/pt-br/learn` and both lesson families (`ai-music-prompts`, `ai-song-structure`) on desktop/mobile.
-12. Verify the home Learn links open the correct language school.
+12. Verify the home School CTAs open the correct language school.
 13. Verify `https://rythero.com/rythero-og.jpg`.
 14. In Google Search Console inspect `https://rythero.com/` and request indexing.
 15. After lessons are live, inspect the English lesson URLs and request indexing; optionally submit ES/PT counterparts after verification.
