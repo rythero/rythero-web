@@ -1,0 +1,104 @@
+(() => {
+  const root = document.querySelector('[data-signature-lab]');
+  if (!root) return;
+  const lang = root.getAttribute('data-lang') || 'en';
+  const t = {
+    en:{working:'Analyzing locally…',needFile:'Choose an audio file first.',needRefs:'Choose at least 2 reference tracks (maximum 3).',tooMany:'Only the first 3 files were analyzed.',decode:'This file could not be decoded by your browser.',copied:'Prompt copied.',noProfile:'Build your sound profile first.',metrics:['Tempo','Energy','Dynamics','Movement','Texture'],tempo:'BPM',energyLow:'Low',energyMid:'Medium',energyHigh:'High',dynTight:'Tight',dynMid:'Controlled',dynOpen:'Open',moveSteady:'Steady',moveMid:'Moderate',moveHigh:'Evolving',texWarm:'Warm / smooth',texBal:'Balanced',texCrisp:'Crisp / percussive',rhythmRelaxed:'relaxed rhythmic activity',rhythmMid:'moderate rhythmic activity',rhythmActive:'active rhythmic activity',lift:'First energy lift',none:'not clearly detected',detected:'DETECTED PROFILE',prompt:'GENERATOR-READY PROMPT',estimate:'Estimates from general audio characteristics. This is not the original prompt.',common:'SHARED SIGNATURE',refs:'references analyzed',saved:'Saved in this browser only.',direction:'DIRECTION CHECK',near:'Most measured traits are near your saved target.',mixed:'Some measured traits are near target and some moved away.',far:'The result moved away from several measured target traits.',revise:'NEXT-PROMPT ADJUSTMENTS',revised:'REVISED PROMPT',bpmUp:'Lower the tempo toward',bpmDown:'Raise the tempo toward',energyUp:'Reduce overall density/level and leave more breathing room.',energyDown:'Increase overall energy and rhythmic density.',dynUp:'Use more dynamic contrast and less constant compression.',dynDown:'Keep the dynamics tighter and more controlled.',moveUp:'Create stronger section contrast and more change over time.',moveDown:'Keep the arrangement steadier and less contrast-heavy.',textureWarm:'Use a warmer, smoother attack with fewer sharp high-frequency transients.',textureCrisp:'Use a crisper, more percussive attack and clearer transient detail.',aligned:'No major correction is suggested from the measured traits.'},
+    es:{working:'Analizando localmente…',needFile:'Elige primero un archivo de audio.',needRefs:'Elige al menos 2 canciones de referencia (máximo 3).',tooMany:'Solo se han analizado los primeros 3 archivos.',decode:'El navegador no ha podido decodificar este archivo.',copied:'Prompt copiado.',noProfile:'Primero construye tu perfil sonoro.',metrics:['Tempo','Energía','Dinámica','Movimiento','Textura'],tempo:'BPM',energyLow:'Baja',energyMid:'Media',energyHigh:'Alta',dynTight:'Apretada',dynMid:'Controlada',dynOpen:'Abierta',moveSteady:'Estable',moveMid:'Moderado',moveHigh:'Evolutivo',texWarm:'Cálida / suave',texBal:'Equilibrada',texCrisp:'Nítida / percusiva',rhythmRelaxed:'actividad rítmica relajada',rhythmMid:'actividad rítmica moderada',rhythmActive:'actividad rítmica alta',lift:'Primer aumento de energía',none:'no detectado con claridad',detected:'PERFIL DETECTADO',prompt:'PROMPT LISTO PARA GENERADOR',estimate:'Estimaciones a partir de características generales del audio. No es el prompt original.',common:'SIGNATURE COMPARTIDA',refs:'referencias analizadas',saved:'Guardado solo en este navegador.',direction:'COMPROBACIÓN DE DIRECCIÓN',near:'La mayoría de rasgos medidos están cerca del objetivo guardado.',mixed:'Algunos rasgos medidos están cerca del objetivo y otros se han alejado.',far:'El resultado se ha alejado de varios rasgos medidos del objetivo.',revise:'AJUSTES PARA EL SIGUIENTE PROMPT',revised:'PROMPT CORREGIDO',bpmUp:'Baja el tempo hacia',bpmDown:'Sube el tempo hacia',energyUp:'Reduce la densidad/nivel general y deja más espacio para respirar.',energyDown:'Aumenta la energía general y la densidad rítmica.',dynUp:'Pide más contraste dinámico y menos compresión constante.',dynDown:'Mantén la dinámica más apretada y controlada.',moveUp:'Crea más contraste entre secciones y más evolución.',moveDown:'Mantén el arreglo más estable y con menos contrastes fuertes.',textureWarm:'Busca un ataque más cálido y suave, con menos transitorios agudos.',textureCrisp:'Busca un ataque más nítido y percusivo, con transitorios más claros.',aligned:'No se sugieren correcciones importantes según los rasgos medidos.'},
+    'pt-br':{working:'Analisando localmente…',needFile:'Escolha primeiro um arquivo de áudio.',needRefs:'Escolha pelo menos 2 músicas de referência (máximo 3).',tooMany:'Somente os primeiros 3 arquivos foram analisados.',decode:'O navegador não conseguiu decodificar este arquivo.',copied:'Prompt copiado.',noProfile:'Construa primeiro seu perfil sonoro.',metrics:['Andamento','Energia','Dinâmica','Movimento','Textura'],tempo:'BPM',energyLow:'Baixa',energyMid:'Média',energyHigh:'Alta',dynTight:'Apertada',dynMid:'Controlada',dynOpen:'Aberta',moveSteady:'Estável',moveMid:'Moderado',moveHigh:'Evolutivo',texWarm:'Quente / suave',texBal:'Equilibrada',texCrisp:'Nítida / percussiva',rhythmRelaxed:'atividade rítmica relaxada',rhythmMid:'atividade rítmica moderada',rhythmActive:'atividade rítmica alta',lift:'Primeiro aumento de energia',none:'não detectado com clareza',detected:'PERFIL DETECTADO',prompt:'PROMPT PRONTO PARA GERADOR',estimate:'Estimativas a partir de características gerais do áudio. Não é o prompt original.',common:'SIGNATURE COMPARTILHADA',refs:'referências analisadas',saved:'Salvo apenas neste navegador.',direction:'VERIFICAÇÃO DE DIREÇÃO',near:'A maioria dos traços medidos está perto do alvo salvo.',mixed:'Alguns traços medidos estão perto do alvo e outros se afastaram.',far:'O resultado se afastou de vários traços medidos do alvo.',revise:'AJUSTES PARA O PRÓXIMO PROMPT',revised:'PROMPT CORRIGIDO',bpmUp:'Reduza o andamento para perto de',bpmDown:'Aumente o andamento para perto de',energyUp:'Reduza a densidade/nível geral e deixe mais espaço para respirar.',energyDown:'Aumente a energia geral e a densidade rítmica.',dynUp:'Peça mais contraste dinâmico e menos compressão constante.',dynDown:'Mantenha a dinâmica mais apertada e controlada.',moveUp:'Crie mais contraste entre seções e mais evolução.',moveDown:'Mantenha o arranjo mais estável e com menos contrastes fortes.',textureWarm:'Busque um ataque mais quente e suave, com menos transientes agudos.',textureCrisp:'Busque um ataque mais nítido e percussivo, com transientes mais claros.',aligned:'Nenhuma correção importante é sugerida pelos traços medidos.'}
+  }[lang];
+
+  const $ = (s, r=root) => r.querySelector(s);
+  const $$ = (s, r=root) => Array.from(r.querySelectorAll(s));
+  const clamp = (n,a,b) => Math.min(b,Math.max(a,n));
+  const mean = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
+  const std = arr => { const m=mean(arr); return Math.sqrt(mean(arr.map(v=>(v-m)*(v-m)))); };
+  const percentile = (values,p) => { if (!values.length) return 0; const sorted=[...values].sort((a,b)=>a-b); return sorted[Math.min(sorted.length-1,Math.max(0,Math.round((sorted.length-1)*p)))]; };
+  const db = v => v>0 ? 20*Math.log10(v) : -120;
+  const fmtTime = sec => `${Math.floor(sec/60)}:${String(Math.round(sec%60)).padStart(2,'0')}`;
+  const clean = v => String(v||'').trim().replace(/\s+/g,' ');
+
+  const tabs=$$('[data-sig-tab]'), panels=$$('[data-sig-panel]');
+  const openTab = id => { tabs.forEach(b=>b.classList.toggle('active',b.dataset.sigTab===id)); panels.forEach(p=>{const on=p.dataset.sigPanel===id;p.hidden=!on;p.classList.toggle('active',on);}); };
+  tabs.forEach(b=>b.addEventListener('click',()=>openTab(b.dataset.sigTab)));
+
+  let audioContext;
+  const getCtx = () => audioContext || (audioContext = new (window.AudioContext || window.webkitAudioContext)());
+  const monoFromBuffer = buffer => {
+    const limit=Math.min(buffer.length,Math.round(buffer.sampleRate*180));
+    const mono=new Float32Array(limit); const channels=buffer.numberOfChannels;
+    for(let c=0;c<channels;c++){const data=buffer.getChannelData(c);for(let i=0;i<limit;i++)mono[i]+=data[i]/channels;}
+    return mono;
+  };
+  const estimateTempo = (samples,sr) => {
+    const maxSeconds=Math.min(120,samples.length/sr), step=Math.max(1,Math.round(sr/50)), points=Math.floor(maxSeconds*sr/step); if(points<100)return null;
+    const env=new Float32Array(points); for(let p=0;p<points;p++){const start=p*step,end=Math.min(samples.length,start+step);let sum=0;for(let i=start;i<end;i++)sum+=Math.abs(samples[i]);env[p]=sum/Math.max(1,end-start);}
+    const onset=new Float32Array(points); let m=0; for(let i=1;i<points;i++){onset[i]=Math.max(0,env[i]-env[i-1]);m+=onset[i];} m/=Math.max(1,points-1); for(let i=0;i<points;i++)onset[i]=Math.max(0,onset[i]-m*.5);
+    let best=0,bestScore=-Infinity; for(let bpm=70;bpm<=180;bpm++){const lag=Math.floor(50*60/bpm);let score=0;for(let i=lag+1;i<points;i++)score+=onset[i]*onset[i-lag];if(score>bestScore){bestScore=score;best=bpm;}}
+    if(!best)return null; while(best<80)best*=2; while(best>160)best/=2; return Math.round(best);
+  };
+  const analyzeFile = async file => {
+    try{
+      const buffer=await getCtx().decodeAudioData((await file.arrayBuffer()).slice(0)); const samples=monoFromBuffer(buffer); const sr=buffer.sampleRate;
+      let sumSq=0,peak=0,crossings=0; const stride=Math.max(1,Math.floor(samples.length/1500000)); let prev=samples[0]||0, counted=0;
+      for(let i=0;i<samples.length;i+=stride){const v=samples[i],a=Math.abs(v);sumSq+=v*v;if(a>peak)peak=a;if((v>=0)!=(prev>=0))crossings++;prev=v;counted++;}
+      const rms=Math.sqrt(sumSq/Math.max(1,counted)), rmsDb=db(rms), zcr=crossings/Math.max(1,counted);
+      const blockSize=Math.max(512,Math.round(sr*.06)); const blockDb=[]; for(let start=0;start<samples.length;start+=blockSize){const end=Math.min(samples.length,start+blockSize);let ss=0,n=0;for(let i=start;i<end;i+=stride){ss+=samples[i]*samples[i];n++;}blockDb.push(db(Math.sqrt(ss/Math.max(1,n))));}
+      const dynamics=Math.max(0,percentile(blockDb,.9)-percentile(blockDb,.1));
+      const segments=[]; const segCount=12, segSize=Math.max(1,Math.floor(samples.length/segCount)); for(let s=0;s<segCount;s++){let ss=0,n=0;const start=s*segSize,end=s===segCount-1?samples.length:Math.min(samples.length,start+segSize);for(let i=start;i<end;i+=stride){ss+=samples[i]*samples[i];n++;}segments.push(db(Math.sqrt(ss/Math.max(1,n))));}
+      const movement=std(segments); const baseline=mean(segments.slice(0,2)); let lift=null; for(let i=2;i<segments.length;i++){if(segments[i]>baseline+2.2){lift=(i/segCount)*(samples.length/sr);break;}}
+      const envStep=Math.max(1,Math.round(sr*.025)), env=[]; for(let start=0;start<samples.length;start+=envStep){const end=Math.min(samples.length,start+envStep);let a=0;for(let i=start;i<end;i+=stride)a+=Math.abs(samples[i]);env.push(a/Math.max(1,Math.ceil((end-start)/stride)));}
+      const dif=[]; for(let i=1;i<env.length;i++)dif.push(Math.max(0,env[i]-env[i-1])); const threshold=mean(dif)+std(dif)*.8; let onsets=0; for(let i=1;i<dif.length-1;i++)if(dif[i]>threshold&&dif[i]>=dif[i-1]&&dif[i]>=dif[i+1])onsets++; const onsetRate=onsets/Math.max(1,samples.length/sr);
+      return {name:file.name,duration:buffer.duration,bpm:estimateTempo(samples,sr),rmsDb,dynamics,movement,zcr,onsetRate,lift,peakDb:db(peak)};
+    }catch(e){throw new Error(t.decode);}
+  };
+
+  const energyLabel = m => m.rmsDb < -22 ? t.energyLow : m.rmsDb < -15 ? t.energyMid : t.energyHigh;
+  const dynLabel = m => m.dynamics < 5 ? t.dynTight : m.dynamics < 10 ? t.dynMid : t.dynOpen;
+  const moveLabel = m => m.movement < 2 ? t.moveSteady : m.movement < 4 ? t.moveMid : t.moveHigh;
+  const textureLabel = m => m.zcr < .055 ? t.texWarm : m.zcr < .115 ? t.texBal : t.texCrisp;
+  const rhythmLabel = m => m.onsetRate < 2.2 ? t.rhythmRelaxed : m.onsetRate < 4.2 ? t.rhythmMid : t.rhythmActive;
+  const render = (el, metrics, heading, prompt, note='') => {
+    el.replaceChildren(); const h=document.createElement('strong');h.textContent=heading;el.appendChild(h);
+    const grid=document.createElement('div');grid.className='sig-metrics';
+    const values=[metrics.bpm?`${metrics.bpm} BPM`:'—',energyLabel(metrics),dynLabel(metrics),moveLabel(metrics),textureLabel(metrics)];
+    t.metrics.forEach((label,i)=>{const card=document.createElement('div');card.className='sig-metric';const s=document.createElement('small');s.textContent=label;const b=document.createElement('b');b.textContent=values[i];card.append(s,b);grid.appendChild(card);}); el.appendChild(grid);
+    const details=document.createElement('div');details.textContent=`${t.lift}: ${metrics.lift==null?t.none:fmtTime(metrics.lift)} · ${rhythmLabel(metrics)}`;el.appendChild(details);
+    const p=document.createElement('div');p.className='sig-prompt';const ph=document.createElement('strong');ph.textContent=t.prompt;const body=document.createElement('div');body.textContent=prompt;body.style.marginTop='6px';p.append(ph,body);el.appendChild(p);
+    if(note){const n=document.createElement('div');n.className='sig-note';n.textContent=note;el.appendChild(n);} el.dataset.prompt=prompt;
+  };
+  const promptFrom = (m, focus='balanced', hint='', traits=null, distance=55) => {
+    const bpm=m.bpm?`around ${m.bpm} BPM`:'a natural tempo that fits the groove'; const energy=energyLabel(m)===t.energyLow?'low, restrained energy':energyLabel(m)===t.energyHigh?'high, forward energy':'medium, controlled energy'; const dynamics=dynLabel(m)===t.dynOpen?'open dynamics with clear breathing room':dynLabel(m)===t.dynTight?'tight, controlled dynamics':'moderately controlled dynamics'; const movement=moveLabel(m)===t.moveHigh?'an evolving arrangement with strong section contrast':moveLabel(m)===t.moveSteady?'a steady, hypnotic arrangement with subtle development':'moderate section contrast and purposeful development'; const texture=textureLabel(m)===t.texWarm?'a warm, smooth transient character':textureLabel(m)===t.texCrisp?'a crisp, percussive transient character':'a balanced transient character'; const rhythm=rhythmLabel(m);
+    const parts=[]; const use = key => !traits || traits.includes(key);
+    if(use('groove'))parts.push(`${bpm}, ${rhythm}`); if(use('energy'))parts.push(energy); if(use('dynamics'))parts.push(dynamics); if(use('movement'))parts.push(movement); if(use('texture'))parts.push(texture);
+    if(focus==='groove')parts.unshift('prioritize groove and tempo consistency'); if(focus==='energy')parts.unshift('prioritize the energy contour'); if(focus==='structure')parts.unshift('prioritize sectional movement and contrast'); if(focus==='production')parts.unshift('prioritize dynamics, transient feel and production space');
+    if(hint)parts.push(`creator note: ${clean(hint)}`);
+    if(traits){ if(distance<=35)parts.push('preserve the shared rhythmic and dynamic core closely while writing completely new musical material'); else if(distance>=70)parts.push('use the shared traits only as a broad compass and deliberately vary the arrangement, harmonic movement and sound palette'); else parts.push('keep the shared groove/energy core while changing melodic contour, arrangement details and sound palette'); }
+    return `Original music direction: ${parts.join(', ')}. Build a distinct melody, harmony, lyrics and vocal identity. Avoid direct artist imitation, cloned voices, copied hooks, recognizable melodic phrases or recreated recordings.`;
+  };
+
+  const averageMetrics = items => {
+    const av=k=>mean(items.map(x=>x[k]).filter(Number.isFinite)); const bpms=items.map(x=>x.bpm).filter(Number.isFinite); return {bpm:bpms.length?Math.round(mean(bpms)):null,rmsDb:av('rmsDb'),dynamics:av('dynamics'),movement:av('movement'),zcr:av('zcr'),onsetRate:av('onsetRate'),lift:av('lift'),duration:av('duration'),bpmMin:bpms.length?Math.min(...bpms):null,bpmMax:bpms.length?Math.max(...bpms):null};
+  };
+
+  const singleForm=$('#sig-single-form'), singleOut=$('#sig-single-output');
+  singleForm?.addEventListener('submit',async e=>{e.preventDefault();const file=$('#sig-single-file')?.files?.[0];if(!file){singleOut.textContent=t.needFile;return;}singleOut.textContent=t.working;try{const m=await analyzeFile(file);const prompt=promptFrom(m,$('#sig-single-focus')?.value||'balanced',$('#sig-single-hint')?.value||'');render(singleOut,m,t.detected,prompt,t.estimate);}catch(err){singleOut.textContent=err.message||t.decode;}});
+
+  const buildForm=$('#sig-build-form'), buildOut=$('#sig-build-output');
+  buildForm?.addEventListener('submit',async e=>{e.preventDefault();const chosen=Array.from($('#sig-build-files')?.files||[]);if(chosen.length<2){buildOut.textContent=t.needRefs;return;}const files=chosen.slice(0,3);buildOut.textContent=t.working;try{const items=[];for(const file of files)items.push(await analyzeFile(file));const metrics=averageMetrics(items);const traits=$$('input[name="sig-trait"]:checked').map(x=>x.value);const distance=Number($('#sig-distance')?.value||55);const prompt=promptFrom(metrics,'balanced','',traits,distance);const profile={metrics,traits,distance,prompt,createdAt:new Date().toISOString()};try{localStorage.setItem('rythero-signature-v1',JSON.stringify(profile));}catch{}const range=metrics.bpmMin&&metrics.bpmMax?` · BPM ${metrics.bpmMin===metrics.bpmMax?metrics.bpmMin:`${metrics.bpmMin}–${metrics.bpmMax}`}`:'';render(buildOut,metrics,`${t.common} · ${items.length} ${t.refs}${range}`,prompt,`${chosen.length>3?t.tooMany+' ':''}${t.saved}`);}catch(err){buildOut.textContent=err.message||t.decode;}});
+
+  const compareForm=$('#sig-compare-form'), compareOut=$('#sig-compare-output');
+  compareForm?.addEventListener('submit',async e=>{e.preventDefault();let profile=null;try{profile=JSON.parse(localStorage.getItem('rythero-signature-v1')||'null');}catch{}if(!profile?.metrics){compareOut.textContent=t.noProfile;return;}const file=$('#sig-compare-file')?.files?.[0];if(!file){compareOut.textContent=t.needFile;return;}compareOut.textContent=t.working;try{const m=await analyzeFile(file),target=profile.metrics,suggestions=[];let near=0,total=0;
+    const check=(ok)=>{total++;if(ok)near++;};
+    if(target.bpm&&m.bpm){const diff=m.bpm-target.bpm;check(Math.abs(diff)<=6);if(diff>6)suggestions.push(`${t.bpmUp} ${Math.round(target.bpm)} BPM.`);else if(diff<-6)suggestions.push(`${t.bpmDown} ${Math.round(target.bpm)} BPM.`);} 
+    const ed=m.rmsDb-target.rmsDb;check(Math.abs(ed)<=3);if(ed>3)suggestions.push(t.energyUp);else if(ed<-3)suggestions.push(t.energyDown);
+    const dd=m.dynamics-target.dynamics;check(Math.abs(dd)<=3);if(dd<-3)suggestions.push(t.dynUp);else if(dd>3)suggestions.push(t.dynDown);
+    const md=m.movement-target.movement;check(Math.abs(md)<=1.5);if(md<-1.5)suggestions.push(t.moveUp);else if(md>1.5)suggestions.push(t.moveDown);
+    const zd=m.zcr-target.zcr;check(Math.abs(zd)<=.035);if(zd>.035)suggestions.push(t.textureWarm);else if(zd<-.035)suggestions.push(t.textureCrisp);
+    if(!suggestions.length)suggestions.push(t.aligned); const ratio=near/Math.max(1,total), summary=ratio>=.75?t.near:ratio>=.4?t.mixed:t.far; const revised=`${profile.prompt} ${suggestions.join(' ')}`;
+    compareOut.replaceChildren();const h=document.createElement('strong');h.textContent=t.direction;const s=document.createElement('div');s.textContent=summary;s.style.margin='7px 0 14px';compareOut.append(h,s);const grid=document.createElement('div');grid.className='sig-metrics';const vals=[m.bpm?`${m.bpm} BPM`:'—',energyLabel(m),dynLabel(m),moveLabel(m),textureLabel(m)];t.metrics.forEach((label,i)=>{const card=document.createElement('div');card.className='sig-metric';const sm=document.createElement('small');sm.textContent=label;const b=document.createElement('b');b.textContent=vals[i];card.append(sm,b);grid.appendChild(card);});compareOut.appendChild(grid);const sh=document.createElement('strong');sh.textContent=t.revise;const list=document.createElement('ul');list.style.margin='8px 0 16px 18px';suggestions.forEach(x=>{const li=document.createElement('li');li.textContent=x;list.appendChild(li);});const rp=document.createElement('div');rp.className='sig-prompt';const rh=document.createElement('strong');rh.textContent=t.revised;const rb=document.createElement('div');rb.textContent=revised;rb.style.marginTop='6px';rp.append(rh,rb);compareOut.append(sh,list,rp);compareOut.dataset.prompt=revised;
+    }catch(err){compareOut.textContent=err.message||t.decode;}});
+
+  $$('[data-copy-output]').forEach(button=>button.addEventListener('click',async()=>{const out=document.getElementById(button.dataset.copyOutput);const text=out?.dataset.prompt||'';if(!text)return;try{await navigator.clipboard.writeText(text);const old=button.textContent;button.textContent=`✓ ${t.copied}`;setTimeout(()=>button.textContent=old,1000);}catch{}}));
+  $('#sig-reset')?.addEventListener('click',()=>{try{localStorage.removeItem('rythero-signature-v1');}catch{}singleForm?.reset();buildForm?.reset();compareForm?.reset();location.reload();});
+})();
