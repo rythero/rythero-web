@@ -1,0 +1,136 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = lang === 'es' ? 'es' : lang === 'pt-br' ? 'pt-br' : 'en';
+const isEs = locale === 'es';
+const isPt = locale === 'pt-br';
+
+const title = isEs ? 'De una idea a una canción lista para crear.' : isPt ? 'Da ideia a um plano pronto para criar.' : 'From idea to song-ready.';
+const intro = isEs ? 'Siete herramientas en un solo espacio. Construye el concepto, repara prompts, define tu sonido, organiza la canción, planifica la letra, exporta y analiza audio — sin registro.' : isPt ? 'Sete ferramentas em um único espaço. Estruture o conceito, corrija prompts, defina seu som, organize a música, planeje a letra, exporte e analise áudio — sem cadastro.' : 'Seven focused tools in one workspace. Build the concept, repair weak prompts, define your sound, map the arrangement, plan lyrics, export cleanly and inspect audio — without an account.';
+const tabs = isEs ? ['Song Blueprint','Prompt Doctor','Style DNA','Arreglo','Lyrics Blueprint','Exportar','Audio Analyzer'] : isPt ? ['Song Blueprint','Prompt Doctor','Style DNA','Arranjo','Lyrics Blueprint','Exportar','Audio Analyzer'] : ['Song Blueprint','Prompt Doctor','Style DNA','Arrangement','Lyrics Blueprint','Export','Audio Analyzer'];
+const tabIds = ['blueprint','doctor','dna','arrangement','lyrics','export','audio'];
+const moods = ['Dark','Melancholic','Hopeful','Euphoric','Intimate','Defiant','Dreamy','Romantic','Nocturnal','Uplifting'];
+const energy = ['Low','Medium','High','Dynamic / evolving'];
+const vocal = ['Male vocal','Female vocal','Androgynous vocal','Duet','Rap vocal','Instrumental / no lead vocal'];
+const durations = ['2:30','3:00','3:30','4:00'];
+const languages = ['English','Spanish','Portuguese','Instrumental'];
+const grooves = ['Straight','Swung','Syncopated','Rolling','Broken','Half-time','Four-on-the-floor'];
+const textures = ['Clean','Warm','Raw','Airy','Dark','Organic','Glossy','Lo-fi'];
+const eras = ['Modern','Retro-modern','90s-informed','2000s-informed','Timeless','Futuristic'];
+const harmony = ['Minor tension','Major lift','Modal / ambiguous','Soulful extensions','Minimal harmony','Cinematic movement'];
+const voices = ['Intimate','Raspy','Soulful','Airy','Powerful','Gritty','Clean','Processed'];
+const spaces = ['Dry / close','Small room','Wide stereo','Deep atmospheric','Club-focused','Cinematic'];
+const shapes = ['Hook-first','Pop build','Rap / verse-led','Club / drop-led','Slow burn'];
+const pov = ['First person','Second person','Third person / story'];
+const arcs = ['Tension → release','Loss → acceptance','Doubt → confidence','Distance → intimacy','Calm → explosive','Steady / hypnotic'];
+const rhyme = ['Light','Balanced','Dense'];
+
+const txt = (en, es, pt) => isEs ? es : isPt ? pt : en;
+---
+<section class="shell studio-hero">
+  <div class="eyebrow">Rythero Studio</div>
+  <h1>{title}</h1>
+  <p>{intro}</p>
+  {locale !== 'en' && <p class="studio-note">{txt('Final generator prompts stay in English for portability.','Los prompts finales para generadores se mantienen en inglés para mayor compatibilidad.','Os prompts finais para geradores permanecem em inglês para maior compatibilidade.')}</p>}
+</section>
+
+<section class="shell studio">
+  <nav class="studio-tabs" aria-label="Rythero Studio">
+    {tabs.map((label, i) => <button type="button" class:list={{active:i===0}} data-studio-tab={tabIds[i]}>{label}</button>)}
+  </nav>
+
+  <div class="studio-panel active" data-studio-panel="blueprint">
+    <div class="panel-head"><div><span>01 · SONG BLUEPRINT</span><h2>{txt('Turn a rough idea into a complete production brief.','Convierte una idea simple en un plan completo de producción.','Transforme uma ideia simples em um plano completo de produção.')}</h2></div><div class="step-chip">1 → 7</div></div>
+    <form id="blueprint-form" class="studio-form">
+      <label class="wide">{txt('What is the song about?','¿De qué trata la canción?','Sobre o que é a música?')}<textarea name="idea" rows="3" placeholder={txt('e.g. Missing someone but refusing to go back','p. ej. echar de menos a alguien pero negarse a volver','ex. sentir falta de alguém mas não querer voltar')}></textarea></label>
+      <label>{txt('Style / genre','Estilo / género','Estilo / gênero')}<input name="style" placeholder="Afro house, alt-R&B" /></label>
+      <label>{txt('Mood','Estado de ánimo','Clima')}<select name="mood">{moods.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Energy','Energía','Energia')}<select name="energy">{energy.map(x => <option selected={x==='Medium'}>{x}</option>)}</select></label>
+      <label>{txt('Lead vocal','Voz principal','Voz principal')}<select name="vocal">{vocal.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Target length','Duración objetivo','Duração alvo')}<select name="duration">{durations.map(x => <option selected={x==='3:00'}>{x}</option>)}</select></label>
+      <label>{txt('Lyrics language','Idioma de la letra','Idioma da letra')}<select name="language">{languages.map(x => <option>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{txt('Build blueprint','Crear blueprint','Criar blueprint')}</button><button class="pill" id="blueprint-to-export" type="button">{txt('Use in Export','Usar en Exportar','Usar em Exportar')}</button></div>
+    </form>
+    <div class="studio-output" id="blueprint-output">{txt('Your blueprint will appear here.','Aquí aparecerá tu blueprint.','Seu blueprint aparecerá aqui.')}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="doctor" hidden>
+    <div class="panel-head"><div><span>02 · PROMPT DOCTOR</span><h2>{txt('Find weak, vague or contradictory instructions.','Detecta instrucciones débiles, vagas o contradictorias.','Encontre instruções fracas, vagas ou contraditórias.')}</h2></div></div>
+    <form id="doctor-form" class="studio-form one">
+      <label>{txt('Paste a music prompt','Pega un prompt musical','Cole um prompt musical')}<textarea name="prompt" rows="8" placeholder={txt('Paste any prompt here…','Pega aquí cualquier prompt…','Cole qualquer prompt aqui…')}></textarea></label>
+      <div class="studio-actions"><button class="pill primary" type="submit">{txt('Inspect & repair','Revisar y reparar','Revisar e corrigir')}</button></div>
+    </form>
+    <div class="studio-output" id="doctor-output">{txt('Issues and a cleaner version will appear here.','Aquí aparecerán los problemas detectados y una versión más limpia.','Os problemas encontrados e uma versão mais limpa aparecerão aqui.')}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="dna" hidden>
+    <div class="panel-head"><div><span>03 · STYLE DNA</span><h2>{txt('Define a reusable sound identity without copying artists.','Define una identidad sonora reutilizable sin copiar artistas.','Defina uma identidade sonora reutilizável sem copiar artistas.')}</h2></div></div>
+    <form id="dna-form" class="studio-form">
+      <label class="wide">{txt('DNA name','Nombre del ADN','Nome do DNA')}<input name="name" placeholder="Night Drive 01" /></label>
+      <label>Groove<select name="groove">{grooves.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Texture','Textura','Textura')}<select name="texture">{textures.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Era / finish','Época / acabado','Época / acabamento')}<select name="era">{eras.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Harmony','Armonía','Harmonia')}<select name="harmony">{harmony.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Voice character','Carácter de voz','Caráter vocal')}<select name="voice">{voices.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Space','Espacio','Espaço')}<select name="space">{spaces.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Energy','Energía','Energia')}<select name="energy">{energy.map(x => <option selected={x==='Medium'}>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{txt('Build DNA','Crear ADN','Criar DNA')}</button><button class="pill" id="dna-save" type="button">{txt('Save DNA','Guardar ADN','Salvar DNA')}</button></div>
+    </form>
+    <div class="studio-output" id="dna-output">{txt('Your Style DNA will appear here.','Aquí aparecerá tu Style DNA.','Seu Style DNA aparecerá aqui.')}</div>
+    <div class="saved-dna"><span>{txt('Saved DNA','ADN guardados','DNA salvos')}</span><div id="dna-saved-list"></div></div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="arrangement" hidden>
+    <div class="panel-head"><div><span>04 · {txt('ARRANGEMENT MAP','MAPA DE ARREGLO','MAPA DE ARRANJO')}</span><h2>{txt('See where each section should happen before generating.','Visualiza dónde debe ocurrir cada sección antes de generar.','Veja onde cada seção deve acontecer antes de gerar.')}</h2></div></div>
+    <form id="arrangement-form" class="studio-form">
+      <label>{txt('Song length','Duración','Duração')}<select name="duration">{durations.map(x => <option selected={x==='3:00'}>{x}</option>)}</select></label>
+      <label>{txt('Structure','Estructura','Estrutura')}<select name="shape">{shapes.map(x => <option>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{txt('Build timeline','Crear línea de tiempo','Criar linha do tempo')}</button></div>
+    </form>
+    <div class="timeline" id="arrangement-timeline"></div>
+    <div class="studio-output" id="arrangement-output">{txt('Your timeline will appear here.','Aquí aparecerá tu línea de tiempo.','Sua linha do tempo aparecerá aqui.')}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="lyrics" hidden>
+    <div class="panel-head"><div><span>05 · LYRICS BLUEPRINT</span><h2>{txt('Plan the story, hook and section jobs before writing lines.','Planifica la historia, el gancho y la función de cada sección antes de escribir.','Planeje a história, o gancho e a função de cada seção antes de escrever.')}</h2></div></div>
+    <form id="lyrics-form" class="studio-form">
+      <label class="wide">{txt('Core theme','Tema central','Tema central')}<input name="theme" placeholder={txt('e.g. starting over after a hard year','p. ej. empezar de nuevo después de un año difícil','ex. recomeçar depois de um ano difícil')} /></label>
+      <label class="wide">{txt('Concrete detail / image','Detalle concreto / imagen','Detalhe concreto / imagem')}<input name="detail" placeholder={txt('e.g. an unopened suitcase by the door','p. ej. una maleta sin abrir junto a la puerta','ex. uma mala fechada ao lado da porta')} /></label>
+      <label>{txt('Point of view','Punto de vista','Ponto de vista')}<select name="pov">{pov.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Emotional arc','Arco emocional','Arco emocional')}<select name="arc">{arcs.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Rhyme density','Cantidad de rima','Quantidade de rima')}<select name="rhyme">{rhyme.map(x => <option>{x}</option>)}</select></label>
+      <label>{txt('Lyrics language','Idioma de la letra','Idioma da letra')}<select name="language">{languages.filter(x => x !== 'Instrumental').map(x => <option>{x}</option>)}</select></label>
+      <label class="wide">{txt('Structure','Estructura','Estrutura')}<select name="shape">{shapes.map(x => <option>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{txt('Build lyrics plan','Crear plan de letra','Criar plano de letra')}</button></div>
+    </form>
+    <div class="studio-output" id="lyrics-output">{txt('Your writing plan will appear here.','Aquí aparecerá tu plan de escritura.','Seu plano de escrita aparecerá aqui.')}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="export" hidden>
+    <div class="panel-head"><div><span>06 · {txt('EXPORT','EXPORTAR','EXPORTAR')}</span><h2>{txt('Adapt one idea to the tool you are about to use.','Adapta una misma idea a la herramienta que vayas a usar.','Adapte a mesma ideia à ferramenta que você vai usar.')}</h2></div></div>
+    <form id="export-form" class="studio-form one">
+      <label>{txt('Prompt / blueprint text','Prompt / texto del blueprint','Prompt / texto do blueprint')}<textarea name="source" rows="9" placeholder={txt('Paste text here, or use your latest Song Blueprint.','Pega aquí el texto o usa tu último Song Blueprint.','Cole o texto aqui ou use seu último Song Blueprint.')}></textarea></label>
+      <label>{txt('Target','Destino','Destino')}<select name="target"><option>Generic</option><option>Suno</option><option>Udio</option></select></label>
+      <div class="studio-actions"><button class="pill" id="export-latest" type="button">{txt('Use latest Blueprint','Usar último Blueprint','Usar último Blueprint')}</button><button class="pill primary" type="submit">{txt('Prepare export','Preparar exportación','Preparar exportação')}</button><button class="pill" id="export-copy" type="button">{txt('Copy export','Copiar exportación','Copiar exportação')}</button></div>
+    </form>
+    <p class="fine">{txt('Format helper only. Rythero is not affiliated with or connected to these generators.','Es una ayuda de formato. Rythero no está afiliado ni conectado con estos generadores.','É apenas um auxiliar de formato. Rythero não é afiliado nem conectado a esses geradores.')}</p>
+    <div class="studio-output" id="export-output">{txt('Your export will appear here.','Aquí aparecerá tu exportación.','Sua exportação aparecerá aqui.')}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="audio" hidden>
+    <div class="panel-head"><div><span>07 · AUDIO ANALYZER</span><h2>{txt('Inspect an audio file locally in your browser.','Analiza un archivo de audio localmente en tu navegador.','Analise um arquivo de áudio localmente no navegador.')}</h2></div><div class="local-badge">LOCAL</div></div>
+    <form id="audio-form" class="studio-form one">
+      <label>{txt('Audio file','Archivo de audio','Arquivo de áudio')}<input id="audio-file" name="file" type="file" accept="audio/*" /></label>
+      <p class="fine">{txt('Nothing is uploaded. Analysis happens on this device.','No se sube nada. El análisis se hace en este dispositivo.','Nada é enviado. A análise acontece neste dispositivo.')}</p>
+      <div class="studio-actions"><button class="pill primary" type="submit">{txt('Analyze audio','Analizar audio','Analisar áudio')}</button><button class="pill" id="audio-copy" type="button">{txt('Copy analysis','Copiar análisis','Copiar análise')}</button></div>
+    </form>
+    <canvas id="audio-waveform" class="waveform" width="1000" height="180" hidden></canvas>
+    <div class="studio-output" id="audio-output">{txt('Duration, estimated BPM, level, dynamics and a waveform will appear here.','Aquí aparecerán duración, BPM estimado, nivel, dinámica y forma de onda.','Duração, BPM estimado, nível, dinâmica e forma de onda aparecerão aqui.')}</div>
+    <p class="fine">{txt('Tempo detection is an estimate and can read half-time or double-time material differently.','La detección de tempo es una estimación y puede interpretar de forma distinta material a medio tiempo o doble tiempo.','A detecção de tempo é uma estimativa e pode interpretar de forma diferente músicas em half-time ou double-time.')}</p>
+  </div>
+</section>
+
+<script is:inline src="/song-studio.js"></script>
+
+<style is:global>
+  .studio-hero{padding:68px 0 34px}.studio-hero h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.92;letter-spacing:-.055em;margin:13px 0 22px;max-width:1000px}.studio-hero>p{max-width:760px;color:var(--muted);font-size:1.08rem}.studio-note{font-size:.82rem!important;color:#78a886!important}.studio{padding-bottom:90px}.studio-tabs{position:sticky;top:0;z-index:20;display:flex;gap:7px;overflow-x:auto;padding:10px 0 14px;background:linear-gradient(180deg,var(--bg) 70%,rgba(5,8,6,.88),transparent);scrollbar-width:none}.studio-tabs::-webkit-scrollbar{display:none}.studio-tabs button{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#09100c;color:#829087;padding:9px 13px;font-size:.74rem;font-weight:800;cursor:pointer}.studio-tabs button.active{background:var(--green);border-color:var(--green);color:#041108}.studio-panel{border:1px solid var(--line);border-radius:27px;background:linear-gradient(180deg,#09110c,#060a07);padding:25px;margin-top:8px}.studio-panel[hidden]{display:none}.panel-head{display:flex;justify-content:space-between;gap:20px;align-items:start;margin-bottom:24px}.panel-head span{font-size:.67rem;color:var(--green);font-weight:900;letter-spacing:.14em}.panel-head h2{font-size:clamp(1.55rem,3vw,2.55rem);line-height:1.05;letter-spacing:-.035em;margin:7px 0 0;max-width:760px}.step-chip,.local-badge{border:1px solid #24402f;border-radius:999px;padding:6px 9px;color:#82a88d;font-size:.66rem;font-weight:900;letter-spacing:.1em;white-space:nowrap}.studio-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.studio-form.one{grid-template-columns:1fr}.studio-form label{display:flex;flex-direction:column;gap:7px;color:#aeb9b2;font-size:.75rem;font-weight:800;letter-spacing:.02em}.studio-form .wide{grid-column:1/-1}.studio-form input,.studio-form select,.studio-form textarea{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:13px;outline:none;resize:vertical}.studio-form input:focus,.studio-form select:focus,.studio-form textarea:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.studio-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:3px}.studio-actions button{cursor:pointer}.studio-output{margin-top:18px;border:1px solid #1d3025;border-radius:18px;background:#08100b;padding:18px;color:#cad5ce;font-size:.9rem;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;min-height:76px}.studio-output strong{color:#f2f6f3}.studio-output .out-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;white-space:normal}.studio-output .out-card{border:1px solid #1b2d22;border-radius:13px;padding:12px;background:#0b140e}.studio-output .out-card small{display:block;color:#6f8175;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}.studio-output .out-card b{font-size:.88rem;color:#eaf3ed}.studio-output .prompt-block{margin-top:12px;border-top:1px solid #1b2d22;padding-top:13px;white-space:pre-wrap}.saved-dna{margin-top:14px;color:#718078;font-size:.72rem}.saved-dna>span{display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.12em}.saved-dna button{border:1px solid #20372a;background:#0b1510;color:#9cb1a2;border-radius:999px;padding:6px 9px;margin:0 6px 6px 0;cursor:pointer;font-size:.7rem}.timeline{display:flex;gap:3px;margin-top:18px;min-height:62px;border-radius:14px;overflow:hidden}.timeline-segment{display:flex;align-items:center;justify-content:center;text-align:center;min-width:44px;padding:7px;background:linear-gradient(180deg,#173320,#0e2116);border:1px solid #28513a;color:#d7ecdc;font-size:.64rem;font-weight:800}.waveform{display:block;width:100%;height:170px;margin-top:18px;border:1px solid #1d3025;border-radius:16px;background:#07100a}.fine{color:#65736a;font-size:.7rem;line-height:1.45;margin:10px 0 0}.analysis-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;white-space:normal}.analysis-metric{border:1px solid #1c3024;border-radius:13px;padding:11px}.analysis-metric small{display:block;color:#6c7c72;text-transform:uppercase;letter-spacing:.1em;font-size:.58rem}.analysis-metric strong{display:block;margin-top:4px;font-size:1rem}@media(max-width:760px){.studio-hero{padding-top:44px}.studio-panel{padding:18px;border-radius:21px}.studio-form{grid-template-columns:1fr}.studio-form .wide{grid-column:auto}.studio-output .out-grid{grid-template-columns:1fr}.panel-head{align-items:start}.analysis-metrics{grid-template-columns:1fr 1fr}.studio-tabs{margin-left:-3px;margin-right:-3px}.studio-tabs button{padding:8px 11px}.timeline{overflow-x:auto}.timeline-segment{min-width:78px}}
+</style>
