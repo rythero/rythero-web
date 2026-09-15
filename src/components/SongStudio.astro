@@ -1,0 +1,280 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
+
+const copy = {
+  en: {
+    eyebrow:'Rythero Studio',
+    title:'From idea to song-ready.',
+    intro:'Seven focused tools in one workspace. Build the concept, repair weak prompts, define your sound, map the arrangement, plan lyrics, export cleanly and inspect audio — without an account.',
+    note:'Final generator prompts stay in English for portability.',
+    tabs:['Song Blueprint','Prompt Doctor','Style DNA','Arrangement','Lyrics Blueprint','Export','Audio Analyzer'],
+    blueprint:{
+      kicker:'01 · SONG BLUEPRINT', title:'Turn a rough idea into a complete production brief.',
+      idea:'What is the song about?', ideaPh:'e.g. Missing someone but refusing to go back',
+      style:'Style / genre', stylePh:'e.g. Afro house, alt-R&B',
+      mood:'Mood', energy:'Energy', vocal:'Lead vocal', duration:'Target length', language:'Lyrics language',
+      build:'Build blueprint', use:'Use in Export', output:'Your blueprint will appear here.'
+    },
+    doctor:{
+      kicker:'02 · PROMPT DOCTOR', title:'Find weak, vague or contradictory instructions.',
+      prompt:'Paste a music prompt', ph:'Paste any prompt here…', inspect:'Inspect & repair',
+      output:'Issues and a cleaner version will appear here.'
+    },
+    dna:{
+      kicker:'03 · STYLE DNA', title:'Define a reusable sound identity without copying artists.',
+      name:'DNA name', namePh:'e.g. Night Drive 01', groove:'Groove', texture:'Texture', era:'Era / finish', harmony:'Harmony', voice:'Voice character', space:'Space', energy:'Energy',
+      build:'Build DNA', save:'Save DNA', saved:'Saved DNA', output:'Your Style DNA will appear here.'
+    },
+    arrangement:{
+      kicker:'04 · ARRANGEMENT MAP', title:'See where each section should happen before generating.',
+      duration:'Song length', shape:'Structure', build:'Build timeline', output:'Your timeline will appear here.'
+    },
+    lyrics:{
+      kicker:'05 · LYRICS BLUEPRINT', title:'Plan the story, hook and section jobs before writing lines.',
+      theme:'Core theme', themePh:'e.g. starting over after a hard year',
+      detail:'Concrete detail / image', detailPh:'e.g. an unopened suitcase by the door',
+      pov:'Point of view', arc:'Emotional arc', rhyme:'Rhyme density', language:'Lyrics language', shape:'Structure',
+      build:'Build lyrics plan', output:'Your writing plan will appear here.'
+    },
+    export:{
+      kicker:'06 · EXPORT', title:'Adapt one idea to the tool you are about to use.',
+      source:'Prompt / blueprint text', sourcePh:'Paste text here, or use your latest Song Blueprint.',
+      target:'Target', latest:'Use latest Blueprint', build:'Prepare export', copy:'Copy export',
+      note:'Format helper only. Rythero is not affiliated with or connected to these generators.',
+      output:'Your export will appear here.'
+    },
+    audio:{
+      kicker:'07 · AUDIO ANALYZER', title:'Inspect an audio file locally in your browser.',
+      file:'Audio file', privacy:'Nothing is uploaded. Analysis happens on this device.',
+      analyze:'Analyze audio', copy:'Copy analysis',
+      output:'Duration, estimated BPM, level, dynamics and a waveform will appear here.',
+      experimental:'Tempo detection is an estimate and can read half-time or double-time material differently.'
+    }
+  },
+  es: {
+    eyebrow:'Rythero Studio',
+    title:'De una idea a una canción lista para crear.',
+    intro:'Siete herramientas en un solo espacio. Construye el concepto, repara prompts, define tu sonido, organiza la canción, planifica la letra, exporta y analiza audio — sin registro.',
+    note:'Los prompts finales para generadores se mantienen en inglés para mayor compatibilidad.',
+    tabs:['Song Blueprint','Prompt Doctor','Style DNA','Arreglo','Lyrics Blueprint','Exportar','Audio Analyzer'],
+    blueprint:{
+      kicker:'01 · SONG BLUEPRINT', title:'Convierte una idea simple en un plan completo de producción.',
+      idea:'¿De qué trata la canción?', ideaPh:'p. ej. echar de menos a alguien pero negarse a volver',
+      style:'Estilo / género', stylePh:'p. ej. Afro house, alt-R&B',
+      mood:'Estado de ánimo', energy:'Energía', vocal:'Voz principal', duration:'Duración objetivo', language:'Idioma de la letra',
+      build:'Crear blueprint', use:'Usar en Exportar', output:'Aquí aparecerá tu blueprint.'
+    },
+    doctor:{
+      kicker:'02 · PROMPT DOCTOR', title:'Detecta instrucciones débiles, vagas o contradictorias.',
+      prompt:'Pega un prompt musical', ph:'Pega aquí cualquier prompt…', inspect:'Revisar y reparar',
+      output:'Aquí aparecerán los problemas detectados y una versión más limpia.'
+    },
+    dna:{
+      kicker:'03 · STYLE DNA', title:'Define una identidad sonora reutilizable sin copiar artistas.',
+      name:'Nombre del ADN', namePh:'p. ej. Night Drive 01', groove:'Groove', texture:'Textura', era:'Época / acabado', harmony:'Armonía', voice:'Carácter de voz', space:'Espacio', energy:'Energía',
+      build:'Crear ADN', save:'Guardar ADN', saved:'ADN guardados', output:'Aquí aparecerá tu Style DNA.'
+    },
+    arrangement:{
+      kicker:'04 · MAPA DE ARREGLO', title:'Visualiza dónde debe ocurrir cada sección antes de generar.',
+      duration:'Duración', shape:'Estructura', build:'Crear línea de tiempo', output:'Aquí aparecerá tu línea de tiempo.'
+    },
+    lyrics:{
+      kicker:'05 · LYRICS BLUEPRINT', title:'Planifica la historia, el gancho y la función de cada sección antes de escribir.',
+      theme:'Tema central', themePh:'p. ej. empezar de nuevo después de un año difícil',
+      detail:'Detalle concreto / imagen', detailPh:'p. ej. una maleta sin abrir junto a la puerta',
+      pov:'Punto de vista', arc:'Arco emocional', rhyme:'Cantidad de rima', language:'Idioma de la letra', shape:'Estructura',
+      build:'Crear plan de letra', output:'Aquí aparecerá tu plan de escritura.'
+    },
+    export:{
+      kicker:'06 · EXPORTAR', title:'Adapta una misma idea a la herramienta que vayas a usar.',
+      source:'Prompt / texto del blueprint', sourcePh:'Pega aquí el texto o usa tu último Song Blueprint.',
+      target:'Destino', latest:'Usar último Blueprint', build:'Preparar exportación', copy:'Copiar exportación',
+      note:'Es una ayuda de formato. Rythero no está afiliado ni conectado con estos generadores.',
+      output:'Aquí aparecerá tu exportación.'
+    },
+    audio:{
+      kicker:'07 · AUDIO ANALYZER', title:'Analiza un archivo de audio localmente en tu navegador.',
+      file:'Archivo de audio', privacy:'No se sube nada. El análisis se hace en este dispositivo.',
+      analyze:'Analizar audio', copy:'Copiar análisis',
+      output:'Aquí aparecerán duración, BPM estimado, nivel, dinámica y forma de onda.',
+      experimental:'La detección de tempo es una estimación y puede interpretar de forma distinta material a medio tiempo o doble tiempo.'
+    }
+  },
+  'pt-br': {
+    eyebrow:'Rythero Studio',
+    title:'Da ideia a um plano pronto para criar.',
+    intro:'Sete ferramentas em um único espaço. Estruture o conceito, corrija prompts, defina seu som, organize a música, planeje a letra, exporte e analise áudio — sem cadastro.',
+    note:'Os prompts finais para geradores permanecem em inglês para maior compatibilidade.',
+    tabs:['Song Blueprint','Prompt Doctor','Style DNA','Arranjo','Lyrics Blueprint','Exportar','Audio Analyzer'],
+    blueprint:{
+      kicker:'01 · SONG BLUEPRINT', title:'Transforme uma ideia simples em um plano completo de produção.',
+      idea:'Sobre o que é a música?', ideaPh:'ex. sentir falta de alguém mas não querer voltar',
+      style:'Estilo / gênero', stylePh:'ex. Afro house, alt-R&B',
+      mood:'Clima', energy:'Energia', vocal:'Voz principal', duration:'Duração alvo', language:'Idioma da letra',
+      build:'Criar blueprint', use:'Usar em Exportar', output:'Seu blueprint aparecerá aqui.'
+    },
+    doctor:{
+      kicker:'02 · PROMPT DOCTOR', title:'Encontre instruções fracas, vagas ou contraditórias.',
+      prompt:'Cole um prompt musical', ph:'Cole qualquer prompt aqui…', inspect:'Revisar e corrigir',
+      output:'Os problemas encontrados e uma versão mais limpa aparecerão aqui.'
+    },
+    dna:{
+      kicker:'03 · STYLE DNA', title:'Defina uma identidade sonora reutilizável sem copiar artistas.',
+      name:'Nome do DNA', namePh:'ex. Night Drive 01', groove:'Groove', texture:'Textura', era:'Época / acabamento', harmony:'Harmonia', voice:'Caráter vocal', space:'Espaço', energy:'Energia',
+      build:'Criar DNA', save:'Salvar DNA', saved:'DNA salvos', output:'Seu Style DNA aparecerá aqui.'
+    },
+    arrangement:{
+      kicker:'04 · MAPA DE ARRANJO', title:'Veja onde cada seção deve acontecer antes de gerar.',
+      duration:'Duração', shape:'Estrutura', build:'Criar linha do tempo', output:'Sua linha do tempo aparecerá aqui.'
+    },
+    lyrics:{
+      kicker:'05 · LYRICS BLUEPRINT', title:'Planeje a história, o gancho e a função de cada seção antes de escrever.',
+      theme:'Tema central', themePh:'ex. recomeçar depois de um ano difícil',
+      detail:'Detalhe concreto / imagem', detailPh:'ex. uma mala fechada ao lado da porta',
+      pov:'Ponto de vista', arc:'Arco emocional', rhyme:'Quantidade de rima', language:'Idioma da letra', shape:'Estrutura',
+      build:'Criar plano de letra', output:'Seu plano de escrita aparecerá aqui.'
+    },
+    export:{
+      kicker:'06 · EXPORTAR', title:'Adapte a mesma ideia à ferramenta que você vai usar.',
+      source:'Prompt / texto do blueprint', sourcePh:'Cole o texto aqui ou use seu último Song Blueprint.',
+      target:'Destino', latest:'Usar último Blueprint', build:'Preparar exportação', copy:'Copiar exportação',
+      note:'É apenas um auxiliar de formato. Rythero não é afiliado nem conectado a esses geradores.',
+      output:'Sua exportação aparecerá aqui.'
+    },
+    audio:{
+      kicker:'07 · AUDIO ANALYZER', title:'Analise um arquivo de áudio localmente no navegador.',
+      file:'Arquivo de áudio', privacy:'Nada é enviado. A análise acontece neste dispositivo.',
+      analyze:'Analisar áudio', copy:'Copiar análise',
+      output:'Duração, BPM estimado, nível, dinâmica e forma de onda aparecerão aqui.',
+      experimental:'A detecção de tempo é uma estimativa e pode interpretar de forma diferente músicas em half-time ou double-time.'
+    }
+  }
+}[locale];
+
+const opt = {
+  moods:['Dark','Melancholic','Hopeful','Euphoric','Intimate','Defiant','Dreamy','Romantic','Nocturnal','Uplifting'],
+  energy:['Low','Medium','High','Dynamic / evolving'],
+  vocal:['Male vocal','Female vocal','Androgynous vocal','Duet','Rap vocal','Instrumental / no lead vocal'],
+  durations:['2:30','3:00','3:30','4:00'],
+  languages:['English','Spanish','Portuguese','Instrumental'],
+  grooves:['Straight','Swung','Syncopated','Rolling','Broken','Half-time','Four-on-the-floor'],
+  textures:['Clean','Warm','Raw','Airy','Dark','Organic','Glossy','Lo-fi'],
+  eras:['Modern','Retro-modern','90s-informed','2000s-informed','Timeless','Futuristic'],
+  harmony:['Minor tension','Major lift','Modal / ambiguous','Soulful extensions','Minimal harmony','Cinematic movement'],
+  voices:['Intimate','Raspy','Soulful','Airy','Powerful','Gritty','Clean','Processed'],
+  spaces:['Dry / close','Small room','Wide stereo','Deep atmospheric','Club-focused','Cinematic'],
+  shapes:['Hook-first','Pop build','Rap / verse-led','Club / drop-led','Slow burn'],
+  pov:['First person','Second person','Third person / story'],
+  arcs:['Tension → release','Loss → acceptance','Doubt → confidence','Distance → intimacy','Calm → explosive','Steady / hypnotic'],
+  rhyme:['Light','Balanced','Dense'],
+};
+---
+<section class="shell studio-hero">
+  <div class="eyebrow">{copy.eyebrow}</div>
+  <h1>{copy.title}</h1>
+  <p>{copy.intro}</p>
+  {locale !== 'en' && <p class="studio-note">{copy.note}</p>}
+</section>
+
+<section class="shell studio">
+  <nav class="studio-tabs" aria-label="Rythero Studio tools">
+    {copy.tabs.map((label, i) => <button type="button" class:list={{active:i===0}} data-studio-tab={['blueprint','doctor','dna','arrangement','lyrics','export','audio'][i]}>{label}</button>)}
+  </nav>
+
+  <div class="studio-panel active" data-studio-panel="blueprint">
+    <div class="panel-head"><div><span>{copy.blueprint.kicker}</span><h2>{copy.blueprint.title}</h2></div><div class="step-chip">1 → 7</div></div>
+    <form id="blueprint-form" class="studio-form">
+      <label class="wide">{copy.blueprint.idea}<textarea name="idea" rows="3" placeholder={copy.blueprint.ideaPh}></textarea></label>
+      <label>{copy.blueprint.style}<input name="style" placeholder={copy.blueprint.stylePh} /></label>
+      <label>{copy.blueprint.mood}<select name="mood">{opt.moods.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.blueprint.energy}<select name="energy">{opt.energy.map(x=><option selected={x==='Medium'}>{x}</option>)}</select></label>
+      <label>{copy.blueprint.vocal}<select name="vocal">{opt.vocal.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.blueprint.duration}<select name="duration">{opt.durations.map(x=><option selected={x==='3:00'}>{x}</option>)}</select></label>
+      <label>{copy.blueprint.language}<select name="language">{opt.languages.map(x=><option>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{copy.blueprint.build}</button><button class="pill" id="blueprint-to-export" type="button">{copy.blueprint.use}</button></div>
+    </form>
+    <div class="studio-output" id="blueprint-output" data-empty={copy.blueprint.output}>{copy.blueprint.output}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="doctor" hidden>
+    <div class="panel-head"><div><span>{copy.doctor.kicker}</span><h2>{copy.doctor.title}</h2></div></div>
+    <form id="doctor-form" class="studio-form one">
+      <label>{copy.doctor.prompt}<textarea name="prompt" rows="8" placeholder={copy.doctor.ph}></textarea></label>
+      <div class="studio-actions"><button class="pill primary" type="submit">{copy.doctor.inspect}</button></div>
+    </form>
+    <div class="studio-output" id="doctor-output" data-empty={copy.doctor.output}>{copy.doctor.output}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="dna" hidden>
+    <div class="panel-head"><div><span>{copy.dna.kicker}</span><h2>{copy.dna.title}</h2></div></div>
+    <form id="dna-form" class="studio-form">
+      <label class="wide">{copy.dna.name}<input name="name" placeholder={copy.dna.namePh} /></label>
+      <label>{copy.dna.groove}<select name="groove">{opt.grooves.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.dna.texture}<select name="texture">{opt.textures.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.dna.era}<select name="era">{opt.eras.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.dna.harmony}<select name="harmony">{opt.harmony.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.dna.voice}<select name="voice">{opt.voices.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.dna.space}<select name="space">{opt.spaces.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.dna.energy}<select name="energy">{opt.energy.map(x=><option selected={x==='Medium'}>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{copy.dna.build}</button><button class="pill" id="dna-save" type="button">{copy.dna.save}</button></div>
+    </form>
+    <div class="studio-output" id="dna-output" data-empty={copy.dna.output}>{copy.dna.output}</div>
+    <div class="saved-dna"><span>{copy.dna.saved}</span><div id="dna-saved-list"></div></div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="arrangement" hidden>
+    <div class="panel-head"><div><span>{copy.arrangement.kicker}</span><h2>{copy.arrangement.title}</h2></div></div>
+    <form id="arrangement-form" class="studio-form">
+      <label>{copy.arrangement.duration}<select name="duration">{opt.durations.map(x=><option selected={x==='3:00'}>{x}</option>)}</select></label>
+      <label>{copy.arrangement.shape}<select name="shape">{opt.shapes.map(x=><option>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{copy.arrangement.build}</button></div>
+    </form>
+    <div class="timeline" id="arrangement-timeline"></div>
+    <div class="studio-output" id="arrangement-output" data-empty={copy.arrangement.output}>{copy.arrangement.output}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="lyrics" hidden>
+    <div class="panel-head"><div><span>{copy.lyrics.kicker}</span><h2>{copy.lyrics.title}</h2></div></div>
+    <form id="lyrics-form" class="studio-form">
+      <label class="wide">{copy.lyrics.theme}<input name="theme" placeholder={copy.lyrics.themePh} /></label>
+      <label class="wide">{copy.lyrics.detail}<input name="detail" placeholder={copy.lyrics.detailPh} /></label>
+      <label>{copy.lyrics.pov}<select name="pov">{opt.pov.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.lyrics.arc}<select name="arc">{opt.arcs.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.lyrics.rhyme}<select name="rhyme">{opt.rhyme.map(x=><option>{x}</option>)}</select></label>
+      <label>{copy.lyrics.language}<select name="language">{opt.languages.filter(x=>x!=='Instrumental').map(x=><option>{x}</option>)}</select></label>
+      <label class="wide">{copy.lyrics.shape}<select name="shape">{opt.shapes.map(x=><option>{x}</option>)}</select></label>
+      <div class="wide studio-actions"><button class="pill primary" type="submit">{copy.lyrics.build}</button></div>
+    </form>
+    <div class="studio-output" id="lyrics-output" data-empty={copy.lyrics.output}>{copy.lyrics.output}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="export" hidden>
+    <div class="panel-head"><div><span>{copy.export.kicker}</span><h2>{copy.export.title}</h2></div></div>
+    <form id="export-form" class="studio-form one">
+      <label>{copy.export.source}<textarea name="source" rows="9" placeholder={copy.export.sourcePh}></textarea></label>
+      <label>{copy.export.target}<select name="target"><option>Generic</option><option>Suno</option><option>Udio</option></select></label>
+      <div class="studio-actions"><button class="pill" id="export-latest" type="button">{copy.export.latest}</button><button class="pill primary" type="submit">{copy.export.build}</button><button class="pill" id="export-copy" type="button">{copy.export.copy}</button></div>
+    </form>
+    <p class="fine">{copy.export.note}</p>
+    <div class="studio-output" id="export-output" data-empty={copy.export.output}>{copy.export.output}</div>
+  </div>
+
+  <div class="studio-panel" data-studio-panel="audio" hidden>
+    <div class="panel-head"><div><span>{copy.audio.kicker}</span><h2>{copy.audio.title}</h2></div><div class="local-badge">LOCAL</div></div>
+    <form id="audio-form" class="studio-form one">
+      <label>{copy.audio.file}<input id="audio-file" name="file" type="file" accept="audio/*" /></label>
+      <p class="fine">{copy.audio.privacy}</p>
+      <div class="studio-actions"><button class="pill primary" type="submit">{copy.audio.analyze}</button><button class="pill" id="audio-copy" type="button">{copy.audio.copy}</button></div>
+    </form>
+    <canvas id="audio-waveform" class="waveform" width="1000" height="180" hidden></canvas>
+    <div class="studio-output" id="audio-output" data-empty={copy.audio.output}>{copy.audio.output}</div>
+    <p class="fine">{copy.audio.experimental}</p>
+  </div>
+</section>
+
+<script is:inline src="/song-studio.js"></script>
+
+<style is:global>
+  .studio-hero{padding:68px 0 34px}.studio-hero h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.92;letter-spacing:-.055em;margin:13px 0 22px;max-width:1000px}.studio-hero>p{max-width:760px;color:var(--muted);font-size:1.08rem}.studio-note{font-size:.82rem!important;color:#78a886!important}.studio{padding-bottom:90px}.studio-tabs{position:sticky;top:0;z-index:20;display:flex;gap:7px;overflow-x:auto;padding:10px 0 14px;background:linear-gradient(180deg,var(--bg) 70%,rgba(5,8,6,.88),transparent);scrollbar-width:none}.studio-tabs::-webkit-scrollbar{display:none}.studio-tabs button{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#09100c;color:#829087;padding:9px 13px;font-size:.74rem;font-weight:800;cursor:pointer}.studio-tabs button.active{background:var(--green);border-color:var(--green);color:#041108}.studio-panel{border:1px solid var(--line);border-radius:27px;background:linear-gradient(180deg,#09110c,#060a07);padding:25px;margin-top:8px}.studio-panel[hidden]{display:none}.panel-head{display:flex;justify-content:space-between;gap:20px;align-items:start;margin-bottom:24px}.panel-head span{font-size:.67rem;color:var(--green);font-weight:900;letter-spacing:.14em}.panel-head h2{font-size:clamp(1.55rem,3vw,2.55rem);line-height:1.05;letter-spacing:-.035em;margin:7px 0 0;max-width:760px}.step-chip,.local-badge{border:1px solid #24402f;border-radius:999px;padding:6px 9px;color:#82a88d;font-size:.66rem;font-weight:900;letter-spacing:.1em;white-space:nowrap}.studio-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.studio-form.one{grid-template-columns:1fr}.studio-form label{display:flex;flex-direction:column;gap:7px;color:#aeb9b2;font-size:.75rem;font-weight:800;letter-spacing:.02em}.studio-form .wide{grid-column:1/-1}.studio-form input,.studio-form select,.studio-form textarea{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:13px;outline:none;resize:vertical}.studio-form input:focus,.studio-form select:focus,.studio-form textarea:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.studio-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:3px}.studio-actions button{cursor:pointer}.studio-output{margin-top:18px;border:1px solid #1d3025;border-radius:18px;background:#08100b;padding:18px;color:#cad5ce;font-size:.9rem;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;min-height:76px}.studio-output strong{color:#f2f6f3}.studio-output .out-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;white-space:normal}.studio-output .out-card{border:1px solid #1b2d22;border-radius:13px;padding:12px;background:#0b140e}.studio-output .out-card small{display:block;color:#6f8175;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}.studio-output .out-card b{font-size:.88rem;color:#eaf3ed}.studio-output .prompt-block{margin-top:12px;border-top:1px solid #1b2d22;padding-top:13px;white-space:pre-wrap}.saved-dna{margin-top:14px;color:#718078;font-size:.72rem}.saved-dna>span{display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.12em}.saved-dna button{border:1px solid #20372a;background:#0b1510;color:#9cb1a2;border-radius:999px;padding:6px 9px;margin:0 6px 6px 0;cursor:pointer;font-size:.7rem}.timeline{display:flex;gap:3px;margin-top:18px;min-height:62px;border-radius:14px;overflow:hidden}.timeline-segment{display:flex;align-items:center;justify-content:center;text-align:center;min-width:44px;padding:7px;background:linear-gradient(180deg,#173320,#0e2116);border:1px solid #28513a;color:#d7ecdc;font-size:.64rem;font-weight:800}.waveform{display:block;width:100%;height:170px;margin-top:18px;border:1px solid #1d3025;border-radius:16px;background:#07100a}.fine{color:#65736a;font-size:.7rem;line-height:1.45;margin:10px 0 0}.analysis-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;white-space:normal}.analysis-metric{border:1px solid #1c3024;border-radius:13px;padding:11px}.analysis-metric small{display:block;color:#6c7c72;text-transform:uppercase;letter-spacing:.1em;font-size:.58rem}.analysis-metric strong{display:block;margin-top:4px;font-size:1rem}@media(max-width:760px){.studio-hero{padding-top:44px}.studio-panel{padding:18px;border-radius:21px}.studio-form{grid-template-columns:1fr}.studio-form .wide{grid-column:auto}.studio-output .out-grid{grid-template-columns:1fr}.panel-head{align-items:start}.analysis-metrics{grid-template-columns:1fr 1fr}.studio-tabs{margin-left:-3px;margin-right:-3px}.studio-tabs button{padding:8px 11px}.timeline{overflow-x:auto}.timeline-segment{min-width:78px}}
+</style>
