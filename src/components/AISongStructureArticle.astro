@@ -1,0 +1,273 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
+const base = locale === 'en' ? '' : `/${locale}`;
+const canonicalPath = `${base}/learn/ai-song-structure`;
+
+const t = {
+  en: {
+    eyebrow:'AI MUSIC CREATOR SCHOOL · LESSON 02',
+    title:'Song structure for AI music: hooks, verses, choruses and transitions explained simply',
+    dek:'Structure is the difference between a song that moves and a loop that simply lasts longer. You do not need music theory to use it: decide what each section is for, when the energy changes and what the listener should remember.',
+    quick:'Quick answer',
+    quickText:'For a first song, keep it simple: short intro → verse → pre-chorus → chorus → verse 2 → chorus → bridge or breakdown → final chorus → clear ending. The exact labels can change by genre. What matters is contrast: every section should either add information, release tension, remove energy or bring the main hook back.',
+    meaningTitle:'What song structure actually means',
+    meaning1:'A song is not one continuous block. It is a sequence of sections with different jobs. Ableton describes arrangement as the process of combining smaller musical patterns into a complete song. In practice, structure answers a simple question: what should happen next?',
+    meaning2:'For AI music this is especially useful because a strong structure gives the generator a map. It does not guarantee that every label will be followed perfectly, but it gives the result a much clearer sense of direction than a prompt that only describes style and mood.',
+    partsTitle:'The seven parts beginners need to understand',
+    parts:[
+      ['1. Intro: set the world, then move on','The intro establishes the sound, groove or atmosphere. It does not need to explain the whole song. Four or eight bars are often enough. If the intro is long, something inside it should develop: a new drum layer, a vocal pickup, a bass entrance or a filter opening.'],
+      ['2. Verse: move the story forward','The verse usually carries new information. In a lyric-led song, verse 1 introduces the situation and verse 2 should advance it rather than repeat it. Musically, verses are often more restrained than the chorus so the next section has somewhere to grow.'],
+      ['3. Pre-chorus: create expectation','A pre-chorus is a bridge between verse and chorus. It can raise the melody, simplify the drums, add tension or change the harmony. You do not always need one. Use it when the chorus benefits from a short build-up.'],
+      ['4. Chorus: deliver the central idea','The chorus is usually the main repeated section. It carries the central message, strongest melodic identity or biggest energy release. A good chorus does not need to be louder in every genre, but it should feel unmistakably important.'],
+      ['5. Hook: the thing people remember','A hook is not exactly the same as a chorus. It can be a lyric, melody, rhythm, riff, vocal phrase or production motif. The chorus often contains the main hook, but a hook can also appear in the intro, post-chorus or instrumental sections.'],
+      ['6. Bridge, breakdown or drop: change the perspective','A bridge gives contrast and often appears once. A breakdown removes elements to create space. A drop, common in electronic styles, is an energy release after tension. They do different jobs, but all three prevent the song from feeling like the same section repeated forever.'],
+      ['7. Outro: end on purpose','Do not let the song simply fade into indecision unless that is the artistic choice. Repeat the hook, strip the arrangement back, end on a final hit or resolve the harmony. A clear ending makes the whole track feel more intentional.']
+    ],
+    barsTitle:'You only need one basic idea about bars',
+    bars1:'In many popular styles, sections are built in groups of 4, 8 or 16 bars. You do not need to count obsessively. Think of bars as blocks of musical time. If nothing changes for too long, the ear starts treating the track as background.',
+    bars2:'A useful beginner rule is: every 8 or 16 bars, ask whether something should change. The answer does not always need to be “new section”. A drum fill, bass removal, harmony lift, vocal layer, percussion change or brief silence can be enough.',
+    formsTitle:'Four simple structures that cover a lot of music',
+    forms:[
+      ['Pop / melodic','Intro → Verse → Pre-chorus → Chorus → Verse 2 → Chorus → Bridge → Final chorus → Outro'],
+      ['Rap / trap','Hook → Verse 1 → Hook → Verse 2 → Breakdown or beat switch → Final hook'],
+      ['Club / electronic','Intro groove → Build → Drop → Breakdown → Build → Final drop → Outro'],
+      ['Slow / cinematic','Atmospheric intro → Verse → Lift → Main section → Reduced section → Final expansion → Ending']
+    ],
+    note:'These are maps, not laws. Genre, song length and creative intent can change them completely.',
+    aiTitle:'How to describe structure to an AI music generator',
+    ai1:'Do not write a page of section instructions. Give the generator a readable route and one or two important transition ideas. The more important the transition is, the more clearly you should describe it.',
+    weak:'Weak: “Make it dynamic, catchy, emotional and evolving with lots of changes.”',
+    strong:'Stronger: “Hook-first opening; restrained verse; short pre-chorus that removes the kick and builds tension; wider chorus with the main vocal hook; second verse with added percussion; brief half-time breakdown; final chorus with extra vocal layers; hard ending, no fade.”',
+    explain:'The stronger version works because it tells the song where contrast should happen. It does not try to control every second.',
+    transitionsTitle:'Transitions: the small details that make structure feel real',
+    transitionsIntro:'Sections feel connected when something prepares the change. Useful transition ideas include:',
+    transitions:['drum fill before the chorus','brief silence before the drop','riser or reverse effect into a new section','bass removal before a lift','new harmony or chord inversion','double-time or half-time pocket change','vocal pickup before the hook','one-bar instrumental break'],
+    mistakesTitle:'Five structure mistakes that make AI songs feel flat',
+    mistakes:[
+      ['Everything has the same energy','If verse, chorus and bridge all use the same density, the labels change but the listener does not feel a journey.'],
+      ['The second verse is a copy','Verse 2 should usually add information, rhythm, instrumentation or perspective. Repeating verse 1 with new words often feels static.'],
+      ['Too many sections','More labels do not automatically create more movement. A simple structure with strong contrast is better than twelve sections with no clear purpose.'],
+      ['No preparation for the chorus or drop','A release feels bigger when something creates tension first. Even one bar of subtraction can make the next section land harder.'],
+      ['No real ending','A track that simply stops because the generation ended can feel unfinished. Give the ending a musical job.']
+    ],
+    workflowTitle:'The easiest Rythero workflow',
+    workflow:'Start with the song idea. Choose a structure that matches the genre. Decide which section contains the main hook. Decide where energy rises and where it drops. Add one important transition. Then generate. After listening, change only the section that failed instead of rewriting the entire plan.',
+    toolTitle:'Build the map before you generate',
+    toolText:'Rythero Studio includes Arrangement Map for exactly this job. Choose a song length and structure profile, then use the timeline as a starting point. It is deliberately simple: enough structure to guide the song without turning creation into project management.',
+    studio:'Open Arrangement Map',
+    related:'Read lesson 01: AI music prompts',
+    faq:'FAQ',
+    faqs:[
+      ['What is the difference between a hook and a chorus?','The chorus is a section. The hook is the memorable idea. A chorus can contain one or several hooks, but a hook can also exist outside the chorus.'],
+      ['Do I need a pre-chorus?','No. Use one only when the transition from verse to chorus benefits from extra tension or lift.'],
+      ['How long should a verse be?','There is no universal length. Eight or sixteen bars are common starting points, but genre, tempo and lyric density matter more than a fixed number.'],
+      ['Should every AI song include a bridge?','No. A breakdown, beat switch, instrumental passage or direct final chorus can provide enough contrast.'],
+      ['Can AI follow section labels exactly?','Not always. Treat structure instructions as guidance rather than a guaranteed timeline. Clear, compatible directions usually work better than excessive micromanagement.']
+    ],
+    sources:'Primary and educational references',
+    sourceItems:[
+      ['Ableton Learning Music — Song structure','https://learningmusic.ableton.com/song-structure/song-structure.html'],
+      ['Suno Help — Music glossary','https://help.suno.com/en/articles/9010177'],
+      ['Udio Help — KillerM’s Lyrics Guide','https://help.udio.com/en/articles/12015484-killerm-s-lyrics-guide']
+    ]
+  },
+  es: {
+    eyebrow:'ESCUELA DE CREADORES · AI MUSIC · LECCIÓN 02',
+    title:'Estructura de una canción con IA: hook, verso, estribillo y transiciones explicados fácil',
+    dek:'La estructura es la diferencia entre una canción que avanza y un bucle que simplemente dura más. No necesitas teoría musical: basta con decidir para qué sirve cada parte, dónde cambia la energía y qué debe recordar quien escucha.',
+    quick:'Respuesta rápida',
+    quickText:'Para una primera canción, hazlo sencillo: intro corta → verso → pre-estribillo → estribillo → verso 2 → estribillo → puente o breakdown → estribillo final → final claro. Las etiquetas cambian según el género. Lo importante es el contraste: cada sección debe aportar información, liberar tensión, reducir energía o devolver el hook principal.',
+    meaningTitle:'Qué significa realmente la estructura de una canción',
+    meaning1:'Una canción no es un bloque continuo. Es una secuencia de secciones con trabajos distintos. Ableton define el arreglo como la forma de combinar patrones musicales pequeños hasta construir una canción completa. En la práctica, la estructura responde a una pregunta muy sencilla: ¿qué debe pasar después?',
+    meaning2:'En música con IA es especialmente útil porque una buena estructura le da un mapa al generador. No garantiza que cada etiqueta se cumpla de forma perfecta, pero da mucha más dirección que un prompt que solo habla de estilo y estado de ánimo.',
+    partsTitle:'Las siete partes que un principiante necesita entender',
+    parts:[
+      ['1. Intro: presenta el mundo y avanza','La intro establece el sonido, el groove o la atmósfera. No necesita explicar toda la canción. Cuatro u ocho compases suelen bastar. Si es más larga, algo debería evolucionar: una nueva capa de batería, una entrada vocal, el bajo o un filtro que se abre.'],
+      ['2. Verso: hace avanzar la historia','El verso suele aportar información nueva. En una canción narrativa, el verso 1 presenta la situación y el verso 2 debería desarrollarla en lugar de repetirla. Musicalmente suele estar más contenido que el estribillo para que la canción tenga espacio para crecer.'],
+      ['3. Pre-estribillo: crea expectativa','El pre-estribillo conecta verso y estribillo. Puede subir la melodía, simplificar la batería, aumentar tensión o cambiar la armonía. No siempre hace falta. Úsalo cuando el estribillo gane fuerza con una pequeña preparación.'],
+      ['4. Estribillo: entrega la idea central','El estribillo suele ser la sección principal que se repite. Contiene el mensaje central, la identidad melódica más fuerte o la mayor liberación de energía. No tiene que ser siempre más fuerte, pero sí debería sentirse importante.'],
+      ['5. Hook: lo que la gente recuerda','Hook y estribillo no son exactamente lo mismo. El hook puede ser una frase, una melodía, un ritmo, un riff, una voz o un motivo de producción. Muchas veces vive dentro del estribillo, pero también puede aparecer en la intro, post-estribillo o partes instrumentales.'],
+      ['6. Puente, breakdown o drop: cambia la perspectiva','El puente aporta contraste y normalmente aparece una vez. El breakdown elimina elementos para crear espacio. El drop, habitual en electrónica, libera energía después de crear tensión. Son recursos distintos, pero todos evitan que la canción parezca una misma parte repetida.'],
+      ['7. Outro: termina con intención','No dejes que la canción simplemente se apague sin decidirlo. Puedes repetir el hook, vaciar el arreglo, acabar con un golpe final o resolver la armonía. Un final claro hace que todo el tema parezca más intencionado.']
+    ],
+    barsTitle:'Solo necesitas una idea básica sobre los compases',
+    bars1:'En muchos estilos populares las secciones se construyen en grupos de 4, 8 o 16 compases. No necesitas contarlos obsesivamente. Piensa en ellos como bloques de tiempo musical. Si durante demasiado tiempo no cambia nada, el oído empieza a tratar la canción como fondo.',
+    bars2:'Regla sencilla para empezar: cada 8 o 16 compases, pregúntate si debería cambiar algo. No siempre hace falta una nueva sección. Un fill de batería, quitar el bajo, elevar la armonía, añadir una capa vocal, cambiar la percusión o dejar un pequeño silencio puede ser suficiente.',
+    formsTitle:'Cuatro estructuras simples que sirven para muchísima música',
+    forms:[
+      ['Pop / melódica','Intro → Verso → Pre-estribillo → Estribillo → Verso 2 → Estribillo → Puente → Estribillo final → Outro'],
+      ['Rap / trap','Hook → Verso 1 → Hook → Verso 2 → Breakdown o beat switch → Hook final'],
+      ['Club / electrónica','Intro de groove → Build → Drop → Breakdown → Build → Drop final → Outro'],
+      ['Lenta / cinematográfica','Intro atmosférica → Verso → Subida → Sección principal → Sección reducida → Expansión final → Final']
+    ],
+    note:'Son mapas, no leyes. El género, la duración y la intención creativa pueden cambiarlos por completo.',
+    aiTitle:'Cómo explicar la estructura a un generador de música con IA',
+    ai1:'No escribas una página de instrucciones. Dale una ruta fácil de leer y uno o dos cambios realmente importantes. Cuanto más importante sea una transición, más claramente conviene describirla.',
+    weak:'Débil: “Hazla dinámica, pegadiza, emocional y evolutiva, con muchos cambios.”',
+    strong:'Más útil: “Inicio con hook; verso contenido; pre-estribillo corto que elimina el bombo y crea tensión; estribillo más ancho con el hook vocal principal; segundo verso con más percusión; breakdown breve en half-time; estribillo final con capas vocales extra; final seco, sin fade.”',
+    explain:'La segunda versión funciona mejor porque indica dónde debe aparecer el contraste. No intenta controlar cada segundo.',
+    transitionsTitle:'Transiciones: los pequeños detalles que hacen que la estructura parezca real',
+    transitionsIntro:'Algunas ideas útiles para unir secciones:',
+    transitions:['fill de batería antes del estribillo','silencio breve antes del drop','riser o efecto reverse hacia una nueva sección','quitar el bajo antes de una subida','nueva armonía o inversión de acorde','cambio de pocket a double-time o half-time','entrada vocal justo antes del hook','break instrumental de un compás'],
+    mistakesTitle:'Cinco errores de estructura que hacen que una canción con IA suene plana',
+    mistakes:[
+      ['Todo tiene la misma energía','Si verso, estribillo y puente tienen la misma densidad, las etiquetas cambian pero el oyente no siente un recorrido.'],
+      ['El segundo verso es una copia','El verso 2 debería añadir información, ritmo, instrumentación o perspectiva. Repetir el verso 1 con palabras nuevas suele sonar estático.'],
+      ['Demasiadas secciones','Más etiquetas no significan más movimiento. Una estructura simple con buen contraste funciona mejor que doce secciones sin propósito claro.'],
+      ['No preparas el estribillo o el drop','Una liberación se siente más grande cuando antes has creado tensión. Incluso un compás con menos elementos puede hacer que la siguiente sección entre con más fuerza.'],
+      ['No hay un final real','Un tema que simplemente se detiene porque acabó la generación puede parecer incompleto. Dale una función musical al final.']
+    ],
+    workflowTitle:'El flujo más sencillo en Rythero',
+    workflow:'Empieza por la idea de la canción. Elige una estructura que encaje con el género. Decide dónde está el hook principal. Marca dónde sube la energía y dónde baja. Añade una transición importante. Genera. Después escucha y cambia solo la parte que ha fallado en vez de reescribir todo el plan.',
+    toolTitle:'Construye el mapa antes de generar',
+    toolText:'Rythero Studio incluye Arrangement Map precisamente para esto. Elige duración y perfil de estructura y usa la línea de tiempo como punto de partida. Está hecho para ser sencillo: suficiente estructura para guiar la canción sin convertir la creación en gestión de proyectos.',
+    studio:'Abrir Arrangement Map',
+    related:'Leer lección 01: prompts para música con IA',
+    faq:'Preguntas frecuentes',
+    faqs:[
+      ['¿Qué diferencia hay entre hook y estribillo?','El estribillo es una sección. El hook es la idea memorable. Un estribillo puede contener uno o varios hooks, pero un hook también puede aparecer fuera del estribillo.'],
+      ['¿Necesito siempre un pre-estribillo?','No. Úsalo solo cuando la transición de verso a estribillo necesite más tensión o subida.'],
+      ['¿Cuánto debe durar un verso?','No existe una duración universal. Ocho o dieciséis compases son puntos de partida habituales, pero importan más el género, el tempo y la densidad de la letra.'],
+      ['¿Toda canción con IA necesita puente?','No. Un breakdown, un beat switch, una parte instrumental o entrar directamente al último estribillo pueden aportar suficiente contraste.'],
+      ['¿La IA sigue exactamente las etiquetas de estructura?','No siempre. Trátalas como una guía, no como una línea temporal garantizada. Las instrucciones claras y compatibles suelen funcionar mejor que el micromanagement.']
+    ],
+    sources:'Referencias educativas y primarias',
+    sourceItems:[
+      ['Ableton Learning Music — Estructura de canciones','https://learningmusic.ableton.com/es/song-structure/song-structure.html'],
+      ['Suno Help — Music glossary','https://help.suno.com/en/articles/9010177'],
+      ['Udio Help — KillerM’s Lyrics Guide','https://help.udio.com/en/articles/12015484-killerm-s-lyrics-guide']
+    ]
+  },
+  'pt-br': {
+    eyebrow:'ESCOLA DE CRIADORES · AI MUSIC · AULA 02',
+    title:'Estrutura de música com IA: hook, verso, refrão e transições explicados de forma simples',
+    dek:'Estrutura é a diferença entre uma música que avança e um loop que apenas dura mais. Você não precisa de teoria musical: basta decidir para que serve cada parte, onde a energia muda e o que o ouvinte deve lembrar.',
+    quick:'Resposta rápida',
+    quickText:'Para uma primeira música, mantenha simples: intro curta → verso → pré-refrão → refrão → verso 2 → refrão → ponte ou breakdown → refrão final → final claro. Os nomes mudam conforme o gênero. O importante é o contraste: cada parte deve acrescentar informação, liberar tensão, reduzir energia ou trazer o hook principal de volta.',
+    meaningTitle:'O que estrutura de música realmente significa',
+    meaning1:'Uma música não é um bloco contínuo. É uma sequência de seções com funções diferentes. A Ableton descreve arranjo como a forma de combinar pequenos padrões musicais até formar uma música completa. Na prática, estrutura responde a uma pergunta simples: o que deve acontecer depois?',
+    meaning2:'Na música com IA isso é especialmente útil porque uma boa estrutura dá um mapa ao gerador. Ela não garante que cada rótulo será seguido perfeitamente, mas oferece muito mais direção do que um prompt que fala apenas de estilo e clima.',
+    partsTitle:'As sete partes que um iniciante precisa entender',
+    parts:[
+      ['1. Intro: apresente o mundo e avance','A intro estabelece som, groove ou atmosfera. Não precisa explicar a música inteira. Quatro ou oito compassos costumam bastar. Se for mais longa, algo deve evoluir: uma nova camada de bateria, entrada vocal, baixo ou filtro abrindo.'],
+      ['2. Verso: faça a história avançar','O verso normalmente traz informação nova. Em uma música narrativa, o verso 1 apresenta a situação e o verso 2 deve desenvolver a ideia em vez de repetir. Musicalmente, os versos costumam ser mais contidos que o refrão para criar espaço para crescer.'],
+      ['3. Pré-refrão: crie expectativa','O pré-refrão conecta verso e refrão. Pode subir a melodia, simplificar a bateria, aumentar a tensão ou mudar a harmonia. Nem sempre é necessário. Use quando o refrão ganhar força com uma preparação curta.'],
+      ['4. Refrão: entregue a ideia central','O refrão costuma ser a principal seção repetida. Traz a mensagem central, a identidade melódica mais forte ou a maior liberação de energia. Nem sempre precisa ser mais alto, mas deve parecer importante.'],
+      ['5. Hook: o que fica na memória','Hook e refrão não são exatamente a mesma coisa. O hook pode ser uma frase, melodia, ritmo, riff, voz ou motivo de produção. Muitas vezes está no refrão, mas também pode aparecer na intro, pós-refrão ou partes instrumentais.'],
+      ['6. Ponte, breakdown ou drop: mude a perspectiva','A ponte cria contraste e normalmente aparece uma vez. O breakdown remove elementos para criar espaço. O drop, comum na música eletrônica, libera energia depois da tensão. São recursos diferentes, mas todos evitam que a música pareça a mesma seção repetida.'],
+      ['7. Outro: termine com intenção','Não deixe a música simplesmente desaparecer sem decidir isso. Repita o hook, reduza o arranjo, termine com um impacto final ou resolva a harmonia. Um final claro faz a faixa inteira parecer mais intencional.']
+    ],
+    barsTitle:'Você só precisa de uma ideia básica sobre compassos',
+    bars1:'Em muitos estilos populares, as seções são construídas em grupos de 4, 8 ou 16 compassos. Você não precisa contar obsessivamente. Pense neles como blocos de tempo musical. Se nada muda por muito tempo, o ouvido começa a tratar a música como fundo.',
+    bars2:'Uma regra simples para começar: a cada 8 ou 16 compassos, pergunte se algo deveria mudar. Nem sempre é preciso uma nova seção. Um fill de bateria, retirar o baixo, elevar a harmonia, adicionar camada vocal, mudar a percussão ou criar um pequeno silêncio pode ser suficiente.',
+    formsTitle:'Quatro estruturas simples que cobrem muita música',
+    forms:[
+      ['Pop / melódica','Intro → Verso → Pré-refrão → Refrão → Verso 2 → Refrão → Ponte → Refrão final → Outro'],
+      ['Rap / trap','Hook → Verso 1 → Hook → Verso 2 → Breakdown ou beat switch → Hook final'],
+      ['Club / eletrônica','Intro de groove → Build → Drop → Breakdown → Build → Drop final → Outro'],
+      ['Lenta / cinematográfica','Intro atmosférica → Verso → Elevação → Seção principal → Seção reduzida → Expansão final → Final']
+    ],
+    note:'São mapas, não leis. Gênero, duração e intenção criativa podem mudar tudo.',
+    aiTitle:'Como descrever estrutura para um gerador de música com IA',
+    ai1:'Não escreva uma página de instruções. Dê ao gerador uma rota fácil de ler e uma ou duas mudanças realmente importantes. Quanto mais importante a transição, mais claramente vale descrevê-la.',
+    weak:'Fraco: “Faça dinâmica, marcante, emocional e evolutiva, com muitas mudanças.”',
+    strong:'Melhor: “Abertura com hook; verso contido; pré-refrão curto retirando o kick e criando tensão; refrão mais amplo com o hook vocal principal; segundo verso com mais percussão; breakdown curto em half-time; refrão final com camadas vocais extras; final seco, sem fade.”',
+    explain:'A segunda versão funciona melhor porque mostra onde o contraste deve acontecer. Ela não tenta controlar cada segundo.',
+    transitionsTitle:'Transições: os pequenos detalhes que fazem a estrutura parecer real',
+    transitionsIntro:'Algumas ideias úteis para ligar seções:',
+    transitions:['fill de bateria antes do refrão','silêncio curto antes do drop','riser ou efeito reverse para entrar em nova seção','retirar o baixo antes de uma elevação','nova harmonia ou inversão de acorde','mudança de pocket para double-time ou half-time','entrada vocal antes do hook','break instrumental de um compasso'],
+    mistakesTitle:'Cinco erros de estrutura que deixam músicas com IA planas',
+    mistakes:[
+      ['Tudo tem a mesma energia','Se verso, refrão e ponte têm a mesma densidade, os nomes mudam mas o ouvinte não sente uma jornada.'],
+      ['O segundo verso é uma cópia','O verso 2 deve adicionar informação, ritmo, instrumentação ou perspectiva. Repetir o verso 1 com palavras novas costuma soar estático.'],
+      ['Seções demais','Mais rótulos não significam mais movimento. Uma estrutura simples com bom contraste funciona melhor do que doze seções sem função clara.'],
+      ['Sem preparação para refrão ou drop','Uma liberação parece maior quando algo cria tensão antes. Até um compasso com menos elementos pode fazer a próxima seção entrar com mais força.'],
+      ['Sem final real','Uma faixa que apenas para porque a geração terminou pode parecer incompleta. Dê ao final uma função musical.']
+    ],
+    workflowTitle:'O fluxo mais simples no Rythero',
+    workflow:'Comece pela ideia da música. Escolha uma estrutura compatível com o gênero. Decida onde está o hook principal. Marque onde a energia sobe e onde cai. Adicione uma transição importante. Gere. Depois escute e altere apenas a parte que falhou, em vez de reescrever todo o plano.',
+    toolTitle:'Construa o mapa antes de gerar',
+    toolText:'Rythero Studio inclui Arrangement Map exatamente para isso. Escolha duração e perfil de estrutura e use a linha do tempo como ponto de partida. É propositalmente simples: estrutura suficiente para orientar a música sem transformar criação em gerenciamento de projeto.',
+    studio:'Abrir Arrangement Map',
+    related:'Ler aula 01: prompts para música com IA',
+    faq:'Perguntas frequentes',
+    faqs:[
+      ['Qual a diferença entre hook e refrão?','O refrão é uma seção. O hook é a ideia memorável. Um refrão pode ter um ou vários hooks, mas um hook também pode aparecer fora do refrão.'],
+      ['Preciso sempre de pré-refrão?','Não. Use apenas quando a passagem do verso para o refrão precisar de mais tensão ou elevação.'],
+      ['Quanto deve durar um verso?','Não existe duração universal. Oito ou dezesseis compassos são pontos de partida comuns, mas gênero, andamento e densidade da letra importam mais.'],
+      ['Toda música com IA precisa de ponte?','Não. Breakdown, beat switch, parte instrumental ou entrar direto no refrão final podem oferecer contraste suficiente.'],
+      ['A IA segue exatamente os rótulos de estrutura?','Nem sempre. Trate-os como orientação, não como linha do tempo garantida. Instruções claras e compatíveis costumam funcionar melhor do que microgerenciar tudo.']
+    ],
+    sources:'Referências educacionais e primárias',
+    sourceItems:[
+      ['Ableton Learning Music — Song structure','https://learningmusic.ableton.com/song-structure/song-structure.html'],
+      ['Suno Help — Music glossary','https://help.suno.com/en/articles/9010177'],
+      ['Udio Help — KillerM’s Lyrics Guide','https://help.udio.com/en/articles/12015484-killerm-s-lyrics-guide']
+    ]
+  }
+}[locale];
+
+const articleSchema = {
+  '@context':'https://schema.org',
+  '@type':'Article',
+  headline:t.title,
+  description:t.dek,
+  datePublished:'2026-09-15',
+  dateModified:'2026-09-15',
+  mainEntityOfPage:`https://rythero.com${canonicalPath}`,
+  inLanguage: locale === 'pt-br' ? 'pt-BR' : locale,
+  author:{'@type':'Organization',name:'Rythero'},
+  publisher:{'@type':'Organization',name:'Rythero',url:'https://rythero.com'}
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+<article class="shell article">
+  <header class="article-head">
+    <div class="eyebrow">{t.eyebrow}</div>
+    <h1>{t.title}</h1>
+    <p class="dek">{t.dek}</p>
+    <div class="meta"><span>Rythero</span><span>15 Sep 2026</span><span>≈ 9 min</span></div>
+  </header>
+
+  <div class="structure-map" aria-label="Song arrangement example">
+    <span class="intro">Intro</span><span class="verse">Verse</span><span class="pre">Pre</span><span class="chorus">Chorus</span><span class="verse">Verse 2</span><span class="bridge">Bridge</span><span class="chorus">Final chorus</span>
+  </div>
+
+  <div class="article-body">
+    <aside class="quick"><strong>{t.quick}</strong><p>{t.quickText}</p></aside>
+
+    <h2>{t.meaningTitle}</h2><p>{t.meaning1}</p><p>{t.meaning2}</p>
+    <h2>{t.partsTitle}</h2>
+    {t.parts.map(([h,p]) => <section><h3>{h}</h3><p>{p}</p></section>)}
+
+    <h2>{t.barsTitle}</h2><p>{t.bars1}</p><p>{t.bars2}</p>
+
+    <h2>{t.formsTitle}</h2>
+    <div class="forms">{t.forms.map(([name,flow]) => <section><strong>{name}</strong><p>{flow}</p></section>)}</div>
+    <p class="note">{t.note}</p>
+
+    <h2>{t.aiTitle}</h2><p>{t.ai1}</p>
+    <div class="compare"><p>{t.weak}</p><p>{t.strong}</p></div><p>{t.explain}</p>
+
+    <h2>{t.transitionsTitle}</h2><p>{t.transitionsIntro}</p>
+    <ul class="simple-list">{t.transitions.map(item => <li>{item}</li>)}</ul>
+
+    <h2>{t.mistakesTitle}</h2>
+    <div class="mistakes">{t.mistakes.map(([h,p]) => <section><h3>{h}</h3><p>{p}</p></section>)}</div>
+
+    <h2>{t.workflowTitle}</h2><p>{t.workflow}</p>
+
+    <section class="tool-cta"><div><div class="eyebrow">RYTHERO STUDIO</div><h2>{t.toolTitle}</h2><p>{t.toolText}</p></div><div class="cta-links"><a class="pill primary" href={`${base}/tools/song-studio#arrangement`}>{t.studio}</a><a class="pill" href={`${base}/learn/ai-music-prompts`}>{t.related}</a></div></section>
+
+    <h2>{t.faq}</h2>
+    <div class="faq">{t.faqs.map(([q,a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+
+    <h2>{t.sources}</h2>
+    <ul class="sources">{t.sourceItems.map(([name,url]) => <li><a href={url} rel="noopener noreferrer" target="_blank">{name} ↗</a></li>)}</ul>
+  </div>
+</article>
+
+<style>
+  .article{padding:68px 0 96px}.article-head{max-width:940px}.article h1{font-size:clamp(3rem,7vw,6.15rem);line-height:.94;letter-spacing:-.06em;margin:14px 0 22px}.dek{font-size:clamp(1.12rem,2.3vw,1.42rem);line-height:1.58;color:#b3c0b7;max-width:880px}.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;color:#6f7f75;font-size:.78rem}.structure-map{display:flex;gap:3px;height:78px;margin:42px 0 38px;padding:12px;border:1px solid var(--line);border-radius:22px;background:#07100a;overflow:hidden}.structure-map span{display:flex;align-items:center;justify-content:center;min-width:66px;padding:0 10px;border-radius:9px;background:#0d1811;color:#a9b7ae;font:700 .64rem ui-monospace,monospace;text-transform:uppercase;letter-spacing:.05em}.structure-map .intro{flex:.55}.structure-map .verse{flex:1.1}.structure-map .pre{flex:.55}.structure-map .chorus{flex:1.1;background:#14301d;color:#9effb5;box-shadow:inset 0 0 0 1px rgba(102,255,140,.16)}.structure-map .bridge{flex:.75;background:#111d16}.article-body{max-width:820px;margin:0 auto}.article-body h2{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.08;letter-spacing:-.035em;margin:54px 0 16px}.article-body h3{font-size:1.2rem;margin:30px 0 8px}.article-body p{color:#b3beb7;font-size:1.04rem;line-height:1.82}.quick{border-left:3px solid var(--green);background:#09110c;border-radius:0 18px 18px 0;padding:19px 22px;margin:0 0 44px}.quick strong{color:var(--green);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase}.quick p{margin:8px 0 0}.forms{display:grid;gap:10px}.forms section{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:#09100c}.forms strong{color:#e9f1eb}.forms p{margin:5px 0 0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.88rem;line-height:1.6;color:#87a28f}.note{font-size:.93rem!important;color:#7f9185!important}.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compare p{margin:0;border:1px solid var(--line);background:#0a110d;border-radius:16px;padding:18px}.compare p:last-child{border-color:#285038}.simple-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;padding-left:20px;color:#afbbb3}.simple-list li{padding:4px 0}.mistakes{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mistakes section{border-top:1px solid var(--line)}.tool-cta{margin:58px 0 44px;border:1px solid #29503a;border-radius:24px;background:linear-gradient(135deg,#0e1b13,#07100a);padding:24px}.tool-cta h2{margin:7px 0 10px}.tool-cta p{margin:0}.cta-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.faq details{border-top:1px solid var(--line);padding:16px 0}.faq details:last-child{border-bottom:1px solid var(--line)}.faq summary{cursor:pointer;font-weight:780;color:#e5eee8}.faq p{margin-bottom:4px}.sources{padding-left:18px}.sources li{margin:8px 0}.sources a{color:#8de6a6}.sources a:hover{color:var(--green)}@media(max-width:700px){.article{padding-top:45px}.structure-map{overflow-x:auto;justify-content:flex-start}.structure-map span{flex:0 0 86px!important}.compare,.mistakes,.simple-list{grid-template-columns:1fr}.article-body{width:100%}.tool-cta{padding:20px}}
+</style>
