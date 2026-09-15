@@ -5,6 +5,31 @@ Updated: 2026-09-15
 ## Editorial identity
 Rythero Creator School is the learning layer of the product. It should feel like practical music engineering, not a generic AI-news blog.
 
+### Competitive editorial thesis
+Rythero should compete on **clarity, simplicity and completeness**, not on pretending to be the most technically advanced music platform on the market.
+
+The core promise is:
+- explain music creation more simply than the typical specialist site,
+- give beginners enough context to act immediately,
+- remain useful to more experienced creators by being structured and complete,
+- never hide uncertainty or limitations behind marketing language,
+- connect every useful explanation with a practical next step inside Rythero when relevant.
+
+The editorial voice should be confident but modest. We can say that Rythero is designed to make the process simpler, but should avoid unverifiable claims such as “the easiest site on the internet” or “the best AI music platform”. Better formulations are: **“built to make this simpler”**, **“the shortest useful explanation”**, **“enough to get you moving without learning the whole vocabulary first”**, or **“simple, complete and practical.”**
+
+A reader should routinely finish a lesson thinking: **“I understand this now, and I know what to do next.”**
+
+### Beginner-first rule
+Assume the reader may never have made a song, used a DAW or understood terms such as BPM, key, arrangement, hook, stem, mix or prompt hierarchy. Explain the term in plain language first; introduce specialist vocabulary second. Do not dumb the content down: simplify the explanation, not the underlying idea.
+
+### Product-content advantage
+The school should not behave like an isolated blog. The competitive advantage is the combination of:
+1. a simple explanation,
+2. a concrete musical example,
+3. a Rythero tool that lets the reader apply the idea immediately.
+
+This makes the content more useful than a generic article and gives Google a coherent topical/product ecosystem rather than disconnected SEO pages.
+
 Principles:
 - People-first, problem-led content.
 - Original frameworks tied to Rythero tools and real musical decisions.
@@ -13,6 +38,19 @@ Principles:
 - Clear primary sources when discussing product capabilities, especially Suno/Udio.
 - Short paragraphs, strong H2/H3 hierarchy, examples and actionable takeaways.
 - Internal links should move readers naturally between learning and tools.
+- Prefer one memorable explanation over five paragraphs of jargon.
+- Where a topic can be taught with a visual, table, timeline or before/after example, prefer that over extra prose.
+
+## Editorial governance
+The default editorial direction is proactive: choose topics, search intent, structure, internal linking and publication order based on SEO opportunity, creator usefulness and Rythero's product strategy. The owner may request small changes, but day-to-day topic selection and editorial line should remain consistent rather than being reinvented article by article.
+
+Do not publish merely because a keyword has volume. Publish when Rythero can add at least one of these:
+- a simpler explanation than competing pages,
+- a clearer framework,
+- a practical workflow,
+- a useful tool connection,
+- a genuinely better example,
+- current primary-source verification.
 
 ## Launch topic cluster
 1. LIVE — `AI music prompts`: how to build a producer-style creative brief without stacking random adjectives.
