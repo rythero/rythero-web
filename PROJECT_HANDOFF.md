@@ -46,6 +46,7 @@ English:
 - `/tools/prompt-builder`
 - `/learn`
 - `/learn/ai-music-prompts`
+- `/learn/ai-song-structure`
 - `/privacy`
 - `/cookies`
 
@@ -55,6 +56,7 @@ Spanish:
 - `/es/tools/prompt-builder`
 - `/es/learn`
 - `/es/learn/ai-music-prompts`
+- `/es/learn/ai-song-structure`
 - `/es/privacy`
 - `/es/cookies`
 
@@ -64,6 +66,7 @@ Portuguese:
 - `/pt-br/tools/prompt-builder`
 - `/pt-br/learn`
 - `/pt-br/learn/ai-music-prompts`
+- `/pt-br/learn/ai-song-structure`
 - `/pt-br/privacy`
 - `/pt-br/cookies`
 
@@ -130,20 +133,21 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 ## AI Music Creator School / SEO editorial layer — implemented 2026-09-15
 - Strategy document: `EDITORIAL_STRATEGY.md`.
 - Shared school landing component: `src/components/CreatorSchool.astro`.
-- Shared first pillar article component: `src/components/AIMusicPromptsArticle.astro`.
+- Lesson 01 shared component: `src/components/AIMusicPromptsArticle.astro`.
+- Lesson 02 shared component: `src/components/AISongStructureArticle.astro`.
 - School landing pages exist in EN/ES/PT-BR.
-- First lesson exists in EN/ES/PT-BR at `/learn/ai-music-prompts` and localized-prefixed equivalents.
-- First lesson targets the educational intent around `AI music prompts` / how to write better music-generation prompts.
-- Editorial angle is original/practical: treat the prompt as a production brief rather than an adjective list.
-- The article teaches seven decision layers: genre, mood/energy, tempo, voice, instrumentation, structure and production.
-- It includes weak-vs-strong examples, common prompt mistakes, a beginner workflow, FAQs, internal links to Rythero Studio/Prompt Builder and primary Suno/Udio references.
+- Lesson 01 exists in EN/ES/PT-BR at `/learn/ai-music-prompts` and localized equivalents. It teaches a producer-style prompt framework around genre, mood/energy, tempo, voice, instrumentation, structure and production.
+- Lesson 02 exists in EN/ES/PT-BR at `/learn/ai-song-structure` and localized equivalents. It explains intro, verse, pre-chorus, chorus, hook, bridge/breakdown/drop, outro, 4/8/16-bar thinking, transitions, simple genre-specific maps and common flat-arrangement mistakes.
+- Lesson 02 uses a compact in-page arrangement-map visual instead of a decorative oversized image because the visual directly teaches the topic.
+- Lesson 02 links directly to Rythero Studio Arrangement Map and back to Lesson 01.
+- Creator School landing now surfaces Lesson 02 as a new live lesson rather than leaving it in the future list.
 - Article JSON-LD is implemented with publication/update date, Rythero as organizational author/publisher and language-aware canonical URL.
-- Homepages now contain a visible contextual link from the Learn section to the matching Creator School landing page.
-- Sitemap contains school landing pages and first lesson in all three languages.
+- Sitemap contains school landing pages and both live lessons in all three languages.
 - Do not mass-publish filler. Build topical authority with a small cluster of strong lessons that solve real creator problems.
-- Planned next cluster: why AI songs sound generic; song structure for AI music; Style DNA without artist imitation; BPM/key/energy; practical Suno v6 guide.
-- Editorial images should be minimal, dark premium music-tech, no text baked into the image, no generic robot/brain/headphone clichés, and displayed modestly rather than as oversized hero art.
-- New permanent editorial standard: explain specialist concepts in plain language first and introduce jargon second. Simplify the explanation, not the idea.
+- A separate Rythero article about “why AI songs sound generic” is intentionally not a current priority because a similar editorial angle already exists elsewhere in the owner’s ecosystem.
+- Current next cluster: Style DNA without artist imitation; BPM/key/energy; practical Suno v6 guide.
+- Editorial visuals should be minimal, dark premium music-tech, no text baked into raster imagery, no generic robot/brain/headphone clichés, and displayed modestly rather than as oversized hero art.
+- Permanent editorial standard: explain specialist concepts in plain language first and introduce jargon second. Simplify the explanation, not the idea.
 - Every strong lesson should ideally combine a simple explanation + concrete musical example + relevant Rythero action/tool. This is a core product/content differentiator.
 
 ## Homepage changes for Studio launch
@@ -189,7 +193,7 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 ## Immediate verification checklist
 1. Wait for Cloudflare to deploy the latest main commit.
 2. Test `/tools/song-studio`, `/es/tools/song-studio`, `/pt-br/tools/song-studio` on desktop and mobile.
-3. Test all seven Studio tabs and confirm tab deep-links such as `#audio` open correctly.
+3. Test all seven Studio tabs and confirm tab deep-links such as `#audio` and `#arrangement` open correctly.
 4. Create a Song Blueprint, send it to Export, refresh and confirm local persistence works.
 5. Save and reload a Style DNA profile.
 6. Test Prompt Doctor with a deliberately contradictory prompt.
@@ -197,11 +201,11 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 8. Test Lyrics Blueprint with non-empty theme/detail.
 9. Test Audio Analyzer with one MP3 and one WAV if available; compare estimated BPM with a known track and treat it as approximate.
 10. Re-test standalone Prompt Builder `More ideas ↻` and beginner mobile placeholders.
-11. Verify `/learn`, `/es/learn`, `/pt-br/learn` and all three `/learn/ai-music-prompts` variants on desktop/mobile.
+11. Verify `/learn`, `/es/learn`, `/pt-br/learn` and both lesson families (`ai-music-prompts`, `ai-song-structure`) on desktop/mobile.
 12. Verify the home Learn links open the correct language school.
 13. Verify `https://rythero.com/rythero-og.jpg`.
 14. In Google Search Console inspect `https://rythero.com/` and request indexing.
-15. After the first lesson is live, inspect `https://rythero.com/learn/ai-music-prompts` and request indexing; optionally submit ES/PT counterparts after verification.
+15. After lessons are live, inspect the English lesson URLs and request indexing; optionally submit ES/PT counterparts after verification.
 16. In Facebook Sharing Debugger run `https://rythero.com/` and use Scrape Again.
 17. Only after these checks start the first three-language distribution videos.
 
@@ -209,8 +213,7 @@ Rythero Studio intentionally groups seven tools into one workspace so the site g
 - Improve Studio results from real user testing rather than adding more tools immediately.
 - Add contextual compatibility warnings between selected styles/tempo/voice.
 - Consider key/scale assistance only if it can be made clear and non-misleading.
-- Add one minimal no-text editorial image system for Creator School lessons, optimized for web and Google Images.
-- Write the next lesson in the planned cluster, prioritizing unique analysis and primary sources.
+- Write Lesson 03: Style DNA without artist imitation, prioritizing unique analysis and primary/educational sources.
 - Add contextual links from tools back to relevant lessons once 2–3 lessons are live.
 - Add real account/history/favorites only when usage justifies server-side state.
 - If an official music-generation API becomes available and terms permit it, add it through a replaceable provider adapter rather than coupling Rythero to one generator.
