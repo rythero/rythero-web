@@ -18,7 +18,7 @@ import Base from '../../layouts/Base.astro';
           <input data-value name="genre" type="hidden" />
           <div id="genre-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
-        <span class="field-hint">Try K-pop, afro house, hyperpop, alt-R&amp;B… Mix up to 4 styles.</span>
+        <span class="field-hint">Mix up to 4 styles. Open the field and use More ideas if you are not sure where to start.</span>
       </div>
 
       <div class="field smart-field" data-selector="mood">
@@ -29,7 +29,7 @@ import Base from '../../layouts/Base.astro';
           <input data-value name="mood" type="hidden" />
           <div id="mood-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
-        <span class="field-hint">Choose up to 3 moods or write your own.</span>
+        <span class="field-hint">Choose up to 3 moods. More ideas rotates through useful starting points.</span>
       </div>
 
       <label class="field">Energy
@@ -49,11 +49,11 @@ import Base from '../../layouts/Base.astro';
         <label for="vocal-search">Vocal</label>
         <div class="smart-combobox" data-combobox>
           <div class="smart-chips" data-chips aria-live="polite"></div>
-          <input id="vocal-search" data-search type="text" autocomplete="off" placeholder="Search vocal traits…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="vocal-results" />
+          <input id="vocal-search" data-search type="text" autocomplete="off" placeholder="Search vocal type or character…" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="vocal-results" />
           <input data-value name="vocal" type="hidden" />
           <div id="vocal-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
-        <span class="field-hint">Lead type + character works best. Up to 4 traits.</span>
+        <span class="field-hint">Start with a voice type, then add character or delivery. Up to 4 choices.</span>
       </div>
 
       <div class="field smart-field" data-selector="instruments">
@@ -64,7 +64,7 @@ import Base from '../../layouts/Base.astro';
           <input data-value name="instruments" type="hidden" />
           <div id="instruments-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
-        <span class="field-hint">Pick the elements that should define the arrangement.</span>
+        <span class="field-hint">Pick up to 5 elements that should define the arrangement.</span>
       </div>
 
       <label class="field">Structure
@@ -85,7 +85,7 @@ import Base from '../../layouts/Base.astro';
           <input data-value name="production" type="hidden" />
           <div id="production-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
-        <span class="field-hint">Mix, space, punch, texture and dynamics. Up to 4.</span>
+        <span class="field-hint">Choose up to 4 traits for mix, space, punch, texture or dynamics.</span>
       </div>
 
       <div class="field smart-field wide" data-selector="exclude">
@@ -96,7 +96,7 @@ import Base from '../../layouts/Base.astro';
           <input data-value name="exclude" type="hidden" />
           <div id="exclude-results" class="smart-results" data-results role="listbox" hidden></div>
         </div>
-        <span class="field-hint">Optional. Use this only for things you clearly do not want.</span>
+        <span class="field-hint">Optional. Use this for things you clearly do not want in the result.</span>
       </div>
 
       <div class="wide controls">
@@ -124,75 +124,147 @@ import Base from '../../layouts/Base.astro';
     const selectorConfigs = {
       genre: {
         max: 4,
-        popular: ['K-pop', 'Afro house', 'Hyperpop', 'Alt-R&B', 'Amapiano', 'Melodic hip-hop', 'Afrobeats', 'Drum & bass'],
+        popular: [
+          'K-pop', 'Afro house', 'Alt-R&B', 'Hyperpop', 'Amapiano', 'Melodic hip-hop', 'Afrobeats', 'Drum & bass',
+          'Pop', 'House', 'R&B', 'Trap', 'Indie pop', 'Dark pop', 'UK garage', 'J-pop',
+          'Cinematic pop', 'Synth-pop', 'Latin pop', 'Reggaeton', 'Brazilian funk', 'Flamenco fusion', 'Arabic pop', 'Raï pop'
+        ],
         catalog: [
-          ['K-pop', 'Current'], ['Afro house', 'Current'], ['Hyperpop', 'Current'], ['Alt-R&B', 'Current'],
-          ['Amapiano', 'Current'], ['Melodic hip-hop', 'Current'], ['Afrobeats', 'Current'], ['Drum & bass', 'Current'],
-          ['UK garage', 'Current'], ['Jersey club', 'Current'], ['Dark pop', 'Current'], ['Cinematic pop', 'Current'],
-          ['K-pop dance-pop', 'Current'], ['K-pop R&B', 'Current'], ['K-pop trap', 'Current'], ['K-pop rock hybrid', 'Current'],
-          ['Pop', 'Core'], ['Dance-pop', 'Core'], ['Electropop', 'Core'], ['Synth-pop', 'Core'], ['Hip-hop', 'Core'],
-          ['Trap', 'Core'], ['R&B', 'Core'], ['Neo-soul', 'Core'], ['Electronic', 'Core'], ['House', 'Core'],
-          ['Tech house', 'Core'], ['Lo-fi', 'Core'], ['Rock', 'Core'], ['Indie rock', 'Core'], ['Alternative rock', 'Core'],
-          ['Metal', 'Core'], ['Soul', 'Core'], ['Funk', 'Core'], ['Folk', 'Core'], ['Country', 'Core'],
-          ['Latin pop', 'Crossover'], ['Reggaeton', 'Crossover'], ['Latin trap', 'Crossover'], ['Flamenco fusion', 'Crossover'],
-          ['Arabic pop', 'Crossover'], ['Raï pop', 'Crossover'], ['J-pop', 'Crossover'], ['Brazilian funk', 'Crossover']
+          ['K-pop', 'Current'], ['K-pop dance-pop', 'Current'], ['K-pop R&B', 'Current'], ['K-pop trap', 'Current'], ['K-pop rock hybrid', 'Current'],
+          ['Afro house', 'Current'], ['Amapiano', 'Current'], ['3-step', 'Current'], ['Afrobeats', 'Current'], ['Afro-pop', 'Current'],
+          ['Hyperpop', 'Current'], ['Alt-R&B', 'Current'], ['Melodic hip-hop', 'Current'], ['Drum & bass', 'Current'], ['Liquid drum & bass', 'Current'],
+          ['UK garage', 'Current'], ['Jersey club', 'Current'], ['Dark pop', 'Current'], ['Cinematic pop', 'Current'], ['Brazilian funk', 'Current'],
+          ['Pop', 'Core'], ['Indie pop', 'Core'], ['Alt-pop', 'Core'], ['Dance-pop', 'Core'], ['Electropop', 'Core'], ['Synth-pop', 'Core'],
+          ['Dream pop', 'Core'], ['Bedroom pop', 'Core'], ['Hip-hop', 'Core'], ['Trap', 'Core'], ['Drill', 'Core'], ['Boom bap', 'Core'],
+          ['Rage rap', 'Core'], ['Cloud rap', 'Core'], ['R&B', 'Core'], ['Contemporary R&B', 'Core'], ['Neo-soul', 'Core'],
+          ['Electronic', 'Core'], ['House', 'Core'], ['Deep house', 'Core'], ['Tech house', 'Core'], ['Melodic house', 'Core'],
+          ['Progressive house', 'Core'], ['Organic house', 'Core'], ['Techno', 'Core'], ['Trance', 'Core'], ['Ambient', 'Core'],
+          ['Lo-fi', 'Core'], ['Synthwave', 'Core'], ['Phonk', 'Core'], ['Rock', 'Core'], ['Indie rock', 'Core'], ['Alternative rock', 'Core'],
+          ['Pop punk', 'Core'], ['Shoegaze', 'Core'], ['Metal', 'Core'], ['Soul', 'Core'], ['Funk', 'Core'], ['Gospel', 'Core'],
+          ['Folk', 'Core'], ['Country', 'Core'], ['Jazz', 'Core'], ['Blues', 'Core'], ['Cinematic orchestral', 'Core'],
+          ['Latin pop', 'Crossover'], ['Reggaeton', 'Crossover'], ['Latin trap', 'Crossover'], ['Salsa pop', 'Crossover'], ['Bachata pop', 'Crossover'],
+          ['Flamenco fusion', 'Crossover'], ['Arabic pop', 'Crossover'], ['Raï pop', 'Crossover'], ['J-pop', 'Crossover'], ['City pop', 'Crossover'],
+          ['Baile funk', 'Crossover']
         ]
       },
       mood: {
         max: 3,
-        popular: ['Euphoric', 'Intimate', 'Dark', 'Dreamy', 'Nocturnal', 'Defiant', 'Melancholic', 'Romantic'],
+        popular: [
+          'Euphoric', 'Intimate', 'Dark', 'Dreamy', 'Nocturnal', 'Defiant', 'Melancholic', 'Romantic',
+          'Hopeful', 'Nostalgic', 'Hypnotic', 'Uplifting', 'Aggressive', 'Sensual', 'Triumphant', 'Mysterious',
+          'Playful', 'Warm', 'Cold', 'Tense', 'Bittersweet', 'Tender', 'Confident', 'Reflective'
+        ],
         catalog: [
-          ['Euphoric', 'Mood'], ['Intimate', 'Mood'], ['Dark', 'Mood'], ['Dreamy', 'Mood'], ['Nocturnal', 'Mood'],
-          ['Defiant', 'Mood'], ['Melancholic', 'Mood'], ['Romantic', 'Mood'], ['Hopeful', 'Mood'], ['Nostalgic', 'Mood'],
-          ['Aggressive', 'Mood'], ['Playful', 'Mood'], ['Sensual', 'Mood'], ['Triumphant', 'Mood'], ['Tense', 'Mood'],
-          ['Hypnotic', 'Mood'], ['Warm', 'Mood'], ['Cold', 'Mood'], ['Mysterious', 'Mood'], ['Uplifting', 'Mood']
+          ['Euphoric', 'Emotion'], ['Intimate', 'Emotion'], ['Dark', 'Emotion'], ['Dreamy', 'Atmosphere'], ['Nocturnal', 'Atmosphere'],
+          ['Defiant', 'Attitude'], ['Melancholic', 'Emotion'], ['Romantic', 'Emotion'], ['Hopeful', 'Emotion'], ['Nostalgic', 'Emotion'],
+          ['Aggressive', 'Attitude'], ['Playful', 'Attitude'], ['Sensual', 'Emotion'], ['Triumphant', 'Emotion'], ['Tense', 'Emotion'],
+          ['Hypnotic', 'Atmosphere'], ['Warm', 'Tone'], ['Cold', 'Tone'], ['Mysterious', 'Atmosphere'], ['Uplifting', 'Emotion'],
+          ['Bittersweet', 'Emotion'], ['Tender', 'Emotion'], ['Confident', 'Attitude'], ['Reflective', 'Emotion'], ['Vulnerable', 'Emotion'],
+          ['Energetic', 'Energy'], ['Calm', 'Energy'], ['Chaotic', 'Energy'], ['Epic', 'Scale'], ['Minimal', 'Scale'],
+          ['Cinematic', 'Atmosphere'], ['Spiritual', 'Atmosphere'], ['Celebratory', 'Emotion'], ['Seductive', 'Emotion'], ['Rebellious', 'Attitude']
         ]
       },
       vocal: {
         max: 4,
-        popular: ['Female lead', 'Male lead', 'Raspy', 'Airy', 'Powerful', 'Close-mic intimate', 'Rap vocal', 'Layered harmonies'],
+        popular: [
+          'Female vocal', 'Male vocal', 'Duet', 'Raspy', 'Soulful', 'Airy', 'Powerful', 'Close-mic intimate',
+          'Rap vocal', 'Melodic rap', 'Breathy', 'Gritty', 'Warm', 'Low register', 'Falsetto', 'Layered harmonies',
+          'Whispered', 'Youthful', 'Mature', 'Raw', 'Bright', 'Dark tone', 'Call-and-response', 'Vocal chops'
+        ],
         catalog: [
-          ['Female lead', 'Lead'], ['Male lead', 'Lead'], ['Androgynous lead', 'Lead'], ['Duet', 'Lead'], ['Rap vocal', 'Delivery'],
-          ['Spoken word', 'Delivery'], ['Raspy', 'Character'], ['Airy', 'Character'], ['Breathy', 'Character'], ['Powerful', 'Character'],
-          ['Warm', 'Character'], ['Raw', 'Character'], ['Close-mic intimate', 'Character'], ['Falsetto', 'Register'],
-          ['Low register', 'Register'], ['High register', 'Register'], ['Layered harmonies', 'Layers'], ['Gang vocals', 'Layers'],
-          ['Vocoder texture', 'Texture'], ['Minimal autotune', 'Texture']
+          ['Female vocal', 'Voice type'], ['Male vocal', 'Voice type'], ['Androgynous vocal', 'Voice type'], ['Duet', 'Voice type'],
+          ['Mixed duet', 'Voice type'], ['Choir', 'Voice type'], ['Instrumental / no lead vocal', 'Voice type'],
+          ['Rap vocal', 'Delivery'], ['Melodic rap', 'Delivery'], ['Spoken word', 'Delivery'], ['Whispered', 'Delivery'],
+          ['Rhythmic phrasing', 'Delivery'], ['Soulful', 'Character'], ['Raspy', 'Character'], ['Gritty', 'Character'], ['Smoky', 'Character'],
+          ['Airy', 'Character'], ['Breathy', 'Character'], ['Powerful', 'Character'], ['Warm', 'Character'], ['Raw', 'Character'],
+          ['Bright', 'Character'], ['Dark tone', 'Character'], ['Youthful', 'Character'], ['Mature', 'Character'],
+          ['Close-mic intimate', 'Presence'], ['Falsetto', 'Register'], ['Low register', 'Register'], ['High register', 'Register'],
+          ['Chest voice', 'Register'], ['Layered harmonies', 'Layers'], ['Call-and-response', 'Layers'], ['Gang vocals', 'Layers'],
+          ['Vocal chops', 'FX'], ['Vocoder texture', 'FX'], ['Minimal autotune', 'FX'], ['Heavy vocal processing', 'FX']
         ]
       },
       instruments: {
         max: 5,
-        popular: ['Deep 808', 'Acoustic drums', 'Analog synths', 'Piano', 'Electric guitar', 'Ambient pads', 'Nylon guitar', 'Handclaps'],
+        popular: [
+          'Deep 808', 'Acoustic drums', 'Electronic drums', 'Analog synths', 'Piano', 'Electric guitar', 'Ambient pads', 'Nylon guitar',
+          'Sub bass', 'Handclaps', 'Rhodes', 'Strings', 'Bright plucks', 'Cajón', 'Percussion', 'Saxophone',
+          'Oud', 'Tabla', 'Brass', 'Choir textures', 'Acoustic guitar', 'Flute', 'Vocal chops', 'Field recordings'
+        ],
         catalog: [
-          ['Deep 808', 'Low end'], ['Sub bass', 'Low end'], ['Acoustic drums', 'Rhythm'], ['Electronic drums', 'Rhythm'],
-          ['Handclaps', 'Rhythm'], ['Shakers', 'Rhythm'], ['Cajón', 'Rhythm'], ['Percussion', 'Rhythm'], ['Piano', 'Keys'],
-          ['Rhodes', 'Keys'], ['Analog synths', 'Synth'], ['Bright plucks', 'Synth'], ['Ambient pads', 'Synth'],
-          ['Nylon guitar', 'Guitar'], ['Electric guitar', 'Guitar'], ['Acoustic guitar', 'Guitar'], ['Strings', 'Orchestral'],
-          ['Brass', 'Orchestral'], ['Choir textures', 'Texture'], ['Oud', 'Regional'], ['Tabla', 'Regional'], ['Saxophone', 'Wind'],
-          ['Flute', 'Wind'], ['Vinyl texture', 'Texture'], ['Field recordings', 'Texture']
+          ['Deep 808', 'Low end'], ['Sub bass', 'Low end'], ['Bass guitar', 'Low end'], ['Synth bass', 'Low end'],
+          ['Acoustic drums', 'Rhythm'], ['Electronic drums', 'Rhythm'], ['Breakbeats', 'Rhythm'], ['Handclaps', 'Rhythm'],
+          ['Shakers', 'Rhythm'], ['Cajón', 'Rhythm'], ['Percussion', 'Rhythm'], ['Log drum', 'Rhythm'], ['Congas', 'Rhythm'],
+          ['Piano', 'Keys'], ['Rhodes', 'Keys'], ['Organ', 'Keys'], ['Analog synths', 'Synth'], ['Digital synths', 'Synth'],
+          ['Bright plucks', 'Synth'], ['Ambient pads', 'Synth'], ['Arpeggiated synth', 'Synth'], ['Nylon guitar', 'Guitar'],
+          ['Electric guitar', 'Guitar'], ['Acoustic guitar', 'Guitar'], ['Distorted guitar', 'Guitar'], ['Strings', 'Orchestral'],
+          ['Brass', 'Orchestral'], ['Orchestral percussion', 'Orchestral'], ['Choir textures', 'Texture'], ['Vocal chops', 'Texture'],
+          ['Oud', 'Regional'], ['Tabla', 'Regional'], ['Sitar', 'Regional'], ['Darbuka', 'Regional'], ['Saxophone', 'Wind'],
+          ['Flute', 'Wind'], ['Trumpet', 'Wind'], ['Vinyl texture', 'Texture'], ['Field recordings', 'Texture'], ['Found sounds', 'Texture']
         ]
       },
       production: {
         max: 4,
-        popular: ['Warm low end', 'Punchy drums', 'Dry vocal', 'Wide chorus', 'Minimal verses', 'Cinematic build', 'Glossy pop mix', 'Club-ready master'],
+        popular: [
+          'Warm low end', 'Punchy drums', 'Dry vocal', 'Wide chorus', 'Minimal verses', 'Cinematic build', 'Glossy pop mix', 'Club-ready master',
+          'Analog warmth', 'Dark spacious mix', 'Tight low end', 'Intimate close mix', 'Polished high end', 'Raw live feel', 'Sidechain pulse', 'Dynamic contrast',
+          'Airy top end', 'Saturated drums', 'Clean transient punch', 'Lo-fi texture', 'Deep sub focus', 'Wide stereo image', 'Vocal-forward mix', 'Organic texture'
+        ],
         catalog: [
-          ['Warm low end', 'Tone'], ['Punchy drums', 'Impact'], ['Dry vocal', 'Vocal'], ['Wide chorus', 'Width'],
-          ['Minimal verses', 'Arrangement'], ['Cinematic build', 'Dynamics'], ['Glossy pop mix', 'Finish'], ['Club-ready master', 'Finish'],
-          ['Analog warmth', 'Tone'], ['Dark spacious mix', 'Space'], ['Tight mono verses', 'Width'], ['Stereo width', 'Width'],
-          ['Sidechain pulse', 'Movement'], ['Saturated drums', 'Texture'], ['Clean transient punch', 'Impact'],
-          ['Intimate close mix', 'Space'], ['Lo-fi texture', 'Texture'], ['Polished high end', 'Finish'], ['Deep sub focus', 'Low end']
+          ['Warm low end', 'Tone'], ['Punchy drums', 'Impact'], ['Dry vocal', 'Vocal'], ['Vocal-forward mix', 'Vocal'],
+          ['Wide chorus', 'Width'], ['Wide stereo image', 'Width'], ['Tight mono verses', 'Width'], ['Minimal verses', 'Arrangement'],
+          ['Dense chorus', 'Arrangement'], ['Cinematic build', 'Dynamics'], ['Dynamic contrast', 'Dynamics'], ['Gradual build', 'Dynamics'],
+          ['Glossy pop mix', 'Finish'], ['Club-ready master', 'Finish'], ['Polished high end', 'Finish'], ['Radio-ready finish', 'Finish'],
+          ['Analog warmth', 'Tone'], ['Dark spacious mix', 'Space'], ['Intimate close mix', 'Space'], ['Large reverb space', 'Space'],
+          ['Sidechain pulse', 'Movement'], ['Saturated drums', 'Texture'], ['Clean transient punch', 'Impact'], ['Lo-fi texture', 'Texture'],
+          ['Organic texture', 'Texture'], ['Raw live feel', 'Texture'], ['Deep sub focus', 'Low end'], ['Tight low end', 'Low end'],
+          ['Airy top end', 'Tone'], ['Crisp percussion', 'Impact']
         ]
       },
       exclude: {
         max: 5,
-        popular: ['Heavy autotune', 'EDM drop', 'Fade-out', 'Long intro', 'Dembow', 'Excessive reverb', 'Busy arrangement', 'Spoken intro'],
+        popular: [
+          'Heavy autotune', 'EDM drop', 'Fade-out', 'Long intro', 'Dembow', 'Excessive reverb', 'Busy arrangement', 'Spoken intro',
+          'Over-compression', 'Trap hi-hat rolls', 'Choir', 'Bright EDM synths', 'Long instrumental break', 'Vocal chops', 'Abrupt ending', 'Crowded low end'
+        ],
         catalog: [
-          ['Heavy autotune', 'Avoid'], ['EDM drop', 'Avoid'], ['Fade-out', 'Avoid'], ['Long intro', 'Avoid'],
-          ['Dembow', 'Avoid'], ['Excessive reverb', 'Avoid'], ['Busy arrangement', 'Avoid'], ['Spoken intro', 'Avoid'],
-          ['Over-compression', 'Avoid'], ['Trap hi-hat rolls', 'Avoid'], ['Female backing vocals', 'Avoid'],
-          ['Male backing vocals', 'Avoid'], ['Choir', 'Avoid'], ['Bright EDM synths', 'Avoid'], ['Long instrumental break', 'Avoid']
+          ['Heavy autotune', 'Avoid'], ['EDM drop', 'Avoid'], ['Fade-out', 'Avoid'], ['Long intro', 'Avoid'], ['Dembow', 'Avoid'],
+          ['Excessive reverb', 'Avoid'], ['Busy arrangement', 'Avoid'], ['Spoken intro', 'Avoid'], ['Over-compression', 'Avoid'],
+          ['Trap hi-hat rolls', 'Avoid'], ['Female backing vocals', 'Avoid'], ['Male backing vocals', 'Avoid'], ['Choir', 'Avoid'],
+          ['Bright EDM synths', 'Avoid'], ['Long instrumental break', 'Avoid'], ['Vocal chops', 'Avoid'], ['Abrupt ending', 'Avoid'],
+          ['Crowded low end', 'Avoid'], ['Harsh distortion', 'Avoid'], ['Excessive ad-libs', 'Avoid'], ['Long outro', 'Avoid'],
+          ['Four-on-the-floor kick', 'Avoid'], ['Acoustic drums', 'Avoid'], ['Guitar solo', 'Avoid'], ['Orchestral strings', 'Avoid']
         ]
       }
     };
+
+    const genreProfiles = [
+      ['k-pop', 'hook-forward songwriting, polished modern production, strong sectional contrast and purposeful switch-ups'],
+      ['afro house', 'a deep rolling groove, organic percussion, warm low end and gradual hypnotic development'],
+      ['amapiano', 'log-drum-driven low end, spacious percussion, groove-first writing and patient dancefloor development'],
+      ['afrobeats', 'syncopated percussion, a warm elastic bassline, melodic rhythmic phrasing and light guitar or synth accents'],
+      ['hyperpop', 'bold synthetic textures, sharp contrast, exaggerated transitions and energetic sound design'],
+      ['alt-r&b', 'spacious groove, intimate vocal focus, restrained atmospheric layers and modern low-end detail'],
+      ['r&b', 'a smooth pocket, expressive vocal space, warm harmony and controlled low-end movement'],
+      ['melodic hip-hop', 'a memorable melodic topline, punchy drums, deep 808s and an emotional harmonic bed'],
+      ['hip-hop', 'a confident rhythmic pocket, focused drums, purposeful bass movement and space for the vocal'],
+      ['trap', 'deep 808s, crisp rhythmic detail, strong pocket and controlled melodic atmosphere'],
+      ['drum & bass', 'fast break-driven momentum, sub-bass weight, atmospheric tension and clean energetic transitions'],
+      ['uk garage', 'shuffled drums, syncopated bass movement, clipped rhythmic detail and a nimble club groove'],
+      ['jersey club', 'a chopped kick-driven pulse, rhythmic vocal energy and abrupt but musical transitions'],
+      ['dark pop', 'a memorable pop hook framed by moody harmony, restrained tension and polished dark textures'],
+      ['cinematic pop', 'wide dynamics, emotional builds, strong melodic payoff and cinematic depth without losing song focus'],
+      ['pop', 'clear melodic hierarchy, an immediate central hook, concise sections and polished contemporary production'],
+      ['house', 'a stable dance pulse, groove-led repetition, evolving layers and a clean low-end relationship'],
+      ['reggaeton', 'a tight Latin urban groove, strong rhythmic pocket, memorable topline and uncluttered bass movement'],
+      ['brazilian funk', 'percussive forward motion, hard rhythmic accents, direct hooks and energetic low-end impact'],
+      ['flamenco fusion', 'organic hand percussion, expressive guitar or flamenco color and a modern rhythm section without losing human feel'],
+      ['arabic pop', 'melodic ornamentation, strong vocal focus, regional instrumental color and contemporary pop structure'],
+      ['raï pop', 'North African melodic character, expressive vocal phrasing, rhythmic drive and modern pop/electronic production'],
+      ['j-pop', 'bright melodic movement, detailed arrangement changes, clear hooks and energetic harmonic color'],
+      ['rock', 'strong live-band energy, clear guitar/bass/drum roles, dynamic section contrast and a performance-led feel'],
+      ['lo-fi', 'soft transients, relaxed groove, warm imperfect texture and a deliberately uncluttered arrangement'],
+      ['synthwave', 'retro-futurist synth layers, pulsing bass, gated or electronic drums and cinematic nocturnal atmosphere']
+    ];
 
     const selectorInstances = [];
 
@@ -208,6 +280,7 @@ import Base from '../../layouts/Base.astro';
       const combobox = root.querySelector('[data-combobox]');
       const selected = [];
       const catalog = config.catalog.map(([name, group]) => ({ name, group }));
+      let suggestionOffset = 0;
 
       const sync = () => {
         if (valueInput) valueInput.value = selected.join(', ');
@@ -219,14 +292,18 @@ import Base from '../../layouts/Base.astro';
         search.setAttribute('aria-expanded', 'false');
       };
 
+      const availablePopular = () => config.popular.filter((name) => !selected.some((chosen) => normalize(chosen) === normalize(name)));
+
       const matchesFor = (query) => {
         const q = normalize(query);
         const available = catalog.filter((item) => !selected.some((chosen) => normalize(chosen) === normalize(item.name)));
         if (!q) {
-          return config.popular
+          const pool = availablePopular();
+          if (!pool.length) return [];
+          const start = suggestionOffset % pool.length;
+          return Array.from({ length: Math.min(8, pool.length) }, (_, index) => pool[(start + index) % pool.length])
             .map((name) => available.find((item) => item.name === name))
-            .filter(Boolean)
-            .slice(0, 8);
+            .filter(Boolean);
         }
         return available
           .filter((item) => normalize(item.name).includes(q))
@@ -297,6 +374,19 @@ import Base from '../../layouts/Base.astro';
             option.addEventListener('click', () => add(item.name));
             results.appendChild(option);
           });
+
+          if (!clean(query) && availablePopular().length > 8) {
+            const more = document.createElement('button');
+            more.type = 'button';
+            more.className = 'smart-more';
+            more.textContent = 'More ideas →';
+            more.addEventListener('mousedown', (event) => event.preventDefault());
+            more.addEventListener('click', () => {
+              suggestionOffset += 8;
+              renderResults('');
+            });
+            results.appendChild(more);
+          }
         } else if (clean(query)) {
           const custom = document.createElement('button');
           custom.type = 'button';
@@ -312,7 +402,10 @@ import Base from '../../layouts/Base.astro';
       };
 
       search?.addEventListener('focus', () => renderResults(search.value));
-      search?.addEventListener('input', () => renderResults(search.value));
+      search?.addEventListener('input', () => {
+        suggestionOffset = 0;
+        renderResults(search.value);
+      });
       search?.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           event.preventDefault();
@@ -339,6 +432,7 @@ import Base from '../../layouts/Base.astro';
         },
         reset() {
           selected.splice(0, selected.length);
+          suggestionOffset = 0;
           sync();
           renderChips();
           if (search) search.value = '';
@@ -351,6 +445,14 @@ import Base from '../../layouts/Base.astro';
       const instance = createSmartSelector(root);
       if (instance) selectorInstances.push(instance);
     });
+
+    const profileForGenres = (genreText) => {
+      const normalizedGenres = normalize(genreText);
+      return genreProfiles
+        .filter(([needle]) => normalizedGenres.includes(needle))
+        .slice(0, 2)
+        .map(([, guidance]) => guidance);
+    };
 
     form?.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -366,19 +468,40 @@ import Base from '../../layouts/Base.astro';
       const structure = clean(d.structure);
       const production = clean(d.production);
       const exclude = clean(d.exclude);
+      const genreGuidance = profileForGenres(genre);
 
-      let text = genre ? `Create a ${genre} track` : 'Create a modern track';
-      if (mood) text += ` with a ${mood} mood`;
-      if (energy) text += ` and ${energy} energy`;
-      if (bpm) text += ` at around ${bpm} BPM`;
-      text += '.';
-      if (vocal) text += ` Vocals: ${vocal}.`;
-      if (instruments) text += ` Build the arrangement around ${instruments}.`;
-      if (structure) text += ` Structure: ${structure}.`;
-      if (production) text += ` Production: ${production}.`;
-      if (exclude) text += ` Avoid: ${exclude}.`;
+      const sentences = [];
+      sentences.push(genre ? `Create a contemporary ${genre} track.` : 'Create a contemporary track with a clear musical identity rather than a generic AI-generated feel.');
 
-      output.textContent = text;
+      if (genreGuidance.length) {
+        sentences.push(`Build the style around ${genreGuidance.join('; ')}.`);
+        if (genre.includes(',')) sentences.push('Blend the selected genres into one coherent identity instead of switching between unrelated styles.');
+      } else if (genre) {
+        sentences.push('Keep the rhythm, harmony, sound palette and arrangement authentic to the selected style while still sounding current.');
+      }
+
+      if (mood) sentences.push(`Emotional direction: ${mood}. Let that mood shape the harmony, melodic contour, dynamics and sound choices.`);
+      else sentences.push('Give the song a clear emotional arc that fits the style and remains consistent from section to section.');
+
+      if (bpm) sentences.push(`Tempo: around ${bpm} BPM with ${energy || 'balanced'} energy.`);
+      else sentences.push(`Use a tempo that feels natural for the style, with ${energy || 'balanced'} energy and a convincing groove rather than a generic mid-tempo default.`);
+
+      if (vocal) sentences.push(`Vocals: ${vocal}. Keep the delivery expressive, intelligible and stylistically consistent, with phrasing that feels performed rather than mechanically generated.`);
+      else sentences.push('If vocals are used, choose a lead voice and delivery that naturally fit the genre, with clear character and controlled layering rather than generic processing.');
+
+      if (instruments) sentences.push(`Core arrangement: ${instruments}. Give each element a clear role and leave enough space for the hook and lead vocal.`);
+      else sentences.push('Use a focused, genre-appropriate instrument palette with a defined rhythmic foundation, supportive low end and enough space for the main hook.');
+
+      if (structure && structure !== 'Custom / flexible structure') sentences.push(`Structure: ${structure}. Make each section earn its place, create clear contrast, and let the main hook arrive with a noticeable lift.`);
+      else sentences.push('Use a concise structure with purposeful section changes, a memorable early hook and a stronger final payoff.');
+
+      if (production) sentences.push(`Production direction: ${production}. Keep the mix intentional, with controlled low end, clear transients and depth without unnecessary clutter.`);
+      else sentences.push('Keep the production modern and genre-authentic: controlled low end, defined transients, useful stereo depth and clear separation between the lead elements.');
+
+      sentences.push('Prioritize one memorable musical idea, purposeful transitions and enough variation to avoid a flat looped arrangement.');
+      if (exclude) sentences.push(`Avoid: ${exclude}.`);
+
+      output.textContent = sentences.join(' ');
       status.textContent = '';
     });
 
@@ -401,6 +524,6 @@ import Base from '../../layouts/Base.astro';
   </script>
 
   <style>
-    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.field{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.field>input,.field>select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.field>input:focus,.field>select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-field{position:relative}.smart-combobox{position:relative;border:1px solid #203027;background:#0d1510;border-radius:13px;padding:7px;transition:border-color .15s,box-shadow .15s}.smart-combobox:focus-within{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-combobox [data-search]{width:100%;border:0;background:transparent;color:var(--text);border-radius:8px;padding:8px 7px;outline:none;font:inherit}.smart-combobox [data-search]::placeholder{color:#6f7c74}.smart-chips{display:flex;flex-wrap:wrap;gap:6px}.smart-chips:empty{display:none}.smart-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #2d553a;border-radius:999px;padding:6px 9px;background:#102018;color:#dff9e6;font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}.smart-chip:hover{border-color:#66ff8c}.smart-chip span:last-child{color:#84a98d;font-size:1rem;line-height:.7}.smart-results{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;max-height:264px;overflow-y:auto;border:1px solid #284133;border-radius:14px;background:#0a120d;box-shadow:0 18px 46px rgba(0,0,0,.48);padding:6px}.smart-results[hidden]{display:none}.smart-results-head{padding:8px 10px 6px;color:#6f8075;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}.smart-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:9px;padding:10px 11px;background:transparent;color:#edf5ef;text-align:left;cursor:pointer;font:inherit}.smart-option:hover,.smart-option:focus{background:#132219;outline:none}.smart-option small{color:#6f8075;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.smart-custom span{color:#9df8b4}.smart-message{padding:12px;color:#89968e;font-size:.78rem;font-weight:500}.field-hint{color:#66746b;font-size:.69rem;font-weight:500;letter-spacing:0;line-height:1.35}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.08rem;line-height:1.7;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}.smart-results{max-height:228px}}
+    .tool-hero{padding:70px 0 35px}.tool-hero h1{font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.06em;line-height:.92;margin:12px 0}.intro{font-size:1.15rem}.builder-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;padding-bottom:90px;align-items:start}.builder{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);background:#080d0a;border-radius:26px;padding:22px}.field{display:flex;flex-direction:column;gap:8px;color:#b7c2bb;font-size:.82rem;font-weight:800;letter-spacing:.03em}.field>input,.field>select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:14px 13px;outline:none}.field>input:focus,.field>select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-field{position:relative}.smart-combobox{position:relative;border:1px solid #203027;background:#0d1510;border-radius:13px;padding:7px;transition:border-color .15s,box-shadow .15s}.smart-combobox:focus-within{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.smart-combobox [data-search]{width:100%;border:0;background:transparent;color:var(--text);border-radius:8px;padding:8px 7px;outline:none;font:inherit}.smart-combobox [data-search]::placeholder{color:#6f7c74}.smart-chips{display:flex;flex-wrap:wrap;gap:6px}.smart-chips:empty{display:none}.smart-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #2d553a;border-radius:999px;padding:6px 9px;background:#102018;color:#dff9e6;font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}.smart-chip:hover{border-color:#66ff8c}.smart-chip span:last-child{color:#84a98d;font-size:1rem;line-height:.7}.smart-results{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;max-height:264px;overflow-y:auto;border:1px solid #284133;border-radius:14px;background:#0a120d;box-shadow:0 18px 46px rgba(0,0,0,.48);padding:6px}.smart-results[hidden]{display:none}.smart-results-head{padding:8px 10px 6px;color:#6f8075;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}.smart-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;border-radius:9px;padding:10px 11px;background:transparent;color:#edf5ef;text-align:left;cursor:pointer;font:inherit}.smart-option:hover,.smart-option:focus{background:#132219;outline:none}.smart-option small{color:#6f8075;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.smart-custom span{color:#9df8b4}.smart-message{padding:12px;color:#89968e;font-size:.78rem;font-weight:500}.smart-more{width:100%;border:0;border-top:1px solid #17251c;margin-top:4px;padding:10px;background:transparent;color:#79dd96;font:inherit;font-size:.75rem;font-weight:750;cursor:pointer;text-align:center}.smart-more:hover{color:#b8ffc9;background:#0f1b13}.field-hint{color:#66746b;font-size:.69rem;font-weight:500;letter-spacing:0;line-height:1.35}.wide{grid-column:1/-1}.controls{display:flex;gap:10px;margin-top:4px}.controls button{cursor:pointer}.output-card{position:sticky;top:20px;border:1px solid #284132;background:linear-gradient(180deg,#0d1811,#07100a);border-radius:26px;padding:22px;min-height:300px}.output-head{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.18em;color:#75837a}.output-head button{border:1px solid #294334;background:#111d16;color:var(--green);padding:7px 11px;border-radius:999px;cursor:pointer}.output{font-size:1.02rem;line-height:1.72;white-space:pre-wrap;margin-top:30px}.status{font-size:.8rem;color:var(--green);margin-top:16px}@media(max-width:850px){.builder-wrap{grid-template-columns:1fr}.builder{grid-template-columns:1fr}.wide{grid-column:auto}.output-card{position:static}.smart-results{max-height:228px}}
   </style>
 </Base>
