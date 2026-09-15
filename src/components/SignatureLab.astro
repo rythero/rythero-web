@@ -1,160 +1,108 @@
 ---
 const { lang = 'en' } = Astro.props;
 const locale = lang === 'es' ? 'es' : lang === 'pt-br' ? 'pt-br' : 'en';
-const copy = {
+const c = {
   en: {
-    eyebrow:'Rythero Signature Lab',
-    title:'Find the sound you are actually looking for.',
-    intro:'Analyze references without copying them. Turn one track into a useful prompt, combine up to three references into your own sound profile, then check whether a new result moved in the direction you wanted.',
-    local:'LOCAL ANALYSIS · AUDIO STAYS ON THIS DEVICE',
+    eyebrow:'Rythero Signature Lab', title:'Hear the track. Understand the sound.',
+    intro:'Use local measurements for technical facts, then AI music analysis for style, instruments, vocals, production and a prompt you can review before using.',
+    statusChecking:'Checking AI engine…', localBadge:'LOCAL', aiBadge:'AI MUSIC ANALYSIS',
     modes:['Song → Prompt','Build my sound','Did I get close?'],
-    oneTitle:'Upload a song. Get a usable music prompt.',
-    oneText:'Rythero measures general audio characteristics such as tempo, energy, dynamics, rhythmic activity and change over time. It does not recover the original prompt.',
-    file:'Audio file',
-    hint:'Optional note',
-    hintPh:'e.g. raspy male vocal, nylon guitar, dark trap drums',
-    focus:'What matters most?',
-    focuses:[['balanced','Balanced'],['groove','Groove / tempo'],['energy','Energy'],['structure','Movement / structure'],['production','Production feel']],
-    analyze:'Analyze & build prompt',
-    oneEmpty:'Your detected profile and generator-ready prompt will appear here.',
-    buildTitle:'Turn several references into one original direction.',
-    buildText:'Use 2–3 references. Rythero looks for shared measurable traits and turns them into a reusable direction rather than copying melodies, lyrics or voices.',
-    refs:'Reference tracks (2–3)',
-    preserve:'Keep these traits',
-    traits:[['groove','Groove / tempo'],['energy','Energy'],['dynamics','Dynamics'],['movement','Section movement'],['texture','Texture / rhythmic edge']],
-    distance:'Creative distance',
-    near:'Keep the shared core',
-    far:'Make it more personal',
-    build:'Build my sound profile',
-    buildEmpty:'Your Signature profile will appear here and be saved only in this browser.',
-    compareTitle:'Check the result against your saved Signature.',
-    compareText:'Upload a new result. Rythero compares general characteristics with your saved target and suggests what to change in the next prompt.',
-    result:'Your new result',
-    compare:'Compare direction',
-    compareEmpty:'Build a Signature profile first, then come back here with a generated result.',
-    privacyTitle:'Reference use & privacy',
-    privacy:'Use audio you are entitled to analyze. Files are decoded and measured locally in your browser and are not uploaded by this tool. Rythero extracts general audio characteristics; it does not return stems, lyrics, melodies, cloned voices, artist identities or an “original prompt”. Results are estimates and are intended as creative guidance, not a copyright or originality determination.',
-    copyPrompt:'Copy prompt',
-    reset:'Reset lab'
+    oneTitle:'Upload a track and turn what Rythero hears into a usable prompt.',
+    oneText:'The fast local pass measures technical characteristics. The AI pass listens to a short derived excerpt from early, middle and late parts of the track and interprets transferable musical traits.',
+    file:'Audio file', focus:'What matters most?', hint:'Optional note', hintPh:'e.g. I care most about the vocal texture and groove',
+    focuses:[['balanced','Balanced'],['groove','Groove / tempo'],['vocals','Vocals'],['production','Production'],['structure','Structure / movement']],
+    localAction:'Technical analysis only', aiAction:'Analyze music with AI', localEmpty:'Local technical measurements will appear here.', aiEmpty:'AI style, instruments, vocals, production and suggested prompt will appear here.',
+    buildTitle:'Find what several references genuinely have in common.',
+    buildText:'Choose 2–3 references. Rythero compares short analysis excerpts and separates the shared musical core from the things that differ.', refs:'Reference tracks (2–3)', buildAction:'Build my sound with AI', buildEmpty:'Your shared sound signature will appear here.',
+    compareTitle:'Check whether a new result moved toward your saved sound.', compareText:'Upload the new result. Rythero compares it with your saved Signature and suggests concrete changes for the next generation.', result:'New result', compareAction:'Compare with AI', compareEmpty:'Build a sound Signature first, then return here with a new result.',
+    review:'What Rythero heard', reviewHint:'Remove anything that sounds wrong. The prompt is rebuilt only from the traits you keep.', rebuild:'Rebuild prompt', prompt:'Suggested prompt from the audio', copied:'Copied', copy:'Copy prompt',
+    localNote:'Local mode never uploads audio.', cloudNote:'AI mode sends only a short derived analysis excerpt through Rythero’s secure backend; the full original file is not intentionally stored by Rythero.',
+    legalTitle:'Reference use & privacy', legal:'Use audio you are entitled to analyze. AI analysis describes high-level transferable musical traits; it does not recover an original prompt, identify artists, transcribe lyrics, clone voices or reproduce melodies. Results are estimates and confidence matters.', reset:'Reset Lab'
   },
   es: {
-    eyebrow:'Rythero Signature Lab',
-    title:'Encuentra el sonido que realmente estás buscando.',
-    intro:'Analiza referencias sin copiarlas. Convierte una canción en un prompt útil, combina hasta tres referencias para construir tu propia dirección sonora y comprueba después si el resultado se acercó a lo que querías.',
-    local:'ANÁLISIS LOCAL · EL AUDIO SE QUEDA EN ESTE DISPOSITIVO',
+    eyebrow:'Rythero Signature Lab', title:'Escucha la canción. Entiende su sonido.',
+    intro:'Usa mediciones locales para los datos técnicos y análisis musical con IA para estilo, instrumentos, voz, producción y un prompt que puedes revisar antes de usar.',
+    statusChecking:'Comprobando motor IA…', localBadge:'LOCAL', aiBadge:'ANÁLISIS MUSICAL IA',
     modes:['Canción → Prompt','Construir mi sonido','¿Me he acercado?'],
-    oneTitle:'Sube una canción. Obtén un prompt musical útil.',
-    oneText:'Rythero mide características generales como tempo, energía, dinámica, actividad rítmica y cambios a lo largo del tema. No intenta recuperar el prompt original.',
-    file:'Archivo de audio',
-    hint:'Nota opcional',
-    hintPh:'p. ej. voz masculina rasgada, guitarra de nylon, batería trap oscura',
-    focus:'¿Qué te importa más?',
-    focuses:[['balanced','Equilibrado'],['groove','Groove / tempo'],['energy','Energía'],['structure','Movimiento / estructura'],['production','Sensación de producción']],
-    analyze:'Analizar y crear prompt',
-    oneEmpty:'Aquí aparecerán el perfil detectado y un prompt listo para usar.',
-    buildTitle:'Convierte varias referencias en una dirección propia.',
-    buildText:'Usa 2–3 referencias. Rythero busca rasgos medibles compartidos y los convierte en una dirección reutilizable, sin copiar melodías, letras ni voces.',
-    refs:'Canciones de referencia (2–3)',
-    preserve:'Conservar estos rasgos',
-    traits:[['groove','Groove / tempo'],['energy','Energía'],['dynamics','Dinámica'],['movement','Movimiento entre secciones'],['texture','Textura / ataque rítmico']],
-    distance:'Distancia creativa',
-    near:'Conservar el núcleo común',
-    far:'Hacerlo más personal',
-    build:'Construir mi perfil sonoro',
-    buildEmpty:'Aquí aparecerá tu perfil Signature y se guardará solo en este navegador.',
-    compareTitle:'Comprueba el resultado frente a tu Signature guardado.',
-    compareText:'Sube un resultado nuevo. Rythero compara sus características generales con tu objetivo y te propone qué cambiar en el siguiente prompt.',
-    result:'Tu nuevo resultado',
-    compare:'Comparar dirección',
-    compareEmpty:'Primero crea un perfil Signature y después vuelve aquí con un resultado generado.',
-    privacyTitle:'Uso de referencias y privacidad',
-    privacy:'Usa audio que tengas derecho a analizar. Los archivos se decodifican y miden localmente en tu navegador y esta herramienta no los sube. Rythero extrae características generales del audio; no devuelve stems, letras, melodías, voces clonadas, identidades de artistas ni un “prompt original”. Los resultados son estimaciones y sirven como orientación creativa, no como una determinación de copyright u originalidad.',
-    copyPrompt:'Copiar prompt',
-    reset:'Reiniciar laboratorio'
+    oneTitle:'Sube una canción y convierte lo que Rythero escucha en un prompt útil.',
+    oneText:'El análisis local mide datos técnicos. El análisis IA escucha un fragmento derivado de partes iniciales, centrales y finales y describe rasgos musicales transferibles.',
+    file:'Archivo de audio', focus:'¿Qué te importa más?', hint:'Nota opcional', hintPh:'p. ej. me importa especialmente la textura vocal y el groove',
+    focuses:[['balanced','Equilibrado'],['groove','Groove / tempo'],['vocals','Voz'],['production','Producción'],['structure','Estructura / evolución']],
+    localAction:'Solo análisis técnico', aiAction:'Analizar música con IA', localEmpty:'Aquí aparecerán las mediciones técnicas locales.', aiEmpty:'Aquí aparecerán estilo, instrumentos, voz, producción y el prompt sugerido por la IA.',
+    buildTitle:'Descubre qué tienen realmente en común varias referencias.',
+    buildText:'Elige 2–3 referencias. Rythero compara fragmentos breves de análisis y separa el núcleo musical compartido de lo que cambia entre ellas.', refs:'Canciones de referencia (2–3)', buildAction:'Construir mi sonido con IA', buildEmpty:'Aquí aparecerá tu firma sonora compartida.',
+    compareTitle:'Comprueba si un resultado nuevo se acercó a tu sonido guardado.', compareText:'Sube el nuevo resultado. Rythero lo compara con tu Signature y propone cambios concretos para la siguiente generación.', result:'Nuevo resultado', compareAction:'Comparar con IA', compareEmpty:'Primero construye una Signature sonora y después vuelve con un resultado nuevo.',
+    review:'Qué ha oído Rythero', reviewHint:'Quita cualquier rasgo que no encaje. El prompt se reconstruye solo con lo que conserves.', rebuild:'Reconstruir prompt', prompt:'Prompt sugerido desde el audio', copied:'Copiado', copy:'Copiar prompt',
+    localNote:'El modo local no sube el audio.', cloudNote:'El modo IA envía únicamente un fragmento breve derivado a través del backend seguro de Rythero; Rythero no almacena intencionadamente el archivo original completo.',
+    legalTitle:'Uso de referencias y privacidad', legal:'Usa audio que tengas derecho a analizar. El análisis IA describe rasgos musicales generales y transferibles; no recupera el prompt original, identifica artistas, transcribe letras, clona voces ni reproduce melodías. Los resultados son estimaciones y deben leerse junto a su nivel de confianza.', reset:'Reiniciar Lab'
   },
   'pt-br': {
-    eyebrow:'Rythero Signature Lab',
-    title:'Encontre o som que você realmente está procurando.',
-    intro:'Analise referências sem copiá-las. Transforme uma música em um prompt útil, combine até três referências para construir sua própria direção sonora e depois confira se o resultado foi na direção desejada.',
-    local:'ANÁLISE LOCAL · O ÁUDIO FICA NESTE DISPOSITIVO',
+    eyebrow:'Rythero Signature Lab', title:'Ouça a música. Entenda o som.',
+    intro:'Use medições locais para dados técnicos e análise musical com IA para estilo, instrumentos, voz, produção e um prompt que você pode revisar antes de usar.',
+    statusChecking:'Verificando motor de IA…', localBadge:'LOCAL', aiBadge:'ANÁLISE MUSICAL IA',
     modes:['Música → Prompt','Construir meu som','Cheguei perto?'],
-    oneTitle:'Envie uma música. Receba um prompt musical útil.',
-    oneText:'O Rythero mede características gerais como andamento, energia, dinâmica, atividade rítmica e mudanças ao longo da faixa. Ele não tenta recuperar o prompt original.',
-    file:'Arquivo de áudio',
-    hint:'Nota opcional',
-    hintPh:'ex. voz masculina rouca, violão de nylon, bateria trap escura',
-    focus:'O que mais importa?',
-    focuses:[['balanced','Equilibrado'],['groove','Groove / andamento'],['energy','Energia'],['structure','Movimento / estrutura'],['production','Sensação de produção']],
-    analyze:'Analisar e criar prompt',
-    oneEmpty:'O perfil detectado e um prompt pronto para usar aparecerão aqui.',
-    buildTitle:'Transforme várias referências em uma direção própria.',
-    buildText:'Use 2–3 referências. O Rythero procura traços mensuráveis em comum e os transforma em uma direção reutilizável, sem copiar melodias, letras ou vozes.',
-    refs:'Músicas de referência (2–3)',
-    preserve:'Manter estes traços',
-    traits:[['groove','Groove / andamento'],['energy','Energia'],['dynamics','Dinâmica'],['movement','Movimento entre seções'],['texture','Textura / ataque rítmico']],
-    distance:'Distância criativa',
-    near:'Manter o núcleo em comum',
-    far:'Deixar mais pessoal',
-    build:'Construir meu perfil sonoro',
-    buildEmpty:'Seu perfil Signature aparecerá aqui e será salvo apenas neste navegador.',
-    compareTitle:'Compare o resultado com sua Signature salva.',
-    compareText:'Envie um resultado novo. O Rythero compara características gerais com seu alvo e sugere o que mudar no próximo prompt.',
-    result:'Seu novo resultado',
-    compare:'Comparar direção',
-    compareEmpty:'Crie primeiro um perfil Signature e depois volte aqui com um resultado gerado.',
-    privacyTitle:'Uso de referências e privacidade',
-    privacy:'Use áudio que você tem direito de analisar. Os arquivos são decodificados e medidos localmente no navegador e esta ferramenta não os envia. O Rythero extrai características gerais do áudio; não devolve stems, letras, melodias, vozes clonadas, identidades de artistas nem um “prompt original”. Os resultados são estimativas para orientação criativa, não uma determinação de copyright ou originalidade.',
-    copyPrompt:'Copiar prompt',
-    reset:'Reiniciar laboratório'
+    oneTitle:'Envie uma música e transforme o que o Rythero ouve em um prompt útil.',
+    oneText:'A análise local mede dados técnicos. A análise de IA escuta um trecho derivado de partes iniciais, centrais e finais e descreve características musicais transferíveis.',
+    file:'Arquivo de áudio', focus:'O que mais importa?', hint:'Nota opcional', hintPh:'ex. a textura vocal e o groove são o mais importante',
+    focuses:[['balanced','Equilibrado'],['groove','Groove / andamento'],['vocals','Voz'],['production','Produção'],['structure','Estrutura / evolução']],
+    localAction:'Somente análise técnica', aiAction:'Analisar música com IA', localEmpty:'As medições técnicas locais aparecerão aqui.', aiEmpty:'Estilo, instrumentos, voz, produção e o prompt sugerido pela IA aparecerão aqui.',
+    buildTitle:'Descubra o que várias referências realmente têm em comum.',
+    buildText:'Escolha 2–3 referências. O Rythero compara pequenos trechos de análise e separa o núcleo musical compartilhado do que muda entre elas.', refs:'Músicas de referência (2–3)', buildAction:'Construir meu som com IA', buildEmpty:'Sua assinatura sonora compartilhada aparecerá aqui.',
+    compareTitle:'Confira se um novo resultado se aproximou do som salvo.', compareText:'Envie o novo resultado. O Rythero compara com sua Signature e sugere mudanças concretas para a próxima geração.', result:'Novo resultado', compareAction:'Comparar com IA', compareEmpty:'Crie primeiro uma Signature sonora e depois volte com um novo resultado.',
+    review:'O que o Rythero ouviu', reviewHint:'Remova qualquer característica que pareça errada. O prompt é reconstruído apenas com o que você mantiver.', rebuild:'Reconstruir prompt', prompt:'Prompt sugerido a partir do áudio', copied:'Copiado', copy:'Copiar prompt',
+    localNote:'O modo local nunca envia o áudio.', cloudNote:'O modo IA envia apenas um pequeno trecho derivado pelo backend seguro do Rythero; o arquivo original completo não é intencionalmente armazenado pelo Rythero.',
+    legalTitle:'Uso de referências e privacidade', legal:'Use áudio que você tem direito de analisar. A análise de IA descreve características musicais gerais e transferíveis; não recupera o prompt original, identifica artistas, transcreve letras, clona vozes ou reproduz melodias. Os resultados são estimativas e devem ser lidos junto com o nível de confiança.', reset:'Reiniciar Lab'
   }
 }[locale];
 ---
-<section class="shell sig-hero" data-signature-lab data-lang={locale}>
-  <div class="eyebrow">{copy.eyebrow}</div>
-  <h1>{copy.title}</h1>
-  <p>{copy.intro}</p>
-  <div class="sig-local">{copy.local}</div>
+<section class="shell sig" data-signature-lab data-lang={locale}>
+  <div class="eyebrow">{c.eyebrow}</div>
+  <h1>{c.title}</h1>
+  <p class="sig-intro">{c.intro}</p>
+  <div class="engine-row"><span class="engine local">{c.localBadge}</span><span class="engine ai">{c.aiBadge}</span><span id="sig-ai-status" class="engine-status">{c.statusChecking}</span></div>
 
   <nav class="sig-tabs" aria-label="Signature Lab">
-    {copy.modes.map((label, i) => <button type="button" class:list={{active:i===0}} data-sig-tab={['single','build','compare'][i]}>{label}</button>)}
+    {c.modes.map((label, i) => <button type="button" class:list={{active:i===0}} data-sig-tab={['single','build','compare'][i]}>{label}</button>)}
   </nav>
 
   <section class="sig-panel active" data-sig-panel="single">
-    <div class="sig-head"><div><span>01</span><h2>{copy.oneTitle}</h2><p>{copy.oneText}</p></div></div>
+    <div class="sig-head"><span>01</span><h2>{c.oneTitle}</h2><p>{c.oneText}</p></div>
     <form id="sig-single-form" class="sig-form">
-      <label>{copy.file}<input id="sig-single-file" type="file" accept="audio/*" required /></label>
-      <label>{copy.focus}<select id="sig-single-focus">{copy.focuses.map(([value,label]) => <option value={value}>{label}</option>)}</select></label>
-      <label class="wide">{copy.hint}<input id="sig-single-hint" type="text" maxlength="180" placeholder={copy.hintPh} /></label>
-      <div class="wide sig-actions"><button class="pill primary" type="submit">{copy.analyze}</button><button class="pill" type="button" data-copy-output="sig-single-output">{copy.copyPrompt}</button></div>
+      <label>{c.file}<input id="sig-single-file" type="file" accept="audio/*" required /></label>
+      <label>{c.focus}<select id="sig-single-focus">{c.focuses.map(([value,label]) => <option value={value}>{label}</option>)}</select></label>
+      <label class="wide">{c.hint}<input id="sig-single-hint" type="text" maxlength="220" placeholder={c.hintPh} /></label>
+      <div class="wide sig-actions"><button class="pill" id="sig-single-local" type="button">{c.localAction}</button><button class="pill primary" type="submit">{c.aiAction}</button></div>
     </form>
-    <div class="sig-output" id="sig-single-output">{copy.oneEmpty}</div>
+    <div class="privacy-mini"><span>{c.localNote}</span><span>{c.cloudNote}</span></div>
+    <div class="result-grid"><div><div class="result-label">{c.localBadge}</div><div class="sig-output" id="sig-single-local-output">{c.localEmpty}</div></div><div><div class="result-label">{c.aiBadge}</div><div class="sig-output" id="sig-single-ai-output">{c.aiEmpty}</div></div></div>
   </section>
 
   <section class="sig-panel" data-sig-panel="build" hidden>
-    <div class="sig-head"><div><span>02</span><h2>{copy.buildTitle}</h2><p>{copy.buildText}</p></div></div>
-    <form id="sig-build-form" class="sig-form">
-      <label class="wide">{copy.refs}<input id="sig-build-files" type="file" accept="audio/*" multiple required /><small>MP3, WAV, M4A, OGG · max. 3</small></label>
-      <fieldset class="wide sig-traits"><legend>{copy.preserve}</legend>{copy.traits.map(([value,label]) => <label><input type="checkbox" name="sig-trait" value={value} checked /> <span>{label}</span></label>)}</fieldset>
-      <label class="wide sig-range">{copy.distance}<input id="sig-distance" type="range" min="0" max="100" value="55" /><span><b>{copy.near}</b><b>{copy.far}</b></span></label>
-      <div class="wide sig-actions"><button class="pill primary" type="submit">{copy.build}</button><button class="pill" type="button" data-copy-output="sig-build-output">{copy.copyPrompt}</button></div>
+    <div class="sig-head"><span>02</span><h2>{c.buildTitle}</h2><p>{c.buildText}</p></div>
+    <form id="sig-build-form" class="sig-form one">
+      <label>{c.refs}<input id="sig-build-files" type="file" accept="audio/*" multiple required /><small>MP3, WAV, M4A, OGG, FLAC · 2–3</small></label>
+      <div class="sig-actions"><button class="pill primary" type="submit">{c.buildAction}</button></div>
     </form>
-    <div class="sig-output" id="sig-build-output">{copy.buildEmpty}</div>
+    <div class="privacy-mini"><span>{c.cloudNote}</span></div>
+    <div class="sig-output" id="sig-build-output">{c.buildEmpty}</div>
   </section>
 
   <section class="sig-panel" data-sig-panel="compare" hidden>
-    <div class="sig-head"><div><span>03</span><h2>{copy.compareTitle}</h2><p>{copy.compareText}</p></div></div>
+    <div class="sig-head"><span>03</span><h2>{c.compareTitle}</h2><p>{c.compareText}</p></div>
     <form id="sig-compare-form" class="sig-form one">
-      <label>{copy.result}<input id="sig-compare-file" type="file" accept="audio/*" required /></label>
-      <div class="sig-actions"><button class="pill primary" type="submit">{copy.compare}</button><button class="pill" type="button" data-copy-output="sig-compare-output">{copy.copyPrompt}</button></div>
+      <label>{c.result}<input id="sig-compare-file" type="file" accept="audio/*" required /></label>
+      <div class="sig-actions"><button class="pill primary" type="submit">{c.compareAction}</button></div>
     </form>
-    <div class="sig-output" id="sig-compare-output">{copy.compareEmpty}</div>
+    <div class="privacy-mini"><span>{c.cloudNote}</span></div>
+    <div class="sig-output" id="sig-compare-output">{c.compareEmpty}</div>
   </section>
 
-  <details class="sig-legal"><summary>{copy.privacyTitle}</summary><p>{copy.privacy}</p></details>
-  <button class="sig-reset" id="sig-reset" type="button">{copy.reset}</button>
-</section>
+  <template id="sig-review-copy"><span data-review-title>{c.review}</span><span data-review-hint>{c.reviewHint}</span><span data-rebuild>{c.rebuild}</span><span data-prompt>{c.prompt}</span><span data-copy>{c.copy}</span><span data-copied>{c.copied}</span></template>
 
+  <details class="sig-legal"><summary>{c.legalTitle}</summary><p>{c.legal}</p></details>
+  <button class="sig-reset" id="sig-reset" type="button">{c.reset}</button>
+</section>
 <script is:inline src="/signature-lab.js"></script>
 <style>
-  .sig-hero{padding:68px 0 90px}.sig-hero>h1{font-size:clamp(3rem,7vw,6.4rem);line-height:.92;letter-spacing:-.055em;margin:13px 0 22px;max-width:1050px}.sig-hero>p{max-width:820px;color:var(--muted);font-size:1.08rem}.sig-local{display:inline-flex;margin-top:12px;border:1px solid #24402f;border-radius:999px;padding:7px 10px;color:#78a886;font-size:.66rem;font-weight:900;letter-spacing:.1em}.sig-tabs{display:flex;gap:8px;overflow-x:auto;margin:34px 0 10px;padding-bottom:4px;scrollbar-width:none}.sig-tabs button{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#09100c;color:#829087;padding:10px 14px;font-size:.78rem;font-weight:850;cursor:pointer}.sig-tabs button.active{background:var(--green);border-color:var(--green);color:#041108}.sig-panel{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,#09110c,#060a07);padding:26px}.sig-panel[hidden]{display:none}.sig-head{margin-bottom:24px}.sig-head span{font-size:.68rem;color:var(--green);font-weight:900;letter-spacing:.16em}.sig-head h2{font-size:clamp(1.65rem,3.2vw,2.8rem);line-height:1.02;letter-spacing:-.04em;margin:6px 0 10px}.sig-head p{max-width:780px;margin:0;color:#94a198}.sig-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.sig-form.one{grid-template-columns:1fr}.sig-form .wide{grid-column:1/-1}.sig-form label,.sig-traits{display:flex;flex-direction:column;gap:7px;color:#aeb9b2;font-size:.76rem;font-weight:800}.sig-form input[type="file"],.sig-form input[type="text"],.sig-form select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:13px;outline:none}.sig-form input:focus,.sig-form select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.sig-form small{color:#68766d;font-weight:500}.sig-traits{border:1px solid #1d3025;border-radius:15px;padding:14px;display:flex;flex-direction:row;gap:8px;flex-wrap:wrap}.sig-traits legend{padding:0 7px;color:#aeb9b2}.sig-traits label{display:inline-flex;flex-direction:row;align-items:center;border:1px solid #223429;border-radius:999px;padding:8px 10px;background:#0a120d;cursor:pointer}.sig-traits input{accent-color:#66ff8c}.sig-range>input{accent-color:#66ff8c}.sig-range>span{display:flex;justify-content:space-between;gap:15px;color:#66746b;font-size:.65rem}.sig-range b{font-weight:650}.sig-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:3px}.sig-output{margin-top:18px;border:1px solid #1d3025;border-radius:18px;background:#08100b;padding:18px;color:#cad5ce;font-size:.9rem;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;min-height:90px}.sig-output .sig-metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:15px;white-space:normal}.sig-output .sig-metric{border:1px solid #1b2d22;border-radius:12px;padding:10px;background:#0b140e}.sig-output .sig-metric small{display:block;color:#6f8175;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em}.sig-output .sig-metric b{display:block;margin-top:4px;color:#eef5f0}.sig-output .sig-prompt{border-top:1px solid #1b2d22;padding-top:13px;margin-top:13px}.sig-output .sig-note{color:#708078;font-size:.72rem;margin-top:11px}.sig-legal{margin:14px 2px 0;color:#65736a;font-size:.7rem}.sig-legal summary{cursor:pointer;color:#718079}.sig-legal p{max-width:900px;line-height:1.55}.sig-reset{appearance:none;border:0;background:none;color:#526158;font-size:.68rem;margin-top:12px;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}@media(max-width:760px){.sig-hero{padding-top:44px}.sig-panel{padding:18px;border-radius:21px}.sig-form{grid-template-columns:1fr}.sig-form .wide{grid-column:auto}.sig-output .sig-metrics{grid-template-columns:1fr 1fr}.sig-tabs{margin-top:26px}}
+  .sig{padding:68px 0 90px}.sig>h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.92;letter-spacing:-.055em;margin:13px 0 22px;max-width:1050px}.sig-intro{max-width:850px;color:var(--muted);font-size:1.08rem}.engine-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:17px}.engine{border:1px solid #264532;border-radius:999px;padding:6px 9px;font-size:.63rem;font-weight:900;letter-spacing:.1em}.engine.local{color:#8bb99a}.engine.ai{color:#061008;background:var(--green);border-color:var(--green)}.engine-status{font-size:.72rem;color:#7e8d83}.sig-tabs{display:flex;gap:8px;overflow-x:auto;margin:34px 0 10px;padding-bottom:4px;scrollbar-width:none}.sig-tabs button{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#09100c;color:#829087;padding:10px 14px;font-size:.78rem;font-weight:850;cursor:pointer}.sig-tabs button.active{background:var(--green);border-color:var(--green);color:#041108}.sig-panel{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,#09110c,#060a07);padding:26px}.sig-panel[hidden]{display:none}.sig-head{margin-bottom:24px}.sig-head>span{font-size:.68rem;color:var(--green);font-weight:900;letter-spacing:.16em}.sig-head h2{font-size:clamp(1.65rem,3.2vw,2.8rem);line-height:1.02;letter-spacing:-.04em;margin:6px 0 10px}.sig-head p{max-width:800px;margin:0;color:#94a198}.sig-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.sig-form.one{grid-template-columns:1fr}.sig-form .wide{grid-column:1/-1}.sig-form label{display:flex;flex-direction:column;gap:7px;color:#aeb9b2;font-size:.76rem;font-weight:800}.sig-form input,.sig-form select{width:100%;border:1px solid #203027;background:#0d1510;color:var(--text);border-radius:13px;padding:13px;outline:none}.sig-form input:focus,.sig-form select:focus{border-color:#3a7950;box-shadow:0 0 0 3px rgba(102,255,140,.06)}.sig-form small{color:#68766d;font-weight:500}.sig-actions{display:flex;gap:9px;flex-wrap:wrap}.sig-actions button{cursor:pointer}.privacy-mini{display:flex;gap:12px;flex-wrap:wrap;margin:13px 1px 0;color:#65756b;font-size:.67rem;line-height:1.45}.privacy-mini span:before{content:'•';color:#4b7d59;margin-right:6px}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:19px}.result-label{font-size:.62rem;color:#789082;font-weight:900;letter-spacing:.14em;margin:0 0 6px 4px}.sig-output{border:1px solid #1d3025;border-radius:18px;background:#08100b;padding:18px;color:#cad5ce;font-size:.88rem;line-height:1.58;min-height:96px;overflow-wrap:anywhere}.sig-output h3{margin:0 0 9px;font-size:1rem;color:#f0f6f2}.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.metric-card{border:1px solid #1b2c22;border-radius:12px;padding:10px;background:#0b130e}.metric-card small{display:block;color:#728078;font-size:.59rem;text-transform:uppercase;letter-spacing:.09em}.metric-card b{display:block;margin-top:3px;color:#eef5f0}.trait-group{margin-top:15px}.trait-group>strong{display:block;color:#f0f6f2;font-size:.76rem;margin-bottom:7px}.trait-list{display:flex;gap:6px;flex-wrap:wrap}.trait-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid #284333;background:#0d1710;border-radius:999px;padding:6px 8px;color:#b9c7bd;font-size:.7rem}.trait-chip button{border:0;background:none;color:#6f8175;cursor:pointer;padding:0 0 0 2px}.trait-chip button:hover{color:#ffaaa0}.confidence{opacity:.62;font-size:.62rem}.prompt-box{margin-top:16px;border-top:1px solid #1b2d22;padding-top:14px}.prompt-box>strong{display:block;color:var(--green);font-size:.72rem;letter-spacing:.08em}.prompt-text{white-space:pre-wrap;margin-top:7px}.prompt-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.mini-btn{border:1px solid #294231;border-radius:999px;background:#0d1710;color:#d4dfd7;padding:7px 10px;font-size:.7rem;font-weight:800;cursor:pointer}.uncertainties{margin-top:13px;color:#7f8b84;font-size:.72rem}.sig-legal{margin-top:22px;color:#718078;font-size:.72rem}.sig-legal summary{cursor:pointer;color:#829087}.sig-legal p{max-width:870px;line-height:1.55}.sig-reset{margin-top:16px;border:0;background:none;color:#5f6f65;font-size:.7rem;cursor:pointer;padding:0}.sig-reset:hover{color:#9caf9f}@media(max-width:760px){.sig{padding-top:44px}.sig-panel{padding:18px;border-radius:21px}.sig-form,.result-grid{grid-template-columns:1fr}.sig-form .wide{grid-column:auto}.metric-grid{grid-template-columns:1fr 1fr}.sig-tabs button{padding:9px 11px}}
 </style>
