@@ -1,22 +1,18 @@
 # RYTHERO — Project handoff
 
-Last updated: 2026-09-15
+Last updated: 2026-09-16
 
 ## Product direction
 - Domain: https://rythero.com
-- Brand: RYTHERO
+- Brand: **RYTHERO**
 - Positioning: international music-creation product/platform, not a generic AI blog and not an artist project.
 - Core line: **Create music. Build your sound.**
-- Product promise now shown on the homepage: start with a rough idea and leave with a song-ready plan.
-- Public product languages: English root, Spanish `/es/`, Brazilian Portuguese `/pt-br/`.
+- Public languages: English root, Spanish `/es/`, Brazilian Portuguese `/pt-br/`.
 - Internal work with the owner remains in Spanish.
-- Product principle: keep the site visually light; depth should come from useful tools rather than a crowded homepage.
-- Beginner-first UX: assume some visitors have never made music before and explain decisions while they work.
-- Editorial layer is the **AI Music Creator School** / localized equivalent, positioned as practical music engineering rather than a generic AI-news blog.
-- Competitive editorial/product thesis: **clarity + simplicity + completeness**. Rythero does not need to claim it is the most advanced platform; it should aim to make music-creation decisions easier to understand and sufficiently complete for a beginner to act immediately.
-- Avoid unverifiable superiority claims such as “the easiest site on the internet”. Prefer grounded language such as “built to make this simpler”, “simple, complete and practical”, and “enough to get you moving without learning the whole vocabulary first”.
-- Editorial governance: day-to-day topic selection, SEO intent, structure, internal linking and publication order should be handled proactively and consistently; the owner expects mainly to request small changes rather than redefine the editorial line article by article.
-- Public learning promise: a visitor should be able to **start from zero and leave knowing how to build a song**, without having to learn production jargon first.
+- Product thesis: **clarity + simplicity + completeness**. Explain specialist ideas in plain language first, jargon second.
+- The site should feel light and product-like. People may arrive for information, but useful tools should be the reason they return.
+- Editorial layer: **AI Music Creator School** / localized equivalent.
+- Day-to-day editorial topic choice, SEO intent, internal linking and publication order are delegated to the assistant unless the owner asks for a specific change.
 
 ## Technical stack
 - GitHub: `rythero/rythero-web`
@@ -24,28 +20,38 @@ Last updated: 2026-09-15
 - Cloudflare Workers deploy from GitHub `main`
 - Build: `npm run build`
 - Deploy: `npx wrangler deploy`
+- Production Worker URL: `https://rythero-web.alzheimeruniversal.workers.dev`
 - Root production domain: `https://rythero.com`
-- www redirects 301 to root
-- Cloudflare Web Analytics enabled
-- GA4 measurement ID: `G-7K1ENQ4HTZ`, loaded only after consent
-- Search Console domain property verified
+- GA4 measurement ID: `G-7K1ENQ4HTZ`, loaded only after consent.
+- Cloudflare Web Analytics enabled.
+- Search Console domain property verified.
 - Sitemap: `https://rythero.com/sitemap.xml`
-- Astro config uses `site: https://rythero.com` and `trailingSlash: never`.
+- `astro.config.mjs` uses `site: https://rythero.com` and `trailingSlash: never`.
 
-## Multilingual architecture
-- English: `/`
-- Spanish: `/es/`
-- Portuguese (Brazil): `/pt-br/`
-- `html lang`, canonicals, `hreflang` (`en`, `es`, `pt-BR`, `x-default`) and Open Graph locale are language-aware.
-- Shared Base layout localizes navigation, footer and cookie consent.
-- Core school lessons are published completely in EN/ES/PT-BR, not as partial summaries.
-- Do not add more languages until analytics/search demand justifies it.
+## Cloudflare incident — resolved/recovered 2026-09-15
+- A previous Astro build failed around the original `SongStudio.astro` component.
+- `SongStudioSafe.astro` was introduced as the build-safe implementation; `SongStudio.astro` is now the wrapper that renders it and loads localized Studio UI helpers.
+- Green Cloudflare builds subsequently generated the Studio, School and Prompt Builder routes.
+- Worker URL was confirmed reachable on mobile data while `rythero.com` was not, isolating the problem to the Custom Domain binding rather than code/deployment.
+- SSL certificates were active, DNSSEC was off and the root DNS record was a Cloudflare Worker record pointing to `rythero-web`.
+- The stale Custom Domain binding was removed and `rythero.com` was added again under `Workers & Pages → rythero-web → Domains`.
+- `Visit` then opened the site successfully.
+- Do not randomly replace the Worker DNS record with A/CNAME records or disable SSL.
 
-## Current public routes
+## Navigation
+Desktop primary navigation is intentionally compact:
+- Studio
+- School / Escuela / Escola
+- Prompt Builder
+
+Homepage surfaces the broader tool set, including Signature Lab.
+
+## Current main routes
 English:
 - `/`
 - `/tools/song-studio`
 - `/tools/prompt-builder`
+- `/tools/signature-lab`
 - `/learn`
 - `/learn/ai-music-prompts`
 - `/learn/ai-song-structure`
@@ -56,6 +62,7 @@ Spanish:
 - `/es/`
 - `/es/tools/song-studio`
 - `/es/tools/prompt-builder`
+- `/es/tools/signature-lab`
 - `/es/learn`
 - `/es/learn/ai-music-prompts`
 - `/es/learn/ai-song-structure`
@@ -66,6 +73,7 @@ Portuguese:
 - `/pt-br/`
 - `/pt-br/tools/song-studio`
 - `/pt-br/tools/prompt-builder`
+- `/pt-br/tools/signature-lab`
 - `/pt-br/learn`
 - `/pt-br/learn/ai-music-prompts`
 - `/pt-br/learn/ai-song-structure`
@@ -74,151 +82,133 @@ Portuguese:
 
 Also: `/404.html`, `/sitemap.xml`, `/robots.txt`.
 
-## Rythero Studio v1 — implemented 2026-09-15
-Shared component: `src/components/SongStudio.astro`
-Shared browser logic: `public/song-studio.js`
-Routes exist in EN/ES/PT-BR.
+## Rythero Studio
+Shared wrapper: `src/components/SongStudio.astro`
+Build-safe UI: `src/components/SongStudioSafe.astro`
+Browser logic: `public/song-studio.js`
+Localized UI helper: `public/studio-ui-localized.js`
 
-Rythero Studio intentionally groups seven tools into one workspace so the site gains functionality without filling the navigation with many pages.
+Seven tools remain grouped inside one workspace:
+1. Song Blueprint / localized Plan de canción.
+2. Prompt Doctor / Doctor de prompts.
+3. Style DNA / ADN de estilo.
+4. Arrangement Map / Mapa de arreglo.
+5. Lyrics Blueprint / Plan de letra.
+6. Export helper.
+7. Audio Analyzer / Analizador de audio.
 
-### 1. Song Blueprint
-- Inputs: song idea, style/genre, mood, energy, lead vocal, target length, lyrics language.
-- Produces a structured production brief: direction, BPM range, tonal/key direction, sound palette, vocal direction, arrangement, production and avoid list.
-- Produces a final generator-ready English prompt.
-- Style-aware profiles currently cover major useful styles including Afro house, Amapiano, Afrobeats, K-pop, alt-R&B, R&B, trap, hip-hop/rap, house, techno, DnB, reggaeton, Brazilian funk, flamenco fusion, Arabic/raï direction, rock, lo-fi, synthwave and pop.
-- Latest Blueprint is stored locally in the browser and can be sent to Export.
+Important UX rule:
+- Public interface labels should be localized in ES/PT-BR.
+- Generator-ready prompts can remain in English for portability.
+- Studio routes were changed on 2026-09-16 to import the localized `SongStudio.astro` wrapper rather than bypassing it with `SongStudioSafe.astro` directly. This fixes the issue where the Spanish route still showed `Song Blueprint / Prompt Doctor / Style DNA / Lyrics Blueprint / Audio Analyzer` in English.
 
-### 2. Prompt Doctor
-- User pastes an existing music prompt.
-- Checks for very vague prompts, excessive length, named-artist imitation phrasing, some contradictory instructions, too many genre directions and multiple BPM values.
-- De-duplicates repeated clauses and returns a cleaner prompt.
-- This is a lightweight rule-based repair tool, not an external AI call.
+### Audio Analyzer
+- Browser-local Web Audio analysis.
+- Shows duration, estimated BPM, average level, dynamics and waveform.
+- Added a plain-language explanation of what it is useful for.
+- It does not judge musical quality, recover chords or replace mastering tools.
+- BPM/dynamics are estimates.
 
-### 3. Style DNA
-- Defines reusable sound identity through groove, texture, era/finish, harmony, voice character, space and energy.
-- Generates an original reusable English Style DNA description without relying on artist imitation.
-- Stores up to five saved DNA profiles locally in the browser.
+## Signature Lab — implemented 2026-09-16
+Files:
+- `src/components/SignatureLab.astro`
+- `public/signature-lab.js`
+- routes in EN/ES/PT-BR.
 
-### 4. Arrangement Map
-- User chooses duration and structure profile.
-- Generates section timing with start/end times and a visual timeline.
-- Current structures: Hook-first, Pop build, Rap/verse-led, Club/drop-led and Slow burn.
+Signature Lab is intended to be a differentiating Rythero tool. It is not marketed as recovering an “original prompt”. It turns general measurable audio traits into an original creative direction.
 
-### 5. Lyrics Blueprint
-- Inputs: theme, concrete detail/image, point of view, emotional arc, rhyme density, lyrics language and structure.
-- Produces a section-by-section writing plan rather than generic filler lyrics.
-- Emphasizes story progression, a clear hook and concrete imagery.
+### Mode 1 — Song → Prompt
+- User uploads one audio file.
+- Audio is decoded locally in the browser.
+- Measures general traits including estimated BPM, energy, dynamics, rhythmic activity, movement over time and a coarse transient/texture characteristic.
+- Estimates the first meaningful energy lift rather than claiming to identify a chorus/hook with certainty.
+- Produces an English generator-ready prompt.
+- Optional short creator note can add information the browser cannot reliably infer, e.g. vocal character or a particular instrument.
 
-### 6. Export helper
-- Targets: Generic, Suno, Udio.
-- Adapts/presents the same creative brief in a cleaner target-oriented format.
-- This is a format helper only; Rythero is not affiliated with or connected to Suno/Udio and no unofficial API is used.
-- The architecture should remain provider-agnostic so official integrations can be added later if suitable APIs become available.
+### Mode 2 — Build my sound
+- User uploads 2–3 references.
+- Rythero looks for shared measurable traits and builds a reusable Signature profile.
+- User chooses which traits to preserve: groove/tempo, energy, dynamics, section movement and texture/rhythmic edge.
+- A creative-distance control ranges from preserving the common core to using the references only as a broad compass.
+- The profile and prompt are saved only in local browser storage, not on the server.
+- This mode can also be used with the creator’s own catalog to reveal recurring characteristics of their existing sound.
 
-### 7. Audio Analyzer — browser-local
-- User uploads an audio file; nothing is sent to Rythero.
-- Uses Web Audio API locally.
-- Shows duration, estimated BPM, average level, approximate dynamics, peak, sample rate and waveform.
-- BPM is explicitly treated as an estimate; half-time/double-time material may read differently.
-- Do not present this analyzer as mastering-grade measurement.
+### Mode 3 — Did I get close?
+- User uploads a new generated result.
+- Rythero compares its general measurable traits with the locally saved Signature profile.
+- It reports whether the musical direction is broadly near/mixed/far from the chosen target traits and suggests concrete next-prompt changes.
+- It creates a revised English prompt.
+- This is a creative-direction check, not a copyright-similarity detector.
 
-## Prompt Builder v1.7
-- Existing standalone quick tool remains live in all three languages.
-- Smart searchable multi-selects: Genre, Mood, Vocal, Instrumentation, Production, Exclude.
-- `More ideas ↻` rotates curated blocks of up to eight suggestions.
-- Mobile beginner UX helper changes placeholder after selections (e.g. `Add another style · 1/4`) and closes the touchscreen keyboard after choosing an option.
-- Final output remains English for generator compatibility.
-- Shared component: `src/components/PromptBuilder.astro`
-- Shared logic: `public/prompt-builder-localized.js`
-- Mobile UX helper: `public/prompt-builder-ux.js`
+### Safety / legal design
+- Audio files are processed locally in the browser by the current implementation and are not uploaded by Signature Lab.
+- The tool does not return stems, lyrics, melodies, cloned voices, artist identities or an alleged original generation prompt.
+- Output explicitly asks for a distinct melody, harmony, lyrics and vocal identity and tells users to avoid direct artist imitation, cloned voices, copied hooks, recognizable melodic phrases or recreated recordings.
+- A discreet expandable notice tells users to use audio they are entitled to analyze and explains that the result is creative guidance, not a copyright/originality determination.
+- Privacy pages in EN/ES/PT-BR now document local audio processing and local Signature profile storage.
+- Do not make legal guarantees such as “copyright safe” or “100% original”.
 
-## AI Music Creator School / SEO editorial layer — implemented 2026-09-15
-- Strategy document: `EDITORIAL_STRATEGY.md`.
-- Shared school landing component: `src/components/CreatorSchool.astro`.
-- Lesson 01 shared component: `src/components/AIMusicPromptsArticle.astro`.
-- Lesson 02 shared component: `src/components/AISongStructureArticle.astro`.
-- School landing pages exist in EN/ES/PT-BR.
-- School landing promise is now explicit: **start from zero, learn to build a song**.
-- All published lessons are visibly grouped under a localized “Published lessons / Lecciones publicadas / Aulas publicadas” section; future lessons are clearly separated.
-- Lesson 01 exists in EN/ES/PT-BR at `/learn/ai-music-prompts` and localized equivalents. It teaches a producer-style prompt framework around genre, mood/energy, tempo, voice, instrumentation, structure and production.
-- Lesson 02 exists in EN/ES/PT-BR at `/learn/ai-song-structure` and localized equivalents. It explains intro, verse, pre-chorus, chorus, hook, bridge/breakdown/drop, outro, 4/8/16-bar thinking, transitions, simple genre-specific maps and common flat-arrangement mistakes.
-- Lesson 02 uses a compact in-page arrangement-map visual instead of a decorative oversized image because the visual directly teaches the topic.
-- Lesson 02 links directly to Rythero Studio Arrangement Map and back to Lesson 01.
-- Creator School landing surfaces Lesson 02 as a new live lesson rather than leaving it in the future list.
-- Article JSON-LD is implemented with publication/update date, Rythero as organizational author/publisher and language-aware canonical URL.
-- Sitemap contains school landing pages and both live lessons in all three languages.
-- Do not mass-publish filler. Build topical authority with a small cluster of strong lessons that solve real creator problems.
-- A separate Rythero article about “why AI songs sound generic” is intentionally not a current priority because a similar editorial angle already exists elsewhere in the owner’s ecosystem.
-- Current next cluster: Style DNA without artist imitation; BPM/key/energy; practical Suno v6 guide.
-- Editorial visuals should be minimal, dark premium music-tech, no text baked into raster imagery, no generic robot/brain/headphone clichés, and displayed modestly rather than as oversized hero art.
-- Permanent editorial standard: explain specialist concepts in plain language first and introduce jargon second. Simplify the explanation, not the idea.
-- Every strong lesson should ideally combine a simple explanation + concrete musical example + relevant Rythero action/tool. This is a core product/content differentiator.
+## Homepage — current tool emphasis
+The Tools section now features:
+1. **Signature Lab** — marked new/local.
+2. Rythero Studio.
+3. Prompt Builder.
 
-## Homepage changes for Studio / School launch
-- Primary CTA opens Rythero Studio in the matching language.
-- Secondary hero CTA now opens the localized Creator School (`Learn from zero` / `Aprende desde cero` / `Aprenda do zero`) so learning is visible immediately on desktop and mobile.
-- Prompt Builder remains easy to find in the Tools section rather than competing with School in the hero.
-- Tools section shows Rythero Studio, Prompt Builder and Audio Analyzer.
-- Homepage School section now states the concrete promise: start from zero and leave knowing how to build a song.
-- Homepage School copy explicitly says published lessons are gathered in one place and available in all three languages.
-- Guide cards explain idea → song-ready, identity without imitation, and prompt repair.
+Audio Analyzer remains inside Studio rather than consuming another homepage card.
 
-## Open Graph / social sharing
-- Asset: `/public/rythero-og.jpg`, 1200×630 JPEG.
-- Base layout contains `og:image`, secure URL, image type/size/alt metadata and `twitter:card=summary_large_image`.
-- `max-image-preview:large` enabled.
-- Shared WebSite JSON-LD includes site image.
-- After deployment verify `https://rythero.com/rythero-og.jpg`.
-- Then request a fresh homepage crawl in Google Search Console and use Facebook Sharing Debugger → Scrape Again for `https://rythero.com/`.
+## Prompt Builder
+- Standalone tool remains live in EN/ES/PT-BR.
+- Smart searchable multi-selects for genre, mood, vocal, instrumentation, production and exclude.
+- `More ideas ↻` rotates curated suggestions.
+- Mobile helper updates placeholders and closes the touchscreen keyboard after a choice.
+- Final prompt remains English for generator compatibility.
+
+## AI Music Creator School
+Routes:
+- `/learn`, `/es/learn`, `/pt-br/learn`
+
+Published lessons:
+1. AI Music Prompts / prompts para música con IA.
+2. AI Song Structure / estructura de una canción con IA.
+
+Editorial rules:
+- No filler SEO publishing.
+- Simple explanation + concrete musical example + relevant Rythero action/tool.
+- Minimal premium visuals; no generic robot/brain/headphone clichés.
+- Current next cluster: Style DNA without artist imitation; BPM/key/energy; practical current Suno guide after fresh source verification.
+
+## Sitemap / SEO
+- Signature Lab routes have been added to `public/sitemap.xml` in all three languages.
+- Homepage links to Signature Lab in all three languages.
+- Canonicals and hreflang remain language-aware through `Base.astro`.
+- Search Console sitemap was already submitted as full URL `https://rythero.com/sitemap.xml`.
 
 ## Consent / privacy
-- Google Analytics remains off until consent.
-- Reject and Accept have equal prominence and rejecting does not limit site access.
+- Google Analytics remains off until explicit consent.
+- Reject/Accept have equal prominence and rejecting does not limit access.
 - Advertising storage/user-data/personalization remain denied.
-- Before forms, accounts, newsletter, commerce or ads: expand controller identity/contact details and re-review compliance.
+- Local audio analysis does not require consent because files stay on-device in the current implementation; if a future server-side/AI analysis service is added, privacy/consent must be reviewed again before shipping.
+- Full controller identity/contact information is still required before active commercial/public-service launch involving forms, accounts, newsletters, payments or similar data collection.
 
-## Brand / UI
-- Dark premium music-tech/cyber visual system with neon-green accent.
-- Current mark: geometric neon-green app-style symbol.
-- Footer has discreet `// JOHN DOE` signature and animated green scan line.
-- Owner previously requested the scan animation be faster/more active; this remains a cosmetic follow-up if not already changed.
-
-## Monetization / integration principles
-- Do not make Rythero dependent on Stripe.
-- Do not use borrowed/nominee payment accounts.
-- Prefer a replaceable payment layer; evaluate Merchant of Record options and PayPal Business when needed.
-- Do not build generator integration around scraping, browser automation or unofficial wrappers. Use export helpers now; add official APIs later if available and commercially suitable.
+## Verification checklist after current deployment
+1. Confirm Cloudflare build/deploy is green.
+2. Open `/es/tools/song-studio` and confirm the seven Studio tabs are localized.
+3. Re-test all seven Studio functions; safe-wrapper changes should not be assumed fully verified until used in production.
+4. Open `/es/tools/signature-lab`.
+5. Test Song → Prompt with an MP3 and, if available, WAV/M4A.
+6. Test Build my sound with 2 files and then 3 files.
+7. Confirm a Signature profile survives refresh locally.
+8. Test Did I get close? with another track and confirm it produces adjustments + revised prompt.
+9. Confirm the same Signature Lab route loads in EN and PT-BR.
+10. Confirm homepage cards link to the correct language route.
+11. Recheck `https://rythero.com/sitemap.xml`.
+12. After verification, request indexing for `/tools/signature-lab` and optionally ES/PT-BR counterparts.
+13. Do not push significant social traffic until these checks pass.
 
 ## Distribution direction
-- Launch asset: one simple vertical Canva concept adapted into EN/ES/PT-BR, showing problem → Rythero → tool result → URL.
-- Reuse clean master files for YouTube Shorts, Instagram Reels, TikTok and Facebook Reels.
-- YouTube should be a single Rythero channel, not one channel per language.
-- Do not push traffic heavily until the new Studio and Creator School deployments have been verified on desktop and mobile.
+- One Rythero YouTube channel, not separate channels by language.
+- First promotional assets should be simple EN/ES/PT-BR variations showing problem → Rythero → result → URL.
+- Signature Lab is now a strong candidate for the first demo video because the user story is simple: upload reference → understand the sound → create your own direction → compare the result.
 
-## Immediate verification checklist
-1. Wait for Cloudflare to deploy the latest main commit.
-2. Test `/tools/song-studio`, `/es/tools/song-studio`, `/pt-br/tools/song-studio` on desktop and mobile.
-3. Test all seven Studio tabs and confirm tab deep-links such as `#audio` and `#arrangement` open correctly.
-4. Create a Song Blueprint, send it to Export, refresh and confirm local persistence works.
-5. Save and reload a Style DNA profile.
-6. Test Prompt Doctor with a deliberately contradictory prompt.
-7. Test Arrangement Map at all four durations.
-8. Test Lyrics Blueprint with non-empty theme/detail.
-9. Test Audio Analyzer with one MP3 and one WAV if available; compare estimated BPM with a known track and treat it as approximate.
-10. Re-test standalone Prompt Builder `More ideas ↻` and beginner mobile placeholders.
-11. Verify `/learn`, `/es/learn`, `/pt-br/learn` and both lesson families (`ai-music-prompts`, `ai-song-structure`) on desktop/mobile.
-12. Verify the home School CTAs open the correct language school.
-13. Verify `https://rythero.com/rythero-og.jpg`.
-14. In Google Search Console inspect `https://rythero.com/` and request indexing.
-15. After lessons are live, inspect the English lesson URLs and request indexing; optionally submit ES/PT counterparts after verification.
-16. In Facebook Sharing Debugger run `https://rythero.com/` and use Scrape Again.
-17. Only after these checks start the first three-language distribution videos.
-
-## Next development priorities after verification
-- Improve Studio results from real user testing rather than adding more tools immediately.
-- Add contextual compatibility warnings between selected styles/tempo/voice.
-- Consider key/scale assistance only if it can be made clear and non-misleading.
-- Write Lesson 03: Style DNA without artist imitation, prioritizing unique analysis and primary/educational sources.
-- Add contextual links from tools back to relevant lessons once 2–3 lessons are live.
-- Add real account/history/favorites only when usage justifies server-side state.
-- If an official music-generation API becomes available and terms permit it, add it through a replaceable provider adapter rather than coupling Rythero to one generator.
+## Development principle from here
+Do not add many small tools simply to increase tool count. Prefer workflows that solve a painful creator problem and can be explained in one sentence. Improve real-user results from Signature Lab, Studio and Prompt Builder before adding another large feature.
