@@ -2,4 +2,13 @@
 import SongStudioSafe from './SongStudioSafe.astro';
 const { lang = 'en' } = Astro.props;
 ---
-<SongStudioSafe lang={lang} />
+<div data-studio-shell data-studio-locale={lang}>
+  <SongStudioSafe lang={lang} />
+</div>
+<script is:inline src="/studio-ui-localized.js"></script>
+<style is:global>
+  .audio-purpose{margin:0 0 18px;border:1px solid #1d3025;border-radius:16px;background:#08100b;padding:15px 16px;color:#cad5ce}
+  .audio-purpose strong{display:block;color:#f0f6f2;margin-bottom:6px}
+  .audio-purpose p{margin:0;color:#aab8af;line-height:1.55}
+  .audio-purpose small{display:block;margin-top:8px;color:#708078;line-height:1.45}
+</style>
