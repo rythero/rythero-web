@@ -1,21 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Privacy — Rythero" description="How Rythero currently handles analytics, local audio tools and privacy." canonical="/privacy">
+<Base title="Privacy — Rythero" description="How Rythero handles analytics, local audio analysis and AI-assisted music analysis." canonical="/privacy">
   <section class="section shell privacy-page">
     <div class="eyebrow">Privacy</div>
     <h1>Privacy, without the noise.</h1>
-    <p class="lead">Rythero is currently a lightweight pre-launch website. There are no user accounts, newsletter forms, checkout flows or advertising systems on the site.</p>
-
+    <p class="lead">Rythero tries to process on your device anything that does not need to leave it. When a feature requires advanced AI music analysis, that is disclosed before data is sent.</p>
     <div class="privacy-grid">
       <article class="card"><h2>Optional Google Analytics</h2><p class="muted">Google Analytics is blocked by default and is loaded only after you choose <strong>Accept</strong>. It is used to understand site usage and improve Rythero. Advertising storage and ad personalization remain disabled.</p></article>
-      <article class="card"><h2>Cloudflare</h2><p class="muted">Rythero is delivered through Cloudflare and uses Cloudflare Web Analytics for privacy-focused traffic and performance measurement. Cloudflare states that Web Analytics does not use cookies, local storage or fingerprinting to track visitors.</p></article>
-      <article class="card"><h2>Local audio tools</h2><p class="muted">The current Audio Analyzer and Signature Lab decode and measure selected audio files inside your browser. These tools do not upload the audio file to Rythero. Signature profiles may be stored locally in your browser so you can compare a later result; the audio itself is not stored by Rythero.</p></article>
-      <article class="card"><h2>Your choice</h2><p class="muted">You can accept or reject optional analytics with equal access to the site. You can reopen the choice at any time using <strong>Cookie choices</strong> in the footer.</p></article>
-      <article class="card"><h2>Cookies and local storage</h2><p class="muted">For details about Google Analytics cookies, durations and the local preference used to remember your choice, see the <a class="inline-link" href="/cookies">Cookie policy</a>.</p></article>
+      <article class="card"><h2>Cloudflare</h2><p class="muted">Rythero is delivered through Cloudflare and uses Cloudflare Web Analytics for traffic and performance measurement.</p></article>
+      <article class="card"><h2>Local technical analysis</h2><p class="muted">Audio Analyzer and Signature Lab's technical mode decode and measure the selected file inside your browser. In this mode, audio is not sent to the server. Reusable profiles may be stored in your browser's local storage.</p></article>
+      <article class="card"><h2>AI music analysis</h2><p class="muted">If you explicitly choose <strong>Analyze music with AI</strong>, the browser creates a smaller derived excerpt from early, middle and late parts of the track. That excerpt — not the complete original file — is sent to Rythero's backend and then to the configured AI provider to interpret general musical traits. Rythero does not intentionally store those analysis files after processing the request.</p></article>
+      <article class="card"><h2>AI provider</h2><p class="muted">The advanced version is prepared for the Google Gemini API. Provider-side processing and technical retention are governed by its API terms and project configuration. Rythero requests non-conversational storage to be disabled where the API supports it. Before this feature is offered broadly in production, it is intended to use a billing-enabled API project with appropriate privacy controls.</p></article>
+      <article class="card"><h2>What Signature Lab does not try to extract</h2><p class="muted">Signature Lab is designed to describe transferable high-level musical traits. It does not aim to recover an original prompt, identify artists, transcribe lyrics, clone voices or return melodies from a reference work.</p></article>
+      <article class="card"><h2>Your choice</h2><p class="muted">AI music analysis starts only when you press its button. You can use local technical measurements without invoking it. You can also accept or reject optional website analytics without losing site access.</p></article>
+      <article class="card"><h2>Cookies and local storage</h2><p class="muted">For details about Google Analytics cookies and the local preference used to remember your choice, see the <a class="inline-link" href="/cookies">Cookie policy</a>.</p></article>
     </div>
-
-    <div class="legal-note"><h2>Controller information still required</h2><p>This pre-launch notice is not the final legal privacy notice. Before Rythero is actively promoted as a public service, it must include the full legal identity and contact details of the data controller. That information is required even when Google Analytics is optional and consent-based.</p></div>
+    <div class="legal-note"><h2>Controller information still required</h2><p>This pre-launch notice is not the final legal privacy notice. Before Rythero is actively promoted as a public service, it must include the full legal identity and contact details of the data controller.</p></div>
     <p class="note">Last updated: September 2026.</p>
   </section>
   <style>.privacy-page{max-width:920px}.privacy-page h1{font-size:clamp(2.7rem,6vw,5.5rem);line-height:.95;letter-spacing:-.055em;margin:14px 0 24px}.lead{max-width:760px;color:var(--muted);font-size:1.15rem}.privacy-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}.privacy-grid h2{margin:0 0 8px;font-size:1.15rem}.inline-link{color:#91dba6;text-decoration:underline;text-underline-offset:2px}.legal-note{margin-top:26px;border:1px solid #4a3c25;border-radius:18px;padding:20px;background:#110e08}.legal-note h2{margin:0 0 8px;font-size:1rem;color:#e8d9af}.legal-note p{margin:0;color:#aaa18b;font-size:.9rem}.note{margin-top:28px;color:#738078;font-size:.85rem}</style>
