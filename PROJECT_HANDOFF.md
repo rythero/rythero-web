@@ -46,26 +46,39 @@ Last updated: 2026-09-15
 - /robots.txt
 
 ## Existing product/tool
-### Prompt Builder v1.5
+### Prompt Builder v1.6
 Fields: Genre, Mood, Energy, BPM, Vocal, Instrumentation, Structure, Production, Exclude.
-Output: structured copyable music-generation prompt.
 No sign-up and no API cost.
 
-### Smart selectors — implemented 2026-09-15
+### Smart selectors
 - Native searchable combobox/autocomplete built with lightweight HTML/CSS/JS; no paid plugin.
-- Genre, Mood, Vocal, Instrumentation, Production and Exclude now use searchable multi-select controls.
-- Typing one or more letters filters matching suggestions immediately.
-- Each control shows up to 8 visible relevant suggestions with a compact internal scroll area; mobile height is deliberately limited.
-- Popular suggestions appear on focus when the search is empty.
+- Genre, Mood, Vocal, Instrumentation, Production and Exclude use searchable multi-select controls.
+- Typing one or more letters filters suggestions immediately.
+- Each dropdown stays compact and shows no more than 8 suggestions at once.
+- New `More ideas →` control rotates through additional curated suggestions without making the dropdown taller.
 - Selected items become removable chips/tokens.
-- Free-text custom values are still allowed.
+- Free-text custom values remain allowed.
 - Enter selects the first match or adds a custom value; Backspace removes the last chip when the field is empty.
-- Limits keep prompts disciplined: Genre 4, Mood 3, Vocal 4, Instrumentation 5, Production 4, Exclude 5.
-- Energy and Structure remain conventional dropdowns; BPM remains a numeric text field.
-- Genre catalogue is curated rather than encyclopedic, mixing Core, Current and Crossover styles.
+- Limits: Genre 4, Mood 3, Vocal 4, Instrumentation 5, Production 4, Exclude 5.
+- Energy and Structure remain conventional dropdowns; BPM remains numeric.
+- Mobile was tested by the owner on 2026-09-15 and reported visually good after the multi-select rollout.
+
+### Beginner-friendly catalogue
+- Catalogues were expanded substantially while preserving compact dropdowns.
+- Genre remains curated rather than encyclopedic, mixing Core, Current and Crossover styles.
 - K-pop is prominent, including K-pop dance-pop, K-pop R&B, K-pop trap and K-pop rock hybrid.
-- Other current/global examples include Afro house, Hyperpop, Alt-R&B, Amapiano, Melodic hip-hop, Afrobeats, Drum & bass, UK garage, Jersey club, Dark pop and Cinematic pop.
-- Prompt output has been rewritten into a more natural production brief rather than simple field concatenation.
+- Other current/global examples include Afro house, Amapiano, 3-step, Hyperpop, Alt-R&B, Melodic hip-hop, Afrobeats, Drum & bass, UK garage, Jersey club, Dark pop, Cinematic pop and Brazilian funk.
+- Mood, Vocal, Instrumentation, Production and Exclude now contain enough discoverable options for beginners who do not know the vocabulary yet.
+- Vocal labels were clarified: `Male vocal`, `Female vocal`, etc., with category badges such as `Voice type`, `Delivery`, `Character`, `Register`, `Layers` and `FX`; avoid duplicate-looking labels such as `Male lead / Lead`.
+
+### Smart OUTPUT
+- Output is no longer simple field concatenation.
+- If the user fills only a few fields, Rythero now completes the brief with useful neutral musical guidance instead of producing a weak one-line prompt.
+- Genre-aware guidance exists for major styles such as K-pop, Afro house, Amapiano, Afrobeats, Hyperpop, Alt-R&B, R&B, melodic hip-hop, hip-hop, trap, DnB, UK garage, Jersey club, dark pop, cinematic pop, pop, house, reggaeton, Brazilian funk, flamenco fusion, Arabic pop, raï pop, J-pop, rock, lo-fi and synthwave.
+- When multiple genres are selected, the output explicitly asks for a coherent blend rather than unrelated style switching.
+- Missing BPM, vocals, instrumentation or production are handled with sensible platform-neutral guidance rather than arbitrary hard-coded choices.
+- Output emphasizes hook clarity, sectional contrast, purposeful transitions, genre authenticity, expressive vocals, focused arrangement and avoidance of flat looped results.
+- Prompt strategy was cross-checked against current official Suno and Udio guidance: detailed style/vocal/instrument/structure instructions are useful, while Udio also recommends ordered prompt building blocks. Rythero should remain platform-neutral and aim to improve on generic generators by making musical decisions clearer.
 
 ## Social / brand accounts already secured
 - Domain: rythero.com
@@ -89,13 +102,13 @@ No sign-up and no API cost.
 - Keep payment infrastructure replaceable rather than building the product around one provider.
 
 ## Tasks for next work session
-1. Audit the live site on desktop and mobile after the Prompt Builder v1.5 deployment: touch behavior, keyboard behavior, chip wrapping, dropdown height, focus states, reset/generate flow and output readability.
-2. Review and curate the genre catalogue using current global music and AI-music usage, keeping useful/high-demand styles and removing noise. Do not turn it into an encyclopedia.
-3. Improve Prompt Builder intelligence beyond curated UI:
-   - contextual compatibility hints (e.g. combinations that naturally work together);
+1. Test the new Prompt Builder v1.6 live after deployment, especially `More ideas`, mobile chip wrapping, vocal suggestions and richer OUTPUT.
+2. Continue curating genre/style coverage based on real usage and current global music trends; keep useful/high-demand styles and remove noise.
+3. Improve Prompt Builder intelligence further:
+   - contextual compatibility hints between selected styles and production choices;
    - optional smart defaults without forcing a style;
-   - stronger prompt phrasing based on the selected musical decisions;
-   - later consider platform/export targets such as Suno, Udio and generic.
+   - possible key/scale and tempo-range assistance where useful;
+   - later consider export targets such as Suno, Udio and Generic.
 4. Decide the next tool after Prompt Builder. Leading candidates: Song Blueprint and Style DNA.
 5. Add a strong Open Graph/social share image and verify Facebook/X/LinkedIn card rendering.
 6. Audit SEO metadata, schema, sitemap coverage and internal linking as more pages are added.
@@ -104,6 +117,3 @@ No sign-up and no API cost.
 9. Plan launch from almaerrantemusic.com as a Spanish-language acquisition channel while keeping Rythero English-first.
 10. Revisit controller/legal identity before any forms, accounts, newsletter, commerce or advertising go live.
 11. Keep this handoff updated before moving to a new ChatGPT thread so the project can continue without reconstructing decisions.
-
-## Current research note — genres
-Fresh 2026 research suggests AI-music creation is not dominated by one genre. Aggregate creator data shows Pop leading, followed closely by Electronic, Hip-Hop, R&B, Lo-Fi and Rock. Suno v6 has improved genre understanding, with hyperpop specifically cited as a style it handles well. Afro house remains a strong global growth genre in 2026. Rythero should therefore show globally legible, current examples rather than examples biased toward the owner's personal music style.
