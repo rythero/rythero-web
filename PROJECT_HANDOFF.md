@@ -126,13 +126,13 @@ No sign-up and no API cost.
 - Relationship strategy: Rythero may carry a discreet John Doe creator signature, but should not depend visibly on Alma Errante. Alma Errante can later send users to Rythero without making Rythero an Alma Errante sub-brand.
 
 ## Open Graph / social sharing — implemented 2026-09-15
-- Intended shared asset: `/public/rythero-og.jpg`, 1200×630 JPEG.
+- Shared target asset: `/public/rythero-og.jpg`, 1200×630 JPEG.
 - Base layout references `/rythero-og.jpg` with `og:image`, secure URL, type, width, height and alt metadata.
 - X/Twitter uses `summary_large_image` plus `twitter:image` and alt metadata.
 - `max-image-preview:large` is enabled for search crawlers.
 - Shared `WebSite` JSON-LD includes Rythero name, URL, language, description and image.
 - The same visual is intentionally used across EN/ES/PT-BR for consistent brand recognition; page title/description/locale remain language-aware.
-- Confirm the JPEG asset is actually committed on the current main branch and publicly reachable after Cloudflare deployment before declaring live verification complete.
+- Live verification remains pending until the JPEG asset is confirmed on current main and Cloudflare has deployed it.
 
 ## Monetization direction
 - Do not make Rythero dependent on Stripe.
