@@ -2,103 +2,401 @@
   const root = document.querySelector('[data-signature-lab]');
   if (!root) return;
   const lang = root.getAttribute('data-lang') || 'en';
+  const $ = (s, r = root) => r.querySelector(s);
+  const $$ = (s, r = root) => Array.from(r.querySelectorAll(s));
   const t = {
-    en:{working:'Analyzing locally…',needFile:'Choose an audio file first.',needRefs:'Choose at least 2 reference tracks (maximum 3).',tooMany:'Only the first 3 files were analyzed.',decode:'This file could not be decoded by your browser.',copied:'Prompt copied.',noProfile:'Build your sound profile first.',metrics:['Tempo','Energy','Dynamics','Movement','Texture'],tempo:'BPM',energyLow:'Low',energyMid:'Medium',energyHigh:'High',dynTight:'Tight',dynMid:'Controlled',dynOpen:'Open',moveSteady:'Steady',moveMid:'Moderate',moveHigh:'Evolving',texWarm:'Warm / smooth',texBal:'Balanced',texCrisp:'Crisp / percussive',rhythmRelaxed:'relaxed rhythmic activity',rhythmMid:'moderate rhythmic activity',rhythmActive:'active rhythmic activity',lift:'First energy lift',none:'not clearly detected',detected:'DETECTED PROFILE',prompt:'GENERATOR-READY PROMPT',estimate:'Estimates from general audio characteristics. This is not the original prompt.',common:'SHARED SIGNATURE',refs:'references analyzed',saved:'Saved in this browser only.',direction:'DIRECTION CHECK',near:'Most measured traits are near your saved target.',mixed:'Some measured traits are near target and some moved away.',far:'The result moved away from several measured target traits.',revise:'NEXT-PROMPT ADJUSTMENTS',revised:'REVISED PROMPT',bpmUp:'Lower the tempo toward',bpmDown:'Raise the tempo toward',energyUp:'Reduce overall density/level and leave more breathing room.',energyDown:'Increase overall energy and rhythmic density.',dynUp:'Use more dynamic contrast and less constant compression.',dynDown:'Keep the dynamics tighter and more controlled.',moveUp:'Create stronger section contrast and more change over time.',moveDown:'Keep the arrangement steadier and less contrast-heavy.',textureWarm:'Use a warmer, smoother attack with fewer sharp high-frequency transients.',textureCrisp:'Use a crisper, more percussive attack and clearer transient detail.',aligned:'No major correction is suggested from the measured traits.'},
-    es:{working:'Analizando localmente…',needFile:'Elige primero un archivo de audio.',needRefs:'Elige al menos 2 canciones de referencia (máximo 3).',tooMany:'Solo se han analizado los primeros 3 archivos.',decode:'El navegador no ha podido decodificar este archivo.',copied:'Prompt copiado.',noProfile:'Primero construye tu perfil sonoro.',metrics:['Tempo','Energía','Dinámica','Movimiento','Textura'],tempo:'BPM',energyLow:'Baja',energyMid:'Media',energyHigh:'Alta',dynTight:'Apretada',dynMid:'Controlada',dynOpen:'Abierta',moveSteady:'Estable',moveMid:'Moderado',moveHigh:'Evolutivo',texWarm:'Cálida / suave',texBal:'Equilibrada',texCrisp:'Nítida / percusiva',rhythmRelaxed:'actividad rítmica relajada',rhythmMid:'actividad rítmica moderada',rhythmActive:'actividad rítmica alta',lift:'Primer aumento de energía',none:'no detectado con claridad',detected:'PERFIL DETECTADO',prompt:'PROMPT LISTO PARA GENERADOR',estimate:'Estimaciones a partir de características generales del audio. No es el prompt original.',common:'SIGNATURE COMPARTIDA',refs:'referencias analizadas',saved:'Guardado solo en este navegador.',direction:'COMPROBACIÓN DE DIRECCIÓN',near:'La mayoría de rasgos medidos están cerca del objetivo guardado.',mixed:'Algunos rasgos medidos están cerca del objetivo y otros se han alejado.',far:'El resultado se ha alejado de varios rasgos medidos del objetivo.',revise:'AJUSTES PARA EL SIGUIENTE PROMPT',revised:'PROMPT CORREGIDO',bpmUp:'Baja el tempo hacia',bpmDown:'Sube el tempo hacia',energyUp:'Reduce la densidad/nivel general y deja más espacio para respirar.',energyDown:'Aumenta la energía general y la densidad rítmica.',dynUp:'Pide más contraste dinámico y menos compresión constante.',dynDown:'Mantén la dinámica más apretada y controlada.',moveUp:'Crea más contraste entre secciones y más evolución.',moveDown:'Mantén el arreglo más estable y con menos contrastes fuertes.',textureWarm:'Busca un ataque más cálido y suave, con menos transitorios agudos.',textureCrisp:'Busca un ataque más nítido y percusivo, con transitorios más claros.',aligned:'No se sugieren correcciones importantes según los rasgos medidos.'},
-    'pt-br':{working:'Analisando localmente…',needFile:'Escolha primeiro um arquivo de áudio.',needRefs:'Escolha pelo menos 2 músicas de referência (máximo 3).',tooMany:'Somente os primeiros 3 arquivos foram analisados.',decode:'O navegador não conseguiu decodificar este arquivo.',copied:'Prompt copiado.',noProfile:'Construa primeiro seu perfil sonoro.',metrics:['Andamento','Energia','Dinâmica','Movimento','Textura'],tempo:'BPM',energyLow:'Baixa',energyMid:'Média',energyHigh:'Alta',dynTight:'Apertada',dynMid:'Controlada',dynOpen:'Aberta',moveSteady:'Estável',moveMid:'Moderado',moveHigh:'Evolutivo',texWarm:'Quente / suave',texBal:'Equilibrada',texCrisp:'Nítida / percussiva',rhythmRelaxed:'atividade rítmica relaxada',rhythmMid:'atividade rítmica moderada',rhythmActive:'atividade rítmica alta',lift:'Primeiro aumento de energia',none:'não detectado com clareza',detected:'PERFIL DETECTADO',prompt:'PROMPT PRONTO PARA GERADOR',estimate:'Estimativas a partir de características gerais do áudio. Não é o prompt original.',common:'SIGNATURE COMPARTILHADA',refs:'referências analisadas',saved:'Salvo apenas neste navegador.',direction:'VERIFICAÇÃO DE DIREÇÃO',near:'A maioria dos traços medidos está perto do alvo salvo.',mixed:'Alguns traços medidos estão perto do alvo e outros se afastaram.',far:'O resultado se afastou de vários traços medidos do alvo.',revise:'AJUSTES PARA O PRÓXIMO PROMPT',revised:'PROMPT CORRIGIDO',bpmUp:'Reduza o andamento para perto de',bpmDown:'Aumente o andamento para perto de',energyUp:'Reduza a densidade/nível geral e deixe mais espaço para respirar.',energyDown:'Aumente a energia geral e a densidade rítmica.',dynUp:'Peça mais contraste dinâmico e menos compressão constante.',dynDown:'Mantenha a dinâmica mais apertada e controlada.',moveUp:'Crie mais contraste entre seções e mais evolução.',moveDown:'Mantenha o arranjo mais estável e com menos contrastes fortes.',textureWarm:'Busque um ataque mais quente e suave, com menos transientes agudos.',textureCrisp:'Busque um ataque mais nítido e percussivo, com transientes mais claros.',aligned:'Nenhuma correção importante é sugerida pelos traços medidos.'}
+    en: {
+      ready:'AI engine ready', off:'AI engine not activated yet', working:'Listening and analyzing…', decoding:'Preparing a short analysis excerpt…',
+      choose:'Choose an audio file first.', refs:'Choose 2–3 reference tracks.', max:'Use a maximum of 3 reference tracks.', decode:'This audio could not be decoded by your browser.', api:'The AI analysis could not be completed.',
+      localTitle:'TECHNICAL ESTIMATE', duration:'Duration', bpm:'Estimated BPM', level:'Average level', dynamics:'Dynamic range', peak:'Peak', movement:'Energy movement', technical:'Technical measurements only — they do not identify genre, instruments or vocal style.',
+      uncertain:'Uncertainties', differences:'What differs', core:'Core signature', matches:'Matches', changes:'Change next', confidence:'confidence', saved:'Signature saved in this browser.',
+      promptRule:'Create a new melody, harmony, lyrics and vocal identity. Avoid direct artist imitation, cloned voices, copied hooks and recognizable melodic phrases.'
+    },
+    es: {
+      ready:'Motor IA listo', off:'Motor IA todavía sin activar', working:'Escuchando y analizando…', decoding:'Preparando un fragmento breve para el análisis…',
+      choose:'Elige primero un archivo de audio.', refs:'Elige 2–3 canciones de referencia.', max:'Usa un máximo de 3 canciones de referencia.', decode:'El navegador no ha podido decodificar este audio.', api:'No se ha podido completar el análisis IA.',
+      localTitle:'ESTIMACIÓN TÉCNICA', duration:'Duración', bpm:'BPM estimado', level:'Nivel medio', dynamics:'Rango dinámico', peak:'Pico', movement:'Evolución de energía', technical:'Son mediciones técnicas: por sí solas no identifican género, instrumentos ni estilo vocal.',
+      uncertain:'Incertidumbres', differences:'Qué cambia', core:'Núcleo sonoro', matches:'Coincidencias', changes:'Cambiar en la siguiente', confidence:'confianza', saved:'Signature guardada en este navegador.',
+      promptRule:'Create a new melody, harmony, lyrics and vocal identity. Avoid direct artist imitation, cloned voices, copied hooks and recognizable melodic phrases.'
+    },
+    'pt-br': {
+      ready:'Motor de IA pronto', off:'Motor de IA ainda não ativado', working:'Ouvindo e analisando…', decoding:'Preparando um pequeno trecho para análise…',
+      choose:'Escolha primeiro um arquivo de áudio.', refs:'Escolha 2–3 músicas de referência.', max:'Use no máximo 3 músicas de referência.', decode:'O navegador não conseguiu decodificar este áudio.', api:'Não foi possível concluir a análise de IA.',
+      localTitle:'ESTIMATIVA TÉCNICA', duration:'Duração', bpm:'BPM estimado', level:'Nível médio', dynamics:'Faixa dinâmica', peak:'Pico', movement:'Movimento de energia', technical:'São medições técnicas: sozinhas não identificam gênero, instrumentos ou estilo vocal.',
+      uncertain:'Incertezas', differences:'O que muda', core:'Núcleo sonoro', matches:'Coincidências', changes:'Mudar na próxima', confidence:'confiança', saved:'Signature salva neste navegador.',
+      promptRule:'Create a new melody, harmony, lyrics and vocal identity. Avoid direct artist imitation, cloned voices, copied hooks and recognizable melodic phrases.'
+    }
   }[lang];
 
-  const $ = (s, r=root) => r.querySelector(s);
-  const $$ = (s, r=root) => Array.from(r.querySelectorAll(s));
-  const clamp = (n,a,b) => Math.min(b,Math.max(a,n));
-  const mean = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
-  const std = arr => { const m=mean(arr); return Math.sqrt(mean(arr.map(v=>(v-m)*(v-m)))); };
-  const percentile = (values,p) => { if (!values.length) return 0; const sorted=[...values].sort((a,b)=>a-b); return sorted[Math.min(sorted.length-1,Math.max(0,Math.round((sorted.length-1)*p)))]; };
-  const db = v => v>0 ? 20*Math.log10(v) : -120;
-  const fmtTime = sec => `${Math.floor(sec/60)}:${String(Math.round(sec%60)).padStart(2,'0')}`;
-  const clean = v => String(v||'').trim().replace(/\s+/g,' ');
+  const reviewTemplate = $('#sig-review-copy');
+  const reviewText = key => reviewTemplate?.content?.querySelector(`[data-${key}]`)?.textContent || key;
+  const statusEl = $('#sig-ai-status');
 
-  const tabs=$$('[data-sig-tab]'), panels=$$('[data-sig-panel]');
-  const openTab = id => { tabs.forEach(b=>b.classList.toggle('active',b.dataset.sigTab===id)); panels.forEach(p=>{const on=p.dataset.sigPanel===id;p.hidden=!on;p.classList.toggle('active',on);}); };
-  tabs.forEach(b=>b.addEventListener('click',()=>openTab(b.dataset.sigTab)));
+  const tabs = $$('[data-sig-tab]');
+  const panels = $$('[data-sig-panel]');
+  const openTab = id => {
+    tabs.forEach(b => b.classList.toggle('active', b.dataset.sigTab === id));
+    panels.forEach(p => { const on = p.dataset.sigPanel === id; p.hidden = !on; p.classList.toggle('active', on); });
+  };
+  tabs.forEach(b => b.addEventListener('click', () => openTab(b.dataset.sigTab)));
 
   let audioContext;
-  const getCtx = () => audioContext || (audioContext = new (window.AudioContext || window.webkitAudioContext)());
-  const monoFromBuffer = buffer => {
-    const limit=Math.min(buffer.length,Math.round(buffer.sampleRate*180));
-    const mono=new Float32Array(limit); const channels=buffer.numberOfChannels;
-    for(let c=0;c<channels;c++){const data=buffer.getChannelData(c);for(let i=0;i<limit;i++)mono[i]+=data[i]/channels;}
-    return mono;
+  const getContext = () => audioContext || (audioContext = new (window.AudioContext || window.webkitAudioContext)());
+  const mean = values => values.length ? values.reduce((a,b) => a + b, 0) / values.length : 0;
+  const std = values => { const m = mean(values); return Math.sqrt(mean(values.map(v => (v - m) ** 2))); };
+  const percentile = (values, p) => {
+    if (!values.length) return 0;
+    const sorted = [...values].sort((a,b) => a - b);
+    return sorted[Math.min(sorted.length - 1, Math.max(0, Math.round((sorted.length - 1) * p)))];
   };
-  const estimateTempo = (samples,sr) => {
-    const maxSeconds=Math.min(120,samples.length/sr), step=Math.max(1,Math.round(sr/50)), points=Math.floor(maxSeconds*sr/step); if(points<100)return null;
-    const env=new Float32Array(points); for(let p=0;p<points;p++){const start=p*step,end=Math.min(samples.length,start+step);let sum=0;for(let i=start;i<end;i++)sum+=Math.abs(samples[i]);env[p]=sum/Math.max(1,end-start);}
-    const onset=new Float32Array(points); let m=0; for(let i=1;i<points;i++){onset[i]=Math.max(0,env[i]-env[i-1]);m+=onset[i];} m/=Math.max(1,points-1); for(let i=0;i<points;i++)onset[i]=Math.max(0,onset[i]-m*.5);
-    let best=0,bestScore=-Infinity; for(let bpm=70;bpm<=180;bpm++){const lag=Math.floor(50*60/bpm);let score=0;for(let i=lag+1;i<points;i++)score+=onset[i]*onset[i-lag];if(score>bestScore){bestScore=score;best=bpm;}}
-    if(!best)return null; while(best<80)best*=2; while(best>160)best/=2; return Math.round(best);
-  };
-  const analyzeFile = async file => {
-    try{
-      const buffer=await getCtx().decodeAudioData((await file.arrayBuffer()).slice(0)); const samples=monoFromBuffer(buffer); const sr=buffer.sampleRate;
-      let sumSq=0,peak=0,crossings=0; const stride=Math.max(1,Math.floor(samples.length/1500000)); let prev=samples[0]||0, counted=0;
-      for(let i=0;i<samples.length;i+=stride){const v=samples[i],a=Math.abs(v);sumSq+=v*v;if(a>peak)peak=a;if((v>=0)!=(prev>=0))crossings++;prev=v;counted++;}
-      const rms=Math.sqrt(sumSq/Math.max(1,counted)), rmsDb=db(rms), zcr=crossings/Math.max(1,counted);
-      const blockSize=Math.max(512,Math.round(sr*.06)); const blockDb=[]; for(let start=0;start<samples.length;start+=blockSize){const end=Math.min(samples.length,start+blockSize);let ss=0,n=0;for(let i=start;i<end;i+=stride){ss+=samples[i]*samples[i];n++;}blockDb.push(db(Math.sqrt(ss/Math.max(1,n))));}
-      const dynamics=Math.max(0,percentile(blockDb,.9)-percentile(blockDb,.1));
-      const segments=[]; const segCount=12, segSize=Math.max(1,Math.floor(samples.length/segCount)); for(let s=0;s<segCount;s++){let ss=0,n=0;const start=s*segSize,end=s===segCount-1?samples.length:Math.min(samples.length,start+segSize);for(let i=start;i<end;i+=stride){ss+=samples[i]*samples[i];n++;}segments.push(db(Math.sqrt(ss/Math.max(1,n))));}
-      const movement=std(segments); const baseline=mean(segments.slice(0,2)); let lift=null; for(let i=2;i<segments.length;i++){if(segments[i]>baseline+2.2){lift=(i/segCount)*(samples.length/sr);break;}}
-      const envStep=Math.max(1,Math.round(sr*.025)), env=[]; for(let start=0;start<samples.length;start+=envStep){const end=Math.min(samples.length,start+envStep);let a=0;for(let i=start;i<end;i+=stride)a+=Math.abs(samples[i]);env.push(a/Math.max(1,Math.ceil((end-start)/stride)));}
-      const dif=[]; for(let i=1;i<env.length;i++)dif.push(Math.max(0,env[i]-env[i-1])); const threshold=mean(dif)+std(dif)*.8; let onsets=0; for(let i=1;i<dif.length-1;i++)if(dif[i]>threshold&&dif[i]>=dif[i-1]&&dif[i]>=dif[i+1])onsets++; const onsetRate=onsets/Math.max(1,samples.length/sr);
-      return {name:file.name,duration:buffer.duration,bpm:estimateTempo(samples,sr),rmsDb,dynamics,movement,zcr,onsetRate,lift,peakDb:db(peak)};
-    }catch(e){throw new Error(t.decode);}
-  };
+  const db = v => v > 0 ? 20 * Math.log10(v) : -120;
+  const fmtTime = seconds => `${Math.floor(seconds / 60)}:${String(Math.round(seconds % 60)).padStart(2,'0')}`;
 
-  const energyLabel = m => m.rmsDb < -22 ? t.energyLow : m.rmsDb < -15 ? t.energyMid : t.energyHigh;
-  const dynLabel = m => m.dynamics < 5 ? t.dynTight : m.dynamics < 10 ? t.dynMid : t.dynOpen;
-  const moveLabel = m => m.movement < 2 ? t.moveSteady : m.movement < 4 ? t.moveMid : t.moveHigh;
-  const textureLabel = m => m.zcr < .055 ? t.texWarm : m.zcr < .115 ? t.texBal : t.texCrisp;
-  const rhythmLabel = m => m.onsetRate < 2.2 ? t.rhythmRelaxed : m.onsetRate < 4.2 ? t.rhythmMid : t.rhythmActive;
-  const render = (el, metrics, heading, prompt, note='') => {
-    el.replaceChildren(); const h=document.createElement('strong');h.textContent=heading;el.appendChild(h);
-    const grid=document.createElement('div');grid.className='sig-metrics';
-    const values=[metrics.bpm?`${metrics.bpm} BPM`:'—',energyLabel(metrics),dynLabel(metrics),moveLabel(metrics),textureLabel(metrics)];
-    t.metrics.forEach((label,i)=>{const card=document.createElement('div');card.className='sig-metric';const s=document.createElement('small');s.textContent=label;const b=document.createElement('b');b.textContent=values[i];card.append(s,b);grid.appendChild(card);}); el.appendChild(grid);
-    const details=document.createElement('div');details.textContent=`${t.lift}: ${metrics.lift==null?t.none:fmtTime(metrics.lift)} · ${rhythmLabel(metrics)}`;el.appendChild(details);
-    const p=document.createElement('div');p.className='sig-prompt';const ph=document.createElement('strong');ph.textContent=t.prompt;const body=document.createElement('div');body.textContent=prompt;body.style.marginTop='6px';p.append(ph,body);el.appendChild(p);
-    if(note){const n=document.createElement('div');n.className='sig-note';n.textContent=note;el.appendChild(n);} el.dataset.prompt=prompt;
-  };
-  const promptFrom = (m, focus='balanced', hint='', traits=null, distance=55) => {
-    const bpm=m.bpm?`around ${m.bpm} BPM`:'a natural tempo that fits the groove'; const energy=energyLabel(m)===t.energyLow?'low, restrained energy':energyLabel(m)===t.energyHigh?'high, forward energy':'medium, controlled energy'; const dynamics=dynLabel(m)===t.dynOpen?'open dynamics with clear breathing room':dynLabel(m)===t.dynTight?'tight, controlled dynamics':'moderately controlled dynamics'; const movement=moveLabel(m)===t.moveHigh?'an evolving arrangement with strong section contrast':moveLabel(m)===t.moveSteady?'a steady, hypnotic arrangement with subtle development':'moderate section contrast and purposeful development'; const texture=textureLabel(m)===t.texWarm?'a warm, smooth transient character':textureLabel(m)===t.texCrisp?'a crisp, percussive transient character':'a balanced transient character'; const rhythm=rhythmLabel(m);
-    const parts=[]; const use = key => !traits || traits.includes(key);
-    if(use('groove'))parts.push(`${bpm}, ${rhythm}`); if(use('energy'))parts.push(energy); if(use('dynamics'))parts.push(dynamics); if(use('movement'))parts.push(movement); if(use('texture'))parts.push(texture);
-    if(focus==='groove')parts.unshift('prioritize groove and tempo consistency'); if(focus==='energy')parts.unshift('prioritize the energy contour'); if(focus==='structure')parts.unshift('prioritize sectional movement and contrast'); if(focus==='production')parts.unshift('prioritize dynamics, transient feel and production space');
-    if(hint)parts.push(`creator note: ${clean(hint)}`);
-    if(traits){ if(distance<=35)parts.push('preserve the shared rhythmic and dynamic core closely while writing completely new musical material'); else if(distance>=70)parts.push('use the shared traits only as a broad compass and deliberately vary the arrangement, harmonic movement and sound palette'); else parts.push('keep the shared groove/energy core while changing melodic contour, arrangement details and sound palette'); }
-    return `Original music direction: ${parts.join(', ')}. Build a distinct melody, harmony, lyrics and vocal identity. Avoid direct artist imitation, cloned voices, copied hooks, recognizable melodic phrases or recreated recordings.`;
-  };
+  async function decode(file) {
+    try { return await getContext().decodeAudioData((await file.arrayBuffer()).slice(0)); }
+    catch { throw new Error(t.decode); }
+  }
 
-  const averageMetrics = items => {
-    const av=k=>mean(items.map(x=>x[k]).filter(Number.isFinite)); const bpms=items.map(x=>x.bpm).filter(Number.isFinite); return {bpm:bpms.length?Math.round(mean(bpms)):null,rmsDb:av('rmsDb'),dynamics:av('dynamics'),movement:av('movement'),zcr:av('zcr'),onsetRate:av('onsetRate'),lift:av('lift'),duration:av('duration'),bpmMin:bpms.length?Math.min(...bpms):null,bpmMax:bpms.length?Math.max(...bpms):null};
-  };
+  function monoSample(buffer, frame) {
+    const i = Math.max(0, Math.min(buffer.length - 1, frame));
+    let value = 0;
+    for (let c = 0; c < buffer.numberOfChannels; c++) value += buffer.getChannelData(c)[i] / buffer.numberOfChannels;
+    return value;
+  }
 
-  const singleForm=$('#sig-single-form'), singleOut=$('#sig-single-output');
-  singleForm?.addEventListener('submit',async e=>{e.preventDefault();const file=$('#sig-single-file')?.files?.[0];if(!file){singleOut.textContent=t.needFile;return;}singleOut.textContent=t.working;try{const m=await analyzeFile(file);const prompt=promptFrom(m,$('#sig-single-focus')?.value||'balanced',$('#sig-single-hint')?.value||'');render(singleOut,m,t.detected,prompt,t.estimate);}catch(err){singleOut.textContent=err.message||t.decode;}});
+  function estimateTempo(buffer) {
+    const sr = buffer.sampleRate;
+    const seconds = Math.min(120, buffer.duration);
+    const step = Math.max(1, Math.round(sr / 50));
+    const points = Math.floor(seconds * sr / step);
+    if (points < 100) return null;
+    const env = new Float32Array(points);
+    for (let p = 0; p < points; p++) {
+      const start = p * step;
+      const end = Math.min(buffer.length, start + step);
+      let sum = 0, n = 0;
+      for (let i = start; i < end; i += Math.max(1, Math.floor(step / 24))) { sum += Math.abs(monoSample(buffer, i)); n++; }
+      env[p] = sum / Math.max(1, n);
+    }
+    const onset = new Float32Array(points);
+    let avg = 0;
+    for (let i = 1; i < points; i++) { onset[i] = Math.max(0, env[i] - env[i - 1]); avg += onset[i]; }
+    avg /= Math.max(1, points - 1);
+    for (let i = 0; i < points; i++) onset[i] = Math.max(0, onset[i] - avg * .45);
+    let bestBpm = 0, bestScore = -Infinity;
+    for (let bpm = 60; bpm <= 190; bpm++) {
+      const lag = Math.max(1, Math.round(50 * 60 / bpm));
+      let score = 0;
+      for (let i = lag; i < points; i++) score += onset[i] * onset[i - lag];
+      if (score > bestScore) { bestScore = score; bestBpm = bpm; }
+    }
+    if (!bestBpm) return null;
+    while (bestBpm < 75) bestBpm *= 2;
+    while (bestBpm > 170) bestBpm /= 2;
+    return Math.round(bestBpm);
+  }
 
-  const buildForm=$('#sig-build-form'), buildOut=$('#sig-build-output');
-  buildForm?.addEventListener('submit',async e=>{e.preventDefault();const chosen=Array.from($('#sig-build-files')?.files||[]);if(chosen.length<2){buildOut.textContent=t.needRefs;return;}const files=chosen.slice(0,3);buildOut.textContent=t.working;try{const items=[];for(const file of files)items.push(await analyzeFile(file));const metrics=averageMetrics(items);const traits=$$('input[name="sig-trait"]:checked').map(x=>x.value);const distance=Number($('#sig-distance')?.value||55);const prompt=promptFrom(metrics,'balanced','',traits,distance);const profile={metrics,traits,distance,prompt,createdAt:new Date().toISOString()};try{localStorage.setItem('rythero-signature-v1',JSON.stringify(profile));}catch{}const range=metrics.bpmMin&&metrics.bpmMax?` · BPM ${metrics.bpmMin===metrics.bpmMax?metrics.bpmMin:`${metrics.bpmMin}–${metrics.bpmMax}`}`:'';render(buildOut,metrics,`${t.common} · ${items.length} ${t.refs}${range}`,prompt,`${chosen.length>3?t.tooMany+' ':''}${t.saved}`);}catch(err){buildOut.textContent=err.message||t.decode;}});
+  function technicalMetrics(buffer) {
+    const stride = Math.max(1, Math.floor(buffer.length / 1200000));
+    let sumSq = 0, peak = 0, count = 0;
+    for (let i = 0; i < buffer.length; i += stride) {
+      const v = monoSample(buffer, i), a = Math.abs(v);
+      sumSq += v * v; if (a > peak) peak = a; count++;
+    }
+    const rmsDb = db(Math.sqrt(sumSq / Math.max(1, count)));
+    const blockFrames = Math.max(512, Math.round(buffer.sampleRate * .08));
+    const blockDb = [];
+    for (let start = 0; start < buffer.length; start += blockFrames) {
+      const end = Math.min(buffer.length, start + blockFrames);
+      let ss = 0, n = 0;
+      for (let i = start; i < end; i += stride) { const v = monoSample(buffer, i); ss += v * v; n++; }
+      blockDb.push(db(Math.sqrt(ss / Math.max(1, n))));
+    }
+    const dynamics = Math.max(0, percentile(blockDb, .9) - percentile(blockDb, .1));
+    const segments = [];
+    const segCount = 12;
+    for (let s = 0; s < segCount; s++) {
+      const start = Math.floor(buffer.length * s / segCount), end = Math.floor(buffer.length * (s + 1) / segCount);
+      let ss = 0, n = 0;
+      for (let i = start; i < end; i += stride) { const v = monoSample(buffer, i); ss += v * v; n++; }
+      segments.push(db(Math.sqrt(ss / Math.max(1, n))));
+    }
+    return {
+      duration: Number(buffer.duration.toFixed(2)),
+      bpm: estimateTempo(buffer),
+      rmsDb: Number(rmsDb.toFixed(1)),
+      dynamicsDb: Number(dynamics.toFixed(1)),
+      peakDb: Number(db(peak).toFixed(1)),
+      movementDb: Number(std(segments).toFixed(1))
+    };
+  }
 
-  const compareForm=$('#sig-compare-form'), compareOut=$('#sig-compare-output');
-  compareForm?.addEventListener('submit',async e=>{e.preventDefault();let profile=null;try{profile=JSON.parse(localStorage.getItem('rythero-signature-v1')||'null');}catch{}if(!profile?.metrics){compareOut.textContent=t.noProfile;return;}const file=$('#sig-compare-file')?.files?.[0];if(!file){compareOut.textContent=t.needFile;return;}compareOut.textContent=t.working;try{const m=await analyzeFile(file),target=profile.metrics,suggestions=[];let near=0,total=0;
-    const check=(ok)=>{total++;if(ok)near++;};
-    if(target.bpm&&m.bpm){const diff=m.bpm-target.bpm;check(Math.abs(diff)<=6);if(diff>6)suggestions.push(`${t.bpmUp} ${Math.round(target.bpm)} BPM.`);else if(diff<-6)suggestions.push(`${t.bpmDown} ${Math.round(target.bpm)} BPM.`);} 
-    const ed=m.rmsDb-target.rmsDb;check(Math.abs(ed)<=3);if(ed>3)suggestions.push(t.energyUp);else if(ed<-3)suggestions.push(t.energyDown);
-    const dd=m.dynamics-target.dynamics;check(Math.abs(dd)<=3);if(dd<-3)suggestions.push(t.dynUp);else if(dd>3)suggestions.push(t.dynDown);
-    const md=m.movement-target.movement;check(Math.abs(md)<=1.5);if(md<-1.5)suggestions.push(t.moveUp);else if(md>1.5)suggestions.push(t.moveDown);
-    const zd=m.zcr-target.zcr;check(Math.abs(zd)<=.035);if(zd>.035)suggestions.push(t.textureWarm);else if(zd<-.035)suggestions.push(t.textureCrisp);
-    if(!suggestions.length)suggestions.push(t.aligned); const ratio=near/Math.max(1,total), summary=ratio>=.75?t.near:ratio>=.4?t.mixed:t.far; const revised=`${profile.prompt} ${suggestions.join(' ')}`;
-    compareOut.replaceChildren();const h=document.createElement('strong');h.textContent=t.direction;const s=document.createElement('div');s.textContent=summary;s.style.margin='7px 0 14px';compareOut.append(h,s);const grid=document.createElement('div');grid.className='sig-metrics';const vals=[m.bpm?`${m.bpm} BPM`:'—',energyLabel(m),dynLabel(m),moveLabel(m),textureLabel(m)];t.metrics.forEach((label,i)=>{const card=document.createElement('div');card.className='sig-metric';const sm=document.createElement('small');sm.textContent=label;const b=document.createElement('b');b.textContent=vals[i];card.append(sm,b);grid.appendChild(card);});compareOut.appendChild(grid);const sh=document.createElement('strong');sh.textContent=t.revise;const list=document.createElement('ul');list.style.margin='8px 0 16px 18px';suggestions.forEach(x=>{const li=document.createElement('li');li.textContent=x;list.appendChild(li);});const rp=document.createElement('div');rp.className='sig-prompt';const rh=document.createElement('strong');rh.textContent=t.revised;const rb=document.createElement('div');rb.textContent=revised;rb.style.marginTop='6px';rp.append(rh,rb);compareOut.append(sh,list,rp);compareOut.dataset.prompt=revised;
-    }catch(err){compareOut.textContent=err.message||t.decode;}});
+  function resampleSegment(buffer, startSec, durationSec, targetRate = 16000) {
+    const srcRate = buffer.sampleRate;
+    const outputLength = Math.max(1, Math.floor(durationSec * targetRate));
+    const output = new Float32Array(outputLength);
+    const startFrame = startSec * srcRate;
+    const ratio = srcRate / targetRate;
+    for (let i = 0; i < outputLength; i++) {
+      const pos = startFrame + i * ratio;
+      const left = Math.floor(pos), right = Math.min(buffer.length - 1, left + 1), frac = pos - left;
+      output[i] = monoSample(buffer, left) * (1 - frac) + monoSample(buffer, right) * frac;
+    }
+    return output;
+  }
 
-  $$('[data-copy-output]').forEach(button=>button.addEventListener('click',async()=>{const out=document.getElementById(button.dataset.copyOutput);const text=out?.dataset.prompt||'';if(!text)return;try{await navigator.clipboard.writeText(text);const old=button.textContent;button.textContent=`✓ ${t.copied}`;setTimeout(()=>button.textContent=old,1000);}catch{}}));
-  $('#sig-reset')?.addEventListener('click',()=>{try{localStorage.removeItem('rythero-signature-v1');}catch{}singleForm?.reset();buildForm?.reset();compareForm?.reset();location.reload();});
+  function encodeWav(samples, sampleRate = 16000) {
+    const buffer = new ArrayBuffer(44 + samples.length * 2);
+    const view = new DataView(buffer);
+    const write = (offset, text) => { for (let i = 0; i < text.length; i++) view.setUint8(offset + i, text.charCodeAt(i)); };
+    write(0, 'RIFF'); view.setUint32(4, 36 + samples.length * 2, true); write(8, 'WAVE'); write(12, 'fmt ');
+    view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true); write(36, 'data'); view.setUint32(40, samples.length * 2, true);
+    let offset = 44;
+    for (let i = 0; i < samples.length; i++, offset += 2) {
+      const s = Math.max(-1, Math.min(1, samples[i]));
+      view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+    }
+    return new Blob([buffer], { type:'audio/wav' });
+  }
+
+  function analysisExcerpt(buffer) {
+    const maxWhole = 21;
+    if (buffer.duration <= maxWhole) return encodeWav(resampleSegment(buffer, 0, buffer.duration));
+    const slice = 7;
+    const starts = [
+      Math.max(0, buffer.duration * .06),
+      Math.max(0, buffer.duration * .50 - slice / 2),
+      Math.max(0, buffer.duration * .88 - slice)
+    ].map(s => Math.min(buffer.duration - slice, s));
+    const segments = starts.map(s => resampleSegment(buffer, s, slice));
+    const silence = new Float32Array(2400);
+    const total = segments.reduce((n, x) => n + x.length, 0) + silence.length * (segments.length - 1);
+    const joined = new Float32Array(total);
+    let cursor = 0;
+    segments.forEach((segment, index) => { joined.set(segment, cursor); cursor += segment.length; if (index < segments.length - 1) cursor += silence.length; });
+    return encodeWav(joined);
+  }
+
+  async function prepare(file) {
+    const buffer = await decode(file);
+    return { file, metrics: technicalMetrics(buffer), excerpt: analysisExcerpt(buffer) };
+  }
+
+  function localRender(el, metrics) {
+    el.replaceChildren();
+    const h = document.createElement('h3'); h.textContent = t.localTitle; el.appendChild(h);
+    const grid = document.createElement('div'); grid.className = 'metric-grid';
+    const items = [
+      [t.duration, fmtTime(metrics.duration)],
+      [t.bpm, metrics.bpm ? `${metrics.bpm} BPM` : '—'],
+      [t.level, `${metrics.rmsDb} dBFS`],
+      [t.dynamics, `${metrics.dynamicsDb} dB`],
+      [t.peak, `${metrics.peakDb} dBFS`],
+      [t.movement, `${metrics.movementDb} dB`]
+    ];
+    items.forEach(([label, value]) => {
+      const card = document.createElement('div'); card.className = 'metric-card';
+      const small = document.createElement('small'); small.textContent = label;
+      const strong = document.createElement('b'); strong.textContent = value;
+      card.append(small, strong); grid.appendChild(card);
+    });
+    const note = document.createElement('div'); note.className = 'uncertainties'; note.textContent = t.technical;
+    el.append(grid, note);
+  }
+
+  async function callAI(mode, prepared, extra = {}) {
+    const fd = new FormData();
+    fd.append('mode', mode); fd.append('lang', lang);
+    fd.append('metrics', JSON.stringify(mode === 'build' ? prepared.map(p => p.metrics) : prepared[0].metrics));
+    if (extra.hint) fd.append('hint', extra.hint);
+    if (extra.focus) fd.append('focus', extra.focus);
+    if (extra.target) fd.append('target', JSON.stringify(extra.target));
+    prepared.forEach((p, index) => fd.append(`audio${index}`, p.excerpt, `analysis-${index + 1}.wav`));
+    const response = await fetch('/api/music-analyze', { method:'POST', body:fd, credentials:'same-origin' });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || t.api);
+    return data.analysis;
+  }
+
+  function confidenceText(value) {
+    if (!Number.isFinite(value)) return '';
+    return `${Math.round(Math.max(0, Math.min(1, value)) * 100)}%`;
+  }
+
+  function addTraitGroup(container, title, items, category, removable = true) {
+    const normalized = (items || []).map(item => typeof item === 'string' ? { label:item, confidence:null } : item).filter(item => item?.label);
+    if (!normalized.length) return;
+    const group = document.createElement('div'); group.className = 'trait-group';
+    const heading = document.createElement('strong'); heading.textContent = title;
+    const list = document.createElement('div'); list.className = 'trait-list';
+    normalized.forEach(item => {
+      const chip = document.createElement('span'); chip.className = 'trait-chip'; chip.dataset.trait = item.label; chip.dataset.category = category;
+      const label = document.createElement('span'); label.textContent = item.label; chip.appendChild(label);
+      const conf = confidenceText(item.confidence);
+      if (conf) { const c = document.createElement('span'); c.className = 'confidence'; c.textContent = conf; chip.appendChild(c); }
+      if (removable) {
+        const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = '×'; remove.setAttribute('aria-label', `Remove ${item.label}`);
+        remove.addEventListener('click', () => chip.remove()); chip.appendChild(remove);
+      }
+      list.appendChild(chip);
+    });
+    group.append(heading, list); container.appendChild(group);
+  }
+
+  function promptFromKept(out, analysis) {
+    const groups = {};
+    $$('.trait-chip[data-trait]', out).forEach(chip => {
+      const category = chip.dataset.category || 'trait';
+      (groups[category] ||= []).push(chip.dataset.trait);
+    });
+    const parts = [];
+    if (groups.genre?.length) parts.push(`genre direction: ${groups.genre.join(', ')}`);
+    if (groups.mood?.length) parts.push(`mood: ${groups.mood.join(', ')}`);
+    if (analysis.tempo?.value) parts.push(`tempo: ${analysis.tempo.value}`);
+    if (analysis.meter?.value && !/unknown|uncertain/i.test(analysis.meter.value)) parts.push(`meter: ${analysis.meter.value}`);
+    if (analysis.key?.value && !/unknown|uncertain|not enough/i.test(analysis.key.value)) parts.push(`tonal direction: ${analysis.key.value}`);
+    if (groups.vocals?.length) parts.push(`vocals: ${groups.vocals.join(', ')}`);
+    if (groups.instruments?.length) parts.push(`instrumentation: ${groups.instruments.join(', ')}`);
+    if (groups.groove?.length) parts.push(`groove: ${groups.groove.join(', ')}`);
+    if (groups.bass?.length) parts.push(`bass: ${groups.bass.join(', ')}`);
+    if (groups.harmony?.length) parts.push(`harmony: ${groups.harmony.join(', ')}`);
+    if (groups.production?.length) parts.push(`production: ${groups.production.join(', ')}`);
+    if (groups.distinctive?.length) parts.push(`distinctive traits: ${groups.distinctive.join(', ')}`);
+    const exclude = (analysis.exclude || []).filter(Boolean);
+    return `Original music direction: ${parts.join('; ')}. ${t.promptRule}${exclude.length ? ` Avoid: ${exclude.join(', ')}.` : ''}`;
+  }
+
+  function promptBox(out, analysis, initialPrompt, allowRebuild = false) {
+    const box = document.createElement('div'); box.className = 'prompt-box';
+    const heading = document.createElement('strong'); heading.textContent = reviewText('prompt');
+    const text = document.createElement('div'); text.className = 'prompt-text'; text.textContent = initialPrompt || '';
+    const actions = document.createElement('div'); actions.className = 'prompt-actions';
+    if (allowRebuild) {
+      const rebuild = document.createElement('button'); rebuild.type = 'button'; rebuild.className = 'mini-btn'; rebuild.textContent = reviewText('rebuild');
+      rebuild.addEventListener('click', () => { text.textContent = promptFromKept(out, analysis); out.dataset.prompt = text.textContent; });
+      actions.appendChild(rebuild);
+    }
+    const copy = document.createElement('button'); copy.type = 'button'; copy.className = 'mini-btn'; copy.textContent = reviewText('copy');
+    copy.addEventListener('click', async () => {
+      const value = text.textContent.trim(); if (!value) return;
+      try { await navigator.clipboard.writeText(value); const old = copy.textContent; copy.textContent = `✓ ${reviewText('copied')}`; setTimeout(() => copy.textContent = old, 1000); } catch {}
+    });
+    actions.appendChild(copy); box.append(heading, text, actions); out.appendChild(box); out.dataset.prompt = text.textContent;
+  }
+
+  function renderSingleAI(out, a) {
+    out.replaceChildren();
+    const title = document.createElement('h3'); title.textContent = a.summary || reviewText('review'); out.appendChild(title);
+    const grid = document.createElement('div'); grid.className = 'metric-grid';
+    const metrics = [
+      ['Tempo', a.tempo?.value || '—'], ['Meter', a.meter?.value || '—'], ['Key / mode', a.key?.value || '—']
+    ];
+    metrics.forEach(([label,value]) => { const card=document.createElement('div');card.className='metric-card';const s=document.createElement('small');s.textContent=label;const b=document.createElement('b');b.textContent=value;card.append(s,b);grid.appendChild(card); });
+    out.appendChild(grid);
+    const review = document.createElement('div'); review.className = 'trait-group';
+    const rh = document.createElement('strong'); rh.textContent = reviewText('review');
+    const rp = document.createElement('div'); rp.className = 'uncertainties'; rp.textContent = reviewText('review-hint');
+    review.append(rh, rp); out.appendChild(review);
+    addTraitGroup(out, 'Genre / style', a.genre, 'genre');
+    addTraitGroup(out, 'Mood', a.moods, 'mood');
+    const vocalTags = [...(a.vocals?.delivery || []), ...(a.vocals?.character || [])].map(label => ({ label, confidence:a.vocals?.confidence }));
+    if (a.vocals?.presence && !/none|no vocal|instrumental/i.test(a.vocals.presence)) vocalTags.unshift({ label:a.vocals.presence, confidence:a.vocals?.confidence });
+    addTraitGroup(out, 'Vocals', vocalTags, 'vocals');
+    addTraitGroup(out, 'Instruments', a.instruments, 'instruments');
+    addTraitGroup(out, 'Groove', a.groove, 'groove');
+    addTraitGroup(out, 'Bass', a.bass, 'bass');
+    addTraitGroup(out, 'Harmony', a.harmony, 'harmony');
+    addTraitGroup(out, 'Production', a.production, 'production');
+    addTraitGroup(out, 'Distinctive traits', (a.distinctiveTraits || []).map(label => ({label, confidence:null})), 'distinctive');
+    if (a.uncertainties?.length) { const u=document.createElement('div');u.className='uncertainties';u.textContent=`${t.uncertain}: ${a.uncertainties.join(' · ')}`;out.appendChild(u); }
+    promptBox(out, a, a.suggestedPrompt, true);
+  }
+
+  function renderBuild(out, a) {
+    out.replaceChildren(); const h=document.createElement('h3');h.textContent=a.summary || t.core;out.appendChild(h);
+    addTraitGroup(out, t.core, a.sharedTraits, 'shared', true);
+    if (a.coreSignature?.length) { const g=document.createElement('div');g.className='trait-group';const s=document.createElement('strong');s.textContent=t.core;const list=document.createElement('ul');a.coreSignature.forEach(x=>{const li=document.createElement('li');li.textContent=x;list.appendChild(li);});g.append(s,list);out.appendChild(g); }
+    if (a.referenceDifferences?.length) { const g=document.createElement('div');g.className='trait-group';const s=document.createElement('strong');s.textContent=t.differences;const list=document.createElement('ul');a.referenceDifferences.forEach(x=>{const li=document.createElement('li');li.textContent=x;list.appendChild(li);});g.append(s,list);out.appendChild(g); }
+    if (a.uncertainties?.length) { const u=document.createElement('div');u.className='uncertainties';u.textContent=`${t.uncertain}: ${a.uncertainties.join(' · ')}`;out.appendChild(u); }
+    promptBox(out, a, a.suggestedPrompt, false);
+    const saved=document.createElement('div');saved.className='uncertainties';saved.textContent=t.saved;out.appendChild(saved);
+  }
+
+  function renderCompare(out, a) {
+    out.replaceChildren(); const h=document.createElement('h3');h.textContent=a.summary || t.matches;out.appendChild(h);
+    addTraitGroup(out, t.matches, a.matches, 'matches', false);
+    addTraitGroup(out, t.differences, a.differences, 'differences', false);
+    if (a.nextChanges?.length) { const g=document.createElement('div');g.className='trait-group';const s=document.createElement('strong');s.textContent=t.changes;const list=document.createElement('ul');a.nextChanges.forEach(x=>{const li=document.createElement('li');li.textContent=x;list.appendChild(li);});g.append(s,list);out.appendChild(g); }
+    if (a.uncertainties?.length) { const u=document.createElement('div');u.className='uncertainties';u.textContent=`${t.uncertain}: ${a.uncertainties.join(' · ')}`;out.appendChild(u); }
+    promptBox(out, a, a.revisedPrompt, false);
+  }
+
+  async function checkEngine() {
+    try {
+      const response = await fetch('/api/music-analyze', { credentials:'same-origin', cache:'no-store' });
+      const data = await response.json();
+      statusEl.textContent = data.configured ? `${t.ready} · ${data.model || ''}` : t.off;
+      statusEl.dataset.ready = data.configured ? '1' : '0';
+    } catch { statusEl.textContent = t.off; statusEl.dataset.ready = '0'; }
+  }
+  checkEngine();
+
+  const singleForm = $('#sig-single-form');
+  const singleLocal = $('#sig-single-local-output');
+  const singleAI = $('#sig-single-ai-output');
+  let lastSinglePrepared = null;
+  async function getSinglePrepared() {
+    const file = $('#sig-single-file')?.files?.[0];
+    if (!file) throw new Error(t.choose);
+    if (lastSinglePrepared?.file === file) return lastSinglePrepared.prepared;
+    const prepared = await prepare(file); lastSinglePrepared = { file, prepared }; return prepared;
+  }
+  $('#sig-single-local')?.addEventListener('click', async () => {
+    singleLocal.textContent = t.decoding;
+    try { const prepared = await getSinglePrepared(); localRender(singleLocal, prepared.metrics); }
+    catch (e) { singleLocal.textContent = e.message || t.decode; }
+  });
+  singleForm?.addEventListener('submit', async event => {
+    event.preventDefault(); singleAI.textContent = t.decoding;
+    try {
+      const prepared = await getSinglePrepared(); localRender(singleLocal, prepared.metrics); singleAI.textContent = t.working;
+      const analysis = await callAI('single', [prepared], { focus:$('#sig-single-focus')?.value || 'balanced', hint:$('#sig-single-hint')?.value || '' });
+      renderSingleAI(singleAI, analysis);
+    } catch (e) { singleAI.textContent = e.message || t.api; }
+  });
+  $('#sig-single-file')?.addEventListener('change', () => { lastSinglePrepared = null; });
+
+  const buildForm = $('#sig-build-form');
+  const buildOut = $('#sig-build-output');
+  buildForm?.addEventListener('submit', async event => {
+    event.preventDefault(); const files = Array.from($('#sig-build-files')?.files || []);
+    if (files.length < 2) { buildOut.textContent = t.refs; return; }
+    if (files.length > 3) { buildOut.textContent = t.max; return; }
+    buildOut.textContent = t.decoding;
+    try {
+      const prepared = []; for (const file of files) prepared.push(await prepare(file));
+      buildOut.textContent = t.working;
+      const analysis = await callAI('build', prepared, { focus:'shared musical identity' });
+      try { localStorage.setItem('rythero-signature-v2', JSON.stringify(analysis)); } catch {}
+      renderBuild(buildOut, analysis);
+    } catch (e) { buildOut.textContent = e.message || t.api; }
+  });
+
+  const compareForm = $('#sig-compare-form');
+  const compareOut = $('#sig-compare-output');
+  compareForm?.addEventListener('submit', async event => {
+    event.preventDefault(); let target = null;
+    try { target = JSON.parse(localStorage.getItem('rythero-signature-v2') || 'null'); } catch {}
+    if (!target) { compareOut.textContent = root.querySelector('[data-sig-panel="compare"] .sig-output')?.textContent || t.api; return; }
+    const file = $('#sig-compare-file')?.files?.[0]; if (!file) { compareOut.textContent = t.choose; return; }
+    compareOut.textContent = t.decoding;
+    try { const prepared = await prepare(file); compareOut.textContent = t.working; const analysis = await callAI('compare', [prepared], { target }); renderCompare(compareOut, analysis); }
+    catch (e) { compareOut.textContent = e.message || t.api; }
+  });
+
+  $('#sig-reset')?.addEventListener('click', () => {
+    try { localStorage.removeItem('rythero-signature-v1'); localStorage.removeItem('rythero-signature-v2'); } catch {}
+    singleForm?.reset(); buildForm?.reset(); compareForm?.reset(); location.reload();
+  });
 })();
