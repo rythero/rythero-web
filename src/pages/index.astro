@@ -6,47 +6,47 @@ import Base from '../layouts/Base.astro';
     <div class="hero-copy">
       <div class="eyebrow">Modern music creation</div>
       <h1>Create music.<br /><span>Build your sound.</span></h1>
-      <p>Tools, workflows and practical knowledge for modern music creators. Move from idea to a stronger song without sounding like everyone else.</p>
+      <p>Start with a rough idea and leave with a song-ready plan: sound direction, structure, lyrics brief, production choices and a clean prompt for the tool you use next.</p>
       <div class="actions">
-        <a class="pill primary" href="/tools/prompt-builder">Start creating</a>
-        <a class="pill" href="#tools">Explore tools</a>
+        <a class="pill primary" href="/tools/song-studio">Open Rythero Studio</a>
+        <a class="pill" href="/tools/prompt-builder">Quick Prompt Builder</a>
       </div>
-      <div class="proof"><span>Fast</span><span>No sign-up</span><span>Built for creators</span></div>
+      <div class="proof"><span>No sign-up</span><span>Beginner-friendly</span><span>Built for creators</span></div>
     </div>
     <div class="hero-card" aria-hidden="true">
       <div class="glow"></div>
       <img src="/rythero-mark.svg" alt="" />
-      <div class="mini-label">RYTHERO / 001</div>
+      <div class="mini-label">RYTHERO / STUDIO</div>
       <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     </div>
   </section>
 
   <section class="section shell" id="tools">
     <div class="eyebrow">Tools</div>
-    <div class="section-head"><h2>Make the idea usable.</h2><p class="muted">Start with focused tools that remove friction instead of adding more tabs.</p></div>
+    <div class="section-head"><h2>Move the song forward.</h2><p class="muted">Use one workspace when you want the full plan, or a focused tool when you only need one answer.</p></div>
     <div class="grid3">
-      <a class="card featured" href="/tools/prompt-builder"><div class="tag">LIVE</div><h3>Prompt Builder</h3><p class="muted">Shape genre, energy, voice, structure and production into one clean music-generation prompt.</p><span class="arrow">Open tool →</span></a>
-      <article class="card"><div class="tag dim">NEXT</div><h3>Song Blueprint</h3><p class="muted">Turn a raw concept into a section-by-section song architecture before generating.</p></article>
-      <article class="card"><div class="tag dim">NEXT</div><h3>Style DNA</h3><p class="muted">Define what makes your sound yours without leaning on artist imitation.</p></article>
+      <a class="card featured" href="/tools/song-studio"><div class="tag">LIVE</div><h3>Rythero Studio</h3><p class="muted">Song Blueprint, Prompt Doctor, Style DNA, Arrangement Map, Lyrics Blueprint, export helpers and local audio analysis.</p><span class="arrow">Open studio →</span></a>
+      <a class="card" href="/tools/prompt-builder"><div class="tag">LIVE</div><h3>Prompt Builder</h3><p class="muted">Build a clean music-generation prompt quickly from genre, mood, voice, structure and production choices.</p><span class="arrow">Open tool →</span></a>
+      <a class="card" href="/tools/song-studio#audio"><div class="tag">LOCAL</div><h3>Audio Analyzer</h3><p class="muted">Inspect duration, estimated tempo, level, dynamics and waveform without uploading the file.</p><span class="arrow">Analyze audio →</span></a>
     </div>
   </section>
 
   <section class="section shell" id="learn">
     <div class="split">
-      <div><div class="eyebrow">Learn</div><h2>Less theory.<br />Better decisions.</h2></div>
-      <p class="muted big">Rythero will explain the parts of modern music creation that actually change the result: structure, prompting, vocal direction, arrangement, iteration and release workflows.</p>
+      <div><div class="eyebrow">Learn</div><h2>You do not need<br />to know the jargon first.</h2></div>
+      <p class="muted big">Rythero is built so a first-time music creator can make useful decisions step by step. The tools explain the choices while you work instead of sending you to a long manual first.</p>
     </div>
   </section>
 
   <section class="section shell" id="guides">
     <div class="grid3">
-      <div class="card"><h3>Prompting that sounds intentional</h3><p class="muted">Stop stacking adjectives. Learn how musical decisions work together.</p></div>
-      <div class="card"><h3>Build identity, not imitation</h3><p class="muted">Use references as analysis, then translate them into your own creative language.</p></div>
-      <div class="card"><h3>From generation to finished track</h3><p class="muted">A practical path from first idea to arrangement, polish and release.</p></div>
+      <div class="card"><h3>From idea to song-ready</h3><p class="muted">Turn a theme into tempo, structure, sound palette, vocal direction and a usable production brief.</p></div>
+      <div class="card"><h3>Build identity, not imitation</h3><p class="muted">Use Style DNA to describe groove, texture, harmony and voice without copying named artists.</p></div>
+      <div class="card"><h3>Repair before you generate</h3><p class="muted">Prompt Doctor spots vague, overloaded or contradictory instructions before they waste another generation.</p></div>
     </div>
   </section>
 
   <style>
-    .hero{min-height:76vh;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:70px 0 90px}.hero h1{font-size:clamp(3.5rem,8vw,7.2rem);line-height:.9;letter-spacing:-.065em;margin:16px 0 26px;max-width:900px}.hero h1 span{color:var(--green)}.hero p{font-size:clamp(1.05rem,2vw,1.35rem);max-width:700px;color:var(--muted)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.proof{display:flex;gap:22px;margin-top:26px;color:#718078;font-size:.84rem}.proof span:before{content:'•';color:var(--green);margin-right:8px}.hero-card{position:relative;min-height:460px;border:1px solid var(--line);border-radius:34px;background:linear-gradient(145deg,#0c1510,#060906);overflow:hidden;display:grid;place-items:center}.hero-card img{width:min(58%,280px);filter:drop-shadow(0 0 30px rgba(63,255,129,.22));z-index:2}.glow{position:absolute;width:300px;height:300px;background:rgba(48,255,132,.13);filter:blur(70px);border-radius:50%}.mini-label{position:absolute;left:24px;top:22px;font-size:.7rem;letter-spacing:.2em;color:#75847b}.bars{position:absolute;bottom:26px;left:26px;right:26px;height:50px;display:flex;gap:8px;align-items:flex-end}.bars i{display:block;flex:1;background:linear-gradient(var(--green),#0e4929);border-radius:4px 4px 1px 1px}.bars i:nth-child(1){height:22%}.bars i:nth-child(2){height:55%}.bars i:nth-child(3){height:38%}.bars i:nth-child(4){height:86%}.bars i:nth-child(5){height:62%}.bars i:nth-child(6){height:100%}.bars i:nth-child(7){height:46%}.section-head,.split{display:flex;justify-content:space-between;gap:40px;align-items:end;margin:14px 0 26px}.section h2{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.96;letter-spacing:-.05em;margin:8px 0}.section-head p{max-width:470px}.featured{position:relative;box-shadow:inset 0 0 0 1px rgba(102,255,140,.08)}.featured:hover{border-color:#31583d}.tag{display:inline-block;font-size:.66rem;letter-spacing:.16em;color:#041108;background:var(--green);padding:5px 8px;border-radius:999px;margin-bottom:22px;font-weight:900}.tag.dim{background:#151d18;color:#7f8d84}.arrow{display:inline-block;margin-top:18px;color:var(--green);font-weight:800}.big{font-size:1.2rem;max-width:600px}@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:45px}.hero-card{min-height:330px}.section-head,.split{display:block}.proof{flex-wrap:wrap}}
+    .hero{min-height:76vh;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:70px 0 90px}.hero h1{font-size:clamp(3.5rem,8vw,7.2rem);line-height:.9;letter-spacing:-.065em;margin:16px 0 26px;max-width:900px}.hero h1 span{color:var(--green)}.hero p{font-size:clamp(1.05rem,2vw,1.35rem);max-width:760px;color:var(--muted)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.proof{display:flex;gap:22px;margin-top:26px;color:#718078;font-size:.84rem}.proof span:before{content:'•';color:var(--green);margin-right:8px}.hero-card{position:relative;min-height:460px;border:1px solid var(--line);border-radius:34px;background:linear-gradient(145deg,#0c1510,#060906);overflow:hidden;display:grid;place-items:center}.hero-card img{width:min(58%,280px);filter:drop-shadow(0 0 30px rgba(63,255,129,.22));z-index:2}.glow{position:absolute;width:300px;height:300px;background:rgba(48,255,132,.13);filter:blur(70px);border-radius:50%}.mini-label{position:absolute;left:24px;top:22px;font-size:.7rem;letter-spacing:.2em;color:#75847b}.bars{position:absolute;bottom:26px;left:26px;right:26px;height:50px;display:flex;gap:8px;align-items:flex-end}.bars i{display:block;flex:1;background:linear-gradient(var(--green),#0e4929);border-radius:4px 4px 1px 1px}.bars i:nth-child(1){height:22%}.bars i:nth-child(2){height:55%}.bars i:nth-child(3){height:38%}.bars i:nth-child(4){height:86%}.bars i:nth-child(5){height:62%}.bars i:nth-child(6){height:100%}.bars i:nth-child(7){height:46%}.section-head,.split{display:flex;justify-content:space-between;gap:40px;align-items:end;margin:14px 0 26px}.section h2{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.96;letter-spacing:-.05em;margin:8px 0}.section-head p{max-width:470px}.featured{position:relative;box-shadow:inset 0 0 0 1px rgba(102,255,140,.08)}.featured:hover,.card[href]:hover{border-color:#31583d}.tag{display:inline-block;font-size:.66rem;letter-spacing:.16em;color:#041108;background:var(--green);padding:5px 8px;border-radius:999px;margin-bottom:22px;font-weight:900}.tag.dim{background:#151d18;color:#7f8d84}.arrow{display:inline-block;margin-top:18px;color:var(--green);font-weight:800}.big{font-size:1.2rem;max-width:600px}@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:45px}.hero-card{min-height:330px}.section-head,.split{display:block}.proof{flex-wrap:wrap}}
   </style>
 </Base>
