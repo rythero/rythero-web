@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base lang="es" title="Cookies — Rythero" description="Cómo usa Rythero la analítica opcional y guarda tu elección de consentimiento." canonical="/es/cookies">
+  <section class="section shell legal-page">
+    <div class="eyebrow">Cookies</div>
+    <h1>Huella pequeña.<br />Elección clara.</h1>
+    <p class="lead">Rythero mantiene Google Analytics completamente desactivado hasta que decides aceptarlo. Rechazar la analítica no limita el sitio.</p>
+    <div class="legal-grid">
+      <article class="card"><h2>Google Analytics — opcional</h2><p class="muted">Finalidad: entender visitas e interacciones para mejorar Rythero. Proveedor: Google. Base jurídica: tu consentimiento. Google Analytics no se carga antes de aceptar.</p><p class="muted"><strong>Cookies habituales después de aceptar:</strong> <code>_ga</code> y <code>_ga_&lt;container-id&gt;</code>. Google documenta una duración predeterminada de hasta 2 años para estas cookies.</p></article>
+      <article class="card"><h2>Publicidad — desactivada</h2><p class="muted">Rythero mantiene actualmente desactivados el almacenamiento publicitario, los datos de usuario para publicidad y la personalización de anuncios. Aceptar la analítica no activa cookies publicitarias.</p></article>
+      <article class="card"><h2>Cloudflare Web Analytics</h2><p class="muted">Rythero también utiliza Cloudflare Web Analytics para medir tráfico y rendimiento con un enfoque de privacidad. Cloudflare indica que este servicio no usa cookies, almacenamiento local ni fingerprinting para rastrear visitantes.</p></article>
+      <article class="card"><h2>Tu elección de consentimiento</h2><p class="muted">Rythero guarda únicamente tu preferencia de analítica en el almacenamiento local del navegador con la clave <code>rythero-consent-v2</code>. Así evita preguntarte repetidamente. Permanece hasta que cambias la elección o borras el almacenamiento del navegador.</p></article>
+      <article class="card"><h2>Puedes cambiar de opinión</h2><p class="muted">Usa <strong>Preferencias de cookies</strong> en el pie de página en cualquier momento. Si rechazas después de haber aceptado, Google Analytics queda desactivado para futuras cargas y se eliminan las cookies accesibles de Google Analytics de Rythero.</p></article>
+    </div>
+    <p class="note">Última actualización: septiembre de 2026. Esta política se revisará si Rythero añade publicidad, cuentas, formularios, servicios de pago u otras tecnologías que cambien el tratamiento de datos.</p>
+  </section>
+  <style>.legal-page{max-width:940px}.legal-page h1{font-size:clamp(2.8rem,6vw,5.8rem);line-height:.94;letter-spacing:-.055em;margin:14px 0 24px}.lead{max-width:760px;color:var(--muted);font-size:1.15rem}.legal-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}.legal-grid h2{margin:0 0 8px;font-size:1.15rem}.legal-grid code{color:#b6ffc8}.note{margin-top:28px;color:#738078;font-size:.85rem}</style>
+</Base>
