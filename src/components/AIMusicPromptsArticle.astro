@@ -1,0 +1,223 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
+const base = locale === 'en' ? '' : `/${locale}`;
+const canonicalPath = `${base}/learn/ai-music-prompts`;
+
+const t = {
+  en: {
+    eyebrow:'AI MUSIC CREATOR SCHOOL · LESSON 01',
+    title:'AI Music Prompts: a producer’s framework for better songs',
+    dek:'A useful music prompt is not a pile of adjectives. It is a compact production brief: style, emotion, tempo, voice, instrumentation, structure and sonic finish working in the same direction.',
+    quick:'Quick answer',
+    quickText:'Start with one clear musical destination. Name the main style, define the emotional and rhythmic feel, describe the lead voice and core instruments, give the arrangement a shape, then add only the production details that materially change the result. If two instructions fight each other, remove or resolve one before generating.',
+    whyTitle:'Think like a producer, not a tag collector',
+    why1:'Generative music systems can infer a lot from a small amount of useful musical information. Problems begin when a prompt mixes too many unrelated styles, repeats the same idea in different words or asks for opposite things at the same time. “Minimal, huge, intimate, stadium-sized, dry, cavernous” is not precision. It is conflict.',
+    why2:'The better mental model is a creative brief. Every line should answer a production question. What is the song? How should it move? What should the listener feel? What carries the hook? Where should the arrangement change? What should the mix emphasize?',
+    framework:'The seven decisions that matter most',
+    sections:[
+      ['1. Genre: choose a destination, not a continent','“Pop” or “electronic” leaves most creative decisions open. A more useful direction is specific enough to imply rhythm, palette and arrangement: alt-R&B, Afro house, melodic hip-hop, dark pop, UK garage or flamenco fusion. You can blend styles, but give the blend a hierarchy. One style should lead; the others should contribute identifiable traits.'],
+      ['2. Mood and energy: separate emotion from movement','Mood describes the emotional color: intimate, defiant, euphoric, nocturnal, melancholic. Energy describes how much the arrangement pushes: low, medium, high or evolving. A dark song can still be high-energy. A romantic song can be restrained. Keeping those two ideas separate gives the model a clearer target.'],
+      ['3. Tempo: use BPM when it changes the groove','A BPM number is useful when the rhythmic pocket matters. It is less useful when you are adding a number only because a template told you to. If you know the groove, give a target or a small range. If you do not, describe the pace and let the style carry some of that decision. Tempo should support the genre and emotional intent, not fight them.'],
+      ['4. Voice: describe role, character and delivery','“Male vocal” or “female vocal” is only the start. Useful vocal direction can include register, texture, proximity and phrasing: low register, raspy, close-mic, airy, soulful, rhythmic, melodic rap, layered harmonies. Avoid stacking every vocal adjective you like. Choose the few traits that define the performance.'],
+      ['5. Instrumentation: choose the identity carriers','Do not list an entire studio. Pick the sounds that define the record: deep 808 and dry drums; nylon guitar and hand percussion; log drum and spacious percussion; Rhodes, sub bass and brushed drums. Then leave room for the generator to complete the arrangement. A short focused palette is usually more coherent than fifteen instruments competing for attention.'],
+      ['6. Structure: tell the song where to change','Structure prevents the result from behaving like one long loop. You can specify a hook-first opening, verse and chorus contrast, a short breakdown, a bridge, a beat switch or a final lift. The point is not to micromanage every second. The point is to create sectional purpose: something should change because the song has moved forward.'],
+      ['7. Production: describe the finish, then stop','Production language is powerful when it describes audible priorities: warm low end, punchy drums, intimate dry vocal, wide chorus, dark spacious mix, polished high end, raw live feel. It becomes noise when every possible trait is included. Choose the two or three details that make the mix recognizable.']
+    ],
+    beforeTitle:'A weak prompt vs. a useful brief',
+    weak:'Weak: “Emotional modern song, cinematic, powerful, catchy, deep, beautiful, epic, intimate, dark, energetic.”',
+    strong:'Stronger: “Dark alt-R&B with a nocturnal, intimate mood; 92 BPM; low raspy male vocal, close-mic in the verses; warm sub bass, sparse electronic drums and Rhodes; restrained verses opening into a wider hook; polished but dark mix with controlled low end.”',
+    explain:'The second version is not better because it is longer. It is better because every phrase changes a musical decision and the instructions agree with each other.',
+    platforms:'Suno, Udio and other generators: keep the core brief portable',
+    p1:'Platform behavior changes. Suno’s current v6 family is designed for stronger control and also supports more open-ended creative input, while Udio’s own prompting guidance still emphasizes a clear idea, genre, mood, tempo, instrumentation and organized “brick” style prompting. The safest workflow is to keep your core musical brief platform-neutral, then adapt its formatting at the final export step.',
+    p2:'That is also why Rythero keeps final generator-ready prompts in English by default: not because music ideas must be written in English, but because one portable production vocabulary is easier to reuse across tools. Lyrics can still be planned in the language you actually want to sing.',
+    avoid:'Four prompt mistakes that make songs feel generic',
+    mistakes:[
+      ['Too many equal-weight genres','If everything leads, nothing leads. Decide the main identity and what each secondary style contributes.'],
+      ['Contradictory production language','Dry and cavernous, minimal and densely layered, raw and hyper-polished can coexist only if you explain where or when each applies.'],
+      ['Adjective repetition','“Emotional, heartfelt, moving, touching” is one idea repeated four times. Use the space for musical information.'],
+      ['Artist imitation as a shortcut','Translate references into musical traits: groove, era, instrumentation, vocal delivery, harmony and production. That gives you a reusable identity instead of a copy request.']
+    ],
+    workflow:'A beginner-friendly workflow',
+    workflowText:'If you are starting from zero, use this order: idea → genre → mood/energy → vocal → instrumentation → structure → production → exclusions. Then generate, listen, identify one problem and revise only the instruction related to that problem. Do not rewrite the entire prompt after every result.',
+    toolsTitle:'Use Rythero to apply the framework',
+    toolsText:'Prompt Builder is the fast route when you already know roughly what you want. Rythero Studio goes further: Song Blueprint builds the full direction, Prompt Doctor checks weak or conflicting instructions, Style DNA helps define a reusable identity, and Export prepares the brief for the destination tool.',
+    studio:'Open Rythero Studio', prompt:'Open Prompt Builder',
+    faq:'FAQ',
+    faqs:[
+      ['Do longer prompts always work better?','No. Useful density matters more than length. A short prompt with compatible, specific decisions can outperform a long list of vague descriptors.'],
+      ['Should I always include BPM?','Only when tempo materially affects the groove or when you already know the pace you want. Otherwise, style and energy can be enough for a first pass.'],
+      ['Can I mix four genres?','Yes, but treat the mix as an arrangement decision, not a shopping list. Define one primary style and the role of the others.'],
+      ['Should the prompt describe lyrics too?','Keep musical direction and lyrical direction conceptually separate when the platform allows it. The music brief should explain how the track behaves; the lyrics brief should explain what the song says and how the story moves.']
+    ],
+    sources:'Primary references',
+    sourceItems:[
+      ['Suno — Introducing v6','https://suno.com/release-notes/introducing-v6'],
+      ['Suno Help — What’s new in v6?','https://help.suno.com/en/articles/13924801'],
+      ['Udio Help — Prompt Like a Master','https://help.udio.com/en/articles/10716541-prompt-like-a-master'],
+      ['Udio Help — The Brick Method','https://help.udio.com/en/articles/12232112-the-brick-method-making-udio-work-for-you']
+    ]
+  },
+  es: {
+    eyebrow:'ESCUELA DE CREADORES · AI MUSIC · LECCIÓN 01',
+    title:'Prompts para música con IA: un método de productor para mejores canciones',
+    dek:'Un buen prompt musical no es una pila de adjetivos. Es un briefing de producción compacto: estilo, emoción, tempo, voz, instrumentación, estructura y acabado sonoro apuntando en la misma dirección.',
+    quick:'Respuesta rápida',
+    quickText:'Empieza por un destino musical claro. Define el estilo principal, el clima emocional y rítmico, la voz y los instrumentos esenciales, da una forma al arreglo y añade solo los detalles de producción que cambian de verdad el resultado. Si dos instrucciones se contradicen, resuelve el conflicto antes de generar.',
+    whyTitle:'Piensa como productor, no como coleccionista de etiquetas',
+    why1:'Los generadores musicales pueden inferir mucho a partir de poca información útil. Los problemas empiezan cuando el prompt mezcla demasiados estilos sin jerarquía, repite la misma idea con palabras distintas o pide cosas opuestas al mismo tiempo. “Minimalista, enorme, íntimo, de estadio, seco y cavernoso” no es precisión: es conflicto.',
+    why2:'El mejor modelo mental es un briefing creativo. Cada frase debería responder una pregunta de producción: ¿qué canción es?, ¿cómo debe moverse?, ¿qué debe sentir quien escucha?, ¿qué sostiene el gancho?, ¿dónde cambia el arreglo?, ¿qué debe destacar en la mezcla?',
+    framework:'Las siete decisiones que más importan',
+    sections:[
+      ['1. Género: elige un destino, no un continente','“Pop” o “electrónica” deja casi todas las decisiones abiertas. Es mejor una dirección capaz de sugerir ritmo, paleta y arreglo: alt-R&B, Afro house, melodic hip-hop, dark pop, UK garage o flamenco fusion. Puedes mezclar estilos, pero dales jerarquía: uno lidera y los demás aportan rasgos concretos.'],
+      ['2. Estado de ánimo y energía: separa emoción de movimiento','El estado de ánimo describe el color emocional: íntimo, desafiante, eufórico, nocturno, melancólico. La energía describe cuánto empuja el arreglo: baja, media, alta o evolutiva. Una canción oscura puede ser muy energética y una canción romántica puede ser contenida.'],
+      ['3. Tempo: usa BPM cuando cambie el groove','Un número de BPM sirve cuando el pocket rítmico importa. Sirve menos si lo añades solo porque una plantilla lo pide. Si conoces el groove, indica un objetivo o un rango pequeño. Si no, describe el ritmo general y deja que el estilo resuelva parte de la decisión.'],
+      ['4. Voz: describe función, carácter e interpretación','“Voz masculina” o “voz femenina” es solo el principio. Puedes añadir registro, textura, cercanía y fraseo: grave, rasgada, close-mic, aireada, soulful, rítmica, melodic rap, armonías en capas. Elige pocos rasgos que definan la interpretación.'],
+      ['5. Instrumentación: elige los sonidos que dan identidad','No enumeres un estudio entero. Escoge los sonidos que definen el tema: 808 profundo y batería seca; guitarra de nailon y percusión de manos; log drum y percusión espaciosa; Rhodes, subgrave y batería con escobillas. Deja espacio para que el generador complete el arreglo.'],
+      ['6. Estructura: dile a la canción dónde debe cambiar','La estructura evita que todo suene como un bucle largo. Puedes pedir un gancho al principio, contraste entre verso y estribillo, un breakdown corto, un puente, un beat switch o una subida final. No se trata de controlar cada segundo, sino de dar propósito a las secciones.'],
+      ['7. Producción: define el acabado y detente','El lenguaje de producción funciona cuando marca prioridades audibles: graves cálidos, batería con pegada, voz seca e íntima, estribillo ancho, mezcla oscura y espaciosa, agudos pulidos, sensación de directo. Elige dos o tres rasgos que hagan reconocible la mezcla.']
+    ],
+    beforeTitle:'Un prompt débil frente a un briefing útil',
+    weak:'Débil: “Canción moderna y emocional, cinematográfica, potente, pegadiza, profunda, bonita, épica, íntima, oscura y energética.”',
+    strong:'Más útil: “Dark alt-R&B con ambiente nocturno e íntimo; 92 BPM; voz masculina grave y rasgada, close-mic en los versos; subgrave cálido, batería electrónica escasa y Rhodes; versos contenidos que se abren a un hook más ancho; mezcla pulida pero oscura con graves controlados.”',
+    explain:'La segunda versión no es mejor por ser más larga. Es mejor porque cada frase cambia una decisión musical y las instrucciones son compatibles entre sí.',
+    platforms:'Suno, Udio y otros generadores: conserva un briefing portable',
+    p1:'El comportamiento de las plataformas cambia. La familia v6 actual de Suno busca más control y también admite entradas creativas más abiertas; la documentación de Udio sigue poniendo el foco en una idea clara, género, estado, tempo, instrumentación y prompts organizados por bloques. Por eso conviene mantener un briefing musical neutral y adaptar el formato solo al exportar.',
+    p2:'Por esa misma razón Rythero mantiene en inglés los prompts finales destinados a generadores: no porque la idea musical tenga que pensarse en inglés, sino porque un vocabulario de producción portable se reutiliza mejor entre herramientas. La letra puede planificarse en el idioma que realmente quieras cantar.',
+    avoid:'Cuatro errores que hacen que la música con IA suene genérica',
+    mistakes:[
+      ['Demasiados géneros con el mismo peso','Si todo lidera, nada lidera. Decide la identidad principal y qué aporta cada estilo secundario.'],
+      ['Producción contradictoria','Seco y cavernoso, minimalista y densamente cargado, crudo e hiperpolido pueden convivir solo si explicas dónde o cuándo aplica cada rasgo.'],
+      ['Repetición de adjetivos','“Emocional, sentido, conmovedor, profundo” repite casi la misma idea. Usa ese espacio para información musical.'],
+      ['Imitar artistas como atajo','Traduce las referencias a rasgos musicales: groove, época, instrumentos, interpretación vocal, armonía y producción. Así construyes una identidad reutilizable.']
+    ],
+    workflow:'Un flujo sencillo para principiantes',
+    workflowText:'Si empiezas de cero, sigue este orden: idea → género → estado/energía → voz → instrumentación → estructura → producción → exclusiones. Después genera, escucha, identifica un solo problema y modifica únicamente la instrucción relacionada con ese problema. No reescribas todo el prompt tras cada resultado.',
+    toolsTitle:'Aplica el método dentro de Rythero',
+    toolsText:'Prompt Builder es la vía rápida cuando ya sabes aproximadamente lo que buscas. Rythero Studio va más lejos: Song Blueprint construye la dirección completa, Prompt Doctor detecta instrucciones débiles o conflictivas, Style DNA define una identidad reutilizable y Export adapta el briefing a la herramienta de destino.',
+    studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder',
+    faq:'Preguntas frecuentes',
+    faqs:[
+      ['¿Los prompts más largos funcionan siempre mejor?','No. Importa más la densidad de información útil. Un prompt corto con decisiones concretas y compatibles puede superar a una lista larga de descriptores vagos.'],
+      ['¿Debo indicar siempre los BPM?','Solo cuando el tempo cambie de forma relevante el groove o ya sepas el ritmo que quieres. En una primera prueba, estilo y energía pueden ser suficientes.'],
+      ['¿Puedo mezclar cuatro géneros?','Sí, pero trata la mezcla como una decisión de arreglo, no como una lista de compra. Define un estilo principal y la función de los demás.'],
+      ['¿El prompt debe describir también la letra?','Cuando la plataforma lo permita, separa la dirección musical de la dirección lírica. El briefing musical explica cómo se comporta la canción; el de letra explica qué dice y cómo avanza la historia.']
+    ],
+    sources:'Fuentes primarias',
+    sourceItems:[
+      ['Suno — Introducing v6','https://suno.com/release-notes/introducing-v6'],
+      ['Suno Help — What’s new in v6?','https://help.suno.com/en/articles/13924801'],
+      ['Udio Help — Prompt Like a Master','https://help.udio.com/en/articles/10716541-prompt-like-a-master'],
+      ['Udio Help — The Brick Method','https://help.udio.com/en/articles/12232112-the-brick-method-making-udio-work-for-you']
+    ]
+  },
+  'pt-br': {
+    eyebrow:'ESCOLA DE CRIADORES · AI MUSIC · AULA 01',
+    title:'Prompts para música com IA: um método de produtor para músicas melhores',
+    dek:'Um bom prompt musical não é uma pilha de adjetivos. É um briefing de produção compacto: estilo, emoção, andamento, voz, instrumentação, estrutura e acabamento sonoro apontando para a mesma direção.',
+    quick:'Resposta rápida',
+    quickText:'Comece com um destino musical claro. Defina o estilo principal, o clima emocional e rítmico, a voz e os instrumentos essenciais, dê forma ao arranjo e adicione apenas os detalhes de produção que realmente mudam o resultado. Se duas instruções entrarem em conflito, resolva isso antes de gerar.',
+    whyTitle:'Pense como produtor, não como colecionador de tags',
+    why1:'Geradores musicais conseguem inferir muita coisa a partir de pouca informação útil. Os problemas começam quando o prompt mistura estilos demais sem hierarquia, repete a mesma ideia com palavras diferentes ou pede coisas opostas ao mesmo tempo. “Minimalista, enorme, íntimo, de estádio, seco e cavernoso” não é precisão: é conflito.',
+    why2:'O melhor modelo mental é um briefing criativo. Cada frase deve responder uma pergunta de produção: que música é essa?, como ela deve se mover?, o que o ouvinte deve sentir?, o que carrega o gancho?, onde o arranjo muda?, o que deve aparecer na mix?',
+    framework:'As sete decisões que mais importam',
+    sections:[
+      ['1. Gênero: escolha um destino, não um continente','“Pop” ou “eletrônica” deixa quase tudo em aberto. Uma direção melhor sugere ritmo, paleta e arranjo: alt-R&B, Afro house, melodic hip-hop, dark pop, UK garage ou flamenco fusion. Você pode misturar estilos, mas dê hierarquia: um lidera e os outros contribuem com características claras.'],
+      ['2. Clima e energia: separe emoção de movimento','Clima descreve a cor emocional: íntimo, desafiador, eufórico, noturno, melancólico. Energia descreve quanto o arranjo empurra: baixa, média, alta ou evolutiva. Uma música escura pode ser muito energética; uma música romântica pode ser contida.'],
+      ['3. Andamento: use BPM quando ele mudar o groove','Um número de BPM é útil quando o pocket rítmico importa. É menos útil quando você o coloca apenas porque uma fórmula mandou. Se conhece o groove, indique um alvo ou uma faixa pequena. Se não, descreva o ritmo geral e deixe o estilo resolver parte da decisão.'],
+      ['4. Voz: descreva função, caráter e interpretação','“Voz masculina” ou “voz feminina” é só o começo. Direção vocal útil pode incluir registro, textura, proximidade e fraseado: grave, rouca, close-mic, aérea, soulful, rítmica, melodic rap, harmonias em camadas. Escolha poucos traços que definam a interpretação.'],
+      ['5. Instrumentação: escolha os sons que carregam a identidade','Não liste um estúdio inteiro. Escolha os sons que definem a faixa: 808 profundo e bateria seca; violão de nylon e percussão de mãos; log drum e percussão espaçosa; Rhodes, subgrave e bateria com vassourinhas. Deixe espaço para o gerador completar o arranjo.'],
+      ['6. Estrutura: diga à música onde ela deve mudar','A estrutura impede que tudo soe como um loop longo. Você pode pedir gancho no início, contraste entre verso e refrão, um breakdown curto, ponte, beat switch ou elevação final. Não é microgerenciar cada segundo; é dar propósito às seções.'],
+      ['7. Produção: descreva o acabamento e pare','Linguagem de produção funciona quando define prioridades audíveis: graves quentes, bateria com impacto, voz seca e íntima, refrão amplo, mix escura e espaçosa, agudos polidos, sensação de banda ao vivo. Escolha dois ou três traços que tornem a mix reconhecível.']
+    ],
+    beforeTitle:'Um prompt fraco vs. um briefing útil',
+    weak:'Fraco: “Música moderna e emocional, cinematográfica, poderosa, marcante, profunda, bonita, épica, íntima, escura e energética.”',
+    strong:'Melhor: “Dark alt-R&B com clima noturno e íntimo; 92 BPM; voz masculina grave e rouca, close-mic nos versos; subgrave quente, bateria eletrônica esparsa e Rhodes; versos contidos abrindo para um hook mais amplo; mix polida porém escura, com graves controlados.”',
+    explain:'A segunda versão não é melhor porque é maior. É melhor porque cada frase muda uma decisão musical e as instruções concordam entre si.',
+    platforms:'Suno, Udio e outros geradores: mantenha um briefing portátil',
+    p1:'O comportamento das plataformas muda. A família v6 atual da Suno foi criada para oferecer mais controle e também aceita entradas criativas mais abertas; a documentação da Udio continua enfatizando ideia clara, gênero, clima, andamento, instrumentação e prompts organizados em blocos. Por isso, mantenha um briefing musical neutro e adapte o formato apenas na exportação.',
+    p2:'É também por isso que Rythero mantém em inglês os prompts finais destinados a geradores: não porque a ideia musical precise ser pensada em inglês, mas porque um vocabulário de produção portátil é mais fácil de reutilizar entre ferramentas. A letra pode ser planejada no idioma em que você realmente quer cantar.',
+    avoid:'Quatro erros que fazem músicas com IA soarem genéricas',
+    mistakes:[
+      ['Gêneros demais com o mesmo peso','Se tudo lidera, nada lidera. Defina a identidade principal e o que cada estilo secundário acrescenta.'],
+      ['Produção contraditória','Seco e cavernoso, minimalista e densamente carregado, cru e hiperpolido só convivem se você explicar onde ou quando cada traço vale.'],
+      ['Repetição de adjetivos','“Emocional, sentido, tocante, profundo” repete quase a mesma ideia. Use o espaço para informação musical.'],
+      ['Imitação de artistas como atalho','Traduza referências em características musicais: groove, época, instrumentos, interpretação vocal, harmonia e produção. Assim você constrói uma identidade reutilizável.']
+    ],
+    workflow:'Um fluxo simples para iniciantes',
+    workflowText:'Se você está começando do zero, siga esta ordem: ideia → gênero → clima/energia → voz → instrumentação → estrutura → produção → exclusões. Depois gere, escute, identifique um problema e altere apenas a instrução relacionada a ele. Não reescreva o prompt inteiro depois de cada resultado.',
+    toolsTitle:'Aplique o método dentro do Rythero',
+    toolsText:'Prompt Builder é o caminho rápido quando você já sabe aproximadamente o que procura. Rythero Studio vai além: Song Blueprint constrói a direção completa, Prompt Doctor detecta instruções fracas ou conflitantes, Style DNA define uma identidade reutilizável e Export adapta o briefing à ferramenta de destino.',
+    studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder',
+    faq:'Perguntas frequentes',
+    faqs:[
+      ['Prompts maiores sempre funcionam melhor?','Não. Densidade de informação útil importa mais que comprimento. Um prompt curto, específico e coerente pode superar uma lista longa de descritores vagos.'],
+      ['Preciso sempre informar BPM?','Só quando o andamento realmente mudar o groove ou quando você já souber a velocidade desejada. Em um primeiro teste, estilo e energia podem ser suficientes.'],
+      ['Posso misturar quatro gêneros?','Sim, mas trate a mistura como decisão de arranjo, não como lista de compras. Defina um estilo principal e a função dos demais.'],
+      ['O prompt deve descrever a letra também?','Quando a plataforma permitir, separe direção musical de direção lírica. O briefing musical explica como a faixa se comporta; o de letra explica o que ela diz e como a história avança.']
+    ],
+    sources:'Fontes primárias',
+    sourceItems:[
+      ['Suno — Introducing v6','https://suno.com/release-notes/introducing-v6'],
+      ['Suno Help — What’s new in v6?','https://help.suno.com/en/articles/13924801'],
+      ['Udio Help — Prompt Like a Master','https://help.udio.com/en/articles/10716541-prompt-like-a-master'],
+      ['Udio Help — The Brick Method','https://help.udio.com/en/articles/12232112-the-brick-method-making-udio-work-for-you']
+    ]
+  }
+}[locale];
+
+const articleSchema = {
+  '@context':'https://schema.org',
+  '@type':'Article',
+  headline:t.title,
+  description:t.dek,
+  datePublished:'2026-09-15',
+  dateModified:'2026-09-15',
+  mainEntityOfPage:`https://rythero.com${canonicalPath}`,
+  inLanguage: locale === 'pt-br' ? 'pt-BR' : locale,
+  author:{'@type':'Organization',name:'Rythero'},
+  publisher:{'@type':'Organization',name:'Rythero',url:'https://rythero.com'}
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+<article class="shell article">
+  <header class="article-head">
+    <div class="eyebrow">{t.eyebrow}</div>
+    <h1>{t.title}</h1>
+    <p class="dek">{t.dek}</p>
+    <div class="meta"><span>Rythero</span><span>15 Sep 2026</span><span>≈ 8 min</span></div>
+  </header>
+
+  <div class="signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <div class="article-body">
+    <aside class="quick"><strong>{t.quick}</strong><p>{t.quickText}</p></aside>
+
+    <h2>{t.whyTitle}</h2><p>{t.why1}</p><p>{t.why2}</p>
+    <h2>{t.framework}</h2>
+    {t.sections.map(([h,p]) => <section><h3>{h}</h3><p>{p}</p></section>)}
+
+    <h2>{t.beforeTitle}</h2>
+    <div class="compare"><p>{t.weak}</p><p>{t.strong}</p></div>
+    <p>{t.explain}</p>
+
+    <h2>{t.platforms}</h2><p>{t.p1}</p><p>{t.p2}</p>
+
+    <h2>{t.avoid}</h2>
+    <div class="mistakes">{t.mistakes.map(([h,p]) => <section><h3>{h}</h3><p>{p}</p></section>)}</div>
+
+    <h2>{t.workflow}</h2><p>{t.workflowText}</p>
+
+    <section class="tool-cta"><div><div class="eyebrow">RYTHERO</div><h2>{t.toolsTitle}</h2><p>{t.toolsText}</p></div><div class="cta-links"><a class="pill primary" href={`${base}/tools/song-studio`}>{t.studio}</a><a class="pill" href={`${base}/tools/prompt-builder`}>{t.prompt}</a></div></section>
+
+    <h2>{t.faq}</h2>
+    <div class="faq">{t.faqs.map(([q,a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+
+    <h2>{t.sources}</h2>
+    <ul class="sources">{t.sourceItems.map(([name,url]) => <li><a href={url} rel="noopener noreferrer" target="_blank">{name} ↗</a></li>)}</ul>
+  </div>
+</article>
+
+<style>
+  .article{padding:68px 0 96px}.article-head{max-width:900px}.article h1{font-size:clamp(3rem,7vw,6.3rem);line-height:.94;letter-spacing:-.06em;margin:14px 0 22px}.dek{font-size:clamp(1.12rem,2.3vw,1.42rem);line-height:1.58;color:#b3c0b7;max-width:860px}.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;color:#6f7f75;font-size:.78rem}.signal{height:92px;margin:44px 0 36px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,#0b120e,#07100a);display:flex;align-items:center;justify-content:center;gap:10px;overflow:hidden}.signal i{display:block;width:5%;max-width:48px;min-width:10px;border-radius:999px;background:linear-gradient(180deg,var(--green),#174a2a);box-shadow:0 0 18px rgba(102,255,140,.08)}.signal i:nth-child(1),.signal i:nth-child(9){height:16%}.signal i:nth-child(2),.signal i:nth-child(8){height:34%}.signal i:nth-child(3),.signal i:nth-child(7){height:58%}.signal i:nth-child(4),.signal i:nth-child(6){height:82%}.signal i:nth-child(5){height:100%}.article-body{max-width:820px;margin:0 auto}.article-body h2{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.08;letter-spacing:-.035em;margin:54px 0 16px}.article-body h3{font-size:1.2rem;margin:30px 0 8px}.article-body p{color:#b3beb7;font-size:1.04rem;line-height:1.82}.quick{border-left:3px solid var(--green);background:#09110c;border-radius:0 18px 18px 0;padding:19px 22px;margin:0 0 44px}.quick strong{color:var(--green);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase}.quick p{margin:8px 0 0}.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compare p{margin:0;border:1px solid var(--line);background:#0a110d;border-radius:16px;padding:18px}.compare p:last-child{border-color:#285038}.mistakes{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mistakes section{border-top:1px solid var(--line)}.tool-cta{margin:58px 0 44px;border:1px solid #29503a;border-radius:24px;background:linear-gradient(135deg,#0e1b13,#07100a);padding:24px}.tool-cta h2{margin:7px 0 10px}.tool-cta p{margin:0}.cta-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.faq details{border-top:1px solid var(--line);padding:16px 0}.faq details:last-child{border-bottom:1px solid var(--line)}.faq summary{cursor:pointer;font-weight:780;color:#e5eee8}.faq p{margin-bottom:4px}.sources{padding-left:18px}.sources li{margin:8px 0}.sources a{color:#8de6a6}.sources a:hover{color:var(--green)}@media(max-width:700px){.article{padding-top:45px}.signal{height:72px;margin-top:32px}.compare,.mistakes{grid-template-columns:1fr}.article-body{width:100%}.tool-cta{padding:20px}}
+</style>
