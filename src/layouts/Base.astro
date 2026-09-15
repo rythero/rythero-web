@@ -14,7 +14,7 @@ const ogImageUrl = new URL('/rythero-og.jpg', Astro.site ?? 'https://rythero.com
 
 const ui = {
   en: {
-    tools: 'Tools', learn: 'Learn', guides: 'Guides', start: 'Start creating',
+    tools: 'Studio', learn: 'School', guides: 'Prompt Builder', start: 'Open Studio',
     privacy: 'Privacy', cookies: 'Cookies', choices: 'Cookie choices',
     tagline: 'Create music. Build your sound.', nav: 'Primary navigation', language: 'Language',
     analyticsLabel: 'Analytics preferences', analyticsStrong: 'Optional analytics.',
@@ -22,7 +22,7 @@ const ui = {
     details: 'Cookie details', reject: 'Reject', accept: 'Accept'
   },
   es: {
-    tools: 'Herramientas', learn: 'Aprende', guides: 'Guías', start: 'Empieza a crear',
+    tools: 'Studio', learn: 'Escuela', guides: 'Prompt Builder', start: 'Abrir Studio',
     privacy: 'Privacidad', cookies: 'Cookies', choices: 'Preferencias de cookies',
     tagline: 'Crea música. Construye tu sonido.', nav: 'Navegación principal', language: 'Idioma',
     analyticsLabel: 'Preferencias de analítica', analyticsStrong: 'Analítica opcional.',
@@ -30,7 +30,7 @@ const ui = {
     details: 'Detalles de cookies', reject: 'Rechazar', accept: 'Aceptar'
   },
   'pt-br': {
-    tools: 'Ferramentas', learn: 'Aprenda', guides: 'Guias', start: 'Comece a criar',
+    tools: 'Studio', learn: 'Escola', guides: 'Prompt Builder', start: 'Abrir Studio',
     privacy: 'Privacidade', cookies: 'Cookies', choices: 'Preferências de cookies',
     tagline: 'Crie música. Construa seu som.', nav: 'Navegação principal', language: 'Idioma',
     analyticsLabel: 'Preferências de análise', analyticsStrong: 'Análise opcional.',
@@ -47,11 +47,11 @@ const localize = (code, path = basePath) => {
   return cleanPath === '/' ? `/${code}/` : `/${code}${cleanPath}`;
 };
 const homePath = localize(locale, '/');
-const toolPath = localize(locale, '/tools/prompt-builder');
+const toolPath = localize(locale, '/tools/song-studio');
 const privacyPath = localize(locale, '/privacy');
 const cookiesPath = localize(locale, '/cookies');
-const learnPath = `${homePath}#learn`;
-const guidesPath = `${homePath}#guides`;
+const learnPath = localize(locale, '/learn');
+const guidesPath = localize(locale, '/tools/prompt-builder');
 const alternateUrls = {
   en: new URL(localize('en'), Astro.site ?? 'https://rythero.com').toString(),
   es: new URL(localize('es'), Astro.site ?? 'https://rythero.com').toString(),
