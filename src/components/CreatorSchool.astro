@@ -1,0 +1,100 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
+const base = locale === 'en' ? '' : `/${locale}`;
+const t = {
+  en: {
+    eyebrow:'AI MUSIC CREATOR SCHOOL',
+    title:'Learn the decisions that change the song.',
+    intro:'Practical music engineering for people creating with generative tools. No filler, no magic formulas: structure, sound, prompting, arrangement and workflow.',
+    featured:'START HERE',
+    read:'Read lesson →',
+    lessonTitle:'AI Music Prompts: a producer’s framework for better songs',
+    lessonText:'Learn how genre, mood, tempo, voice, instrumentation, structure and production work together — and why stacking adjectives usually produces generic results.',
+    next:'Next lessons',
+    items:[
+      ['Why AI songs sound generic','A diagnostic guide to repetition, flat arrangements and over-specified prompts.'],
+      ['Song structure for AI music','Hooks, verses, choruses, breakdowns and transitions explained for beginners.'],
+      ['Style DNA without artist imitation','Describe a sound by musical traits instead of copying a named artist.'],
+      ['BPM, key and energy','Choose tempo and tonal direction without turning the prompt into a spreadsheet.'],
+      ['Suno v6: what changed','A practical guide to the new v6 family and how to think about control versus exploration.']
+    ],
+    tools:'Use the tools while you learn',
+    toolsText:'The school explains the decisions. Rythero Studio and Prompt Builder help you apply them immediately.',
+    studio:'Open Rythero Studio', prompt:'Open Prompt Builder'
+  },
+  es: {
+    eyebrow:'ESCUELA DE CREADORES · AI MUSIC',
+    title:'Aprende las decisiones que cambian la canción.',
+    intro:'Ingeniería musical práctica para personas que crean con herramientas generativas. Sin relleno ni fórmulas mágicas: estructura, sonido, prompting, arreglo y flujo de trabajo.',
+    featured:'EMPIEZA AQUÍ',
+    read:'Leer lección →',
+    lessonTitle:'Prompts para música con IA: un método de productor para mejores canciones',
+    lessonText:'Aprende cómo trabajan juntos género, estado de ánimo, tempo, voz, instrumentación, estructura y producción, y por qué acumular adjetivos suele dar resultados genéricos.',
+    next:'Próximas lecciones',
+    items:[
+      ['Por qué las canciones con IA suenan genéricas','Cómo detectar repetición, arreglos planos y prompts excesivos.'],
+      ['Estructura de canción para música con IA','Ganchos, versos, estribillos, breakdowns y transiciones explicados desde cero.'],
+      ['Style DNA sin imitar artistas','Describe un sonido por sus rasgos musicales en vez de copiar a un artista.'],
+      ['BPM, tonalidad y energía','Elige tempo y dirección tonal sin convertir el prompt en una hoja de cálculo.'],
+      ['Suno v6: qué ha cambiado','Guía práctica de la familia v6 y de la diferencia entre control y exploración.']
+    ],
+    tools:'Aprende y aplica al mismo tiempo',
+    toolsText:'La escuela explica las decisiones. Rythero Studio y Prompt Builder te ayudan a aplicarlas en el momento.',
+    studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder'
+  },
+  'pt-br': {
+    eyebrow:'ESCOLA DE CRIADORES · AI MUSIC',
+    title:'Aprenda as decisões que mudam a música.',
+    intro:'Engenharia musical prática para quem cria com ferramentas generativas. Sem enrolação e sem fórmulas mágicas: estrutura, som, prompting, arranjo e fluxo de trabalho.',
+    featured:'COMECE AQUI',
+    read:'Ler aula →',
+    lessonTitle:'Prompts para música com IA: um método de produtor para músicas melhores',
+    lessonText:'Entenda como gênero, clima, tempo, voz, instrumentação, estrutura e produção trabalham juntos — e por que empilhar adjetivos costuma gerar resultados genéricos.',
+    next:'Próximas aulas',
+    items:[
+      ['Por que músicas com IA soam genéricas','Como detectar repetição, arranjos planos e prompts excessivos.'],
+      ['Estrutura de música para IA','Ganchos, versos, refrões, breakdowns e transições explicados do zero.'],
+      ['Style DNA sem imitar artistas','Descreva um som por características musicais em vez de copiar um artista.'],
+      ['BPM, tonalidade e energia','Escolha andamento e direção tonal sem transformar o prompt em planilha.'],
+      ['Suno v6: o que mudou','Guia prático da família v6 e da diferença entre controle e exploração.']
+    ],
+    tools:'Aprenda e aplique ao mesmo tempo',
+    toolsText:'A escola explica as decisões. Rythero Studio e Prompt Builder ajudam você a aplicá-las imediatamente.',
+    studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder'
+  }
+}[locale];
+---
+<section class="shell school-hero">
+  <div class="eyebrow">{t.eyebrow}</div>
+  <h1>{t.title}</h1>
+  <p class="muted lead">{t.intro}</p>
+</section>
+
+<section class="shell school-grid">
+  <a class="lesson featured" href={`${base}/learn/ai-music-prompts`}>
+    <span class="tag">{t.featured}</span>
+    <h2>{t.lessonTitle}</h2>
+    <p>{t.lessonText}</p>
+    <strong>{t.read}</strong>
+  </a>
+  <aside class="side-card">
+    <div class="eyebrow">{t.tools}</div>
+    <p>{t.toolsText}</p>
+    <div class="tool-links">
+      <a href={`${base}/tools/song-studio`}>{t.studio} →</a>
+      <a href={`${base}/tools/prompt-builder`}>{t.prompt} →</a>
+    </div>
+  </aside>
+</section>
+
+<section class="shell section next-lessons">
+  <div class="eyebrow">{t.next}</div>
+  <div class="lesson-list">
+    {t.items.map(([title, text], i) => <article><span>{String(i+2).padStart(2,'0')}</span><div><h3>{title}</h3><p class="muted">{text}</p></div></article>)}
+  </div>
+</section>
+
+<style>
+  .school-hero{padding:76px 0 42px}.school-hero h1{font-size:clamp(3.2rem,7.6vw,6.7rem);letter-spacing:-.06em;line-height:.92;max-width:980px;margin:14px 0 22px}.lead{font-size:clamp(1.05rem,2vw,1.28rem);max-width:760px}.school-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}.lesson,.side-card{border:1px solid var(--line);background:linear-gradient(180deg,#0d1611,#080d0a);border-radius:26px;padding:28px}.lesson.featured{box-shadow:inset 0 0 0 1px rgba(102,255,140,.05)}.lesson:hover{border-color:#356044}.lesson h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.02;letter-spacing:-.04em;margin:15px 0}.lesson p,.side-card p{color:var(--muted);font-size:1.02rem;line-height:1.65}.lesson strong{display:inline-block;margin-top:14px;color:var(--green)}.tag{display:inline-block;font-size:.64rem;font-weight:900;letter-spacing:.15em;background:var(--green);color:#041108;border-radius:999px;padding:6px 9px}.tool-links{display:grid;gap:9px;margin-top:22px}.tool-links a{border-top:1px solid var(--line);padding-top:11px;color:#ccebd5}.tool-links a:hover{color:var(--green)}.next-lessons{padding-top:70px}.lesson-list{margin-top:18px;border-top:1px solid var(--line)}.lesson-list article{display:grid;grid-template-columns:50px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.lesson-list article>span{font:700 .7rem ui-monospace,monospace;color:#547060;letter-spacing:.12em}.lesson-list h3{margin:0 0 6px;font-size:1.12rem}.lesson-list p{margin:0;max-width:780px}@media(max-width:800px){.school-hero{padding-top:46px}.school-grid{grid-template-columns:1fr}.lesson,.side-card{padding:22px}}
+</style>
