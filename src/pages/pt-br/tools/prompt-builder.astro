@@ -3,56 +3,28 @@ import Base from '../../../layouts/Base.astro';
 import PromptBuilder from '../../../components/PromptBuilder.astro';
 
 const copy = {
-  eyebrow: 'Ferramenta Rythero 001',
-  intro: 'Transforme decisões musicais em um prompt claro. Sem cadastro. Sem enrolação.',
-  genre: {
-    label: 'Gênero',
-    placeholder: 'Busque ou digite um estilo…',
-    hint: 'Misture até 4 estilos. Use Mais ideias se não souber por onde começar.'
-  },
-  mood: {
-    label: 'Clima',
-    placeholder: 'Busque ou digite um mood…',
-    hint: 'Escolha até 3 climas. Mais ideias mostra novos pontos de partida.'
-  },
-  energy: { label: 'Energia', low: 'Baixa', medium: 'Média', high: 'Alta', dynamic: 'Dinâmica / evolutiva' },
-  bpmPlaceholder: 'ex. 118',
-  vocal: {
-    label: 'Voz',
-    placeholder: 'Busque tipo ou caráter vocal…',
-    hint: 'Comece pelo tipo de voz e adicione caráter ou interpretação. Até 4 escolhas.'
-  },
-  instruments: {
-    label: 'Instrumentação',
-    placeholder: 'Busque instrumentos ou texturas…',
-    hint: 'Escolha até 5 elementos que devem definir o arranjo.'
-  },
-  structureLabel: 'Estrutura',
-  structure: [
+  eyebrow: 'Ferramenta Rythero 001', intro: 'Transforme decisões musicais em um prompt claro. Sem cadastro. Sem enrolação.',
+  genre: { label: 'Gênero', placeholder: 'Busque ou digite um estilo…', hint: 'Misture até 4 estilos. Use Mais ideias se não souber por onde começar.' },
+  mood: { label: 'Clima', placeholder: 'Busque ou digite um mood…', hint: 'Escolha até 3 climas. Mais ideias mostra novos pontos de partida.' },
+  energy: { label: 'Energia', low: 'Baixa', medium: 'Média', high: 'Alta', dynamic: 'Dinâmica / evolutiva' }, bpmPlaceholder: 'ex. 118',
+  vocal: { label: 'Voz', placeholder: 'Busque tipo ou caráter vocal…', hint: 'Comece pelo tipo de voz e adicione caráter ou interpretação. Até 4 escolhas.' },
+  instruments: { label: 'Instrumentação', placeholder: 'Busque instrumentos ou texturas…', hint: 'Escolha até 5 elementos que devem definir o arranjo.' },
+  structureLabel: 'Estrutura', structure: [
     { value: 'Hook-first, verse, chorus, verse, breakdown, final chorus', label: 'Gancho primeiro, verso, refrão, verso, breakdown, refrão final' },
     { value: 'Verse, pre-chorus, chorus, verse, chorus, bridge, final chorus', label: 'Verso, pré-refrão, refrão, verso, refrão, ponte, refrão final' },
     { value: 'Short intro, verse, hook, verse, hook, outro', label: 'Intro curta, verso, gancho, verso, gancho, outro' },
     { value: 'Intro, build, drop, breakdown, second drop, outro', label: 'Intro, build, drop, breakdown, segundo drop, outro' },
     { value: 'Custom / flexible structure', label: 'Estrutura personalizada / flexível' }
   ],
-  production: {
-    label: 'Produção',
-    placeholder: 'Busque características de produção…',
-    hint: 'Escolha até 4 características de mix, espaço, impacto, textura ou dinâmica.'
-  },
-  exclude: {
-    label: 'Excluir',
-    placeholder: 'Busque ou digite o que evitar…',
-    hint: 'Opcional. Use apenas para coisas que você claramente não quer no resultado.'
-  },
-  generate: 'Gerar prompt',
-  reset: 'Reiniciar',
-  copy: 'Copiar',
-  outputEmpty: 'Seu prompt aparecerá aqui.',
-  outputNote: 'O OUTPUT é gerado em inglês para manter a máxima compatibilidade com os geradores de música.'
+  production: { label: 'Produção', placeholder: 'Busque características de produção…', hint: 'Escolha até 4 características de mix, espaço, impacto, textura ou dinâmica.' },
+  exclude: { label: 'Excluir', placeholder: 'Busque ou digite o que evitar…', hint: 'Opcional. Use apenas para coisas que você claramente não quer no resultado.' },
+  generate: 'Gerar prompt', reset: 'Reiniciar', copy: 'Copiar', outputEmpty: 'Seu prompt aparecerá aqui.', outputNote: 'O OUTPUT é gerado em inglês para manter a máxima compatibilidade com os geradores de música.'
 };
 ---
 <Base lang="pt-br" title="Rythero Prompt Builder — Crie prompts musicais melhores" description="Crie um prompt musical claro a partir de gênero, clima, energia, voz, instrumentação, estrutura e produção." canonical="/pt-br/tools/prompt-builder">
   <PromptBuilder copy={copy} />
   <script is:inline src="/prompt-builder-ux.js"></script>
+  <style is:global>
+    .builder .field>input,.builder .field>select,.builder .smart-combobox{background:#f3f1e9!important;color:#132018!important;border-color:#aebbb2!important;color-scheme:light}.builder .smart-combobox [data-search]{color:#132018!important}.builder input::placeholder,.builder .smart-combobox [data-search]::placeholder{color:#66736b!important;opacity:1}.builder .field>input:focus,.builder .field>select:focus,.builder .smart-combobox:focus-within{background:#fffef9!important;border-color:#66ff8c!important;box-shadow:0 0 0 3px rgba(102,255,140,.18)!important}.builder .smart-chip{background:#163421!important;color:#eaffef!important;border-color:#2e6640!important}
+  </style>
 </Base>
