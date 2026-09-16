@@ -164,12 +164,8 @@ async function callGemini(env, mode, lang, files, metrics, hint, focus, target) 
     systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
     contents: [{ role: 'user', parts }],
     generationConfig: {
-      responseFormat: {
-        text: {
-          mimeType: 'application/json',
-          schema
-        }
-      }
+      responseMimeType: 'application/json',
+      responseJsonSchema: schema
     }
   };
 
