@@ -19,22 +19,25 @@ Last updated: 2026-09-16
 - `astro.config.mjs`: site `https://rythero.com`, trailingSlash `never`.
 - Worker API `/api/music-analyze`; credentials must remain Worker secrets.
 
-## 2026-09-16 night audit
+## 2026-09-16 audit
 Implemented safe/reversible improvements:
-- Strengthened Rythero entity signals without competitor-name mentions or keyword stuffing. Global JSON-LD now uses a stable `@graph` with `Organization` (`#organization`) and `WebSite` (`#website`), canonical Rythero URL, logo, concise product description, publisher relationship and supported languages.
-- Added `/about`, a short factual English brand/entity page explaining that Rythero is an independent web platform for AI-assisted music creation, song planning, prompt building, audio analysis and learning. The existing English homepage already linked to `/about`; that link previously targeted a missing route.
-- Added `/about` to `sitemap.xml`.
-- Language selector keeps EN / ES / PT and now has a tiny second row containing only the two alternative-language flags: EN → Spain/Brazil; ES → US/Brazil; PT-BR → US/Spain. Links have `lang`, `hreflang`, `aria-label` and `title`; active text language uses `aria-current`. Fixed dimensions prevent layout shift.
+- Strengthened Rythero entity signals without competitor-name mentions or keyword stuffing. Global JSON-LD uses a stable `@graph` with `Organization` (`#organization`) and `WebSite` (`#website`), canonical Rythero URL, logo, concise product description, publisher relationship and supported languages.
+- Added factual About/entity pages in all three public languages: `/about`, `/es/about`, `/pt-br/about`. They describe Rythero consistently as an independent music-creation web platform and avoid unsupported marketing claims.
+- Added all three About routes to `sitemap.xml`, fixing the hreflang symmetry for the About route.
+- Language selector keeps EN / ES / PT and has a tiny second row containing only the two alternative-language flags: EN → Spain/Brazil; ES → US/Brazil; PT-BR → US/Spain. Links have `lang`, `hreflang`, `aria-label` and `title`; active text language uses `aria-current`. Fixed dimensions prevent layout shift.
 - Retained canonical/hreflang pattern: EN, ES, pt-BR plus x-default EN.
 - Logo has explicit dimensions in navigation to reduce layout shift.
 - No paid service, API, advertising or subscription was enabled.
 
-Audit findings / remaining manual checks:
-- `www.rythero.com` Cloudflare configuration is still a manual infrastructure item. Root domain is Worker-managed. Do not invent A/CNAME targets. Configure `www` deliberately and permanently redirect it to `https://rythero.com` to maintain one canonical host.
-- Live-site fetch/search verification was unavailable during this run, so confirm Cloudflare deployment after the GitHub commits and inspect EN/ES/PT-BR on mobile and desktop.
-- Search Console should be asked to recrawl `/` and `/about` after deployment; entity disambiguation is a gradual search-engine process, not an instant guarantee.
-- The new `/about` is English only. Do not publish thin translated duplicates merely for symmetry; add ES/PT-BR versions when useful localized copy is ready, then include them in hreflang/sitemap.
-- Existing sitemap has manually maintained lastmod values; consider generated sitemap later to prevent drift.
+## Safety / deployment note
+The site suffered a Cloudflare/www routing incident during the previous night. Do not make speculative DNS, Worker route, custom-domain or redirect changes. The root site is currently reported working by the owner. Repository/content changes should remain small and reversible. Verify production after deployment before making another infrastructure change.
+
+Remaining manual checks:
+- Confirm `https://rythero.com`, `/es/`, `/pt-br/`, all three `/about` variants and the three Signature Lab routes after Cloudflare has deployed the latest main commit.
+- Confirm `www.rythero.com` permanently redirects to `https://rythero.com` without changing the working root-domain Worker mapping. Do not invent A/CNAME targets.
+- Inspect the language selector on desktop and mobile after deployment: no current-language flag, no wrapping/layout shift, and each alternative flag reaches the equivalent localized route.
+- Search Console can recrawl `/`, `/about`, `/es/about` and `/pt-br/about` after deployment. Entity disambiguation is gradual and cannot be guaranteed by schema alone.
+- Sitemap `lastmod` is still manually maintained; consider generation later, only after a safe build/deploy workflow is established.
 - Privacy/controller identity remains incomplete for a future commercial launch involving accounts, newsletter, payments or comparable personal-data collection.
 
 ## Signature Lab v2
@@ -44,7 +47,8 @@ Current activation blocker: advanced AI requires `GEMINI_API_KEY` as a Cloudflar
 
 ## Main product routes
 English: `/`, `/tools/song-studio`, `/tools/prompt-builder`, `/tools/signature-lab`, `/learn`, lessons, `/about`, `/privacy`, `/cookies`.
-Spanish and Portuguese: equivalent existing product/learning/privacy routes under `/es/` and `/pt-br/` (no localized About yet).
+Spanish: equivalent routes under `/es/`, including `/es/about`.
+Brazilian Portuguese: equivalent routes under `/pt-br/`, including `/pt-br/about`.
 
 ## Development principle
 Do not add tools/pages just to inflate counts. Prioritize painful creator problems with clear value. Real-user accuracy beats impressive-sounding output. Show uncertainty when analysis cannot support a claim. Avoid low-value SEO pages, keyword stuffing, competitor-name stuffing and unsupported claims such as “zero retention”, “copyright safe”, “100% original” or perfect identification.
