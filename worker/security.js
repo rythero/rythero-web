@@ -4,7 +4,10 @@ const DEFAULT_WINDOW_SECONDS = 600;
 const DEFAULT_MAX_PER_IP = 6;
 const DEFAULT_GLOBAL_PER_MINUTE = 30;
 const MAX_DECLARED_BODY_BYTES = 9 * 1024 * 1024;
+const MAX_BUCKETS = 5000;
 
+// Best-effort protection inside each Worker isolate. Cloudflare edge rate limiting
+// or Turnstile can be layered on later without changing the public API contract.
 const ipBuckets = new Map();
 let globalBucket = { startedAt: 0, count: 0 };
 
@@ -33,10 +36,18 @@ function clientKey(request) {
   return 'unknown';
 }
 
-function cleanExpired(now, windowMs) {
+function cleanBuckets(now, windowMs) {
   if (ipBuckets.size < 1000) return;
   for (const [key, bucket] of ipBuckets) {
     if (now - bucket.startedAt >= windowMs) ipBuckets.delete(key);
+  }
+  if (ipBuckets.size <= MAX_BUCKETS) return;
+  const removeCount = ipBuckets.size - Math.floor(MAX_BUCKETS * 0.8);
+  let removed = 0;
+  for (const key of ipBuckets.keys()) {
+    ipBuckets.delete(key);
+    removed += 1;
+    if (removed >= removeCount) break;
   }
 }
 
@@ -47,7 +58,7 @@ function takeRateLimit(request, env) {
   const globalPerMinute = positiveInt(env.AI_GLOBAL_PER_MINUTE, DEFAULT_GLOBAL_PER_MINUTE);
   const windowMs = windowSeconds * 1000;
 
-  cleanExpired(now, windowMs);
+  cleanBuckets(now, windowMs);
 
   if (!globalBucket.startedAt || now - globalBucket.startedAt >= 60_000) {
     globalBucket = { startedAt: now, count: 0 };
