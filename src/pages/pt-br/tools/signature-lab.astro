@@ -4,7 +4,9 @@ import SignatureLab from '../../../components/SignatureLab.astro';
 ---
 <Base lang="pt-br" title="Rythero Signature Lab — Análise musical com IA para construir seu som" description="Combine medições locais com análise musical por IA para entender estilo, instrumentos, voz e produção, criar um prompt revisável, unir referências e comparar resultados." canonical="/pt-br/tools/signature-lab">
   <SignatureLab lang="pt-br" />
+  <script is:inline src="/signature-lab-legal.js"></script>
   <style is:global>
     .sig-form input,.sig-form select{background:#f3f1e9!important;color:#132018!important;border-color:#aebbb2!important;color-scheme:light}.sig-form input::placeholder{color:#66736b!important;opacity:1}.sig-form input:focus,.sig-form select:focus{background:#fffef9!important;border-color:#66ff8c!important;box-shadow:0 0 0 3px rgba(102,255,140,.18)!important}.sig-form input[type="file"]::file-selector-button{border:0;border-radius:9px;background:#163421;color:#eaffef;padding:8px 10px;margin-right:10px;font-weight:800;cursor:pointer}
+    .sig-upload-legal{grid-column:1/-1;border:1px solid #334b3b;border-radius:14px;padding:12px 14px;background:#0a120d;color:#aeb9b2;font-size:.72rem;line-height:1.5}.sig-upload-legal strong{display:block;color:#e8f5eb;margin-bottom:4px;font-size:.76rem}.sig-upload-legal p{margin:0}.sig-rights-confirm{grid-column:1/-1;display:flex!important;flex-direction:row!important;align-items:flex-start;gap:9px!important;border:1px solid #294032;border-radius:12px;padding:11px 12px;background:#09100c;color:#aeb9b2!important;line-height:1.45;font-weight:600!important}.sig-rights-confirm input[type="checkbox"]{width:17px!important;height:17px!important;min-width:17px;margin:2px 0 0!important;padding:0!important;accent-color:#66ff8c}.sig-rights-confirm a{color:#91dba6;text-decoration:underline;text-underline-offset:2px}
   </style>
 </Base>
