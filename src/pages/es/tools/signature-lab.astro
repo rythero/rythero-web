@@ -4,4 +4,7 @@ import SignatureLab from '../../../components/SignatureLab.astro';
 ---
 <Base lang="es" title="Rythero Signature Lab — Análisis musical IA para construir tu sonido" description="Combina mediciones locales con análisis musical por IA para entender estilo, instrumentos, voz y producción, crear un prompt revisable, unir referencias y comparar resultados." canonical="/es/tools/signature-lab">
   <SignatureLab lang="es" />
+  <style is:global>
+    .sig-form input,.sig-form select{background:#f3f1e9!important;color:#132018!important;border-color:#aebbb2!important;color-scheme:light}.sig-form input::placeholder{color:#66736b!important;opacity:1}.sig-form input:focus,.sig-form select:focus{background:#fffef9!important;border-color:#66ff8c!important;box-shadow:0 0 0 3px rgba(102,255,140,.18)!important}.sig-form input[type="file"]::file-selector-button{border:0;border-radius:9px;background:#163421;color:#eaffef;padding:8px 10px;margin-right:10px;font-weight:800;cursor:pointer}
+  </style>
 </Base>
