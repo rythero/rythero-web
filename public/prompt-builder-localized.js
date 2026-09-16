@@ -13,8 +13,8 @@
   }[lang];
 
   const groupTranslations = {
-    es: {Current:'Actual',Core:'Base',Crossover:'Fusión',Emotion:'Emoción',Atmosphere:'Atmósfera',Attitude:'Actitud',Tone:'Tono',Energy:'Energía',Scale:'Escala','Voice type':'Tipo de voz',Delivery:'Interpretación',Character:'Carácter',Presence:'Presencia',Register:'Registro',Layers:'Capas',FX:'FX','Low end':'Graves',Rhythm:'Ritmo',Keys:'Teclas',Synth:'Sintetizador',Guitar:'Guitarra',Orchestral:'Orquestal',Texture:'Textura',Regional:'Regional',Wind:'Viento',Vocal:'Voz',Width:'Anchura',Arrangement:'Arreglo',Dynamics:'Dinámica',Finish:'Acabado',Space:'Espacio',Movement:'Movimiento',Impact:'Impacto',Avoid:'Evitar'},
-    'pt-br': {Current:'Atual',Core:'Base',Crossover:'Fusão',Emotion:'Emoção',Atmosphere:'Atmosfera',Attitude:'Atitude',Tone:'Timbre',Energy:'Energia',Scale:'Escala','Voice type':'Tipo de voz',Delivery:'Interpretação',Character:'Caráter',Presence:'Presença',Register:'Registro',Layers:'Camadas',FX:'FX','Low end':'Graves',Rhythm:'Ritmo',Keys:'Teclas',Synth:'Sintetizador',Guitar:'Guitarra',Orchestral:'Orquestral',Texture:'Textura',Regional:'Regional',Wind:'Sopro',Vocal:'Voz',Width:'Amplitude',Arrangement:'Arranjo',Dynamics:'Dinâmica',Finish:'Acabamento',Space:'Espaço',Movement:'Movimento',Impact:'Impacto',Avoid:'Evitar'}
+    es: {Popular:'Popular',Electronic:'Electrónica',Global:'Global',Core:'Base',Alternative:'Alternativa','Classical & stage':'Clásica y escénica',Emotion:'Emoción',Atmosphere:'Atmósfera',Attitude:'Actitud',Tone:'Tono',Energy:'Energía',Scale:'Escala','Voice type':'Tipo de voz',Delivery:'Interpretación',Character:'Carácter',Presence:'Presencia',Register:'Registro',Layers:'Capas',FX:'FX','Low end':'Graves',Rhythm:'Ritmo',Keys:'Teclas',Synth:'Sintetizador',Guitar:'Guitarra',Orchestral:'Orquestal',Texture:'Textura',Regional:'Regional',Wind:'Viento',Vocal:'Voz',Width:'Anchura',Arrangement:'Arreglo',Dynamics:'Dinámica',Finish:'Acabado',Space:'Espacio',Movement:'Movimiento',Impact:'Impacto',Avoid:'Evitar'},
+    'pt-br': {Popular:'Popular',Electronic:'Eletrônica',Global:'Global',Core:'Base',Alternative:'Alternativa','Classical & stage':'Clássica e cênica',Emotion:'Emoção',Atmosphere:'Atmosfera',Attitude:'Atitude',Tone:'Timbre',Energy:'Energia',Scale:'Escala','Voice type':'Tipo de voz',Delivery:'Interpretação',Character:'Caráter',Presence:'Presença',Register:'Registro',Layers:'Camadas',FX:'FX','Low end':'Graves',Rhythm:'Ritmo',Keys:'Teclas',Synth:'Sintetizador',Guitar:'Guitarra',Orchestral:'Orquestral',Texture:'Textura',Regional:'Regional',Wind:'Sopro',Vocal:'Voz',Width:'Amplitude',Arrangement:'Arranjo',Dynamics:'Dinâmica',Finish:'Acabamento',Space:'Espaço',Movement:'Movimento',Impact:'Impacto',Avoid:'Evitar'}
   };
   const groupLabel = (value) => groupTranslations[lang]?.[value] || value;
   const clean = (value) => String(value || '').trim();
@@ -23,9 +23,28 @@
   const selectorConfigs = {
     genre: {
       max: 4,
-      popular: ['K-pop','Afro house','Alt-R&B','Hyperpop','Amapiano','Melodic hip-hop','Afrobeats','Drum & bass','Pop','House','R&B','Trap','Indie pop','Dark pop','UK garage','J-pop','Cinematic pop','Synth-pop','Latin pop','Reggaeton','Brazilian funk','Flamenco fusion','Arabic pop','Raï pop'],
+      popular: [
+        'Pop','Hip-hop','R&B','Electronic','House','Latin pop','Reggaeton','Afrobeats',
+        'Trap','Dance-pop','Rock','Country','K-pop','Amapiano','Afro house','Drum & bass',
+        'Indie pop','Synth-pop','Tech house','Techno','UK garage','Brazilian funk','J-pop','Cinematic pop',
+        'Alternative rock','Metal','Flamenco fusion','Arabic pop','Raï pop','Classical crossover','Opera','Lo-fi'
+      ],
       catalog: [
-        ['K-pop','Current'],['K-pop dance-pop','Current'],['K-pop R&B','Current'],['K-pop trap','Current'],['K-pop rock hybrid','Current'],['Afro house','Current'],['Amapiano','Current'],['3-step','Current'],['Afrobeats','Current'],['Afro-pop','Current'],['Hyperpop','Current'],['Alt-R&B','Current'],['Melodic hip-hop','Current'],['Drum & bass','Current'],['Liquid drum & bass','Current'],['UK garage','Current'],['Jersey club','Current'],['Dark pop','Current'],['Cinematic pop','Current'],['Brazilian funk','Current'],['Pop','Core'],['Indie pop','Core'],['Alt-pop','Core'],['Dance-pop','Core'],['Electropop','Core'],['Synth-pop','Core'],['Dream pop','Core'],['Bedroom pop','Core'],['Hip-hop','Core'],['Trap','Core'],['Drill','Core'],['Boom bap','Core'],['Rage rap','Core'],['Cloud rap','Core'],['R&B','Core'],['Contemporary R&B','Core'],['Neo-soul','Core'],['Electronic','Core'],['House','Core'],['Deep house','Core'],['Tech house','Core'],['Melodic house','Core'],['Progressive house','Core'],['Organic house','Core'],['Techno','Core'],['Trance','Core'],['Ambient','Core'],['Lo-fi','Core'],['Synthwave','Core'],['Phonk','Core'],['Rock','Core'],['Indie rock','Core'],['Alternative rock','Core'],['Pop punk','Core'],['Shoegaze','Core'],['Metal','Core'],['Soul','Core'],['Funk','Core'],['Gospel','Core'],['Folk','Core'],['Country','Core'],['Jazz','Core'],['Blues','Core'],['Cinematic orchestral','Core'],['Latin pop','Crossover'],['Reggaeton','Crossover'],['Latin trap','Crossover'],['Salsa pop','Crossover'],['Bachata pop','Crossover'],['Flamenco fusion','Crossover'],['Arabic pop','Crossover'],['Raï pop','Crossover'],['J-pop','Crossover'],['City pop','Crossover'],['Baile funk','Crossover']
+        ['Pop','Popular'],['Dance-pop','Popular'],['Indie pop','Popular'],['Alt-pop','Popular'],['Electropop','Popular'],['Synth-pop','Popular'],['Dream pop','Popular'],['Bedroom pop','Popular'],['Dark pop','Popular'],['Cinematic pop','Popular'],
+        ['Hip-hop','Popular'],['Melodic hip-hop','Popular'],['Trap','Popular'],['Drill','Popular'],['Boom bap','Popular'],['Rage rap','Popular'],['Cloud rap','Popular'],
+        ['R&B','Popular'],['Contemporary R&B','Popular'],['Alt-R&B','Popular'],['Neo-soul','Popular'],['Soul','Popular'],['Funk','Popular'],['Gospel','Popular'],
+        ['Electronic','Electronic'],['House','Electronic'],['Deep house','Electronic'],['Tech house','Electronic'],['Melodic house','Electronic'],['Progressive house','Electronic'],['Organic house','Electronic'],['Afro house','Electronic'],['Latin house','Electronic'],['Techno','Electronic'],['Hard techno','Electronic'],['Trance','Electronic'],['Progressive trance','Electronic'],['Drum & bass','Electronic'],['Liquid drum & bass','Electronic'],['UK garage','Electronic'],['Jersey club','Electronic'],['Amapiano','Electronic'],['3-step','Electronic'],['EDM','Electronic'],['Future bass','Electronic'],['Ambient','Electronic'],['Downtempo','Electronic'],['Lo-fi','Electronic'],['Synthwave','Electronic'],['Phonk','Electronic'],['Hyperpop','Electronic'],
+        ['Latin pop','Global'],['Reggaeton','Global'],['Latin trap','Global'],['Salsa','Global'],['Salsa pop','Global'],['Bachata','Global'],['Bachata pop','Global'],['Cumbia','Global'],['Dembow','Global'],['Merengue','Global'],['Regional Mexican','Global'],['Corridos tumbados','Global'],
+        ['Afrobeats','Global'],['Afro-pop','Global'],['Afrobeat','Global'],['Afro-fusion','Global'],['Afro soul','Global'],
+        ['Brazilian funk','Global'],['Baile funk','Global'],['Sertanejo','Global'],['MPB','Global'],['Bossa nova','Global'],
+        ['K-pop','Global'],['K-pop dance-pop','Global'],['K-pop R&B','Global'],['K-pop trap','Global'],['K-R&B','Global'],['J-pop','Global'],['J-rock','Global'],['City pop','Global'],
+        ['Arabic pop','Global'],['Arabic trap','Global'],['Khaleeji pop','Global'],['Raï pop','Global'],['Gnawa fusion','Global'],['Flamenco fusion','Global'],
+        ['Dancehall','Global'],['Soca','Global'],['Bollywood pop','Global'],['Punjabi pop','Global'],['Indian fusion','Global'],
+        ['Rock','Core'],['Indie rock','Core'],['Alternative rock','Core'],['Hard rock','Core'],['Pop punk','Core'],['Grunge','Core'],['Shoegaze','Core'],['Post-rock','Core'],['Metal','Core'],['Metalcore','Core'],
+        ['Country','Core'],['Country pop','Core'],['Alt-country','Core'],['Folk','Core'],['Singer-songwriter','Core'],['Jazz','Core'],['Blues','Core'],
+        ['Classical','Classical & stage'],['Contemporary classical','Classical & stage'],['Classical crossover','Classical & stage'],['Cinematic orchestral','Classical & stage'],
+        ['Opera','Classical & stage'],['Baroque opera','Classical & stage'],['Opera seria','Classical & stage'],['Opera buffa','Classical & stage'],['Bel canto opera','Classical & stage'],['Grand opera','Classical & stage'],['Romantic opera','Classical & stage'],['Verismo opera','Classical & stage'],['Chamber opera','Classical & stage'],['Contemporary opera','Classical & stage'],
+        ['Operetta','Classical & stage'],['Operatic pop / Popera','Classical & stage'],['Rock opera','Classical & stage'],['Musical theatre','Classical & stage']
       ]
     },
     mood: {
@@ -39,21 +58,29 @@
       max: 4,
       popular: ['Female vocal','Male vocal','Duet','Raspy','Soulful','Airy','Powerful','Close-mic intimate','Rap vocal','Melodic rap','Breathy','Gritty','Warm','Low register','Falsetto','Layered harmonies','Whispered','Youthful','Mature','Raw','Bright','Dark tone','Call-and-response','Vocal chops'],
       catalog: [
-        ['Female vocal','Voice type'],['Male vocal','Voice type'],['Androgynous vocal','Voice type'],['Duet','Voice type'],['Mixed duet','Voice type'],['Choir','Voice type'],['Instrumental / no lead vocal','Voice type'],['Rap vocal','Delivery'],['Melodic rap','Delivery'],['Spoken word','Delivery'],['Whispered','Delivery'],['Rhythmic phrasing','Delivery'],['Soulful','Character'],['Raspy','Character'],['Gritty','Character'],['Smoky','Character'],['Airy','Character'],['Breathy','Character'],['Powerful','Character'],['Warm','Character'],['Raw','Character'],['Bright','Character'],['Dark tone','Character'],['Youthful','Character'],['Mature','Character'],['Close-mic intimate','Presence'],['Falsetto','Register'],['Low register','Register'],['High register','Register'],['Chest voice','Register'],['Layered harmonies','Layers'],['Call-and-response','Layers'],['Gang vocals','Layers'],['Vocal chops','FX'],['Vocoder texture','FX'],['Minimal autotune','FX'],['Heavy vocal processing','FX']
+        ['Female vocal','Voice type'],['Male vocal','Voice type'],['Androgynous vocal','Voice type'],['Duet','Voice type'],['Mixed duet','Voice type'],['Choir','Voice type'],['Instrumental / no lead vocal','Voice type'],['Operatic vocal','Voice type'],['Soprano','Voice type'],['Mezzo-soprano','Voice type'],['Contralto','Voice type'],['Countertenor','Voice type'],['Tenor','Voice type'],['Baritone','Voice type'],['Bass','Voice type'],
+        ['Rap vocal','Delivery'],['Melodic rap','Delivery'],['Spoken word','Delivery'],['Whispered','Delivery'],['Rhythmic phrasing','Delivery'],['Bel canto legato','Delivery'],['Coloratura agility','Delivery'],['Dramatic operatic delivery','Delivery'],['Recitative-like delivery','Delivery'],
+        ['Soulful','Character'],['Raspy','Character'],['Gritty','Character'],['Smoky','Character'],['Airy','Character'],['Breathy','Character'],['Powerful','Character'],['Warm','Character'],['Raw','Character'],['Bright','Character'],['Dark tone','Character'],['Youthful','Character'],['Mature','Character'],['Close-mic intimate','Presence'],['Falsetto','Register'],['Low register','Register'],['High register','Register'],['Chest voice','Register'],['Layered harmonies','Layers'],['Call-and-response','Layers'],['Gang vocals','Layers'],['Vocal chops','FX'],['Vocoder texture','FX'],['Minimal autotune','FX'],['Heavy vocal processing','FX']
       ]
     },
     instruments: {
       max: 5,
       popular: ['Deep 808','Acoustic drums','Electronic drums','Analog synths','Piano','Electric guitar','Ambient pads','Nylon guitar','Sub bass','Handclaps','Rhodes','Strings','Bright plucks','Cajón','Percussion','Saxophone','Oud','Tabla','Brass','Choir textures','Acoustic guitar','Flute','Vocal chops','Field recordings'],
       catalog: [
-        ['Deep 808','Low end'],['Sub bass','Low end'],['Bass guitar','Low end'],['Synth bass','Low end'],['Acoustic drums','Rhythm'],['Electronic drums','Rhythm'],['Breakbeats','Rhythm'],['Handclaps','Rhythm'],['Shakers','Rhythm'],['Cajón','Rhythm'],['Percussion','Rhythm'],['Log drum','Rhythm'],['Congas','Rhythm'],['Piano','Keys'],['Rhodes','Keys'],['Organ','Keys'],['Analog synths','Synth'],['Digital synths','Synth'],['Bright plucks','Synth'],['Ambient pads','Synth'],['Arpeggiated synth','Synth'],['Nylon guitar','Guitar'],['Electric guitar','Guitar'],['Acoustic guitar','Guitar'],['Distorted guitar','Guitar'],['Strings','Orchestral'],['Brass','Orchestral'],['Orchestral percussion','Orchestral'],['Choir textures','Texture'],['Vocal chops','Texture'],['Oud','Regional'],['Tabla','Regional'],['Sitar','Regional'],['Darbuka','Regional'],['Saxophone','Wind'],['Flute','Wind'],['Trumpet','Wind'],['Vinyl texture','Texture'],['Field recordings','Texture'],['Found sounds','Texture']
+        ['Deep 808','Low end'],['Sub bass','Low end'],['Bass guitar','Low end'],['Synth bass','Low end'],['Acoustic drums','Rhythm'],['Electronic drums','Rhythm'],['Breakbeats','Rhythm'],['Handclaps','Rhythm'],['Shakers','Rhythm'],['Cajón','Rhythm'],['Percussion','Rhythm'],['Log drum','Rhythm'],['Congas','Rhythm'],['Timpani','Rhythm'],
+        ['Piano','Keys'],['Rhodes','Keys'],['Organ','Keys'],['Harpsichord','Keys'],['Pipe organ','Keys'],
+        ['Analog synths','Synth'],['Digital synths','Synth'],['Bright plucks','Synth'],['Ambient pads','Synth'],['Arpeggiated synth','Synth'],
+        ['Nylon guitar','Guitar'],['Electric guitar','Guitar'],['Acoustic guitar','Guitar'],['Distorted guitar','Guitar'],
+        ['Full orchestra','Orchestral'],['Chamber orchestra','Orchestral'],['Strings','Orchestral'],['Brass','Orchestral'],['French horn','Orchestral'],['Harp','Orchestral'],['Orchestral percussion','Orchestral'],
+        ['Choir textures','Texture'],['Vocal chops','Texture'],['Oud','Regional'],['Tabla','Regional'],['Sitar','Regional'],['Darbuka','Regional'],
+        ['Saxophone','Wind'],['Flute','Wind'],['Oboe','Wind'],['Clarinet','Wind'],['Bassoon','Wind'],['Trumpet','Wind'],['Vinyl texture','Texture'],['Field recordings','Texture'],['Found sounds','Texture']
       ]
     },
     production: {
       max: 4,
       popular: ['Warm low end','Punchy drums','Dry vocal','Wide chorus','Minimal verses','Cinematic build','Glossy pop mix','Club-ready master','Analog warmth','Dark spacious mix','Tight low end','Intimate close mix','Polished high end','Raw live feel','Sidechain pulse','Dynamic contrast','Airy top end','Saturated drums','Clean transient punch','Lo-fi texture','Deep sub focus','Wide stereo image','Vocal-forward mix','Organic texture'],
       catalog: [
-        ['Warm low end','Tone'],['Punchy drums','Impact'],['Dry vocal','Vocal'],['Vocal-forward mix','Vocal'],['Wide chorus','Width'],['Wide stereo image','Width'],['Tight mono verses','Width'],['Minimal verses','Arrangement'],['Dense chorus','Arrangement'],['Cinematic build','Dynamics'],['Dynamic contrast','Dynamics'],['Gradual build','Dynamics'],['Glossy pop mix','Finish'],['Club-ready master','Finish'],['Polished high end','Finish'],['Radio-ready finish','Finish'],['Analog warmth','Tone'],['Dark spacious mix','Space'],['Intimate close mix','Space'],['Large reverb space','Space'],['Sidechain pulse','Movement'],['Saturated drums','Texture'],['Clean transient punch','Impact'],['Lo-fi texture','Texture'],['Organic texture','Texture'],['Raw live feel','Texture'],['Deep sub focus','Low end'],['Tight low end','Low end'],['Airy top end','Tone'],['Crisp percussion','Impact']
+        ['Warm low end','Tone'],['Punchy drums','Impact'],['Dry vocal','Vocal'],['Vocal-forward mix','Vocal'],['Wide chorus','Width'],['Wide stereo image','Width'],['Tight mono verses','Width'],['Minimal verses','Arrangement'],['Dense chorus','Arrangement'],['Cinematic build','Dynamics'],['Dynamic contrast','Dynamics'],['Gradual build','Dynamics'],['Glossy pop mix','Finish'],['Club-ready master','Finish'],['Polished high end','Finish'],['Radio-ready finish','Finish'],['Analog warmth','Tone'],['Dark spacious mix','Space'],['Intimate close mix','Space'],['Large reverb space','Space'],['Natural concert-hall reverb','Space'],['Stage-like depth','Space'],['Sidechain pulse','Movement'],['Saturated drums','Texture'],['Clean transient punch','Impact'],['Lo-fi texture','Texture'],['Organic texture','Texture'],['Raw live feel','Texture'],['Deep sub focus','Low end'],['Tight low end','Low end'],['Airy top end','Tone'],['Crisp percussion','Impact']
       ]
     },
     exclude: {
@@ -66,7 +93,47 @@
   };
 
   const genreProfiles = [
-    ['k-pop','hook-forward songwriting, polished modern production, strong sectional contrast and purposeful switch-ups'],['afro house','a deep rolling groove, organic percussion, warm low end and gradual hypnotic development'],['amapiano','log-drum-driven low end, spacious percussion, groove-first writing and patient dancefloor development'],['afrobeats','syncopated percussion, a warm elastic bassline, melodic rhythmic phrasing and light guitar or synth accents'],['hyperpop','bold synthetic textures, sharp contrast, exaggerated transitions and energetic sound design'],['alt-r&b','spacious groove, intimate vocal focus, restrained atmospheric layers and modern low-end detail'],['r&b','a smooth pocket, expressive vocal space, warm harmony and controlled low-end movement'],['melodic hip-hop','a memorable melodic topline, punchy drums, deep 808s and an emotional harmonic bed'],['hip-hop','a confident rhythmic pocket, focused drums, purposeful bass movement and space for the vocal'],['trap','deep 808s, crisp rhythmic detail, strong pocket and controlled melodic atmosphere'],['drum & bass','fast break-driven momentum, sub-bass weight, atmospheric tension and clean energetic transitions'],['uk garage','shuffled drums, syncopated bass movement, clipped rhythmic detail and a nimble club groove'],['jersey club','a chopped kick-driven pulse, rhythmic vocal energy and abrupt but musical transitions'],['dark pop','a memorable pop hook framed by moody harmony, restrained tension and polished dark textures'],['cinematic pop','wide dynamics, emotional builds, strong melodic payoff and cinematic depth without losing song focus'],['pop','clear melodic hierarchy, an immediate central hook, concise sections and polished contemporary production'],['house','a stable dance pulse, groove-led repetition, evolving layers and a clean low-end relationship'],['reggaeton','a tight Latin urban groove, strong rhythmic pocket, memorable topline and uncluttered bass movement'],['brazilian funk','percussive forward motion, hard rhythmic accents, direct hooks and energetic low-end impact'],['flamenco fusion','organic hand percussion, expressive guitar or flamenco color and a modern rhythm section without losing human feel'],['arabic pop','melodic ornamentation, strong vocal focus, regional instrumental color and contemporary pop structure'],['raï pop','North African melodic character, expressive vocal phrasing, rhythmic drive and modern pop/electronic production'],['j-pop','bright melodic movement, detailed arrangement changes, clear hooks and energetic harmonic color'],['rock','strong live-band energy, clear guitar/bass/drum roles, dynamic section contrast and a performance-led feel'],['lo-fi','soft transients, relaxed groove, warm imperfect texture and a deliberately uncluttered arrangement'],['synthwave','retro-futurist synth layers, pulsing bass, gated or electronic drums and cinematic nocturnal atmosphere']
+    ['opera buffa','lively theatrical pacing, agile ensemble interplay, clear comic contrast, orchestral support and classically projected voices without pop-style processing'],
+    ['opera seria','formal dramatic pacing, noble melodic lines, recitative-and-aria contrast, restrained orchestral support and classically projected voices'],
+    ['bel canto opera','long lyrical vocal lines, elegant orchestral support, legato phrasing, controlled dramatic build and room for vocal agility'],
+    ['verismo opera','intense dramatic realism, urgent orchestral swells, emotionally direct vocal delivery and strong dynamic contrast'],
+    ['grand opera','large-scale dramatic architecture, full orchestral weight, chorus-ready scale, ceremonial contrast and expansive climaxes'],
+    ['chamber opera','intimate theatrical scale, transparent chamber instrumentation, close dramatic focus and clear space around the voices'],
+    ['baroque opera','ornamented vocal writing, continuo-centered texture, clear dance-derived motion and transparent period-style orchestral color'],
+    ['operetta','light theatrical energy, tuneful vocal writing, buoyant orchestration and elegant comic momentum'],
+    ['operatic pop','pop-centered song structure with classically projected vocal color, cinematic orchestral support and accessible melodic payoff'],
+    ['classical crossover','accessible melodic structure, orchestral or chamber color, polished modern production and a balance between classical technique and contemporary song form'],
+    ['musical theatre','story-led vocal phrasing, clear dramatic progression, theatrical arrangement changes and memorable melodic motifs that support character and scene'],
+    ['opera','theatrical dramatic pacing, classically projected vocals, orchestral support, purposeful recitative/aria-like contrast and natural acoustic depth'],
+    ['pop','clear melodic hierarchy, an immediate central hook, concise sections and polished contemporary production'],
+    ['hip-hop','a confident rhythmic pocket, focused drums, purposeful bass movement and space for the vocal'],
+    ['r&b','a smooth pocket, expressive vocal space, warm harmony and controlled low-end movement'],
+    ['electronic','a clear synthetic sound palette, controlled low-end architecture, evolving layers and purposeful movement across sections'],
+    ['house','a stable dance pulse, groove-led repetition, evolving layers and a clean low-end relationship'],
+    ['reggaeton','a tight Latin urban groove, strong rhythmic pocket, memorable topline and uncluttered bass movement'],
+    ['afrobeats','syncopated percussion, a warm elastic bassline, melodic rhythmic phrasing and light guitar or synth accents'],
+    ['trap','deep 808s, crisp rhythmic detail, strong pocket and controlled melodic atmosphere'],
+    ['dance-pop','immediate pop hooks, danceable four-on-the-floor energy, bright sectional lift and polished club-friendly production'],
+    ['rock','strong live-band energy, clear guitar/bass/drum roles, dynamic section contrast and a performance-led feel'],
+    ['country','story-forward songwriting, clear vocal focus, organic stringed instruments and a natural live-band sense of space'],
+    ['k-pop','hook-forward songwriting, polished modern production, strong sectional contrast and purposeful switch-ups'],
+    ['amapiano','log-drum-driven low end, spacious percussion, groove-first writing and patient dancefloor development'],
+    ['afro house','a deep rolling groove, organic percussion, warm low end and gradual hypnotic development'],
+    ['drum & bass','fast break-driven momentum, sub-bass weight, atmospheric tension and clean energetic transitions'],
+    ['uk garage','shuffled drums, syncopated bass movement, clipped rhythmic detail and a nimble club groove'],
+    ['brazilian funk','percussive forward motion, hard rhythmic accents, direct hooks and energetic low-end impact'],
+    ['flamenco fusion','organic hand percussion, expressive guitar or flamenco color and a modern rhythm section without losing human feel'],
+    ['arabic pop','melodic ornamentation, strong vocal focus, regional instrumental color and contemporary pop structure'],
+    ['raï pop','North African melodic character, expressive vocal phrasing, rhythmic drive and modern pop/electronic production'],
+    ['j-pop','bright melodic movement, detailed arrangement changes, clear hooks and energetic harmonic color'],
+    ['lo-fi','soft transients, relaxed groove, warm imperfect texture and a deliberately uncluttered arrangement'],
+    ['synthwave','retro-futurist synth layers, pulsing bass, gated or electronic drums and cinematic nocturnal atmosphere'],
+    ['hyperpop','bold synthetic textures, sharp contrast, exaggerated transitions and energetic sound design'],
+    ['alt-r&b','spacious groove, intimate vocal focus, restrained atmospheric layers and modern low-end detail'],
+    ['melodic hip-hop','a memorable melodic topline, punchy drums, deep 808s and an emotional harmonic bed'],
+    ['jersey club','a chopped kick-driven pulse, rhythmic vocal energy and abrupt but musical transitions'],
+    ['dark pop','a memorable pop hook framed by moody harmony, restrained tension and polished dark textures'],
+    ['cinematic pop','wide dynamics, emotional builds, strong melodic payoff and cinematic depth without losing song focus']
   ];
 
   const selectorInstances = [];
@@ -171,7 +238,6 @@
         heading.className='smart-results-head';
         heading.textContent=typed?copyText.matches:copyText.suggested;
         toolbar.appendChild(heading);
-
         if(!typed&&popular.length>8){
           const pageCount=Math.ceil(popular.length/8);
           const more=document.createElement('button');
@@ -180,25 +246,13 @@
           more.textContent=copyText.more;
           more.setAttribute('aria-label',copyText.more);
           more.addEventListener('pointerdown',(event)=>{event.preventDefault();event.stopPropagation();});
-          more.addEventListener('click',(event)=>{
-            event.preventDefault();
-            event.stopPropagation();
-            const currentPage=Math.floor(suggestionOffset/8);
-            const nextPage=(currentPage+1)%pageCount;
-            suggestionOffset=nextPage*8;
-            renderResults('');
-            results.scrollTop=0;
-          });
+          more.addEventListener('click',(event)=>{event.preventDefault();event.stopPropagation();const currentPage=Math.floor(suggestionOffset/8);const nextPage=(currentPage+1)%pageCount;suggestionOffset=nextPage*8;renderResults('');results.scrollTop=0;});
           toolbar.appendChild(more);
         }
         results.appendChild(toolbar);
         matches.forEach((item,index)=>results.appendChild(makeOption(item.name,groupLabel(item.group),()=>add(item.name),index)));
       }
-      else if(typed){
-        const custom=makeOption(`${copyText.add} “${typed}”`,copyText.custom,()=>add(query),0);
-        custom.classList.add('smart-custom');
-        results.appendChild(custom);
-      }
+      else if(typed){const custom=makeOption(`${copyText.add} “${typed}”`,copyText.custom,()=>add(query),0);custom.classList.add('smart-custom');results.appendChild(custom);}
       results.hidden=false;
       search.setAttribute('aria-expanded','true');
     };
@@ -208,21 +262,11 @@
       const options = Array.from(results?.querySelectorAll('.smart-option') || []);
       if(event.key==='ArrowDown'&&options.length){event.preventDefault();setActiveOption(activeIndex<0?0:activeIndex+1);return;}
       if(event.key==='ArrowUp'&&options.length){event.preventDefault();setActiveOption(activeIndex<0?options.length-1:activeIndex-1);return;}
-      if(event.key==='Enter'){
-        event.preventDefault();
-        const target = activeIndex>=0 ? options[activeIndex] : options[0];
-        if(target instanceof HTMLElement)target.click();else if(clean(search.value))add(search.value);
-      }
+      if(event.key==='Enter'){event.preventDefault();const target = activeIndex>=0 ? options[activeIndex] : options[0];if(target instanceof HTMLElement)target.click();else if(clean(search.value))add(search.value);}
       if(event.key==='Escape')close();
       if(event.key==='Backspace'&&!search.value&&selected.length){selected.pop();suggestionOffset=0;sync();renderChips();renderResults('');}
     });
-    document.addEventListener('click',(event)=>{
-      if(!combobox)return;
-      const path=typeof event.composedPath==='function'?event.composedPath():[];
-      if(path.includes(combobox))return;
-      if(event.target instanceof Node&&combobox.contains(event.target))return;
-      close();
-    });
+    document.addEventListener('click',(event)=>{if(!combobox)return;const path=typeof event.composedPath==='function'?event.composedPath():[];if(path.includes(combobox))return;if(event.target instanceof Node&&combobox.contains(event.target))return;close();});
     return {commitTypedValue(){if(search&&clean(search.value)&&selected.length<config.max)add(search.value);},reset(){selected.splice(0,selected.length);suggestionOffset=0;sync();renderChips();if(search)search.value='';close();}};
   };
 
