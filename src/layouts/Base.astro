@@ -2,223 +2,41 @@
 const {
   lang = 'en',
   title = 'Rythero — Create music. Build your sound.',
-  description = 'Tools, workflows and practical knowledge for modern music creators.',
+  description = 'Rythero is an independent web platform with practical tools and learning resources for AI-assisted music creation.',
   canonical = Astro.url.pathname
 } = Astro.props;
 
 const supported = ['en', 'es', 'pt-br'];
 const locale = supported.includes(lang) ? lang : 'en';
 const htmlLang = locale === 'pt-br' ? 'pt-BR' : locale;
-const canonicalUrl = new URL(canonical, Astro.site ?? 'https://rythero.com').toString();
-const ogImageUrl = new URL('/rythero-og.jpg', Astro.site ?? 'https://rythero.com').toString();
+const siteRoot = Astro.site ?? 'https://rythero.com';
+const canonicalUrl = new URL(canonical, siteRoot).toString();
+const ogImageUrl = new URL('/rythero-og.jpg', siteRoot).toString();
+const logoUrl = new URL('/rythero-mark.svg', siteRoot).toString();
 
 const ui = {
-  en: {
-    tools: 'Studio', learn: 'School', guides: 'Prompt Builder', start: 'Open Studio',
-    privacy: 'Privacy', cookies: 'Cookies', choices: 'Cookie choices',
-    tagline: 'Create music. Build your sound.', nav: 'Primary navigation', language: 'Language',
-    analyticsLabel: 'Analytics preferences', analyticsStrong: 'Optional analytics.',
-    analyticsText: 'Google Analytics stays off until you choose. We use it only to understand usage and improve Rythero.',
-    details: 'Cookie details', reject: 'Reject', accept: 'Accept'
-  },
-  es: {
-    tools: 'Studio', learn: 'Escuela', guides: 'Prompt Builder', start: 'Abrir Studio',
-    privacy: 'Privacidad', cookies: 'Cookies', choices: 'Preferencias de cookies',
-    tagline: 'Crea música. Construye tu sonido.', nav: 'Navegación principal', language: 'Idioma',
-    analyticsLabel: 'Preferencias de analítica', analyticsStrong: 'Analítica opcional.',
-    analyticsText: 'Google Analytics permanece desactivado hasta que elijas. Solo lo usamos para entender el uso y mejorar Rythero.',
-    details: 'Detalles de cookies', reject: 'Rechazar', accept: 'Aceptar'
-  },
-  'pt-br': {
-    tools: 'Studio', learn: 'Escola', guides: 'Prompt Builder', start: 'Abrir Studio',
-    privacy: 'Privacidade', cookies: 'Cookies', choices: 'Preferências de cookies',
-    tagline: 'Crie música. Construa seu som.', nav: 'Navegação principal', language: 'Idioma',
-    analyticsLabel: 'Preferências de análise', analyticsStrong: 'Análise opcional.',
-    analyticsText: 'O Google Analytics permanece desativado até você escolher. Usamos apenas para entender o uso e melhorar o Rythero.',
-    details: 'Detalhes de cookies', reject: 'Rejeitar', accept: 'Aceitar'
-  }
+  en: {tools:'Studio',learn:'School',guides:'Prompt Builder',start:'Open Studio',privacy:'Privacy',cookies:'Cookies',choices:'Cookie choices',tagline:'Create music. Build your sound.',nav:'Primary navigation',language:'Language',analyticsLabel:'Analytics preferences',analyticsStrong:'Optional analytics.',analyticsText:'Google Analytics stays off until you choose. We use it only to understand usage and improve Rythero.',details:'Cookie details',reject:'Reject',accept:'Accept'},
+  es: {tools:'Studio',learn:'Escuela',guides:'Prompt Builder',start:'Abrir Studio',privacy:'Privacidad',cookies:'Cookies',choices:'Preferencias de cookies',tagline:'Crea música. Construye tu sonido.',nav:'Navegación principal',language:'Idioma',analyticsLabel:'Preferencias de analítica',analyticsStrong:'Analítica opcional.',analyticsText:'Google Analytics permanece desactivado hasta que elijas. Solo lo usamos para entender el uso y mejorar Rythero.',details:'Detalles de cookies',reject:'Rechazar',accept:'Aceptar'},
+  'pt-br': {tools:'Studio',learn:'Escola',guides:'Prompt Builder',start:'Abrir Studio',privacy:'Privacidade',cookies:'Cookies',choices:'Preferências de cookies',tagline:'Crie música. Construa seu som.',nav:'Navegação principal',language:'Idioma',analyticsLabel:'Preferências de análise',analyticsStrong:'Análise opcional.',analyticsText:'O Google Analytics permanece desativado até você escolher. Usamos apenas para entender o uso e melhorar o Rythero.',details:'Detalhes de cookies',reject:'Rejeitar',accept:'Aceitar'}
 }[locale];
-
 const currentPath = Astro.url.pathname;
 const basePath = currentPath.replace(/^\/(es|pt-br)(?=\/|$)/, '') || '/';
-const localize = (code, path = basePath) => {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  if (code === 'en') return cleanPath || '/';
-  return cleanPath === '/' ? `/${code}/` : `/${code}${cleanPath}`;
-};
-const homePath = localize(locale, '/');
-const toolPath = localize(locale, '/tools/song-studio');
-const privacyPath = localize(locale, '/privacy');
-const cookiesPath = localize(locale, '/cookies');
-const learnPath = localize(locale, '/learn');
-const guidesPath = localize(locale, '/tools/prompt-builder');
-const alternateUrls = {
-  en: new URL(localize('en'), Astro.site ?? 'https://rythero.com').toString(),
-  es: new URL(localize('es'), Astro.site ?? 'https://rythero.com').toString(),
-  'pt-br': new URL(localize('pt-br'), Astro.site ?? 'https://rythero.com').toString()
-};
-const ogLocale = locale === 'es' ? 'es_ES' : locale === 'pt-br' ? 'pt_BR' : 'en_US';
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Rythero',
-  url: 'https://rythero.com/',
-  description,
-  inLanguage: htmlLang,
-  image: ogImageUrl
-};
+const localize = (code, path = basePath) => { const cleanPath=path.startsWith('/')?path:`/${path}`; if(code==='en')return cleanPath||'/'; return cleanPath==='/'?`/${code}/`:`/${code}${cleanPath}`; };
+const homePath=localize(locale,'/'), toolPath=localize(locale,'/tools/song-studio'), privacyPath=localize(locale,'/privacy'), cookiesPath=localize(locale,'/cookies'), learnPath=localize(locale,'/learn'), guidesPath=localize(locale,'/tools/prompt-builder');
+const alternateUrls={en:new URL(localize('en'),siteRoot).toString(),es:new URL(localize('es'),siteRoot).toString(),'pt-br':new URL(localize('pt-br'),siteRoot).toString()};
+const ogLocale=locale==='es'?'es_ES':locale==='pt-br'?'pt_BR':'en_US';
+const graph={'@context':'https://schema.org','@graph':[{'@type':'Organization','@id':'https://rythero.com/#organization',name:'Rythero',url:'https://rythero.com/',logo:{'@type':'ImageObject',url:logoUrl},description:'Rythero is an independent web platform for AI-assisted music creation, song planning, prompt building and creator education.'},{'@type':'WebSite','@id':'https://rythero.com/#website',url:'https://rythero.com/',name:'Rythero',description:'Practical tools and learning resources for AI-assisted music creation.',publisher:{'@id':'https://rythero.com/#organization'},inLanguage:['en','es','pt-BR']} ]};
+const flags = locale==='en' ? [{code:'es',icon:'🇪🇸',label:'Español'},{code:'pt-br',icon:'🇧🇷',label:'Português do Brasil'}] : locale==='es' ? [{code:'en',icon:'🇺🇸',label:'English'},{code:'pt-br',icon:'🇧🇷',label:'Português do Brasil'}] : [{code:'en',icon:'🇺🇸',label:'English'},{code:'es',icon:'🇪🇸',label:'Español'}];
 ---
-<!doctype html>
-<html lang={htmlLang}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#07110d" />
-    <meta name="description" content={description} />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang="en" href={alternateUrls.en} />
-    <link rel="alternate" hreflang="es" href={alternateUrls.es} />
-    <link rel="alternate" hreflang="pt-BR" href={alternateUrls['pt-br']} />
-    <link rel="alternate" hreflang="x-default" href={alternateUrls.en} />
-    <link rel="icon" href="/rythero-mark.svg" type="image/svg+xml" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Rythero" />
-    <meta property="og:locale" content={ogLocale} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:secure_url" content={ogImageUrl} />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Rythero — Create music. Build your sound." />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="twitter:image:alt" content="Rythero — Create music. Build your sound." />
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
-    <title>{title}</title>
-    <style is:global>
-      :root{color-scheme:dark;--bg:#050806;--panel:#0a110d;--panel2:#0e1712;--text:#f2f6f3;--muted:#9aa79f;--line:#1b2a21;--green:#66ff8c;--green2:#19d679;--max:1180px}
-      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 70% 0%,rgba(32,220,118,.12),transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.shell{width:min(calc(100% - 32px),var(--max));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:20px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em;flex-shrink:0}.brand img{width:34px;height:34px}.navlinks{display:flex;gap:24px;color:var(--muted);font-size:.95rem}.navlinks a:hover{color:var(--text)}.nav-actions{display:flex;align-items:center;gap:10px}.lang-switch{display:inline-flex;align-items:center;gap:3px;padding:4px;border:1px solid var(--line);background:#08100b;border-radius:999px}.lang-switch a{display:grid;place-items:center;min-width:34px;height:30px;padding:0 8px;border-radius:999px;color:#7f8c84;font-size:.7rem;font-weight:850;letter-spacing:.08em}.lang-switch a:hover{color:var(--text);background:#101a13}.lang-switch a.active{color:#041108;background:var(--green)}.pill{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:999px;border:1px solid var(--line);background:#0b120e;color:var(--text);font-weight:700}.pill.primary{background:linear-gradient(135deg,var(--green),var(--green2));color:#031006;border-color:transparent}.section{padding:72px 0}.eyebrow{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.muted{color:var(--muted)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(15,24,18,.9),rgba(7,12,9,.92));border-radius:22px;padding:26px}.card h3{margin:0 0 8px;font-size:1.18rem}.footer{border-top:1px solid var(--line);padding:30px 0 34px;color:var(--muted);font-size:.9rem;overflow:hidden}.footerrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-links{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}.footer-links button{appearance:none;border:0;padding:0;background:none;color:#7f8c84;cursor:pointer;font:inherit}.footer-links a:hover,.footer-links button:hover{color:var(--text)}.footer-signature{display:flex;flex-direction:column;align-items:center;gap:9px;margin-top:24px}.footer-signature strong{position:relative;color:#9eaaa2;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.71rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;padding-left:.26em;text-shadow:0 0 16px rgba(102,255,140,.12)}.footer-signature strong::before{content:'//';color:rgba(102,255,140,.55);margin-right:9px;letter-spacing:0}.cyber-line{position:relative;width:min(68vw,620px);height:1px;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(102,255,140,.14) 12%,rgba(102,255,140,.32) 50%,rgba(102,255,140,.14) 88%,transparent);box-shadow:0 0 12px rgba(25,214,121,.08)}.cyber-line::after{content:'';position:absolute;top:-1px;left:-30%;width:28%;height:3px;background:linear-gradient(90deg,transparent,rgba(102,255,140,.45),#66ff8c,rgba(25,214,121,.5),transparent);filter:blur(.2px);box-shadow:0 0 9px rgba(102,255,140,.45);animation:cyberScan 9s ease-in-out infinite}@keyframes cyberScan{0%{transform:translateX(0);opacity:.25}15%{opacity:.8}50%{opacity:1}85%{opacity:.8}100%{transform:translateX(460%);opacity:.25}}
-      .consent{position:fixed;left:50%;bottom:18px;z-index:1000;width:min(calc(100% - 24px),690px);transform:translateX(-50%);display:none;align-items:center;gap:16px;padding:13px 14px 13px 16px;border:1px solid rgba(102,255,140,.2);border-radius:16px;background:rgba(7,13,9,.97);box-shadow:0 14px 45px rgba(0,0,0,.38),0 0 24px rgba(25,214,121,.06);backdrop-filter:blur(12px)}.consent.show{display:flex}.consent-copy{min-width:0;flex:1;color:#a9b5ad;font-size:.82rem;line-height:1.45}.consent-copy strong{color:#eef5f0;font-weight:750}.consent-copy a{color:#91dba6;text-decoration:underline;text-underline-offset:2px}.consent-actions{display:flex;gap:8px;flex-shrink:0}.consent-btn{min-width:100px;border:1px solid #3d5545;border-radius:999px;padding:9px 14px;background:#0c1510;color:#eef5f0;font-weight:750;font-size:.8rem;cursor:pointer}.consent-btn:hover{border-color:#66ff8c;background:#101b14}.privacy-link{color:#7f8c84}.privacy-link:hover{color:var(--text)}
-      @media(prefers-reduced-motion:reduce){.cyber-line::after{animation:none;left:36%;opacity:.7}}@media(max-width:860px){.nav{gap:10px}.navlinks{display:none}.nav-actions>.pill{display:none}.lang-switch a{min-width:31px;height:29px;padding:0 7px}.grid3{grid-template-columns:1fr}.section{padding:52px 0}.cyber-line{width:min(78vw,520px)}.consent{bottom:10px;align-items:stretch;flex-direction:column;gap:10px;padding:13px}.consent-actions{width:100%}.consent-btn{flex:1}}@media(max-width:390px){.brand{letter-spacing:.1em}.brand img{width:31px;height:31px}.lang-switch a{min-width:29px;padding:0 6px;font-size:.65rem}}
-    </style>
-  </head>
-  <body>
-    <header class="shell nav">
-      <a class="brand" href={homePath}><img src="/rythero-mark.svg" alt="" /><span>RYTHERO</span></a>
-      <nav class="navlinks" aria-label={ui.nav}>
-        <a href={toolPath}>{ui.tools}</a><a href={learnPath}>{ui.learn}</a><a href={guidesPath}>{ui.guides}</a>
-      </nav>
-      <div class="nav-actions">
-        <nav class="lang-switch" aria-label={ui.language}>
-          <a class:list={{active:locale==='en'}} href={localize('en')} lang="en" hreflang="en">EN</a>
-          <a class:list={{active:locale==='es'}} href={localize('es')} lang="es" hreflang="es">ES</a>
-          <a class:list={{active:locale==='pt-br'}} href={localize('pt-br')} lang="pt-BR" hreflang="pt-BR">PT</a>
-        </nav>
-        <a class="pill" href={toolPath}>{ui.start}</a>
-      </div>
-    </header>
-    <main><slot /></main>
-    <footer class="footer">
-      <div class="shell">
-        <div class="footerrow">
-          <span>© 2026 Rythero</span>
-          <span class="footer-links"><a class="privacy-link" href={privacyPath}>{ui.privacy}</a><span>·</span><a class="privacy-link" href={cookiesPath}>{ui.cookies}</a><span>·</span><button type="button" id="cookie-choices">{ui.choices}</button></span>
-          <span>{ui.tagline}</span>
-        </div>
-        <div class="footer-signature"><strong>John Doe</strong><div class="cyber-line" aria-hidden="true"></div></div>
-      </div>
-    </footer>
-
-    <div id="consent-banner" class="consent" role="dialog" aria-label={ui.analyticsLabel} aria-live="polite">
-      <div class="consent-copy"><strong>{ui.analyticsStrong}</strong> {ui.analyticsText} <a href={cookiesPath}>{ui.details}</a></div>
-      <div class="consent-actions">
-        <button class="consent-btn" type="button" data-consent="reject">{ui.reject}</button>
-        <button class="consent-btn" type="button" data-consent="accept">{ui.accept}</button>
-      </div>
-    </div>
-
-    <script is:inline>
-      (() => {
-        const key = 'rythero-consent-v2';
-        const measurementId = 'G-7K1ENQ4HTZ';
-        const banner = document.getElementById('consent-banner');
-        const choices = document.getElementById('cookie-choices');
-        let analyticsLoaded = false;
-
-        const getChoice = () => {
-          try { return localStorage.getItem(key); } catch (e) { return null; }
-        };
-
-        const setChoice = (value) => {
-          try { localStorage.setItem(key, value); } catch (e) {}
-        };
-
-        const clearGaCookies = () => {
-          document.cookie.split(';').forEach((raw) => {
-            const name = raw.split('=')[0]?.trim();
-            if (!name || !name.startsWith('_ga')) return;
-            document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
-            document.cookie = `${name}=; Max-Age=0; path=/; domain=.rythero.com; SameSite=Lax`;
-          });
-        };
-
-        const loadAnalytics = () => {
-          if (analyticsLoaded) return;
-          analyticsLoaded = true;
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
-          window.gtag('consent', 'default', {
-            analytics_storage: 'granted',
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied'
-          });
-          window.gtag('js', new Date());
-          window.gtag('config', measurementId);
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-          document.head.appendChild(script);
-        };
-
-        const saved = getChoice();
-        if (saved === 'analytics') loadAnalytics();
-        if (!saved && banner) banner.classList.add('show');
-
-        choices?.addEventListener('click', () => banner?.classList.add('show'));
-
-        document.querySelectorAll('[data-consent]').forEach((button) => {
-          button.addEventListener('click', () => {
-            const accepted = button.getAttribute('data-consent') === 'accept';
-            const previous = getChoice();
-            if (accepted) {
-              setChoice('analytics');
-              loadAnalytics();
-              banner?.classList.remove('show');
-              return;
-            }
-
-            setChoice('rejected');
-            if (typeof window.gtag === 'function') {
-              window.gtag('consent', 'update', {
-                analytics_storage: 'denied',
-                ad_storage: 'denied',
-                ad_user_data: 'denied',
-                ad_personalization: 'denied'
-              });
-            }
-            clearGaCookies();
-            banner?.classList.remove('show');
-            if (previous === 'analytics') window.location.reload();
-          });
-        });
-      })();
-    </script>
-  </body>
-</html>
+<!doctype html><html lang={htmlLang}><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="theme-color" content="#07110d"/><meta name="description" content={description}/><meta name="robots" content="index,follow,max-image-preview:large"/>
+<link rel="canonical" href={canonicalUrl}/><link rel="alternate" hreflang="en" href={alternateUrls.en}/><link rel="alternate" hreflang="es" href={alternateUrls.es}/><link rel="alternate" hreflang="pt-BR" href={alternateUrls['pt-br']}/><link rel="alternate" hreflang="x-default" href={alternateUrls.en}/><link rel="icon" href="/rythero-mark.svg" type="image/svg+xml"/>
+<meta property="og:type" content="website"/><meta property="og:site_name" content="Rythero"/><meta property="og:locale" content={ogLocale}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonicalUrl}/><meta property="og:image" content={ogImageUrl}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Rythero — Create music. Build your sound."/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={ogImageUrl}/>
+<script type="application/ld+json" set:html={JSON.stringify(graph)}></script><title>{title}</title>
+<style is:global>
+:root{color-scheme:dark;--bg:#050806;--panel:#0a110d;--text:#f2f6f3;--muted:#9aa79f;--line:#1b2a21;--green:#66ff8c;--green2:#19d679;--max:1180px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.shell{width:min(calc(100% - 32px),var(--max));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:20px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em}.brand img{width:34px;height:34px}.navlinks{display:flex;gap:24px;color:var(--muted);font-size:.95rem}.nav-actions{display:flex;align-items:center;gap:10px}.language-control{display:flex;flex-direction:column;align-items:center;gap:3px}.lang-switch{display:inline-flex;gap:3px;padding:4px;border:1px solid var(--line);background:#08100b;border-radius:999px}.lang-switch a{display:grid;place-items:center;min-width:34px;height:30px;padding:0 8px;border-radius:999px;color:#89968e;font-size:.7rem;font-weight:850;letter-spacing:.08em}.lang-switch a.active{color:#041108;background:var(--green)}.lang-flags{display:flex;justify-content:center;gap:7px;height:16px}.lang-flags a{display:grid;place-items:center;width:22px;height:16px;font-size:12px;line-height:1;border-radius:4px;opacity:.72}.lang-flags a:hover,.lang-flags a:focus-visible{opacity:1;outline:1px solid var(--green);outline-offset:1px}.pill{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:999px;border:1px solid var(--line);background:#0b120e;font-weight:700}.pill.primary{background:linear-gradient(135deg,var(--green),var(--green2));color:#031006;border-color:transparent}.section{padding:72px 0}.eyebrow{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.muted{color:var(--muted)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{border:1px solid var(--line);background:#0a110d;border-radius:22px;padding:26px}.footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:.9rem}.footerrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-links{display:flex;gap:10px;flex-wrap:wrap}.footer-links button{border:0;background:none;color:var(--muted);padding:0}.consent{position:fixed;left:50%;bottom:18px;z-index:1000;width:min(calc(100% - 24px),690px);transform:translateX(-50%);display:none;gap:16px;padding:13px;border:1px solid rgba(102,255,140,.2);border-radius:16px;background:#07100b}.consent.show{display:flex}.consent-copy{flex:1;color:#a9b5ad;font-size:.82rem}.consent-actions{display:flex;gap:8px}.consent-btn{min-width:100px;border:1px solid #3d5545;border-radius:999px;padding:9px 14px;background:#0c1510;color:#eef5f0;font-weight:750}@media(max-width:860px){.navlinks{display:none}.nav-actions>.pill{display:none}.grid3{grid-template-columns:1fr}.section{padding:52px 0}.lang-switch a{min-width:31px;height:29px}.consent{flex-direction:column}.consent-btn{flex:1}}@media(max-width:390px){.brand{letter-spacing:.1em}.brand img{width:31px;height:31px}.lang-switch a{min-width:29px;padding:0 6px;font-size:.65rem}}
+</style></head><body>
+<header class="shell nav"><a class="brand" href={homePath} aria-label="Rythero home"><img src="/rythero-mark.svg" alt="" width="34" height="34"/><span>RYTHERO</span></a><nav class="navlinks" aria-label={ui.nav}><a href={toolPath}>{ui.tools}</a><a href={learnPath}>{ui.learn}</a><a href={guidesPath}>{ui.guides}</a></nav><div class="nav-actions"><div class="language-control"><nav class="lang-switch" aria-label={ui.language}><a class:list={{active:locale==='en'}} href={localize('en')} lang="en" hreflang="en" aria-current={locale==='en'?'page':undefined}>EN</a><a class:list={{active:locale==='es'}} href={localize('es')} lang="es" hreflang="es" aria-current={locale==='es'?'page':undefined}>ES</a><a class:list={{active:locale==='pt-br'}} href={localize('pt-br')} lang="pt-BR" hreflang="pt-BR" aria-current={locale==='pt-br'?'page':undefined}>PT</a></nav><div class="lang-flags" aria-label="Alternative languages">{flags.map(f=><a href={localize(f.code)} hreflang={f.code==='pt-br'?'pt-BR':f.code} lang={f.code==='pt-br'?'pt-BR':f.code} aria-label={f.label} title={f.label}>{f.icon}</a>)}</div></div><a class="pill" href={toolPath}>{ui.start}</a></div></header><main><slot /></main>
+<footer class="footer"><div class="shell"><div class="footerrow"><span>© 2026 Rythero</span><span class="footer-links"><a href={privacyPath}>{ui.privacy}</a><span>·</span><a href={cookiesPath}>{ui.cookies}</a><span>·</span><button type="button" id="cookie-choices">{ui.choices}</button></span><span>{ui.tagline}</span></div></div></footer>
+<div id="consent-banner" class="consent" role="dialog" aria-label={ui.analyticsLabel}><div class="consent-copy"><strong>{ui.analyticsStrong}</strong> {ui.analyticsText} <a href={cookiesPath}>{ui.details}</a></div><div class="consent-actions"><button class="consent-btn" type="button" data-consent="reject">{ui.reject}</button><button class="consent-btn" type="button" data-consent="accept">{ui.accept}</button></div></div>
+<script is:inline>(()=>{const key='rythero-consent-v2',id='G-7K1ENQ4HTZ',b=document.getElementById('consent-banner');function ga(){if(document.getElementById('rythero-ga'))return;let s=document.createElement('script');s.id='rythero-ga';s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',id,{anonymize_ip:true})}function set(v){localStorage.setItem(key,v);b?.classList.remove('show');if(v==='accept')ga()}let v=localStorage.getItem(key);if(v==='accept')ga();else if(!v)b?.classList.add('show');document.querySelectorAll('[data-consent]').forEach(x=>x.addEventListener('click',()=>set(x.dataset.consent)));document.getElementById('cookie-choices')?.addEventListener('click',()=>b?.classList.add('show'))})();</script></body></html>
