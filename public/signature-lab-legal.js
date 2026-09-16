@@ -40,6 +40,7 @@
     if (form.querySelector('[data-sig-rights-confirm]')) return;
     const fileInput = form.querySelector('input[type="file"]');
     const fileLabel = fileInput?.closest('label');
+    const actions = form.querySelector('.sig-actions');
     if (!fileInput || !fileLabel) return;
 
     const noticeId = `sig-upload-legal-${index + 1}`;
@@ -53,7 +54,8 @@
     paragraph.textContent = copy.body;
     notice.append(heading, paragraph);
 
-    fileLabel.insertAdjacentElement('afterend', notice);
+    if (actions) form.insertBefore(notice, actions);
+    else form.appendChild(notice);
     fileInput.setAttribute('aria-describedby', noticeId);
 
     const confirmLabel = document.createElement('label');
@@ -77,6 +79,7 @@
     text.append(link, document.createTextNode('.'));
 
     confirmLabel.append(checkbox, text);
-    notice.insertAdjacentElement('afterend', confirmLabel);
+    if (actions) form.insertBefore(confirmLabel, actions);
+    else form.appendChild(confirmLabel);
   });
 })();
