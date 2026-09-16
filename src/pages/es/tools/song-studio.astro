@@ -4,4 +4,7 @@ import SongStudio from '../../../components/SongStudio.astro';
 ---
 <Base lang="es" title="Rythero Studio — De una idea a una canción lista para crear" description="Siete herramientas prácticas para convertir una idea en un plan musical: plan de canción, reparación de prompts, ADN de estilo, arreglo, letra, exportación y análisis de audio local." canonical="/es/tools/song-studio">
   <SongStudio lang="es" />
+  <style is:global>
+    .studio-form input,.studio-form select,.studio-form textarea{background:#f3f1e9!important;color:#132018!important;border-color:#aebbb2!important;color-scheme:light}.studio-form input::placeholder,.studio-form textarea::placeholder{color:#66736b!important;opacity:1}.studio-form input:focus,.studio-form select:focus,.studio-form textarea:focus{background:#fffef9!important;border-color:#66ff8c!important;box-shadow:0 0 0 3px rgba(102,255,140,.18)!important}.studio-form input[type="file"]::file-selector-button{border:0;border-radius:9px;background:#163421;color:#eaffef;padding:8px 10px;margin-right:10px;font-weight:800;cursor:pointer}
+  </style>
 </Base>
