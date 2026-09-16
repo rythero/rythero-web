@@ -13,11 +13,11 @@ const t = {
     lessonText:'Learn how genre, mood, tempo, voice, instrumentation, structure and production work together — and why stacking adjectives usually produces generic results.',
     new:'NEW · LESSON 02', lesson2Title:'Song structure for AI music: hooks, verses, choruses and transitions explained simply',
     lesson2Text:'Understand what each section does, how 4/8/16-bar thinking helps, how to create contrast and how to give an AI generator a useful arrangement map without overcomplicating it.',
-    more:'Next lessons',
+    more:'More lessons',
     items:[
-      ['Style DNA without artist imitation','Describe a sound by groove, texture, harmony, voice and production instead of copying a named artist.'],
-      ['BPM, key and energy','Choose tempo and tonal direction without turning the prompt into a spreadsheet.'],
-      ['Suno v6: what changed','A practical guide to the v6 family and how to think about control versus exploration.']
+      ['Style DNA without artist imitation','Describe a sound by groove, texture, harmony, voice and production instead of copying a named artist.','style-dna'],
+      ['BPM, key and energy','Choose tempo and tonal direction without turning the prompt into a spreadsheet.','bpm-key-energy'],
+      ['Suno v6: what changed','A practical September 2026 guide to v6, v6-wild and v6-mini, with official Suno references.','suno-v6']
     ],
     tools:'Learn and build at the same time', toolsText:'The school explains the decisions. Rythero Studio and Prompt Builder let you apply them immediately, even if you have never made music before.',
     studio:'Open Rythero Studio', prompt:'Open Prompt Builder'
@@ -32,11 +32,11 @@ const t = {
     lessonText:'Aprende cómo trabajan juntos género, estado de ánimo, tempo, voz, instrumentación, estructura y producción, y por qué acumular adjetivos suele dar resultados genéricos.',
     new:'NUEVA · LECCIÓN 02', lesson2Title:'Estructura de una canción con IA: hook, verso, estribillo y transiciones explicados fácil',
     lesson2Text:'Entiende para qué sirve cada parte, cómo ayudan los bloques de 4/8/16 compases, cómo crear contraste y cómo dar al generador un mapa de arreglo útil sin complicarlo.',
-    more:'Próximas lecciones',
+    more:'Más lecciones',
     items:[
-      ['Style DNA sin imitar artistas','Describe un sonido por groove, textura, armonía, voz y producción en lugar de copiar a un artista.'],
-      ['BPM, tonalidad y energía','Elige tempo y dirección tonal sin convertir el prompt en una hoja de cálculo.'],
-      ['Suno v6: qué ha cambiado','Guía práctica de la familia v6 y de la diferencia entre control y exploración.']
+      ['Style DNA sin imitar artistas','Describe un sonido por groove, textura, armonía, voz y producción en lugar de copiar a un artista.','style-dna'],
+      ['BPM, tonalidad y energía','Elige tempo y dirección tonal sin convertir el prompt en una hoja de cálculo.','bpm-key-energy'],
+      ['Suno v6: qué ha cambiado','Guía práctica de septiembre de 2026 sobre v6, v6-wild y v6-mini, con fuentes oficiales de Suno.','suno-v6']
     ],
     tools:'Aprende y crea al mismo tiempo', toolsText:'La escuela explica las decisiones. Rythero Studio y Prompt Builder te ayudan a aplicarlas en el momento, aunque nunca hayas hecho música.',
     studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder'
@@ -51,11 +51,11 @@ const t = {
     lessonText:'Entenda como gênero, clima, tempo, voz, instrumentação, estrutura e produção trabalham juntos — e por que empilhar adjetivos costuma gerar resultados genéricos.',
     new:'NOVA · AULA 02', lesson2Title:'Estrutura de música com IA: hook, verso, refrão e transições explicados de forma simples',
     lesson2Text:'Entenda a função de cada parte, como blocos de 4/8/16 compassos ajudam, como criar contraste e como dar ao gerador um mapa de arranjo útil sem complicar.',
-    more:'Próximas aulas',
+    more:'Mais aulas',
     items:[
-      ['Style DNA sem imitar artistas','Descreva um som por groove, textura, harmonia, voz e produção em vez de copiar um artista.'],
-      ['BPM, tonalidade e energia','Escolha andamento e direção tonal sem transformar o prompt em uma planilha.'],
-      ['Suno v6: o que mudou','Guia prático da família v6 e da diferença entre controle e exploração.']
+      ['Style DNA sem imitar artistas','Descreva um som por groove, textura, harmonia, voz e produção em vez de copiar um artista.','style-dna'],
+      ['BPM, tonalidade e energia','Escolha andamento e direção tonal sem transformar o prompt em uma planilha.','bpm-key-energy'],
+      ['Suno v6: o que mudou','Guia prático de setembro de 2026 sobre v6, v6-wild e v6-mini, com fontes oficiais da Suno.','suno-v6']
     ],
     tools:'Aprenda e crie ao mesmo tempo', toolsText:'A escola explica as decisões. Rythero Studio e Prompt Builder ajudam você a aplicar tudo imediatamente, mesmo que nunca tenha criado música.',
     studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder'
@@ -97,10 +97,10 @@ const t = {
 <section class="shell section next-lessons">
   <div class="eyebrow">{t.more}</div>
   <div class="lesson-list">
-    {t.items.map(([title, text], i) => <article><span>{String(i+3).padStart(2,'0')}</span><div><h3>{title}</h3><p class="muted">{text}</p></div></article>)}
+    {t.items.map(([title, text, slug], i) => <a class="lesson-row" href={`${base}/learn/${slug}`}><span>{String(i+3).padStart(2,'0')}</span><div><h3>{title}</h3><p class="muted">{text}</p></div></a>)}
   </div>
 </section>
 
 <style>
-  .school-hero{padding:76px 0 34px}.school-hero h1{font-size:clamp(3.2rem,7.6vw,6.7rem);letter-spacing:-.06em;line-height:.92;max-width:980px;margin:14px 0 22px}.lead{font-size:clamp(1.05rem,2vw,1.28rem);max-width:790px}.published-label{padding:0 0 14px}.school-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}.lesson,.side-card{border:1px solid var(--line);background:linear-gradient(180deg,#0d1611,#080d0a);border-radius:26px;padding:28px}.lesson.featured{box-shadow:inset 0 0 0 1px rgba(102,255,140,.05)}.lesson:hover{border-color:#356044}.lesson h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.02;letter-spacing:-.04em;margin:15px 0}.lesson p,.side-card p{color:var(--muted);font-size:1.02rem;line-height:1.65}.lesson strong{display:inline-block;margin-top:14px;color:var(--green)}.tag{display:inline-block;font-size:.64rem;font-weight:900;letter-spacing:.15em;background:var(--green);color:#041108;border-radius:999px;padding:6px 9px}.tool-links{display:grid;gap:9px;margin-top:22px}.tool-links a{border-top:1px solid var(--line);padding-top:11px;color:#ccebd5}.tool-links a:hover{color:var(--green)}.latest-wrap{padding-top:18px}.latest{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}.latest h2{margin-top:0;font-size:clamp(1.55rem,3vw,2.25rem)}.latest .tag{margin-top:4px;white-space:nowrap}.latest p{margin-bottom:0}.next-lessons{padding-top:70px}.lesson-list{margin-top:18px;border-top:1px solid var(--line)}.lesson-list article{display:grid;grid-template-columns:50px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.lesson-list article>span{font:700 .7rem ui-monospace,monospace;color:#547060;letter-spacing:.12em}.lesson-list h3{margin:0 0 6px;font-size:1.12rem}.lesson-list p{margin:0;max-width:780px}@media(max-width:800px){.school-hero{padding-top:46px}.school-grid{grid-template-columns:1fr}.lesson,.side-card{padding:22px}.latest{grid-template-columns:1fr;gap:12px}.latest .tag{width:max-content}}
+  .school-hero{padding:76px 0 34px}.school-hero h1{font-size:clamp(3.2rem,7.6vw,6.7rem);letter-spacing:-.06em;line-height:.92;max-width:980px;margin:14px 0 22px}.lead{font-size:clamp(1.05rem,2vw,1.28rem);max-width:790px}.published-label{padding:0 0 14px}.school-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}.lesson,.side-card{border:1px solid var(--line);background:linear-gradient(180deg,#0d1611,#080d0a);border-radius:26px;padding:28px}.lesson.featured{box-shadow:inset 0 0 0 1px rgba(102,255,140,.05)}.lesson:hover{border-color:#356044}.lesson h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.02;letter-spacing:-.04em;margin:15px 0}.lesson p,.side-card p{color:var(--muted);font-size:1.02rem;line-height:1.65}.lesson strong{display:inline-block;margin-top:14px;color:var(--green)}.tag{display:inline-block;font-size:.64rem;font-weight:900;letter-spacing:.15em;background:var(--green);color:#041108;border-radius:999px;padding:6px 9px}.tool-links{display:grid;gap:9px;margin-top:22px}.tool-links a{border-top:1px solid var(--line);padding-top:11px;color:#ccebd5}.tool-links a:hover{color:var(--green)}.latest-wrap{padding-top:18px}.latest{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}.latest h2{margin-top:0;font-size:clamp(1.55rem,3vw,2.25rem)}.latest .tag{margin-top:4px;white-space:nowrap}.latest p{margin-bottom:0}.next-lessons{padding-top:70px}.lesson-list{margin-top:18px;border-top:1px solid var(--line)}.lesson-row{display:grid;grid-template-columns:50px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.lesson-row>span{font:700 .7rem ui-monospace,monospace;color:#547060;letter-spacing:.12em}.lesson-row h3{margin:0 0 6px;font-size:1.12rem}.lesson-row p{margin:0;max-width:780px}.lesson-row:hover h3{color:var(--green)}@media(max-width:800px){.school-hero{padding-top:46px}.school-grid{grid-template-columns:1fr}.lesson,.side-card{padding:22px}.latest{grid-template-columns:1fr;gap:12px}.latest .tag{width:max-content}}
 </style>
