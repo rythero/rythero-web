@@ -5,28 +5,12 @@ import PromptBuilder from '../../components/PromptBuilder.astro';
 const copy = {
   eyebrow: 'Rythero Tool 001',
   intro: 'Turn musical decisions into one clean prompt. No sign-up. No filler.',
-  genre: {
-    label: 'Genre',
-    placeholder: 'Search or type a style…',
-    hint: 'Mix up to 4 styles. Open the field and use More ideas if you are not sure where to start.'
-  },
-  mood: {
-    label: 'Mood',
-    placeholder: 'Search or type a mood…',
-    hint: 'Choose up to 3 moods. More ideas rotates through useful starting points.'
-  },
+  genre: { label: 'Genre', placeholder: 'Search or type a style…', hint: 'Mix up to 4 styles. Open the field and use More ideas if you are not sure where to start.' },
+  mood: { label: 'Mood', placeholder: 'Search or type a mood…', hint: 'Choose up to 3 moods. More ideas rotates through useful starting points.' },
   energy: { label: 'Energy', low: 'Low', medium: 'Medium', high: 'High', dynamic: 'Dynamic / evolving' },
   bpmPlaceholder: 'e.g. 118',
-  vocal: {
-    label: 'Vocal',
-    placeholder: 'Search vocal type or character…',
-    hint: 'Start with a voice type, then add character or delivery. Up to 4 choices.'
-  },
-  instruments: {
-    label: 'Instrumentation',
-    placeholder: 'Search instruments or textures…',
-    hint: 'Pick up to 5 elements that should define the arrangement.'
-  },
+  vocal: { label: 'Vocal', placeholder: 'Search vocal type or character…', hint: 'Start with a voice type, then add character or delivery. Up to 4 choices.' },
+  instruments: { label: 'Instrumentation', placeholder: 'Search instruments or textures…', hint: 'Pick up to 5 elements that should define the arrangement.' },
   structureLabel: 'Structure',
   structure: [
     { value: 'Hook-first, verse, chorus, verse, breakdown, final chorus', label: 'Hook-first, verse, chorus, verse, breakdown, final chorus' },
@@ -35,24 +19,15 @@ const copy = {
     { value: 'Intro, build, drop, breakdown, second drop, outro', label: 'Intro, build, drop, breakdown, second drop, outro' },
     { value: 'Custom / flexible structure', label: 'Custom / flexible structure' }
   ],
-  production: {
-    label: 'Production',
-    placeholder: 'Search production traits…',
-    hint: 'Choose up to 4 traits for mix, space, punch, texture or dynamics.'
-  },
-  exclude: {
-    label: 'Exclude',
-    placeholder: 'Search or type what to avoid…',
-    hint: 'Optional. Use this for things you clearly do not want in the result.'
-  },
-  generate: 'Generate prompt',
-  reset: 'Reset',
-  copy: 'Copy',
-  outputEmpty: 'Your prompt will appear here.',
-  outputNote: ''
+  production: { label: 'Production', placeholder: 'Search production traits…', hint: 'Choose up to 4 traits for mix, space, punch, texture or dynamics.' },
+  exclude: { label: 'Exclude', placeholder: 'Search or type what to avoid…', hint: 'Optional. Use this for things you clearly do not want in the result.' },
+  generate: 'Generate prompt', reset: 'Reset', copy: 'Copy', outputEmpty: 'Your prompt will appear here.', outputNote: ''
 };
 ---
 <Base title="Rythero Prompt Builder — Build better music prompts" description="Build a clear, structured music-generation prompt from genre, mood, energy, vocals, instrumentation and song structure." canonical="/tools/prompt-builder">
   <PromptBuilder copy={copy} />
   <script is:inline src="/prompt-builder-ux.js"></script>
+  <style is:global>
+    .builder .field>input,.builder .field>select,.builder .smart-combobox{background:#f3f1e9!important;color:#132018!important;border-color:#aebbb2!important;color-scheme:light}.builder .smart-combobox [data-search]{color:#132018!important}.builder input::placeholder,.builder .smart-combobox [data-search]::placeholder{color:#66736b!important;opacity:1}.builder .field>input:focus,.builder .field>select:focus,.builder .smart-combobox:focus-within{background:#fffef9!important;border-color:#66ff8c!important;box-shadow:0 0 0 3px rgba(102,255,140,.18)!important}.builder .smart-chip{background:#163421!important;color:#eaffef!important;border-color:#2e6640!important}
+  </style>
 </Base>
