@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "rythero-web",
   "compatibility_date": "2026-09-15",
-  "main": "./worker/index.js",
+  "main": "./worker/security.js",
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
