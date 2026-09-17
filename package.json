@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "validate:site": "node scripts/validate-build.mjs",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
