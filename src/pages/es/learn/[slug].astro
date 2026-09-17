@@ -1,10 +1,14 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import PracticalLessonArticle from '../../../components/PracticalLessonArticle.astro';
-import { practicalLessons, practicalLessonSlugs } from '../../../data/practicalLessons.js';
+import { practicalLessons } from '../../../data/practicalLessons.js';
+import { advancedLessons } from '../../../data/advancedLessons.js';
+
+const lessonMap = { ...practicalLessons, ...advancedLessons };
+const lessonSlugs = Object.keys(lessonMap);
 
 export function getStaticPaths() {
-  return practicalLessonSlugs.map((slug) => ({ params: { slug }, props: { lesson: practicalLessons[slug], slug } }));
+  return lessonSlugs.map((slug) => ({ params: { slug }, props: { lesson: lessonMap[slug], slug } }));
 }
 
 const { lesson, slug } = Astro.props;
