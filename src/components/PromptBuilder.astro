@@ -3,7 +3,7 @@ const { copy } = Astro.props;
 ---
 <section class="shell tool-hero">
   <div class="eyebrow">{copy.eyebrow}</div>
-  <h1>Prompt Builder</h1>
+  <h1>{copy.eyebrow.includes('Generador de prompts') ? 'Generador de prompts' : copy.eyebrow.includes('Gerador de prompts') ? 'Gerador de prompts' : 'Prompt Builder'}</h1>
   <p class="muted intro">{copy.intro}</p>
 </section>
 
