@@ -1,4 +1,6 @@
 ---
+import { practicalLessons } from '../data/practicalLessons.js';
+
 const { lang = 'en' } = Astro.props;
 const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
 const base = locale === 'en' ? '' : `/${locale}`;
@@ -61,6 +63,11 @@ const t = {
     studio:'Abrir Rythero Studio', prompt:'Abrir Gerador de prompts'
   }
 }[locale];
+
+const practicalItems = Object.entries(practicalLessons)
+  .sort(([,a],[,b]) => a.order - b.order)
+  .map(([slug, lesson]) => [lesson[locale].title, lesson[locale].description, slug]);
+const allItems = [...t.items, ...practicalItems];
 ---
 <section class="shell school-hero">
   <div class="eyebrow">{t.eyebrow}</div>
@@ -97,7 +104,7 @@ const t = {
 <section class="shell section next-lessons">
   <div class="eyebrow">{t.more}</div>
   <div class="lesson-list">
-    {t.items.map(([title, text, slug], i) => <a class="lesson-row" href={`${base}/learn/${slug}`}><span>{String(i+3).padStart(2,'0')}</span><div><h3>{title}</h3><p class="muted">{text}</p></div></a>)}
+    {allItems.map(([title, text, slug], i) => <a class="lesson-row" href={`${base}/learn/${slug}`}><span>{String(i+3).padStart(2,'0')}</span><div><h3>{title}</h3><p class="muted">{text}</p></div></a>)}
   </div>
 </section>
 
