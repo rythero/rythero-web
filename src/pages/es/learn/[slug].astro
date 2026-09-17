@@ -3,8 +3,9 @@ import Base from '../../../layouts/Base.astro';
 import PracticalLessonArticle from '../../../components/PracticalLessonArticle.astro';
 import { practicalLessons } from '../../../data/practicalLessons.js';
 import { advancedLessons } from '../../../data/advancedLessons.js';
+import { platformGuides } from '../../../data/platformGuides.js';
 
-const lessonMap = { ...practicalLessons, ...advancedLessons };
+const lessonMap = { ...practicalLessons, ...advancedLessons, ...platformGuides };
 const lessonSlugs = Object.keys(lessonMap);
 
 export function getStaticPaths() {
