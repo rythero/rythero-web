@@ -1,6 +1,7 @@
 ---
 import { practicalLessons } from '../data/practicalLessons.js';
 import { advancedLessons } from '../data/advancedLessons.js';
+import { platformGuides } from '../data/platformGuides.js';
 
 const { lang = 'en' } = Astro.props;
 const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
@@ -65,7 +66,7 @@ const t = {
   }
 }[locale];
 
-const expandedItems = Object.entries({ ...practicalLessons, ...advancedLessons })
+const expandedItems = Object.entries({ ...practicalLessons, ...advancedLessons, ...platformGuides })
   .sort(([,a],[,b]) => a.order - b.order)
   .map(([slug, lesson]) => [lesson[locale].title, lesson[locale].description, slug]);
 const allItems = [...t.items, ...expandedItems];
