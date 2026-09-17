@@ -3,7 +3,8 @@ const {
   lang = 'en',
   title = 'Rythero — Create music. Build your sound.',
   description = 'Rythero is an independent web platform with practical tools and learning resources for AI-assisted music creation.',
-  canonical = Astro.url.pathname
+  canonical = Astro.url.pathname,
+  robots = 'index,follow,max-image-preview:large'
 } = Astro.props;
 
 const supported = ['en', 'es', 'pt-br'];
@@ -16,8 +17,8 @@ const logoUrl = new URL('/rythero-mark.svg', siteRoot).toString();
 
 const ui = {
   en: {tools:'Studio',learn:'School',guides:'Prompt Builder',start:'Open Studio',privacy:'Privacy',cookies:'Cookies',choices:'Cookie choices',tagline:'Create music. Build your sound.',nav:'Primary navigation',language:'Language',analyticsLabel:'Analytics preferences',analyticsStrong:'Optional analytics.',analyticsText:'Google Analytics stays off until you choose. We use it only to understand usage and improve Rythero.',details:'Cookie details',reject:'Reject',accept:'Accept'},
-  es: {tools:'Studio',learn:'Escuela',guides:'Prompt Builder',start:'Abrir Studio',privacy:'Privacidad',cookies:'Cookies',choices:'Preferencias de cookies',tagline:'Crea música. Construye tu sonido.',nav:'Navegación principal',language:'Idioma',analyticsLabel:'Preferencias de analítica',analyticsStrong:'Analítica opcional.',analyticsText:'Google Analytics permanece desactivado hasta que elijas. Solo lo usamos para entender el uso y mejorar Rythero.',details:'Detalles de cookies',reject:'Rechazar',accept:'Aceptar'},
-  'pt-br': {tools:'Studio',learn:'Escola',guides:'Prompt Builder',start:'Abrir Studio',privacy:'Privacidade',cookies:'Cookies',choices:'Preferências de cookies',tagline:'Crie música. Construa seu som.',nav:'Navegação principal',language:'Idioma',analyticsLabel:'Preferências de análise',analyticsStrong:'Análise opcional.',analyticsText:'O Google Analytics permanece desativado até você escolher. Usamos apenas para entender o uso e melhorar o Rythero.',details:'Detalhes de cookies',reject:'Rejeitar',accept:'Aceitar'}
+  es: {tools:'Studio',learn:'Escuela',guides:'Generador de prompts',start:'Abrir Studio',privacy:'Privacidad',cookies:'Cookies',choices:'Preferencias de cookies',tagline:'Crea música. Construye tu sonido.',nav:'Navegación principal',language:'Idioma',analyticsLabel:'Preferencias de analítica',analyticsStrong:'Analítica opcional.',analyticsText:'Google Analytics permanece desactivado hasta que elijas. Solo lo usamos para entender el uso y mejorar Rythero.',details:'Detalles de cookies',reject:'Rechazar',accept:'Aceptar'},
+  'pt-br': {tools:'Studio',learn:'Escola',guides:'Gerador de prompts',start:'Abrir Studio',privacy:'Privacidade',cookies:'Cookies',choices:'Preferências de cookies',tagline:'Crie música. Construa seu som.',nav:'Navegação principal',language:'Idioma',analyticsLabel:'Preferências de análise',analyticsStrong:'Análise opcional.',analyticsText:'O Google Analytics permanece desativado até você escolher. Usamos apenas para entender o uso e melhorar o Rythero.',details:'Detalhes de cookies',reject:'Rejeitar',accept:'Aceitar'}
 }[locale];
 const currentPath = Astro.url.pathname;
 const basePath = currentPath.replace(/^\/(es|pt-br)(?=\/|$)/, '') || '/';
@@ -29,7 +30,7 @@ const graph={'@context':'https://schema.org','@graph':[{'@type':'Organization','
 const flags = locale==='en' ? [{code:'es',icon:'🇪🇸',label:'Español'},{code:'pt-br',icon:'🇧🇷',label:'Português do Brasil'}] : locale==='es' ? [{code:'en',icon:'🇺🇸',label:'English'},{code:'pt-br',icon:'🇧🇷',label:'Português do Brasil'}] : [{code:'en',icon:'🇺🇸',label:'English'},{code:'es',icon:'🇪🇸',label:'Español'}];
 ---
 <!doctype html><html lang={htmlLang}><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="theme-color" content="#07110d"/><meta name="description" content={description}/><meta name="robots" content="index,follow,max-image-preview:large"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="theme-color" content="#07110d"/><meta name="description" content={description}/><meta name="robots" content={robots}/>
 <link rel="canonical" href={canonicalUrl}/><link rel="alternate" hreflang="en" href={alternateUrls.en}/><link rel="alternate" hreflang="es" href={alternateUrls.es}/><link rel="alternate" hreflang="pt-BR" href={alternateUrls['pt-br']}/><link rel="alternate" hreflang="x-default" href={alternateUrls.en}/><link rel="icon" href="/rythero-mark.svg" type="image/svg+xml"/>
 <meta property="og:type" content="website"/><meta property="og:site_name" content="Rythero"/><meta property="og:locale" content={ogLocale}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonicalUrl}/><meta property="og:image" content={ogImageUrl}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Rythero — Create music. Build your sound."/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={ogImageUrl}/>
 <script type="application/ld+json" set:html={JSON.stringify(graph)}></script><title>{title}</title>
