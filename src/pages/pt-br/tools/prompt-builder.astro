@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import PromptBuilder from '../../../components/PromptBuilder.astro';
 
 const copy = {
-  eyebrow: 'Ferramenta Rythero 001', intro: 'Transforme decisões musicais em um prompt claro. Sem cadastro. Sem enrolação.',
+  eyebrow: 'Ferramenta Rythero 001 · Gerador de prompts', intro: 'Transforme decisões musicais em um prompt claro. Sem cadastro. Sem enrolação.',
   genre: { label: 'Gênero', placeholder: 'Busque ou digite um estilo…', hint: 'Misture até 4 estilos. Use Mais ideias se não souber por onde começar.' },
   mood: { label: 'Clima', placeholder: 'Busque ou digite um mood…', hint: 'Escolha até 3 climas. Mais ideias mostra novos pontos de partida.' },
   energy: { label: 'Energia', low: 'Baixa', medium: 'Média', high: 'Alta', dynamic: 'Dinâmica / evolutiva' }, bpmPlaceholder: 'ex. 118',
@@ -18,10 +18,10 @@ const copy = {
   ],
   production: { label: 'Produção', placeholder: 'Busque características de produção…', hint: 'Escolha até 4 características de mix, espaço, impacto, textura ou dinâmica.' },
   exclude: { label: 'Excluir', placeholder: 'Busque ou digite o que evitar…', hint: 'Opcional. Use apenas para coisas que você claramente não quer no resultado.' },
-  generate: 'Gerar prompt', reset: 'Reiniciar', copy: 'Copiar', outputEmpty: 'Seu prompt aparecerá aqui.', outputNote: 'O OUTPUT é gerado em inglês para manter a máxima compatibilidade com os geradores de música.'
+  generate: 'Gerar prompt', reset: 'Reiniciar', copy: 'Copiar', outputEmpty: 'Seu prompt aparecerá aqui.', outputNote: 'O resultado é gerado em inglês para manter a máxima compatibilidade com os geradores de música.'
 };
 ---
-<Base lang="pt-br" title="Rythero Prompt Builder — Crie prompts musicais melhores" description="Crie um prompt musical claro a partir de gênero, clima, energia, voz, instrumentação, estrutura e produção." canonical="/pt-br/tools/prompt-builder">
+<Base lang="pt-br" title="Gerador de prompts musicais — Rythero" description="Crie um prompt musical claro a partir de gênero, clima, energia, voz, instrumentação, estrutura e produção." canonical="/pt-br/tools/prompt-builder">
   <PromptBuilder copy={copy} />
   <script is:inline src="/prompt-builder-ux.js"></script>
   <style is:global>
