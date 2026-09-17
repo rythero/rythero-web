@@ -1,0 +1,51 @@
+---
+const { lesson, lang = 'en' } = Astro.props;
+const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
+const t = lesson[locale];
+const base = locale === 'en' ? '' : `/${locale}`;
+const schoolHref = `${base}/learn`;
+const studioHref = `${base}/tools/song-studio`;
+const promptHref = `${base}/tools/prompt-builder`;
+const signatureHref = `${base}/tools/signature-lab`;
+const labels = {
+  en:{quick:'Quick answer',practice:'Put it into practice',school:'All lessons',sources:'Sources & further reading',updated:'Updated September 2026',openStudio:'Open Studio',openPrompt:'Open Prompt Builder',openSignature:'Open Signature Lab',check:'Practical checklist'},
+  es:{quick:'Respuesta rápida',practice:'Ponlo en práctica',school:'Todas las lecciones',sources:'Fuentes y lecturas',updated:'Actualizado en septiembre de 2026',openStudio:'Abrir Studio',openPrompt:'Abrir Prompt Builder',openSignature:'Abrir Signature Lab',check:'Lista práctica'},
+  'pt-br':{quick:'Resposta rápida',practice:'Coloque em prática',school:'Todas as aulas',sources:'Fontes e leituras',updated:'Atualizado em setembro de 2026',openStudio:'Abrir Studio',openPrompt:'Abrir Prompt Builder',openSignature:'Abrir Signature Lab',check:'Checklist prático'}
+}[locale];
+const toolHref = lesson.tool === 'signature' ? signatureHref : lesson.tool === 'prompt' ? promptHref : studioHref;
+const toolLabel = lesson.tool === 'signature' ? labels.openSignature : lesson.tool === 'prompt' ? labels.openPrompt : labels.openStudio;
+---
+<article class="shell v2-lesson">
+  <header class="lesson-hero">
+    <div class="eyebrow">{t.eyebrow}</div>
+    <h1>{t.title}</h1>
+    <p class="dek">{t.dek}</p>
+  </header>
+
+  <section class="quick-card"><div class="eyebrow">{labels.quick}</div><p>{t.quick}</p></section>
+
+  <div class="lesson-body">
+    {t.sections.map(section => <section class="lesson-section">
+      <h2>{section.title}</h2>
+      {section.paragraphs?.map(p => <p>{p}</p>)}
+      {section.bullets && <ul>{section.bullets.map(item => <li>{item}</li>)}</ul>}
+      {section.steps && <ol>{section.steps.map(item => <li>{item}</li>)}</ol>}
+      {section.example && <div class="example"><span>{section.example.label}</span><p>{section.example.text}</p></div>}
+    </section>)}
+
+    {t.checklist && <section class="check-card"><div class="eyebrow">{labels.check}</div><ul>{t.checklist.map(item => <li>{item}</li>)}</ul></section>}
+
+    <section class="takeaway"><div class="eyebrow">{t.takeawayTitle}</div><p>{t.takeaway}</p></section>
+
+    <section class="tool-card"><div><div class="eyebrow">{labels.practice}</div><h2>{t.ctaText}</h2></div><a class="pill primary" href={toolHref}>{toolLabel}</a></section>
+
+    {t.faqs?.length > 0 && <section class="faq"><div class="eyebrow">FAQ</div><div class="faq-list">{t.faqs.map(([q,a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div></section>}
+
+    {t.sources?.length > 0 && <section class="sources"><div class="eyebrow">{labels.sources}</div><ul>{t.sources.map(([label,url]) => <li><a href={url} rel="nofollow noopener noreferrer">{label} ↗</a></li>)}</ul><p>{labels.updated}</p></section>}
+
+    <nav class="lesson-nav"><a href={schoolHref}>← {labels.school}</a>{lesson.next && <a href={`${base}/learn/${lesson.next}`}>{t.nextLabel} →</a>}</nav>
+  </div>
+</article>
+<style>
+.v2-lesson{max-width:980px;padding-bottom:90px}.lesson-hero{padding:72px 0 34px}.lesson-hero h1{font-size:clamp(3rem,7vw,6.1rem);line-height:.93;letter-spacing:-.06em;margin:14px 0 24px;max-width:950px}.dek{font-size:clamp(1.08rem,2vw,1.3rem);line-height:1.65;color:var(--muted);max-width:820px}.quick-card{border:1px solid rgba(102,255,140,.25);background:linear-gradient(145deg,#0c1810,#08100b);border-radius:24px;padding:25px 28px;margin:10px 0 50px}.quick-card p{font-size:1.12rem;line-height:1.72;margin:12px 0 0}.lesson-body{max-width:820px}.lesson-section{padding:34px 0;border-top:1px solid var(--line)}.lesson-section h2{font-size:clamp(1.7rem,3.5vw,2.55rem);line-height:1.05;letter-spacing:-.035em;margin:0 0 18px}.lesson-section p,.lesson-section li{font-size:1.04rem;line-height:1.78;color:#c5cec8}.lesson-section p{margin:0 0 16px}.lesson-section ul,.lesson-section ol{padding-left:23px}.lesson-section li{margin:9px 0}.example{border:1px solid #31583d;border-radius:18px;padding:18px;background:#0a130d;margin-top:22px}.example span{display:block;color:var(--green);font-size:.68rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase}.example p{margin:8px 0 0}.check-card{border:1px solid var(--line);border-radius:22px;background:#090f0b;padding:23px 25px;margin:20px 0 38px}.check-card ul{margin:13px 0 0;padding-left:22px}.check-card li{color:#c6d0ca;line-height:1.7;margin:7px 0}.takeaway{margin:28px 0 48px;padding:24px 26px;border-left:3px solid var(--green);background:#09100c;border-radius:0 18px 18px 0}.takeaway p{font-size:1.12rem;line-height:1.7;margin:10px 0 0}.tool-card{border:1px solid var(--line);border-radius:24px;padding:25px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;background:linear-gradient(145deg,#0d1611,#080d0a);margin:40px 0 52px}.tool-card h2{font-size:1.15rem;line-height:1.55;margin:9px 0 0;font-weight:600;color:#c8d2cb}.faq-list{margin-top:14px;border-top:1px solid var(--line)}.faq details{border-bottom:1px solid var(--line);padding:16px 0}.faq summary{cursor:pointer;font-weight:750}.faq p{color:var(--muted);line-height:1.7}.sources{padding:46px 0 22px}.sources ul{list-style:none;padding:0}.sources li{margin:8px 0}.sources a{color:#9bdbaa;text-decoration:underline;text-underline-offset:3px}.sources p{color:#6f7c74;font-size:.82rem}.lesson-nav{display:flex;justify-content:space-between;gap:20px;padding-top:26px;border-top:1px solid var(--line);font-weight:750;color:#a9bbb0}.lesson-nav a:hover{color:var(--green)}@media(max-width:720px){.lesson-hero{padding-top:46px}.quick-card{padding:21px}.tool-card{grid-template-columns:1fr}.tool-card .pill{justify-self:start}.lesson-nav{flex-direction:column}}
+</style>

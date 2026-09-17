@@ -1,0 +1,34 @@
+name: Validate Rythero 2.0
+
+on:
+  push:
+    branches:
+      - rythero-2-0-big-update-2026-09-17
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install
+      - name: Build static site
+        run: npm run build
+      - name: Verify critical output
+        run: |
+          test -f dist/index.html
+          test -f dist/es/index.html
+          test -f dist/pt-br/index.html
+          test -f dist/learn/first-song-workflow/index.html -o -f dist/learn/first-song-workflow.html
+          test -f dist/learn/ai-music-generators-2026/index.html -o -f dist/learn/ai-music-generators-2026.html
+          test -f dist/rythero-mark.svg
+          test -f dist/sitemap.xml

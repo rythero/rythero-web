@@ -1,106 +1,39 @@
 ---
+import { lessonsV2 } from '../data/lessons-v2.js';
 const { lang = 'en' } = Astro.props;
 const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
 const base = locale === 'en' ? '' : `/${locale}`;
+const bySlug = Object.fromEntries(lessonsV2.map(l => [l.slug, l]));
 const t = {
-  en: {
-    eyebrow:'AI MUSIC CREATOR SCHOOL',
-    title:'Start from zero. Learn to build a song.',
-    intro:'Simple, complete lessons for people creating with generative music tools. Learn only what you need, understand why it matters, and apply it immediately inside Rythero.',
-    published:'PUBLISHED LESSONS',
-    featured:'START HERE', read:'Read lesson →',
-    lessonTitle:'AI Music Prompts: a producer’s framework for better songs',
-    lessonText:'Learn how genre, mood, tempo, voice, instrumentation, structure and production work together — and why stacking adjectives usually produces generic results.',
-    new:'NEW · LESSON 02', lesson2Title:'Song structure for AI music: hooks, verses, choruses and transitions explained simply',
-    lesson2Text:'Understand what each section does, how 4/8/16-bar thinking helps, how to create contrast and how to give an AI generator a useful arrangement map without overcomplicating it.',
-    more:'More lessons',
-    items:[
-      ['Style DNA without artist imitation','Describe a sound by groove, texture, harmony, voice and production instead of copying a named artist.','style-dna'],
-      ['BPM, key and energy','Choose tempo and tonal direction without turning the prompt into a spreadsheet.','bpm-key-energy'],
-      ['Suno v6: what changed','A practical September 2026 guide to v6, v6-wild and v6-mini, with official Suno references.','suno-v6']
-    ],
-    tools:'Learn and build at the same time', toolsText:'The school explains the decisions. Rythero Studio and Prompt Builder let you apply them immediately, even if you have never made music before.',
-    studio:'Open Rythero Studio', prompt:'Open Prompt Builder'
-  },
-  es: {
-    eyebrow:'ESCUELA DE CREADORES · AI MUSIC',
-    title:'Empieza desde cero. Aprende a construir una canción.',
-    intro:'Lecciones sencillas y completas para crear música con herramientas generativas. Aprende solo lo necesario, entiende por qué importa y aplícalo inmediatamente dentro de Rythero.',
-    published:'LECCIONES PUBLICADAS',
-    featured:'EMPIEZA AQUÍ', read:'Leer lección →',
-    lessonTitle:'Prompts para música con IA: un método de productor para mejores canciones',
-    lessonText:'Aprende cómo trabajan juntos género, estado de ánimo, tempo, voz, instrumentación, estructura y producción, y por qué acumular adjetivos suele dar resultados genéricos.',
-    new:'NUEVA · LECCIÓN 02', lesson2Title:'Estructura de una canción con IA: hook, verso, estribillo y transiciones explicados fácil',
-    lesson2Text:'Entiende para qué sirve cada parte, cómo ayudan los bloques de 4/8/16 compases, cómo crear contraste y cómo dar al generador un mapa de arreglo útil sin complicarlo.',
-    more:'Más lecciones',
-    items:[
-      ['Style DNA sin imitar artistas','Describe un sonido por groove, textura, armonía, voz y producción en lugar de copiar a un artista.','style-dna'],
-      ['BPM, tonalidad y energía','Elige tempo y dirección tonal sin convertir el prompt en una hoja de cálculo.','bpm-key-energy'],
-      ['Suno v6: qué ha cambiado','Guía práctica de septiembre de 2026 sobre v6, v6-wild y v6-mini, con fuentes oficiales de Suno.','suno-v6']
-    ],
-    tools:'Aprende y crea al mismo tiempo', toolsText:'La escuela explica las decisiones. Rythero Studio y Prompt Builder te ayudan a aplicarlas en el momento, aunque nunca hayas hecho música.',
-    studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder'
-  },
-  'pt-br': {
-    eyebrow:'ESCOLA DE CRIADORES · AI MUSIC',
-    title:'Comece do zero. Aprenda a construir uma música.',
-    intro:'Aulas simples e completas para criar música com ferramentas generativas. Aprenda apenas o necessário, entenda por que importa e aplique tudo imediatamente dentro do Rythero.',
-    published:'AULAS PUBLICADAS',
-    featured:'COMECE AQUI', read:'Ler aula →',
-    lessonTitle:'Prompts para música com IA: um método de produtor para músicas melhores',
-    lessonText:'Entenda como gênero, clima, tempo, voz, instrumentação, estrutura e produção trabalham juntos — e por que empilhar adjetivos costuma gerar resultados genéricos.',
-    new:'NOVA · AULA 02', lesson2Title:'Estrutura de música com IA: hook, verso, refrão e transições explicados de forma simples',
-    lesson2Text:'Entenda a função de cada parte, como blocos de 4/8/16 compassos ajudam, como criar contraste e como dar ao gerador um mapa de arranjo útil sem complicar.',
-    more:'Mais aulas',
-    items:[
-      ['Style DNA sem imitar artistas','Descreva um som por groove, textura, harmonia, voz e produção em vez de copiar um artista.','style-dna'],
-      ['BPM, tonalidade e energia','Escolha andamento e direção tonal sem transformar o prompt em uma planilha.','bpm-key-energy'],
-      ['Suno v6: o que mudou','Guia prático de setembro de 2026 sobre v6, v6-wild e v6-mini, com fontes oficiais da Suno.','suno-v6']
-    ],
-    tools:'Aprenda e crie ao mesmo tempo', toolsText:'A escola explica as decisões. Rythero Studio e Prompt Builder ajudam você a aplicar tudo imediatamente, mesmo que nunca tenha criado música.',
-    studio:'Abrir Rythero Studio', prompt:'Abrir Prompt Builder'
-  }
+  en:{eyebrow:'AI MUSIC CREATOR SCHOOL',title:'Start from zero. Fix what comes next.',intro:'One school for two moments: making your first complete song and solving the problems that appear after you already know how to generate music.',startPath:'I am starting from zero',startPathText:'Follow a short path from idea → structure → lyrics → first complete draft.',improvePath:'I already make music',improvePathText:'Go straight to repetition, groove, vocals, prompts, arrangement and finishing.',start:'START HERE · FIRST SONG',startIntro:'Learn the minimum you need to finish, not a dictionary of production terms.',improve:'IMPROVE · SOLVE REAL PROBLEMS',improveIntro:'Use these when your songs are technically generated but still do not feel finished or distinct.',tools:'TOOLS · REFERENCES · RELEASE',toolsIntro:'Choose generators more carefully, use reference audio responsibly and check the practical rights chain before publishing.',read:'Read →',studio:'Open Rythero Studio',prompt:'Open Prompt Builder',toolBox:'Learn, then do it immediately',toolText:'The school explains the decision. Rythero tools help you apply it without turning the process into a technical course.',toolsHeading:'Choose, compare and release with more context.'},
+  es:{eyebrow:'ESCUELA DE CREADORES · AI MUSIC',title:'Empieza desde cero. Soluciona lo que viene después.',intro:'Una escuela para dos momentos: crear tu primera canción completa y resolver los problemas que aparecen cuando ya sabes generar música.',startPath:'Empiezo desde cero',startPathText:'Sigue un camino corto desde idea → estructura → letra → primer borrador completo.',improvePath:'Ya hago música',improvePathText:'Ve directamente a repetición, groove, voces, prompts, arreglo y acabado.',start:'EMPIEZA AQUÍ · PRIMERA CANCIÓN',startIntro:'Aprende lo mínimo que necesitas para terminar, no un diccionario de producción.',improve:'MEJORA · SOLUCIONA PROBLEMAS REALES',improveIntro:'Úsalas cuando ya consigues canciones, pero todavía no suenan terminadas o diferentes entre sí.',tools:'HERRAMIENTAS · REFERENCIAS · PUBLICACIÓN',toolsIntro:'Elige mejor el generador, usa referencias con criterio y revisa la cadena práctica de derechos antes de publicar.',read:'Leer →',studio:'Abrir Rythero Studio',prompt:'Abrir Prompt Builder',toolBox:'Aprende y aplícalo en el momento',toolText:'La escuela explica la decisión. Las herramientas de Rythero te ayudan a aplicarla sin convertir el proceso en un curso técnico.',toolsHeading:'Elige, compara y publica con más criterio.'},
+  'pt-br':{eyebrow:'ESCOLA DE CRIADORES · AI MUSIC',title:'Comece do zero. Resolva o que vem depois.',intro:'Uma escola para dois momentos: fazer sua primeira música completa e resolver os problemas que aparecem quando você já sabe gerar música.',startPath:'Estou começando do zero',startPathText:'Siga um caminho curto: ideia → estrutura → letra → primeiro rascunho completo.',improvePath:'Eu já faço música',improvePathText:'Vá direto para repetição, groove, vozes, prompts, arranjo e acabamento.',start:'COMECE AQUI · PRIMEIRA MÚSICA',startIntro:'Aprenda o mínimo necessário para terminar, não um dicionário de produção.',improve:'MELHORE · RESOLVA PROBLEMAS REAIS',improveIntro:'Use quando você já consegue gerar músicas, mas elas ainda não parecem prontas ou diferentes entre si.',tools:'FERRAMENTAS · REFERÊNCIAS · LANÇAMENTO',toolsIntro:'Escolha melhor o gerador, use referências com responsabilidade e confira a cadeia prática de direitos antes de publicar.',read:'Ler →',studio:'Abrir Rythero Studio',prompt:'Abrir Prompt Builder',toolBox:'Aprenda e aplique na hora',toolText:'A escola explica a decisão. As ferramentas do Rythero ajudam você a aplicar sem transformar o processo em curso técnico.',toolsHeading:'Escolha, compare e lance com mais critério.'}
 }[locale];
+const existing = {
+  prompts:{number:'01',slug:'ai-music-prompts',en:['AI Music Prompts: a producer’s framework for better songs','Build prompts from musical decisions instead of adjective piles.'],es:['Prompts para música con IA: un método de productor para mejores canciones','Construye prompts desde decisiones musicales en vez de acumular adjetivos.'],'pt-br':['Prompts para música com IA: um método de produtor','Monte prompts com decisões musicais em vez de empilhar adjetivos.']},
+  structure:{number:'02',slug:'ai-song-structure',en:['Song structure: hooks, verses, choruses and transitions','Understand what each section must do and how contrast keeps attention.'],es:['Estructura: hook, versos, estribillos y transiciones','Entiende qué debe hacer cada sección y cómo el contraste mantiene la atención.'],'pt-br':['Estrutura: hook, versos, refrões e transições','Entenda a função de cada seção e como o contraste mantém a atenção.']},
+  style:{number:'03',slug:'style-dna',en:['Style DNA without artist imitation','Build a reusable identity from groove, texture, harmony, voice and production.'],es:['Style DNA sin imitar artistas','Construye una identidad reutilizable desde groove, textura, armonía, voz y producción.'],'pt-br':['Style DNA sem imitar artistas','Crie uma identidade reutilizável com groove, textura, harmonia, voz e produção.']},
+  bpm:{number:'04',slug:'bpm-key-energy',en:['BPM, key and energy','Use tempo, tonal direction and energy without turning the prompt into a spreadsheet.'],es:['BPM, tonalidad y energía','Usa tempo, dirección tonal y energía sin convertir el prompt en una hoja de cálculo.'],'pt-br':['BPM, tonalidade e energia','Use andamento, direção tonal e energia sem transformar o prompt em planilha.']},
+  suno:{number:'05',slug:'suno-v6',en:['Suno v6: what changed','A practical guide to the current v6 family and its creation workflow.'],es:['Suno v6: qué ha cambiado','Guía práctica de la familia v6 actual y su flujo de creación.'],'pt-br':['Suno v6: o que mudou','Guia prático da família v6 atual e do fluxo de criação.']}
+};
+const item = (obj) => ({number:obj.number,slug:obj.slug,title:obj[locale][0],text:obj[locale][1]});
+const v2 = (slug) => { const l=bySlug[slug]; return {number:l.number,slug,title:l[locale].title,text:l[locale].dek}; };
+const startItems=[v2('first-song-workflow'),item(existing.prompts),item(existing.structure),v2('lyrics-that-sing')];
+const improveItems=[item(existing.style),item(existing.bpm),v2('pocket-groove-evolution'),v2('stop-songs-sounding-the-same'),v2('vocal-direction-pronunciation'),v2('prompt-debugging'),v2('finish-ai-song')];
+const toolItems=[item(existing.suno),v2('ai-music-generators-2026'),v2('reference-audio-workflow'),v2('rights-release-checklist')];
+const LessonList = ({items}) => <div class="lesson-list">{items.map(x=><a class="lesson-row" href={`${base}/learn/${x.slug}`}><span>{x.number}</span><div><h3>{x.title}</h3><p>{x.text}</p><strong>{t.read}</strong></div></a>)}</div>;
 ---
 <section class="shell school-hero">
-  <div class="eyebrow">{t.eyebrow}</div>
-  <h1>{t.title}</h1>
-  <p class="muted lead">{t.intro}</p>
-</section>
-
-<section class="shell published-label"><div class="eyebrow">{t.published}</div></section>
-
-<section class="shell school-grid">
-  <a class="lesson featured" href={`${base}/learn/ai-music-prompts`}>
-    <span class="tag">{t.featured}</span>
-    <h2>{t.lessonTitle}</h2>
-    <p>{t.lessonText}</p>
-    <strong>{t.read}</strong>
-  </a>
-  <aside class="side-card">
-    <div class="eyebrow">{t.tools}</div>
-    <p>{t.toolsText}</p>
-    <div class="tool-links">
-      <a href={`${base}/tools/song-studio`}>{t.studio} →</a>
-      <a href={`${base}/tools/prompt-builder`}>{t.prompt} →</a>
-    </div>
-  </aside>
-</section>
-
-<section class="shell latest-wrap">
-  <a class="lesson latest" href={`${base}/learn/ai-song-structure`}>
-    <span class="tag">{t.new}</span>
-    <div><h2>{t.lesson2Title}</h2><p>{t.lesson2Text}</p><strong>{t.read}</strong></div>
-  </a>
-</section>
-
-<section class="shell section next-lessons">
-  <div class="eyebrow">{t.more}</div>
-  <div class="lesson-list">
-    {t.items.map(([title, text, slug], i) => <a class="lesson-row" href={`${base}/learn/${slug}`}><span>{String(i+3).padStart(2,'0')}</span><div><h3>{title}</h3><p class="muted">{text}</p></div></a>)}
+  <div class="eyebrow">{t.eyebrow}</div><h1>{t.title}</h1><p>{t.intro}</p>
+  <div class="path-grid">
+    <a href={`${base}/learn/first-song-workflow`}><span>01</span><h2>{t.startPath}</h2><p>{t.startPathText}</p></a>
+    <a href="#improve"><span>02</span><h2>{t.improvePath}</h2><p>{t.improvePathText}</p></a>
   </div>
 </section>
-
+<section class="shell lesson-section" id="start"><div class="section-head"><div><div class="eyebrow">{t.start}</div><h2>{t.startPath}</h2></div><p>{t.startIntro}</p></div><LessonList items={startItems}/></section>
+<section class="shell lesson-section" id="improve"><div class="section-head"><div><div class="eyebrow">{t.improve}</div><h2>{t.improvePath}</h2></div><p>{t.improveIntro}</p></div><LessonList items={improveItems}/></section>
+<section class="shell lesson-section" id="tools-and-release"><div class="section-head"><div><div class="eyebrow">{t.tools}</div><h2>{t.toolsHeading}</h2></div><p>{t.toolsIntro}</p></div><LessonList items={toolItems}/></section>
+<section class="shell tools-strip"><div><div class="eyebrow">{t.toolBox}</div><p>{t.toolText}</p></div><div><a class="pill primary" href={`${base}/tools/song-studio`}>{t.studio}</a><a class="pill" href={`${base}/tools/prompt-builder`}>{t.prompt}</a></div></section>
 <style>
-  .school-hero{padding:76px 0 34px}.school-hero h1{font-size:clamp(3.2rem,7.6vw,6.7rem);letter-spacing:-.06em;line-height:.92;max-width:980px;margin:14px 0 22px}.lead{font-size:clamp(1.05rem,2vw,1.28rem);max-width:790px}.published-label{padding:0 0 14px}.school-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}.lesson,.side-card{border:1px solid var(--line);background:linear-gradient(180deg,#0d1611,#080d0a);border-radius:26px;padding:28px}.lesson.featured{box-shadow:inset 0 0 0 1px rgba(102,255,140,.05)}.lesson:hover{border-color:#356044}.lesson h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.02;letter-spacing:-.04em;margin:15px 0}.lesson p,.side-card p{color:var(--muted);font-size:1.02rem;line-height:1.65}.lesson strong{display:inline-block;margin-top:14px;color:var(--green)}.tag{display:inline-block;font-size:.64rem;font-weight:900;letter-spacing:.15em;background:var(--green);color:#041108;border-radius:999px;padding:6px 9px}.tool-links{display:grid;gap:9px;margin-top:22px}.tool-links a{border-top:1px solid var(--line);padding-top:11px;color:#ccebd5}.tool-links a:hover{color:var(--green)}.latest-wrap{padding-top:18px}.latest{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}.latest h2{margin-top:0;font-size:clamp(1.55rem,3vw,2.25rem)}.latest .tag{margin-top:4px;white-space:nowrap}.latest p{margin-bottom:0}.next-lessons{padding-top:70px}.lesson-list{margin-top:18px;border-top:1px solid var(--line)}.lesson-row{display:grid;grid-template-columns:50px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.lesson-row>span{font:700 .7rem ui-monospace,monospace;color:#547060;letter-spacing:.12em}.lesson-row h3{margin:0 0 6px;font-size:1.12rem}.lesson-row p{margin:0;max-width:780px}.lesson-row:hover h3{color:var(--green)}@media(max-width:800px){.school-hero{padding-top:46px}.school-grid{grid-template-columns:1fr}.lesson,.side-card{padding:22px}.latest{grid-template-columns:1fr;gap:12px}.latest .tag{width:max-content}}
+.school-hero{padding:72px 0 54px}.school-hero>h1{font-size:clamp(3.3rem,8vw,7rem);line-height:.9;letter-spacing:-.065em;margin:14px 0 22px;max-width:1050px}.school-hero>p{font-size:1.15rem;color:var(--muted);max-width:800px;line-height:1.65}.path-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:34px}.path-grid>a{border:1px solid var(--line);border-radius:24px;padding:24px;background:#09100c}.path-grid>a:hover{border-color:#345b40}.path-grid span,.lesson-row>span{font:.7rem ui-monospace,monospace;color:var(--green);letter-spacing:.14em}.path-grid h2{font-size:1.65rem;margin:10px 0 7px}.path-grid p{margin:0;color:var(--muted)}.lesson-section{padding:64px 0}.section-head{display:grid;grid-template-columns:1fr minmax(260px,480px);gap:40px;align-items:end;margin-bottom:20px}.section-head h2{font-size:clamp(2rem,4vw,3.7rem);line-height:.98;letter-spacing:-.045em;margin:9px 0 0}.section-head>p{color:var(--muted);line-height:1.65;margin:0}.lesson-list{border-top:1px solid var(--line)}.lesson-row{display:grid;grid-template-columns:54px 1fr;gap:17px;padding:22px 0;border-bottom:1px solid var(--line)}.lesson-row h3{font-size:1.14rem;margin:0 0 6px}.lesson-row p{color:var(--muted);margin:0;max-width:850px;line-height:1.55}.lesson-row strong{display:inline-block;color:#6f9b7d;font-size:.8rem;margin-top:8px}.lesson-row:hover h3,.lesson-row:hover strong{color:var(--green)}.tools-strip{margin:16px auto 82px;border:1px solid rgba(102,255,140,.18);background:#09110c;border-radius:24px;padding:25px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px}.tools-strip p{color:var(--muted);max-width:690px;margin:8px 0 0}.tools-strip>div:last-child{display:flex;gap:9px;flex-wrap:wrap}@media(max-width:780px){.school-hero{padding-top:46px}.path-grid,.section-head,.tools-strip{grid-template-columns:1fr}.lesson-section{padding:50px 0}.section-head{gap:14px}.lesson-row{grid-template-columns:40px 1fr}.tools-strip>div:last-child{justify-content:flex-start}}
 </style>

@@ -1,0 +1,14 @@
+---
+import Base from '../../../layouts/Base.astro';
+import CreatorLessonV2 from '../../../components/CreatorLessonV2.astro';
+import { lessonsV2 } from '../../../data/lessons-v2.js';
+
+export function getStaticPaths() {
+  return lessonsV2.map((lesson) => ({ params: { slug: lesson.slug }, props: { lesson } }));
+}
+const { lesson } = Astro.props;
+const t = lesson.es;
+---
+<Base lang="es" title={`${t.title} | Rythero`} description={t.dek} canonical={`/es/learn/${lesson.slug}`}>
+  <CreatorLessonV2 lesson={lesson} lang="es" />
+</Base>

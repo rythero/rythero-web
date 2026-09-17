@@ -1,0 +1,87 @@
+---
+const { lang = 'en' } = Astro.props;
+const locale = ['en','es','pt-br'].includes(lang) ? lang : 'en';
+const base = locale === 'en' ? '' : `/${locale}`;
+const t = {
+  en: {
+    eyebrow:'AI-ASSISTED MUSIC CREATION',
+    titleA:'Create music.', titleB:'Build your sound.',
+    intro:'Never made a song? Start here. Already generating music? Fix the problems that keep repeating — weak prompts, flat structure, same-sounding tracks, vocals and arrangement.',
+    first:'Make my first song', improve:'Improve my songs', tools:'Open the tools',
+    noSignup:'No sign-up', local:'Most tools run in your browser', beginner:'Built for beginners and growing creators',
+    choose:'Two ways in', startTitle:'I am starting from zero', startText:'Follow one practical path from idea to a first complete song. Learn only the decisions that matter, then use the tools while you learn.', startCta:'Start the first-song path',
+    fixTitle:'I already make music', fixText:'Stop wasting generations. Diagnose repetition, weak structure, flat energy, vocal problems and prompts that the generator keeps ignoring.', fixCta:'Fix what is not working',
+    toolEyebrow:'TOOLS', toolTitle:'Use the tool you need. Nothing more.', toolIntro:'Plan the whole song in Studio, build a focused prompt, or analyze references and results in Signature Lab.',
+    studioTitle:'Rythero Studio', studioText:'Seven focused modules for concept, prompts, sound identity, arrangement, lyrics, export and local audio analysis.', studioCta:'Open Studio',
+    promptTitle:'Prompt Builder', promptText:'Turn genre, mood, energy, voice, instrumentation, structure and production choices into one clean prompt.', promptCta:'Build a prompt',
+    sigTitle:'Signature Lab', sigText:'Measure audio locally, or choose AI analysis when you want help translating musical traits into a reviewable direction.', sigCta:'Open Signature Lab',
+    school:'CREATOR SCHOOL', schoolTitle:'Learn the problems you actually hit.', schoolText:'Short practical guides for the first song and the difficult songs after it: structure, groove, voice, prompts, references, tools and release checks.', schoolCta:'Enter the school'
+  },
+  es: {
+    eyebrow:'CREACIÓN MUSICAL ASISTIDA POR IA',
+    titleA:'Crea música.', titleB:'Construye tu sonido.',
+    intro:'¿Nunca has hecho una canción? Empieza aquí. ¿Ya generas música? Corrige los problemas que se repiten: prompts débiles, estructura plana, canciones que suenan igual, voces y arreglos.',
+    first:'Quiero hacer mi primera canción', improve:'Quiero mejorar mis canciones', tools:'Abrir las herramientas',
+    noSignup:'Sin registro', local:'La mayoría de herramientas funcionan en tu navegador', beginner:'Para quien empieza y para quien ya está avanzando',
+    choose:'Dos formas de entrar', startTitle:'Empiezo desde cero', startText:'Sigue un camino práctico desde una idea hasta una primera canción completa. Aprende solo las decisiones que importan y usa las herramientas mientras avanzas.', startCta:'Empezar el camino de la primera canción',
+    fixTitle:'Ya hago música', fixText:'Deja de gastar generaciones a ciegas. Detecta repetición, estructura débil, energía plana, problemas de voz y prompts que el generador sigue ignorando.', fixCta:'Solucionar lo que no funciona',
+    toolEyebrow:'HERRAMIENTAS', toolTitle:'Usa solo la herramienta que necesitas.', toolIntro:'Planifica la canción completa en Studio, construye un prompt preciso o analiza referencias y resultados en Signature Lab.',
+    studioTitle:'Rythero Studio', studioText:'Siete módulos para concepto, prompts, identidad sonora, arreglo, letras, exportación y análisis local de audio.', studioCta:'Abrir Studio',
+    promptTitle:'Prompt Builder', promptText:'Convierte género, estado, energía, voz, instrumentación, estructura y producción en un único prompt limpio.', promptCta:'Crear un prompt',
+    sigTitle:'Signature Lab', sigText:'Mide audio localmente o elige análisis con IA cuando necesites traducir rasgos musicales a una dirección que puedas revisar.', sigCta:'Abrir Signature Lab',
+    school:'ESCUELA DE CREADORES', schoolTitle:'Aprende los problemas que aparecen de verdad.', schoolText:'Guías prácticas para la primera canción y para las difíciles que vienen después: estructura, groove, voz, prompts, referencias, herramientas y comprobaciones antes de publicar.', schoolCta:'Entrar en la escuela'
+  },
+  'pt-br': {
+    eyebrow:'CRIAÇÃO MUSICAL ASSISTIDA POR IA',
+    titleA:'Crie música.', titleB:'Construa seu som.',
+    intro:'Nunca fez uma música? Comece aqui. Já gera músicas? Corrija os problemas que continuam voltando: prompts fracos, estrutura sem contraste, faixas parecidas, vozes e arranjo.',
+    first:'Quero fazer minha primeira música', improve:'Quero melhorar minhas músicas', tools:'Abrir as ferramentas',
+    noSignup:'Sem cadastro', local:'A maioria das ferramentas roda no navegador', beginner:'Para iniciantes e criadores em evolução',
+    choose:'Dois caminhos', startTitle:'Estou começando do zero', startText:'Siga um caminho prático da ideia até uma primeira música completa. Aprenda apenas as decisões que importam e use as ferramentas enquanto aprende.', startCta:'Começar o caminho da primeira música',
+    fixTitle:'Eu já faço música', fixText:'Pare de gastar gerações no escuro. Diagnostique repetição, estrutura fraca, energia plana, problemas de voz e prompts que o gerador continua ignorando.', fixCta:'Corrigir o que não funciona',
+    toolEyebrow:'FERRAMENTAS', toolTitle:'Use apenas a ferramenta de que precisa.', toolIntro:'Planeje a música no Studio, monte um prompt focado ou analise referências e resultados no Signature Lab.',
+    studioTitle:'Rythero Studio', studioText:'Sete módulos para conceito, prompts, identidade sonora, arranjo, letra, exportação e análise local de áudio.', studioCta:'Abrir Studio',
+    promptTitle:'Prompt Builder', promptText:'Transforme gênero, clima, energia, voz, instrumentação, estrutura e produção em um prompt limpo.', promptCta:'Criar um prompt',
+    sigTitle:'Signature Lab', sigText:'Meça o áudio localmente ou escolha análise com IA quando quiser traduzir características musicais em uma direção revisável.', sigCta:'Abrir Signature Lab',
+    school:'ESCOLA DE CRIADORES', schoolTitle:'Aprenda os problemas que aparecem de verdade.', schoolText:'Guias práticos para a primeira música e para as difíceis que vêm depois: estrutura, groove, voz, prompts, referências, ferramentas e checagens antes de publicar.', schoolCta:'Entrar na escola'
+  }
+}[locale];
+---
+<section class="shell hero-v2">
+  <div class="eyebrow">{t.eyebrow}</div>
+  <h1>{t.titleA}<br/><span>{t.titleB}</span></h1>
+  <p class="hero-intro">{t.intro}</p>
+  <div class="hero-actions">
+    <a class="pill primary" href={`${base}/learn/first-song-workflow`}>{t.first}</a>
+    <a class="pill" href={`${base}/learn#improve`}>{t.improve}</a>
+  </div>
+  <a class="text-link" href={`${base}/tools/song-studio`}>{t.tools} →</a>
+  <div class="proof-row"><span>{t.noSignup}</span><span>{t.local}</span><span>{t.beginner}</span></div>
+</section>
+
+<section class="shell path-section">
+  <div class="eyebrow">{t.choose}</div>
+  <div class="path-grid">
+    <a class="path-card" href={`${base}/learn/first-song-workflow`}><span>01</span><h2>{t.startTitle}</h2><p>{t.startText}</p><strong>{t.startCta} →</strong></a>
+    <a class="path-card" href={`${base}/learn#improve`}><span>02</span><h2>{t.fixTitle}</h2><p>{t.fixText}</p><strong>{t.fixCta} →</strong></a>
+  </div>
+</section>
+
+<section class="section shell">
+  <div class="eyebrow">{t.toolEyebrow}</div>
+  <div class="section-head"><h2>{t.toolTitle}</h2><p>{t.toolIntro}</p></div>
+  <div class="tool-grid">
+    <a class="tool-card" href={`${base}/tools/song-studio`}><div class="tool-no">01</div><h3>{t.studioTitle}</h3><p>{t.studioText}</p><strong>{t.studioCta} →</strong></a>
+    <a class="tool-card" href={`${base}/tools/prompt-builder`}><div class="tool-no">02</div><h3>{t.promptTitle}</h3><p>{t.promptText}</p><strong>{t.promptCta} →</strong></a>
+    <a class="tool-card" href={`${base}/tools/signature-lab`}><div class="tool-no">03</div><h3>{t.sigTitle}</h3><p>{t.sigText}</p><strong>{t.sigCta} →</strong></a>
+  </div>
+</section>
+
+<section class="shell school-strip">
+  <div><div class="eyebrow">{t.school}</div><h2>{t.schoolTitle}</h2><p>{t.schoolText}</p></div>
+  <a class="pill primary" href={`${base}/learn`}>{t.schoolCta}</a>
+</section>
+
+<style>
+.hero-v2{padding:92px 0 92px;max-width:1080px}.hero-v2 h1{font-size:clamp(4rem,10vw,8.4rem);line-height:.86;letter-spacing:-.07em;margin:18px 0 30px}.hero-v2 h1 span{color:var(--green)}.hero-intro{max-width:850px;font-size:clamp(1.08rem,2.2vw,1.42rem);line-height:1.6;color:var(--muted)}.hero-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:30px}.text-link{display:inline-block;margin-top:18px;color:#93a59a;font-weight:750}.text-link:hover{color:var(--green)}.proof-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px;color:#718078;font-size:.8rem}.proof-row span:before{content:'•';color:var(--green);margin-right:8px}.path-section{padding:20px 0 76px}.path-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.path-card,.tool-card{border:1px solid var(--line);border-radius:24px;background:#09100c;padding:27px;transition:border-color .15s ease,transform .15s ease}.path-card:hover,.tool-card:hover{border-color:#345b40;transform:translateY(-2px)}.path-card>span,.tool-no{font:.7rem ui-monospace,monospace;color:var(--green);letter-spacing:.14em}.path-card h2{font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.02;letter-spacing:-.04em;margin:13px 0}.path-card p,.tool-card p,.section-head p,.school-strip p{color:var(--muted);line-height:1.65}.path-card strong,.tool-card strong{display:inline-block;color:var(--green);margin-top:12px}.section-head{display:flex;justify-content:space-between;gap:40px;align-items:end;margin:10px 0 24px}.section-head h2,.school-strip h2{font-size:clamp(2.2rem,5vw,4.4rem);line-height:.97;letter-spacing:-.05em;margin:8px 0}.section-head p{max-width:500px}.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tool-card h3{font-size:1.45rem;margin:13px 0 7px}.school-strip{margin-top:24px;margin-bottom:88px;border:1px solid rgba(102,255,140,.18);border-radius:28px;background:linear-gradient(135deg,#09140d,#07100a);padding:30px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.school-strip h2{font-size:clamp(2rem,4vw,3.4rem)}.school-strip p{max-width:760px;margin-bottom:0}@media(max-width:800px){.hero-v2{padding:58px 0 64px}.path-grid,.tool-grid{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:18px}.school-strip{grid-template-columns:1fr}.school-strip .pill{justify-self:start}}@media(max-width:420px){.hero-v2 h1{font-size:clamp(3.3rem,17vw,5rem)}.path-card,.tool-card{padding:22px}}
+</style>
