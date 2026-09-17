@@ -21,7 +21,6 @@ const v2 = (slug) => { const l=bySlug[slug]; return {number:l.number,slug,title:
 const startItems=[v2('first-song-workflow'),item(existing.prompts),item(existing.structure),v2('lyrics-that-sing')];
 const improveItems=[item(existing.style),item(existing.bpm),v2('pocket-groove-evolution'),v2('stop-songs-sounding-the-same'),v2('vocal-direction-pronunciation'),v2('prompt-debugging'),v2('finish-ai-song')];
 const toolItems=[item(existing.suno),v2('ai-music-generators-2026'),v2('reference-audio-workflow'),v2('rights-release-checklist')];
-const LessonList = ({items}) => <div class="lesson-list">{items.map(x=><a class="lesson-row" href={`${base}/learn/${x.slug}`}><span>{x.number}</span><div><h3>{x.title}</h3><p>{x.text}</p><strong>{t.read}</strong></div></a>)}</div>;
 ---
 <section class="shell school-hero">
   <div class="eyebrow">{t.eyebrow}</div><h1>{t.title}</h1><p>{t.intro}</p>
@@ -30,9 +29,18 @@ const LessonList = ({items}) => <div class="lesson-list">{items.map(x=><a class=
     <a href="#improve"><span>02</span><h2>{t.improvePath}</h2><p>{t.improvePathText}</p></a>
   </div>
 </section>
-<section class="shell lesson-section" id="start"><div class="section-head"><div><div class="eyebrow">{t.start}</div><h2>{t.startPath}</h2></div><p>{t.startIntro}</p></div><LessonList items={startItems}/></section>
-<section class="shell lesson-section" id="improve"><div class="section-head"><div><div class="eyebrow">{t.improve}</div><h2>{t.improvePath}</h2></div><p>{t.improveIntro}</p></div><LessonList items={improveItems}/></section>
-<section class="shell lesson-section" id="tools-and-release"><div class="section-head"><div><div class="eyebrow">{t.tools}</div><h2>{t.toolsHeading}</h2></div><p>{t.toolsIntro}</p></div><LessonList items={toolItems}/></section>
+<section class="shell lesson-section" id="start">
+  <div class="section-head"><div><div class="eyebrow">{t.start}</div><h2>{t.startPath}</h2></div><p>{t.startIntro}</p></div>
+  <div class="lesson-list">{startItems.map(x=><a class="lesson-row" href={`${base}/learn/${x.slug}`}><span>{x.number}</span><div><h3>{x.title}</h3><p>{x.text}</p><strong>{t.read}</strong></div></a>)}</div>
+</section>
+<section class="shell lesson-section" id="improve">
+  <div class="section-head"><div><div class="eyebrow">{t.improve}</div><h2>{t.improvePath}</h2></div><p>{t.improveIntro}</p></div>
+  <div class="lesson-list">{improveItems.map(x=><a class="lesson-row" href={`${base}/learn/${x.slug}`}><span>{x.number}</span><div><h3>{x.title}</h3><p>{x.text}</p><strong>{t.read}</strong></div></a>)}</div>
+</section>
+<section class="shell lesson-section" id="tools-and-release">
+  <div class="section-head"><div><div class="eyebrow">{t.tools}</div><h2>{t.toolsHeading}</h2></div><p>{t.toolsIntro}</p></div>
+  <div class="lesson-list">{toolItems.map(x=><a class="lesson-row" href={`${base}/learn/${x.slug}`}><span>{x.number}</span><div><h3>{x.title}</h3><p>{x.text}</p><strong>{t.read}</strong></div></a>)}</div>
+</section>
 <section class="shell tools-strip"><div><div class="eyebrow">{t.toolBox}</div><p>{t.toolText}</p></div><div><a class="pill primary" href={`${base}/tools/song-studio`}>{t.studio}</a><a class="pill" href={`${base}/tools/prompt-builder`}>{t.prompt}</a></div></section>
 <style>
 .school-hero{padding:72px 0 54px}.school-hero>h1{font-size:clamp(3.3rem,8vw,7rem);line-height:.9;letter-spacing:-.065em;margin:14px 0 22px;max-width:1050px}.school-hero>p{font-size:1.15rem;color:var(--muted);max-width:800px;line-height:1.65}.path-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:34px}.path-grid>a{border:1px solid var(--line);border-radius:24px;padding:24px;background:#09100c}.path-grid>a:hover{border-color:#345b40}.path-grid span,.lesson-row>span{font:.7rem ui-monospace,monospace;color:var(--green);letter-spacing:.14em}.path-grid h2{font-size:1.65rem;margin:10px 0 7px}.path-grid p{margin:0;color:var(--muted)}.lesson-section{padding:64px 0}.section-head{display:grid;grid-template-columns:1fr minmax(260px,480px);gap:40px;align-items:end;margin-bottom:20px}.section-head h2{font-size:clamp(2rem,4vw,3.7rem);line-height:.98;letter-spacing:-.045em;margin:9px 0 0}.section-head>p{color:var(--muted);line-height:1.65;margin:0}.lesson-list{border-top:1px solid var(--line)}.lesson-row{display:grid;grid-template-columns:54px 1fr;gap:17px;padding:22px 0;border-bottom:1px solid var(--line)}.lesson-row h3{font-size:1.14rem;margin:0 0 6px}.lesson-row p{color:var(--muted);margin:0;max-width:850px;line-height:1.55}.lesson-row strong{display:inline-block;color:#6f9b7d;font-size:.8rem;margin-top:8px}.lesson-row:hover h3,.lesson-row:hover strong{color:var(--green)}.tools-strip{margin:16px auto 82px;border:1px solid rgba(102,255,140,.18);background:#09110c;border-radius:24px;padding:25px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px}.tools-strip p{color:var(--muted);max-width:690px;margin:8px 0 0}.tools-strip>div:last-child{display:flex;gap:9px;flex-wrap:wrap}@media(max-width:780px){.school-hero{padding-top:46px}.path-grid,.section-head,.tools-strip{grid-template-columns:1fr}.lesson-section{padding:50px 0}.section-head{gap:14px}.lesson-row{grid-template-columns:40px 1fr}.tools-strip>div:last-child{justify-content:flex-start}}
