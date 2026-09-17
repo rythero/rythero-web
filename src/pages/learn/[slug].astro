@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import PracticalLessonArticle from '../../components/PracticalLessonArticle.astro';
+import { practicalLessons, practicalLessonSlugs } from '../../data/practicalLessons.js';
+
+export function getStaticPaths() {
+  return practicalLessonSlugs.map((slug) => ({ params: { slug }, props: { lesson: practicalLessons[slug], slug } }));
+}
+
+const { lesson, slug } = Astro.props;
+const t = lesson.en;
+---
+<Base title={`${t.title} | Rythero`} description={t.description} canonical={`/learn/${slug}`}>
+  <PracticalLessonArticle lesson={lesson} lang="en" />
+</Base>
