@@ -1,53 +1,60 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Rythero — AI music creation tools, prompts and song planning" description="Rythero is a web platform for AI-assisted music creation: plan songs, build better prompts, analyze references and develop your own sound." canonical="/">
+<Base title="Rythero — AI music creation tools, prompts and song planning" description="Start making music with clear guidance, or fix the problems that keep your songs from improving. Rythero combines practical lessons with focused music-creation tools." canonical="/">
   <section class="shell hero">
     <div class="hero-copy">
-      <div class="eyebrow">Modern music creation</div>
+      <div class="eyebrow">AI-assisted music creation</div>
       <h1>Create music.<br /><span>Build your sound.</span></h1>
-      <p>Start with a rough idea and leave with a song-ready plan: sound direction, structure, lyrics brief, production choices and a clean prompt for the tool you use next.</p>
+      <p>Start from zero, or improve the songs you are already making. Rythero turns musical decisions into clear steps, useful prompts and practical tools.</p>
       <div class="actions">
-        <a class="pill primary" href="/tools/song-studio">Open Rythero Studio</a>
-        <a class="pill" href="/learn">Learn from zero</a>
+        <a class="pill primary" href="/learn">I want to make my first song</a>
+        <a class="pill" href="/tools/song-studio">I want to improve my songs</a>
       </div>
-      <div class="proof"><span>No sign-up</span><span>Beginner-friendly</span><span>Built for creators</span></div>
+      <div class="proof"><span>No sign-up</span><span>Beginner-friendly</span><span>Useful after your first song too</span></div>
       <a class="about-link" href="/about">What is Rythero? →</a>
     </div>
     <div class="hero-card" aria-hidden="true">
       <div class="glow"></div>
       <img src="/rythero-mark.svg" alt="" />
-      <div class="mini-label">RYTHERO / STUDIO</div>
+      <div class="mini-label">RYTHERO / CREATE · LEARN · IMPROVE</div>
       <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     </div>
   </section>
 
+  <section class="section shell paths" aria-label="Choose your starting point">
+    <a class="path-card" href="/learn">
+      <span>START HERE</span>
+      <h2>Never made a song?</h2>
+      <p>Learn the few decisions that matter first: idea, structure, rhythm, voice, sound and prompt. No production background required.</p>
+      <strong>Take the beginner path →</strong>
+    </a>
+    <a class="path-card" href="/tools/song-studio">
+      <span>FIX WHAT IS NOT WORKING</span>
+      <h2>Already generating music?</h2>
+      <p>Repair weak prompts, stop every track sounding the same, plan better arrangements and turn references into your own direction.</p>
+      <strong>Open the improvement path →</strong>
+    </a>
+  </section>
+
   <section class="section shell" id="tools">
     <div class="eyebrow">Tools</div>
-    <div class="section-head"><h2>Move the song forward.</h2><p class="muted">Use one workspace when you want the full plan, or a focused tool when you only need one answer.</p></div>
+    <div class="section-head"><h2>Use the tool you need.<br />Nothing more.</h2><p class="muted">Rythero is designed to remove friction, not add another complicated studio.</p></div>
     <div class="grid3">
-      <a class="card featured" href="/tools/signature-lab"><div class="tag">NEW · AI + LOCAL</div><h3>Signature Lab</h3><p class="muted">Combine local technical measurements with AI music analysis to understand style, instruments, vocals and production, build a reviewable prompt, merge 2–3 references and compare the result.</p><span class="arrow">Understand and build your sound →</span></a>
-      <a class="card" href="/tools/song-studio"><div class="tag">LIVE</div><h3>Rythero Studio</h3><p class="muted">Song Blueprint, Prompt Doctor, Style DNA, Arrangement Map, Lyrics Blueprint, export helpers and local audio analysis.</p><span class="arrow">Open studio →</span></a>
-      <a class="card" href="/tools/prompt-builder"><div class="tag">LIVE</div><h3>Prompt Builder</h3><p class="muted">Build a clean music-generation prompt quickly from genre, mood, voice, structure and production choices.</p><span class="arrow">Open tool →</span></a>
+      <a class="card" href="/tools/song-studio"><div class="tag">7 TOOLS</div><h3>Rythero Studio</h3><p class="muted">Plan the song, repair prompts, define Style DNA, map the arrangement, plan lyrics, export and inspect audio locally.</p><span class="arrow">Open Studio →</span></a>
+      <a class="card" href="/tools/prompt-builder"><div class="tag">FAST</div><h3>Prompt Builder</h3><p class="muted">Turn genre, mood, energy, voice, instrumentation, structure and production choices into one clean prompt.</p><span class="arrow">Build a prompt →</span></a>
+      <a class="card featured" href="/tools/signature-lab"><div class="tag">LOCAL + AI</div><h3>Signature Lab</h3><p class="muted">Analyze technical traits locally, or use AI analysis to understand transferable musical traits, compare references and refine your direction.</p><span class="arrow">Understand your sound →</span></a>
     </div>
   </section>
 
   <section class="section shell" id="learn">
     <div class="split">
-      <div><div class="eyebrow">AI Music Creator School</div><h2>Start at zero.<br />Leave knowing how to build a song.</h2></div>
-      <div class="learn-copy"><p class="muted big">Short, clear and complete lessons. Learn which decisions matter, why they change the song and how to apply them directly with Rythero tools. Every published lesson is gathered in one place and also available in Spanish and Portuguese.</p><a class="learn-link" href="/learn">See all lessons →</a></div>
-    </div>
-  </section>
-
-  <section class="section shell" id="guides">
-    <div class="grid3">
-      <div class="card"><h3>From idea to song-ready</h3><p class="muted">Turn a theme into tempo, structure, sound palette, vocal direction and a usable production brief.</p></div>
-      <div class="card"><h3>Build identity, not imitation</h3><p class="muted">Use Signature Lab and Style DNA to understand transferable musical traits and turn them into an original direction.</p></div>
-      <div class="card"><h3>Repair before you generate</h3><p class="muted">Prompt Doctor spots vague, overloaded or contradictory instructions before they waste another generation.</p></div>
+      <div><div class="eyebrow">AI Music Creator School</div><h2>Learn what matters.<br />Use it immediately.</h2></div>
+      <div class="learn-copy"><p class="muted big">The school is for two moments: your first song, and the point where your songs stop improving. Clear lessons explain structure, prompts, groove, Style DNA, energy, voices, references and the main AI music platforms without pretending one tool is perfect.</p><a class="learn-link" href="/learn">Explore the school →</a></div>
     </div>
   </section>
 
   <style>
-    .hero{min-height:76vh;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:70px 0 90px}.hero h1{font-size:clamp(3.5rem,8vw,7.2rem);line-height:.9;letter-spacing:-.065em;margin:16px 0 26px;max-width:900px}.hero h1 span{color:var(--green)}.hero p{font-size:clamp(1.05rem,2vw,1.35rem);max-width:760px;color:var(--muted)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.proof{display:flex;gap:22px;margin-top:26px;color:#718078;font-size:.84rem}.proof span:before{content:'•';color:var(--green);margin-right:8px}.about-link{display:inline-block;margin-top:14px;color:#7d8d84;font-size:.85rem;font-weight:700}.about-link:hover{color:var(--green)}.hero-card{position:relative;min-height:460px;border:1px solid var(--line);border-radius:34px;background:linear-gradient(145deg,#0c1510,#060906);overflow:hidden;display:grid;place-items:center}.hero-card img{width:min(58%,280px);filter:drop-shadow(0 0 30px rgba(63,255,129,.22));z-index:2}.glow{position:absolute;width:300px;height:300px;background:rgba(48,255,132,.13);filter:blur(70px);border-radius:50%}.mini-label{position:absolute;left:24px;top:22px;font-size:.7rem;letter-spacing:.2em;color:#75847b}.bars{position:absolute;bottom:26px;left:26px;right:26px;height:50px;display:flex;gap:8px;align-items:flex-end}.bars i{display:block;flex:1;background:linear-gradient(var(--green),#0e4929);border-radius:4px 4px 1px 1px}.bars i:nth-child(1){height:22%}.bars i:nth-child(2){height:55%}.bars i:nth-child(3){height:38%}.bars i:nth-child(4){height:86%}.bars i:nth-child(5){height:62%}.bars i:nth-child(6){height:100%}.bars i:nth-child(7){height:46%}.section-head,.split{display:flex;justify-content:space-between;gap:40px;align-items:end;margin:14px 0 26px}.section h2{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.96;letter-spacing:-.05em;margin:8px 0}.section-head p{max-width:470px}.featured{position:relative;box-shadow:inset 0 0 0 1px rgba(102,255,140,.08)}.featured:hover,.card[href]:hover{border-color:#31583d}.tag{display:inline-block;font-size:.66rem;letter-spacing:.16em;color:#041108;background:var(--green);padding:5px 8px;border-radius:999px;margin-bottom:22px;font-weight:900}.tag.dim{background:#151d18;color:#7f8d84}.arrow{display:inline-block;margin-top:18px;color:var(--green);font-weight:800}.big{font-size:1.2rem;max-width:600px}.learn-copy{max-width:620px}.learn-link{display:inline-block;margin-top:12px;color:var(--green);font-weight:800}.learn-link:hover{color:#baffc9}@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:45px}.hero-card{min-height:330px}.section-head,.split{display:block}.proof{flex-wrap:wrap}.learn-copy{margin-top:20px}}
+    .hero{min-height:72vh;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:68px 0 70px}.hero h1{font-size:clamp(3.5rem,8vw,7.2rem);line-height:.9;letter-spacing:-.065em;margin:16px 0 24px;max-width:900px}.hero h1 span{color:var(--green)}.hero p{font-size:clamp(1.05rem,2vw,1.32rem);max-width:720px;color:var(--muted)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.proof{display:flex;gap:22px;margin-top:24px;color:#718078;font-size:.84rem}.proof span:before{content:'•';color:var(--green);margin-right:8px}.about-link{display:inline-block;margin-top:14px;color:#7d8d84;font-size:.85rem;font-weight:700}.about-link:hover{color:var(--green)}.hero-card{position:relative;min-height:430px;border:1px solid var(--line);border-radius:34px;background:linear-gradient(145deg,#0c1510,#060906);overflow:hidden;display:grid;place-items:center}.hero-card img{width:min(58%,280px);filter:drop-shadow(0 0 30px rgba(63,255,129,.22));z-index:2}.glow{position:absolute;width:300px;height:300px;background:rgba(48,255,132,.13);filter:blur(70px);border-radius:50%}.mini-label{position:absolute;left:24px;top:22px;font-size:.66rem;letter-spacing:.15em;color:#75847b}.bars{position:absolute;bottom:26px;left:26px;right:26px;height:50px;display:flex;gap:8px;align-items:flex-end}.bars i{display:block;flex:1;background:linear-gradient(var(--green),#0e4929);border-radius:4px 4px 1px 1px}.bars i:nth-child(1){height:22%}.bars i:nth-child(2){height:55%}.bars i:nth-child(3){height:38%}.bars i:nth-child(4){height:86%}.bars i:nth-child(5){height:62%}.bars i:nth-child(6){height:100%}.bars i:nth-child(7){height:46%}.paths{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:0}.path-card{border:1px solid var(--line);border-radius:28px;padding:28px;background:linear-gradient(180deg,#0d1611,#080d0a)}.path-card:hover{border-color:#31583d}.path-card>span{font-size:.66rem;letter-spacing:.15em;color:var(--green);font-weight:900}.path-card h2{font-size:clamp(1.7rem,3.3vw,2.8rem);margin:10px 0 12px;letter-spacing:-.04em}.path-card p{color:var(--muted);line-height:1.65;max-width:580px}.path-card strong{display:inline-block;margin-top:10px;color:#d8eee0}.section-head,.split{display:flex;justify-content:space-between;gap:40px;align-items:end;margin:14px 0 26px}.section h2{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.96;letter-spacing:-.05em;margin:8px 0}.section-head p{max-width:470px}.featured{position:relative;box-shadow:inset 0 0 0 1px rgba(102,255,140,.08)}.featured:hover,.card[href]:hover{border-color:#31583d}.tag{display:inline-block;font-size:.66rem;letter-spacing:.16em;color:#041108;background:var(--green);padding:5px 8px;border-radius:999px;margin-bottom:22px;font-weight:900}.arrow{display:inline-block;margin-top:18px;color:var(--green);font-weight:800}.big{font-size:1.14rem;max-width:600px}.learn-copy{max-width:620px}.learn-link{display:inline-block;margin-top:12px;color:var(--green);font-weight:800}.learn-link:hover{color:#baffc9}@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:45px}.hero-card{min-height:310px}.paths{grid-template-columns:1fr}.section-head,.split{display:block}.proof{flex-wrap:wrap}.learn-copy{margin-top:20px}}
   </style>
 </Base>
